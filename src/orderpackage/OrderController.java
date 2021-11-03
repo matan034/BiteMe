@@ -1,7 +1,9 @@
 package orderpackage;
 
 
-	import javafx.event.ActionEvent;
+	import java.sql.Connection;
+
+import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
 	import javafx.scene.control.Button;
 	import javafx.scene.control.TextField;
@@ -34,11 +36,13 @@ package orderpackage;
 
 	    @FXML
 	    private TextField address_info;
-
+	    private Connection my_conn = mysqlConnection.connectToDB();
 	    @FXML
 	    void insertOrder(ActionEvent event) {
-
+	    	mysqlConnection.insertOrder(my_conn, rest_info.getText(), Integer.parseInt(order_num_info.getText()), order_time_info.getText(), phone_info.getText(),
+	    			type_order_info.getText(), address_info.getText());
 	    }
+	    
 
 	    @FXML
 	    void searchOrder(ActionEvent event) {

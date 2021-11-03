@@ -23,7 +23,7 @@ public class mysqlConnection {
         
         try 
         {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/biteme?serverTimezone=IST","root","Aa123456");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/biteme?serverTimezone=IST","root","M220794w!");
             System.out.println("SQL connection succeed");
             return conn;
 
@@ -54,11 +54,11 @@ public class mysqlConnection {
 	}
 
 	
-	public static void insertOrder(Connection con1 , String restaurant, String order_num, String order_time, String phone_num, String type_of_order, String order_address){
+	public static void insertOrder(Connection con1 , String restaurant, int order_num, String order_time, String phone_num, String type_of_order, String order_address){
 		Statement stmt;
 		try {
 			stmt = con1.createStatement();
-			stmt.executeUpdate("INSERT INTO biteme.order (Restaurant, OrderNumber, OrderTime, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('HFA', 1, '14:21', '052-7281546', 'take-away', 'braude karmiel');");
+			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, OrderNumber, OrderTime, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', %d, '%s', '%s', '%s', '%s');",restaurant,order_num,order_time,phone_num,type_of_order,order_address));
 			//stmt.executeUpdate("load data local infile \"courses.txt\" into table courses");
 	 		
 		} catch (SQLException e) {	e.printStackTrace();}
