@@ -36,21 +36,21 @@ public class mysqlConnection {
             }
    	}
 	
-	public static void getOrder(Connection con , int orderID)
+	public static ResultSet getOrder(Connection con , int orderID)
 	{
 		Statement stmt;
 		try 
 		{
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+orderID);
-	 		while(rs.next())
+	 		if(rs.next())
 	 		{
-				 // Print out the values
-				 System.out.println(rs.getString(1)+"  " +rs.getString(2));
+				 return rs;
 			} 
 			rs.close();
-			//stmt.executeUpdate("UPDATE course SET semestr=\"W08\" WHERE num=61309");
-		} catch (SQLException e) {e.printStackTrace();}
+			return null;
+			
+		} catch (SQLException e) {return null;}
 	}
 
 	
@@ -59,12 +59,20 @@ public class mysqlConnection {
 		try {
 			stmt = con1.createStatement();
 			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, OrderNumber, OrderTime, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', %d, '%s', '%s', '%s', '%s');",restaurant,order_num,order_time,phone_num,type_of_order,order_address));
-			//stmt.executeUpdate("load data local infile \"courses.txt\" into table courses");
 	 		
 		} catch (SQLException e) {	e.printStackTrace();}
 		 		
 	}
 	
+	public static void update(Connection con, String field, String val, int order_num)
+	{
+		Statement stmt;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(String.format("UPDATE biteme.order SET %s = '%s' WHERE OrderNumber = %d;",field,val,order_num));
+	 		
+		} catch (SQLException e) {	e.printStackTrace();}
+	}
 	
 	
 }

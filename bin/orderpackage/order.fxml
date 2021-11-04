@@ -7,20 +7,48 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.OrderController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.OrderController">
    <right>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" text="search" />
-            <TextField fx:id="search_box" />
+            <VBox prefHeight="400.0" prefWidth="255.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" text="Search" />
+                        <TextField fx:id="search_box" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="return_from_db" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Field to update" />
+                              <TextField fx:id="field_to_update" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="val_to_update" />
+                        <Button fx:id="update_btn" mnemonicParsing="false" onAction="#update" text="Update" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </right>
    <left>
       <VBox prefHeight="400.0" prefWidth="283.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="insert" />
+            <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" />
             <HBox prefHeight="41.0" prefWidth="158.0">
                <children>
                   <Label text="Restaurant" />
@@ -60,4 +88,7 @@
          </children>
       </VBox>
    </left>
+   <bottom>
+      <Label fx:id="ip_host" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
