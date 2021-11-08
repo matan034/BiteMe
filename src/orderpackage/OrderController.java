@@ -1,9 +1,10 @@
 package orderpackage;
 
 
-	import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
@@ -12,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 	public class OrderController {
-
-
 
 	    @FXML
 	    private Label return_from_db;
@@ -32,12 +31,6 @@ import javafx.scene.control.TextField;
 
 	    @FXML
 	    private TextField rest_info;
-
-	    @FXML
-	    private TextField order_num_info;
-
-	    @FXML
-	    private TextField order_time_info;
 
 	    @FXML
 	    private TextField phone_info;
@@ -68,7 +61,7 @@ import javafx.scene.control.TextField;
 	    
 	    @FXML
 	    void insertOrder(ActionEvent event) {
-	    	mysqlConnection.insertOrder(my_conn, rest_info.getText(), Integer.parseInt(order_num_info.getText()), order_time_info.getText(), phone_info.getText(),
+	    	mysqlConnection.insertOrder(my_conn, rest_info.getText(), phone_info.getText(),
 	    			type_order_info.getText(), address_info.getText());
 	    }
 	    

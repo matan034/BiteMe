@@ -2,7 +2,6 @@ package orderpackage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,11 +53,11 @@ public class mysqlConnection {
 	}
 
 	
-	public static void insertOrder(Connection con1 , String restaurant, int order_num, String order_time, String phone_num, String type_of_order, String order_address){
+	public static void insertOrder(Connection con1 , String restaurant, String phone_num, String type_of_order, String order_address){
 		Statement stmt;
 		try {
 			stmt = con1.createStatement();
-			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, OrderNumber, OrderTime, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', %d, '%s', '%s', '%s', '%s');",restaurant,order_num,order_time,phone_num,type_of_order,order_address));
+			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",restaurant,phone_num,type_of_order,order_address));
 	 		
 		} catch (SQLException e) {	e.printStackTrace();}
 		 		
