@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class serverController {
 
@@ -50,7 +51,8 @@ public class serverController {
 
     @FXML
     void close_window(ActionEvent event) {
-
+    	Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
