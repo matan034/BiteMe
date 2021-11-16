@@ -6,7 +6,8 @@ package orderpackage;
 	import javafx.fxml.FXMLLoader;
 	import javafx.scene.Scene;
 	import javafx.scene.layout.BorderPane;
-	import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 	import javafx.stage.Stage;
 
 	public class OrderFX extends Application {
@@ -17,10 +18,10 @@ package orderpackage;
 				
 			@Override
 			public void start(Stage stage) {
-				BorderPane pane;
+				Pane pane;
 				try {
 				    FXMLLoader loader = new FXMLLoader();
-				    loader.setLocation(getClass().getResource("order.fxml"));
+				    loader.setLocation(getClass().getResource("serverFXML.fxml"));
 				    pane = loader.load();
 				} catch (IOException e) {
 				    e.printStackTrace();
@@ -29,7 +30,7 @@ package orderpackage;
 				
 				Scene scene=new Scene(pane);
 			
-				stage.setTitle("Order");
+				stage.setTitle("Server");
 				stage.setScene(scene);		
 				stage.show();	
 			}

@@ -4,11 +4,9 @@ package orderpackage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 import javafx.event.ActionEvent;
-    import javafx.fxml.FXML;
-	import javafx.scene.control.Button;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -49,7 +47,6 @@ import javafx.scene.control.TextField;
 	    @FXML
 	    private TextField search_box;
 	    
-	    private Connection my_conn = mysqlConnection.connectToDB();
 	    
 	    @FXML
 	    protected void initialize() throws SQLException
@@ -61,11 +58,10 @@ import javafx.scene.control.TextField;
 	    
 	    @FXML
 	    void insertOrder(ActionEvent event) {
-	    	mysqlConnection.insertOrder(my_conn, rest_info.getText(), phone_info.getText(),
-	    			type_order_info.getText(), address_info.getText());
+	    	
 	    }
 	    
-
+/*
 	    @FXML
 	    void searchOrder(ActionEvent event) {
 	    	ResultSet r = mysqlConnection.getOrder(my_conn, Integer.parseInt(search_box.getText()));
@@ -80,7 +76,7 @@ import javafx.scene.control.TextField;
 	    void update(ActionEvent event) {
 	    	mysqlConnection.update(my_conn, field_to_update.getText(),val_to_update.getText() , 1);
 	    }
-
+*/
 	}
 
 
