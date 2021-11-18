@@ -1,43 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.OrderController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.OrderController">
    <right>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="430.0" prefWidth="292.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="400.0" prefWidth="255.0">
+            <VBox prefHeight="461.0" prefWidth="292.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="51.0" prefWidth="292.0">
                      <children>
-                        <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" text="Search" />
-                        <TextField fx:id="search_box" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <GridPane prefHeight="60.0" prefWidth="292.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="95.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="197.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <Label fx:id="return_from_db" />
+                              <TextField fx:id="field_to_update" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <Label text="Field to update:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
                            </children>
-                        </VBox>
+                        </GridPane>
                      </children>
+                     <VBox.margin>
+                        <Insets top="62.0" />
+                     </VBox.margin>
                   </HBox>
+                  <VBox prefHeight="82.0" prefWidth="292.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="update_btn" mnemonicParsing="false" onAction="#update" text="Update" GridPane.rowIndex="1" />
+                              <TextField fx:id="val_to_update" promptText="Order ID">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <GridPane>
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <Label text="Field to update" />
-                              <TextField fx:id="field_to_update" />
+                              <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" text="Search" GridPane.rowIndex="1" />
+                              <TextField fx:id="search_box" prefHeight="25.0" prefWidth="92.0" promptText="Order ID">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
                            </children>
-                        </HBox>
-                        <TextField fx:id="val_to_update" />
-                        <Button fx:id="update_btn" mnemonicParsing="false" onAction="#update" text="Update" />
+                        </GridPane>
                      </children>
                   </VBox>
                </children>
@@ -46,45 +99,81 @@
       </HBox>
    </right>
    <left>
-      <VBox prefHeight="400.0" prefWidth="283.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="383.0" prefWidth="289.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" />
-            <HBox prefHeight="41.0" prefWidth="158.0">
+            <Pane prefHeight="44.0" prefWidth="283.0">
                <children>
-                  <Label text="Restaurant" />
-                  <TextField fx:id="rest_info" />
+                  <Label layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="182.0" text="Enter order details:">
+                     <font>
+                        <Font name="SansSerif Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
-            </HBox>
-            <HBox prefHeight="36.0" prefWidth="158.0">
+            </Pane>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="121.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="162.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Label text="Order Number" />
-                  <TextField fx:id="order_num_info" />
+                  <TextField fx:id="rest_info" prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="1" />
+                  <Label text="Restaurant">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Order Number" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="order_num_info" prefHeight="25.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Order Time" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="order_time_info" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Type Of Order" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="phone_info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Phone Number" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="type_order_info" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Order Address" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin></Label>
+                  <TextField fx:id="address_info" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
                </children>
-            </HBox>
-            <HBox prefHeight="29.0" prefWidth="158.0">
+               <VBox.margin>
+                  <Insets left="15.0" top="20.0" />
+               </VBox.margin>
+            </GridPane>
+            <Pane prefHeight="44.0" prefWidth="283.0">
                <children>
-                  <Label text="Order Time" />
-                  <TextField fx:id="order_time_info" />
+                  <Label fx:id="orderInsertResultLabel" layoutX="128.0" layoutY="14.0">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
                </children>
-            </HBox>
-            <HBox prefHeight="46.0" prefWidth="158.0">
-               <children>
-                  <Label text="Phone Number" />
-                  <TextField fx:id="phone_info" />
-               </children>
-            </HBox>
-            <HBox prefHeight="42.0" prefWidth="158.0">
-               <children>
-                  <Label text="Type Of Order" />
-                  <TextField fx:id="type_order_info" />
-               </children>
-            </HBox>
-            <HBox prefHeight="41.0" prefWidth="158.0">
-               <children>
-                  <Label text="Order Address" />
-                  <TextField fx:id="address_info" />
-               </children>
-            </HBox>
+            </Pane>
          </children>
       </VBox>
    </left>
