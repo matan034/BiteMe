@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="changescreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="906.0" prefWidth="1114.0" stylesheets="@updateScreenCss.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="4.0" layoutY="4.0" prefHeight="392.0" prefWidth="593.0">
+      <TableView layoutY="95.0" prefHeight="511.0" prefWidth="1114.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Order" />
-          <TableColumn prefWidth="75.0" text="Resturant" />
-            <TableColumn prefWidth="75.0" text="Order Time" />
-            <TableColumn prefWidth="104.0" text="Phone-Number" />
-            <TableColumn prefWidth="104.0" text="Time of Order" />
-            <TableColumn prefWidth="104.0" text="Order Address" />
+          <TableColumn prefWidth="55.0" text="Order" />
+          <TableColumn prefWidth="134.0" text="Resturant" />
+            <TableColumn prefWidth="202.0" text="Order Type" />
+            <TableColumn prefWidth="225.0" text="Phone-Number" />
+            <TableColumn prefWidth="226.0" text="Time of Order" />
+            <TableColumn prefWidth="271.0" text="Order Address" />
         </columns>
       </TableView>
+      <Label id="title" layoutX="433.0" layoutY="25.0" text="Change Order">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

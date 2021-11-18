@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,20 +13,20 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane fx:id="insert_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@InsertCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="insert_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" stylesheets="@InsertCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="142.0" layoutY="9.0" prefHeight="380.0" prefWidth="346.0" stylesheets="@InsertCSS.css">
+      <VBox fx:id="Vbox" layoutX="177.0" layoutY="52.0" prefHeight="380.0" prefWidth="346.0" stylesheets="@InsertCSS.css">
          <children>
             <Pane prefHeight="44.0" prefWidth="283.0" stylesheets="@InsertCSS.css">
                <children>
-                  <Label id="title_lbl" layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="182.0" text="Enter order details:">
+                  <Label id="title_lbl" layoutX="71.0" layoutY="14.0" prefHeight="27.0" prefWidth="182.0" text="Enter order details:" textFill="#333333">
                      <font>
                         <Font name="SansSerif Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <GridPane styleClass=".form">
+            <GridPane prefHeight="171.0" prefWidth="331.0" styleClass=".form" stylesheets="@InsertCSS.css">
                <columnConstraints>
                   <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="121.0" />
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="162.0" />
@@ -36,11 +37,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="rest_info" prefHeight="25.0" prefWidth="208.0" promptText="EX.Tel aviv" GridPane.columnIndex="1" />
+                  <TextField fx:id="rest_info" prefHeight="25.0" prefWidth="208.0" promptText="Ex .Tel aviv" GridPane.columnIndex="1" />
                   <Label styleClass="lbl" text="Restaurant" textFill="#333333">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -49,41 +48,29 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label styleClass=".lbl" text="Order Number" textFill="#333333" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="order_num_info" prefHeight="25.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label styleClass=".lbl" text="Order Time" textFill="#333333" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="order_time_info" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label styleClass=".lbl" text="Type Of Order" textFill="#333333" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="phone_info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label styleClass=".lbl" text="Phone Number" textFill="#333333" GridPane.rowIndex="4">
+                  <Label styleClass=".lbl" text="Phone Number" textFill="#333333" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="type_order_info" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label styleClass=".lbl" text="Order Address" textFill="#333333" GridPane.rowIndex="5">
+                  <TextField fx:id="type_order_info" promptText="Ex. 054-6535149" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label styleClass=".lbl" text="Order Address" textFill="#333333" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="address_info" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Button id="#insert_btn" fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <TextField fx:id="address_info" promptText="Ex. Haifa Hashalom 16" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button id="#insert_btn" fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Button>
+                  <ComboBox prefHeight="25.0" prefWidth="188.0" promptText="Take-Away" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <VBox.margin>
                   <Insets left="15.0" top="20.0" />

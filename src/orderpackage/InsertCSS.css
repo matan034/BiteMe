@@ -11,7 +11,9 @@
 #insert_pane{
     -fx-background: #009578;
 }
-
+#vbox{
+    -fx-border:1px black;
+}
 .lbl{
     -fx-color: #333333; 
     -fx-font-size:14px;
@@ -22,11 +24,9 @@
     -fx-padding: 10px;
     -fx-color: #ffffff;
     -fx-font-weight: bold;
-    -fx-background: #009578;
+    -fx-background-color: #009578;
     -fx-width: 100%;
-    -fx-border: none;
-    -fx-outline: none;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 10px;
     -fx-cursor: pointer;
 }
 

@@ -23,8 +23,8 @@
         </rowConstraints>
          <children>
             <Button fx:id="insert_btn" mnemonicParsing="false" styleClass="index_btn" text="Insert" GridPane.rowIndex="1" />
-            <Button fx:id="update_btn" mnemonicParsing="false" styleClass="index_btn" stylesheets="@btn_css.css" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="search_btn" mnemonicParsing="false" styleClass="index_btn" stylesheets="@btn_css.css" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="update_btn" mnemonicParsing="false" styleClass="index_btn" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="search_btn" mnemonicParsing="false" styleClass="index_btn" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label fx:id="title_lbl" layoutX="155.0" layoutY="69.0" text="BiteMe Prototype" />
