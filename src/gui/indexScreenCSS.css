@@ -9,12 +9,14 @@
     -fx-outline: none;
     -fx-border-radius: 20px;
     -fx-cursor: pointer;
-    -fx-border-width: 5px;
-    -fx-border-color:1px black;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    
+
 }
 
 .index_btn:hover {
-    -fx-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    -fx-box-shadow:  rgba(0, 0, 0, 0.15);
     -fx-background-color: #7294c2;
 }
 

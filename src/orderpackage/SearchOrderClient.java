@@ -1,7 +1,7 @@
 package orderpackage;
 
 import java.io.IOException;
-
+import java.sql.ResultSet;
 import ocsf.client.AbstractClient;
 
 public class SearchOrderClient extends AbstractClient{
@@ -20,9 +20,16 @@ public class SearchOrderClient extends AbstractClient{
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
-		String [] res = ((String)msg).split(" ");//details from db
-		o1.setRestuarant(res[0]);//need to insert to order
-		
+		System.out.println("Msg: "+msg +" recieved");
+		ResultSet res = ((ResultSet)msg);//details from db
+		try {
+		o1.setRestuarant(res.getNString(1));//need to insert to order
+		o1.setOrder_num(Integer.parseInt(res.getNString(2)));
+		o1.setOrder_time(res.getNString(3));
+		o1.setPhone(res.getNString(4));
+		o1.setOrder_type(res.getNString(5));
+		o1.setAddress(res.getNString(6));
+		}catch(Exception e) {System.out.println("Ordere wanst found");}
 	}
 	/**
 	   * This method terminates the client.

@@ -15,27 +15,14 @@ public class BiteMeServer extends AbstractServer
 	private static Connection myCon;
 	private static BiteMeServer single_instance = null;
 	
-	public static boolean createInstance(int port)
-    {
-        if (single_instance == null)
-        {
-            single_instance = new BiteMeServer(port);
-            return true;
-        } 
-        return false;
-    }
+
 	public BiteMeServer(int port) {
 		super(port);
 		// TODO Auto-generated constructor stub
 	}
 	public static String connectToDB(String ip, String port, String db_name, String db_user, String db_password)
 	{
-		if(!createInstance(Integer.parseInt(port)))
-		{
-			return "Server is already connected";
-		}
-		
-		String res="";
+
 		try 
 		{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -47,16 +34,11 @@ public class BiteMeServer extends AbstractServer
         	 }
         try 
         {
-        	
-            Connection conn = DriverManager.getConnection("jdbc:mysql://"+ip+"/"+db_name+"?serverTimezone=IST",db_user,db_password);
-            myCon = conn;
-           res += "SQL connection succeed";
-           return res;
-
+            myCon = DriverManager.getConnection("jdbc:mysql://"+ip+"/"+db_name+"?serverTimezone=IST",db_user,db_password);
+           return "SQL connection succeed";
      	} catch (SQLException ex) 
      	    {/* handle any errors*/
-             res+= "SQLException: " + ex.getMessage();
-             return res;
+             return "SQLException: " + ex.getMessage();
             }
    	}
 	public static String disconnectDB()
@@ -69,22 +51,7 @@ public class BiteMeServer extends AbstractServer
 		catch(Exception e) {return "Couldn't disconnect from server";}
 	}
 	
-	public static ResultSet getOrder( int orderID)
-	{
-		Statement stmt;
-		try 
-		{
-			stmt = myCon.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+orderID);
-	 		if(rs.next())
-	 		{
-				 return rs;
-			} 
-			rs.close();
-			return null;
-			
-		} catch (SQLException e) {return null;}
-	}
+	
 
 	
 	public static void update( String field, String val, int order_num)
@@ -108,6 +75,8 @@ public class BiteMeServer extends AbstractServer
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
 		    String [] res = ((String)msg).split(" ");
+		    System.out.println(res[0]);
+		    System.out.println(res[1]);
 		    Statement stmt;
 			try {
 				ResultSet rs;
@@ -115,14 +84,17 @@ public class BiteMeServer extends AbstractServer
 				if(res[0]=="Insert_order")
 					stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4]));
 		 		if(res[0]=="Update_order")
-		 			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1]));
-		 		if(res[0]=="Search_order")
 		 		{
+		 			//need to implement
+		 		}
+		 		if(res[0].equals("Search_order"));
+		 		{
+		 			System.out.println("im here");
 		 			rs =stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+res[1]);
 		 			if(rs.next())
 		 			{
 		 				System.out.println("Order Found");
-		 				this.sendToAllClients(rs);
+		 				sendToClient(rs,client);
 		 			} 
 		 			rs.close();
 		 		}
@@ -145,6 +117,21 @@ public class BiteMeServer extends AbstractServer
 	  protected void serverStopped()  {
 	    System.out.println ("Server has stopped listening for connections.");
 	  }  
+	  
+	  protected void sendToClient(Object msg,ConnectionToClient client)
+	  {
+		    Thread[] clientThreadList = getClientConnections();
+
+		    for (int i=0; i<clientThreadList.length; i++)
+		    {
+		      try
+		      {
+		    	  if((ConnectionToClient)clientThreadList[i]==client)
+		        ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);
+		      }
+		      catch (Exception ex) {}
+		    }
+		  }
 	
 }
 

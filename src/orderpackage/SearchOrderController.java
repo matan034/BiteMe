@@ -62,6 +62,12 @@ public class SearchOrderController {
     void searchOrder(ActionEvent event) {
     	String str="Search_order "+order_number_input.getText();
     	IndexOrderUI.search.accept(str);
+    	
+    	restuarant_result.setText(SearchOrderClient.o1.getRestuarant());
+    	order_time_result.setText(SearchOrderClient.o1.getOrder_time());
+    	phone_result.setText(SearchOrderClient.o1.getPhone());
+    	order_type_result.setText(SearchOrderClient.o1.getOrder_type());
+    	order_address_result.setText(SearchOrderClient.o1.getAddress());
     }
 
 }

@@ -12,16 +12,18 @@ public class InsertOrderClient extends AbstractClient{
 	public static Order o1 = new Order(null,null,null,null);
 	
 	public InsertOrderClient(String host, int port, OrderClientController clientUI) throws IOException 
-		  {
+    {
 		    super(host, port); //Call the superclass constructor
 		    this.clientUI = clientUI;
 		    //openConnection();
-		  }
+	}
+	
+	
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
-		String [] res = ((String)msg).split(" ");//details from db
-		o1.setRestuarant(res[0]);//need to insert to order
+		System.out.println("message sent");
+		
 		
 	}
 	/**

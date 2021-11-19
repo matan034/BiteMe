@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 		public static OrderClientController insert; //only one instance
 		public static OrderClientController search; //only one instance
 		public static OrderClientController update; //only one instance
+		
 		public static void main(String[] args) {
 				launch(args);
 		}
