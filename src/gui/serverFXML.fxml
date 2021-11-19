@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.serverController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.serverController">
    <children>
       <GridPane layoutX="120.0" layoutY="60.0" prefHeight="302.0" prefWidth="354.0">
         <columnConstraints>
@@ -26,11 +27,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="ip_input" GridPane.columnIndex="1" />
-            <TextField fx:id="port_input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="db_name_input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="db_user_input" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="db_pass_input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="ip_input" text="localhost" GridPane.columnIndex="1" />
+            <TextField fx:id="port_input" text="5555" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="db_name_input" text="biteme" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="db_user_input" text="root" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="IP_label" text="IP" />
             <Label fx:id="Port_label" text="Port" GridPane.rowIndex="1" />
             <Label fx:id="db_name_label" text="DB Name" GridPane.rowIndex="2" />
@@ -40,6 +40,7 @@
             <Button fx:id="disconnect_btn" mnemonicParsing="false" onAction="#disconnectFromDB" text="Disconnect" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Button fx:id="close_btn" mnemonicParsing="false" onAction="#close_window" text="Close" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="connect_status" text="    " GridPane.rowIndex="5" />
+            <PasswordField fx:id="db_pass_input" text="M220794w!" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

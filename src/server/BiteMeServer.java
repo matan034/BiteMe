@@ -1,4 +1,4 @@
-package orderpackage;
+package server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,11 +39,11 @@ public class BiteMeServer extends AbstractServer
 		try 
 		{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            res += "Driver definition succeed ";
+            //res += "Driver definition succeed ";
         } catch (Exception ex) {
         	/* handle the error*/
-        	res += "Driver definition failed";
-        	 return res;
+        	System.out.println( "Driver definition failed");
+        	 return "Server Login Failed";
         	 }
         try 
         {
@@ -87,16 +87,6 @@ public class BiteMeServer extends AbstractServer
 	}
 
 	
-	public static void insertOrder( String restaurant, String phone_num, String type_of_order, String order_address){
-		Statement stmt;
-		try {
-			stmt = myCon.createStatement();
-			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",restaurant,phone_num,type_of_order,order_address));
-	 		
-		} catch (SQLException e) {	e.printStackTrace();}
-		 		
-	}
-	
 	public static void update( String field, String val, int order_num)
 	{
 		Statement stmt;
@@ -107,11 +97,54 @@ public class BiteMeServer extends AbstractServer
 		} catch (SQLException e) {	e.printStackTrace();}
 	}
 	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	/**
+	   * This method handles any messages received from the client.
+	   *
+	   * @param msg The message received from the client.
+	   * @param client The connection from which the message originated.
+	   * @param 
+	   */
+	  public void handleMessageFromClient  (Object msg, ConnectionToClient client)
+	  {
+		    System.out.println("Message received: " + msg + " from " + client); 
+		    String [] res = ((String)msg).split(" ");
+		    Statement stmt;
+			try {
+				ResultSet rs;
+				stmt = myCon.createStatement();
+				if(res[0]=="Insert_order")
+					stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4]));
+		 		if(res[0]=="Update_order")
+		 			stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1]));
+		 		if(res[0]=="Search_order")
+		 		{
+		 			rs =stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+res[1]);
+		 			if(rs.next())
+		 			{
+		 				System.out.println("Order Found");
+		 				this.sendToAllClients(rs);
+		 			} 
+		 			rs.close();
+		 		}
+			} catch (SQLException e) {	e.printStackTrace();}
+			 		
+	  }
+	/**
+	   * This method overrides the one in the superclass.  Called
+	   * when the server starts listening for connections.
+	   */
+	  protected void serverStarted()
+	  {
+	    System.out.println ("Server listening for connections on port " + getPort());
+
+	  }
+	  /**
+	   * This method overrides the one in the superclass.  Called
+	   * when the server stops listening for connections.
+	   */
+	  protected void serverStopped()  {
+	    System.out.println ("Server has stopped listening for connections.");
+	  }  
 	
 }
 

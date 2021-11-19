@@ -1,0 +1,29 @@
+
+.index_btn {
+    -fx-padding: 10px;
+    -fx-color: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-color: #7cb4da;
+    -fx-width: 100%;
+    -fx-border: none;
+    -fx-outline: none;
+    -fx-border-radius: 20px;
+    -fx-cursor: pointer;
+    -fx-border-width: 5px;
+    -fx-border-color:1px black;
+}
+
+.index_btn:hover {
+    -fx-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    -fx-background-color: #7294c2;
+}
+
+#title_lbl{
+    -fx-color: #333333;
+    -fx-font-weight: bold;
+    -fx-font-size: 35px;
+}
+
+#index_pane{
+    -fx-background:#fff;
+}

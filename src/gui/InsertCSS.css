@@ -1,0 +1,40 @@
+.form {
+    -fx-width: 100%;
+    -fx-margin-bottom: 10px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-border: 2px solid #dddddd;
+    -fx-background: #ffffff;
+    -fx-outline: none;
+    -fx-transition: border-color 0.5s;
+}
+#insert_pane{
+    -fx-background: #009578;
+}
+#vbox{
+    -fx-border:1px black;
+}
+.lbl{
+    -fx-color: #333333; 
+    -fx-font-size:14px;
+
+}
+
+#insert_btn {
+    -fx-padding: 10px;
+    -fx-color: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-color: #009578;
+    -fx-width: 100%;
+    -fx-border-radius: 10px;
+    -fx-cursor: pointer;
+}
+
+#insert_btn:hover {
+    -fx-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    -fx-background: #008067;
+}
+
+#title_lbl{
+    -fx-color: #333333; 
+}
