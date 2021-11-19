@@ -20,6 +20,7 @@ public class UpdateOrderClient extends AbstractClient{
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
+		awaitResponse = false;
 		String [] res = ((String)msg).split(" ");//details from db
 		o1.setRestuarant(res[0]);//need to insert to order
 		

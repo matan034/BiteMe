@@ -75,27 +75,32 @@ public class BiteMeServer extends AbstractServer
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
 		    String [] res = ((String)msg).split(" ");
-		    System.out.println(res[0]);
-		    System.out.println(res[1]);
+		    int flag;
 		    Statement stmt;
+		    String result="";
 			try {
 				ResultSet rs;
 				stmt = myCon.createStatement();
-				if(res[0]=="Insert_order")
-					stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4]));
-		 		if(res[0]=="Update_order")
+				if(res[0].equals("Insert_order"))
+				{
+					flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4]));
+					if(flag>0) sendToClient("Your Order Has Been Registered", client);
+					else sendToClient("Error saving your order", client);
+				}
+				if(res[0].equals("Update_order"))
 		 		{
 		 			//need to implement
 		 		}
-		 		if(res[0].equals("Search_order"));
+		 		if(res[0].equals("Search_order"))
 		 		{
-		 			System.out.println("im here");
 		 			rs =stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+res[1]);
 		 			if(rs.next())
 		 			{
 		 				System.out.println("Order Found");
-		 				sendToClient(rs,client);
+		 				result= rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5);
+		 				sendToClient(result,client);
 		 			} 
+		 			else sendToClient("Order Wasnt found", client);
 		 			rs.close();
 		 		}
 			} catch (SQLException e) {	e.printStackTrace();}
@@ -129,7 +134,7 @@ public class BiteMeServer extends AbstractServer
 		    	  if((ConnectionToClient)clientThreadList[i]==client)
 		        ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);
 		      }
-		      catch (Exception ex) {}
+		      catch (Exception ex) {System.out.println(ex);}
 		    }
 		  }
 	

@@ -61,6 +61,7 @@ public class InsertController {
     	String str="Insert_order "+rest_info.getText()+" "+type_order_info.getPromptText()+" "+phone_info.getText()+" "+address_info.getText();
     	IndexOrderUI.insert.accept(str);
     	
+    	
     }
 
 }

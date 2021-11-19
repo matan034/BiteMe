@@ -21,15 +21,16 @@ public class SearchOrderClient extends AbstractClient{
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
 		System.out.println("Msg: "+msg +" recieved");
-		ResultSet res = ((ResultSet)msg);//details from db
+		 awaitResponse = false;
+		String [] res = ((String)msg).split(" ");//details from db
 		try {
-		o1.setRestuarant(res.getNString(1));//need to insert to order
-		o1.setOrder_num(Integer.parseInt(res.getNString(2)));
-		o1.setOrder_time(res.getNString(3));
-		o1.setPhone(res.getNString(4));
-		o1.setOrder_type(res.getNString(5));
-		o1.setAddress(res.getNString(6));
-		}catch(Exception e) {System.out.println("Ordere wanst found");}
+			o1.setRestuarant(res[0]);//need to insert to order
+			o1.setOrder_num(Integer.parseInt(res[1]));
+			o1.setOrder_time(res[2]);
+			o1.setPhone(res[3]);
+			o1.setOrder_type(res[4]);
+			o1.setAddress(res[5]);
+		}catch(Exception e) {System.out.println("Order wanst found");}
 	}
 	/**
 	   * This method terminates the client.

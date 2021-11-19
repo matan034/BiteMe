@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 		public static OrderClientController insert; //only one instance
 		public static OrderClientController search; //only one instance
 		public static OrderClientController update; //only one instance
+	
 		
 		public static void main(String[] args) {
 				launch(args);
@@ -22,9 +23,10 @@ import javafx.scene.layout.StackPane;
 			@Override
 			public void start(Stage stage) {
 				Pane pane;
-				insert= new OrderClientController("localhost", 5555, 1);
-				update = new OrderClientController("localhost", 5555, 2);
-				search= new OrderClientController("localhost", 5555, 3);
+				insert= new OrderClientController("localhost", 5555,1);
+				update = new OrderClientController("localhost", 5555,2);
+				search= new OrderClientController("localhost", 5555,3);
+
 				try {
 				    FXMLLoader loader = new FXMLLoader();
 				    loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));

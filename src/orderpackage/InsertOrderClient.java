@@ -15,14 +15,15 @@ public class InsertOrderClient extends AbstractClient{
     {
 		    super(host, port); //Call the superclass constructor
 		    this.clientUI = clientUI;
-		    //openConnection();
+		    openConnection();
 	}
 	
 	
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
-		System.out.println("message sent");
+		System.out.println(msg);
+		awaitResponse = false;
 		
 		
 	}
