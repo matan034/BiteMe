@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="insert_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" stylesheets="@InsertCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.InsertController">
+<Pane fx:id="insert_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" stylesheets="@InsertCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orderpackage.InsertController">
    <children>
-      <VBox fx:id="Vbox" layoutX="177.0" layoutY="52.0" prefHeight="380.0" prefWidth="346.0" stylesheets="@InsertCSS.css">
+      <VBox fx:id="Vbox" layoutX="177.0" layoutY="52.0" prefHeight="288.0" prefWidth="354.0" stylesheets="@InsertCSS.css">
          <children>
             <Pane prefHeight="44.0" prefWidth="283.0" stylesheets="@InsertCSS.css">
                <children>
@@ -64,7 +64,7 @@
                      </GridPane.margin>
                   </Label>
                   <TextField fx:id="address_info" promptText="Ex. Haifa Hashalom 16" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button id="#insert_btn" fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button id="insert_btn" fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" styleClass=".btn" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -77,6 +77,7 @@
             </GridPane>
          </children>
       </VBox>
-      <Button fx:id="back_btn" layoutX="324.0" layoutY="432.0" mnemonicParsing="false" onAction="#back_to_index" text="Back" />
+      <Button fx:id="back_btn" layoutX="330.0" layoutY="328.0" mnemonicParsing="false" onAction="#back_to_index" styleClass=".btn" text="Back" />
+      <Label fx:id="result" layoutX="339.0" layoutY="399.0" />
    </children>
 </Pane>
