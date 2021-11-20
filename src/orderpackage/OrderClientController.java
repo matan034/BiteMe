@@ -32,6 +32,7 @@ private int client_type;
 /**
 * The instance of the client that created this client
 */
+IndexClient index_client;
 InsertOrderClient insert_client;
 UpdateOrderClient update_client;
 SearchOrderClient search_client;
@@ -49,6 +50,17 @@ public OrderClientController(String host, int port,int type)
 	this.client_type=type;
 	switch(client_type)
 	{
+	case 0:
+		try 
+		 {
+		   index_client= new IndexClient(host, port, new IndexController());
+		 } 
+		 catch(IOException exception) 
+		 {
+		   System.out.println("Error: Can't setup connection!"+ " Terminating client.");
+		   System.exit(1);
+		 }
+		break;
 	case 1:
 		try 
 		 {
@@ -63,7 +75,7 @@ public OrderClientController(String host, int port,int type)
 	case 2:
 		try 
 		 {
-		   update_client= new UpdateOrderClient(host, port, this);
+		   update_client= new UpdateOrderClient(host, port, new UpdateOrderController());
 		 } 
 		 catch(IOException exception) 
 		 {
@@ -98,6 +110,9 @@ public void accept(String str)
 {
 	switch(client_type)
 	{
+	case 0:
+		index_client.handleMessageFromClientUI(str);
+		break;
 	case 1:
 		 insert_client.handleMessageFromClientUI(str);
 		 break;

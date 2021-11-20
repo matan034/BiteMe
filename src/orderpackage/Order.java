@@ -1,15 +1,28 @@
 package orderpackage;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String restuarant,order_type,phone,address,order_time;
 	int order_num;
 
 	public Order(String restuarant, String order_type, String phone, String address) {
-		super();
 		this.restuarant = restuarant;
 		this.order_type = order_type;
 		this.phone = phone;
 		this.address = address;
+	}
+	public Order(String restuarant,int order_num,String order_time,String phone, String order_type,  String address ) {
+		this.restuarant = restuarant;
+		this.order_type = order_type;
+		this.phone = phone;
+		this.address = address;
+		this.order_time = order_time;
+		this.order_num=order_num;
 	}
 
 	public String getRestuarant() {

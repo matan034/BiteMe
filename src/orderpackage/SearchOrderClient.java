@@ -21,7 +21,7 @@ public class SearchOrderClient extends AbstractClient{
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
 		System.out.println("Msg: "+msg +" recieved");
-		 awaitResponse = false;
+		awaitResponse = false;
 		String [] res = ((String)msg).split(" ");//details from db
 		try {
 			o1.setRestuarant(res[0]);//need to insert to order

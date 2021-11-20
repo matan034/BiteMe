@@ -5,12 +5,11 @@ package orderpackage;
 	import javafx.application.Application;
 	import javafx.fxml.FXMLLoader;
 	import javafx.scene.Scene;
-	import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 	import javafx.stage.Stage;
 
 	public class IndexOrderUI extends Application {
+		public static OrderClientController index; //only one instance
 		public static OrderClientController insert; //only one instance
 		public static OrderClientController search; //only one instance
 		public static OrderClientController update; //only one instance
@@ -23,6 +22,7 @@ import javafx.scene.layout.StackPane;
 			@Override
 			public void start(Stage stage) {
 				Pane pane;
+				index= new OrderClientController("localhost", 5555,0);
 				insert= new OrderClientController("localhost", 5555,1);
 				update = new OrderClientController("localhost", 5555,2);
 				search= new OrderClientController("localhost", 5555,3);

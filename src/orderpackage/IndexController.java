@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import server.ServerStart;
 
 public class IndexController
 {
@@ -29,8 +31,19 @@ public class IndexController
     private Label title_lbl;
 
     @FXML
+    private Label status_label;
+    
+    
+    @FXML
     private Button Exit_btn;
-
+   
+    @FXML
+    public void initialize() {
+       IndexOrderUI.index.accept("Get_connection");
+       status_label.setText(IndexOrderUI.index.index_client.connection_info);
+    }
+    
+   
     @FXML
     void exit_program(ActionEvent event) {
     	Stage stage = (Stage) Exit_btn.getScene().getWindow();
@@ -62,8 +75,6 @@ public class IndexController
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		Pane root = loader.load(getClass().getResource("/gui/SearchScreen.fxml").openStream());
-		//InsertFormController insertFormController = loader.getController();		
-		//insertFormController.loadStudent(ChatClient.s1);
 	
 		Scene scene = new Scene(root);			
 		//scene.getStylesheets().add(getClass().getResource("/orderpackage/InsertCSS.css").toExternalForm());
@@ -86,6 +97,11 @@ public class IndexController
 		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
 		primaryStage.setTitle("Update Order");
 
+		
+		
+		IndexOrderUI.update.accept("Update_order");
+	
+		
 		primaryStage.setScene(scene);		
 		primaryStage.show();
     	}

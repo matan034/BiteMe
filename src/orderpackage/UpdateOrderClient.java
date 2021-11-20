@@ -1,17 +1,21 @@
 package orderpackage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import ocsf.client.AbstractClient;
 
 public class UpdateOrderClient extends AbstractClient{
 
-	OrderClientController clientUI;
+	UpdateOrderController clientUI;
 	 public static boolean awaitResponse = false;
 
 	public static Order o1 = new Order(null,null,null,null);
 	
-	public UpdateOrderClient(String host, int port, OrderClientController clientUI) throws IOException 
+	
+	
+	public UpdateOrderClient(String host, int port, UpdateOrderController clientUI) throws IOException 
 		  {
 		    super(host, port); //Call the superclass constructor
 		    this.clientUI = clientUI;
@@ -21,8 +25,10 @@ public class UpdateOrderClient extends AbstractClient{
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
 		awaitResponse = false;
-		String [] res = ((String)msg).split(" ");//details from db
-		o1.setRestuarant(res[0]);//need to insert to order
+		System.out.println(msg);
+		ArrayList<Order> res = ((ArrayList<Order>)msg);//details from db
+		clientUI.display_table(res);
+	
 		
 	}
 	/**

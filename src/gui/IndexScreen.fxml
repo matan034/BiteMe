@@ -28,5 +28,6 @@
       </GridPane>
       <Label fx:id="title_lbl" layoutX="155.0" layoutY="69.0" text="BiteMe Prototype" />
       <Button fx:id="Exit_btn" layoutX="279.0" layoutY="297.0" mnemonicParsing="false" onAction="#exit_program" styleClass="index_btn" text="Exit" />
+      <Label fx:id="status_label" layoutX="38.0" layoutY="24.0" />
    </children>
 </Pane>

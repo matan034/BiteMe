@@ -11,12 +11,12 @@
    <children>
       <TableView layoutY="95.0" prefHeight="511.0" prefWidth="1114.0">
         <columns>
-          <TableColumn prefWidth="55.0" text="Order" />
-          <TableColumn prefWidth="134.0" text="Resturant" />
-            <TableColumn prefWidth="202.0" text="Order Type" />
-            <TableColumn prefWidth="225.0" text="Phone-Number" />
-            <TableColumn prefWidth="226.0" text="Time of Order" />
-            <TableColumn prefWidth="271.0" text="Order Address" />
+          <TableColumn fx:id="order_col" prefWidth="55.0" text="Order" />
+          <TableColumn fx:id="resturant_col" prefWidth="134.0" text="Resturant" />
+            <TableColumn fx:id="order_type_col" prefWidth="202.0" text="Order Type" />
+            <TableColumn fx:id="phone_col" prefWidth="225.0" text="Phone-Number" />
+            <TableColumn fx:id="time_col" prefWidth="226.0" text="Time of Order" />
+            <TableColumn fx:id="address_col" prefWidth="271.0" text="Order Address" />
         </columns>
       </TableView>
       <Label id="title" layoutX="433.0" layoutY="25.0" text="Change Order">

@@ -10,14 +10,15 @@ import javafx.stage.Stage;
 
 public class ServerStart extends Application {
 	
-	private static BiteMeServer sv;
+	public static BiteMeServer sv;
+	
 	public static void main(String[] args) {
 		launch(args);
 }
 		
 	@Override
 	public void start(Stage stage) throws Exception{
-		serverController aFrame = new serverController(); // create StudentFrame 
+		serverController aFrame = new serverController(); // create 
 		aFrame.start(stage);
 
 	}

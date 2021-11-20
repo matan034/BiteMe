@@ -1,5 +1,6 @@
 package orderpackage;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,12 @@ public class InsertController {
 	    private Button back_btn;
 
 	    InsertOrderClient insert_client;
+	    @FXML
+	    public void initialize() {
+	    //not working!!!!! ad matai	
+	    	type_order_info = new ComboBox<String>();
+	    	type_order_info.setItems(FXCollections.observableArrayList("Order-In","Take-Away","Delievery"));
+	    }
 	    @FXML
 	    void back_to_index(ActionEvent event) {
 	    	FXMLLoader loader = new FXMLLoader();
