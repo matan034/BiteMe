@@ -2,29 +2,37 @@ package orderpackage;
 
 import java.util.ArrayList;
 
-import javax.security.auth.callback.Callback;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import orderpackage.Order;
 
 public class UpdateOrderController {
 
-	  @FXML
-	    private TableView<Order> OrderTable;
+		@FXML
+		private Pane update_pane;
+	   @FXML
+	    private TableView<Order> OrderTable=new TableView<Order>();
 
 	    @FXML
-	    private TableColumn<Order, String> order_col;
+	    private TableColumn<Order, Integer> order_col;
 
 	    @FXML
 	    private TableColumn<Order, String> resturant_col;
@@ -40,6 +48,20 @@ public class UpdateOrderController {
 
 	    @FXML
 	    private TableColumn<Order,String> address_col;
+	    @FXML
+	    private TextField updated_address;
+
+	    @FXML
+	    private Button update_btn;
+	    @FXML
+	    private Label selected_order;
+
+	    @FXML
+	    private ComboBox<String> updated_type = new ComboBox<String>(); 
+	    private Scene scene;
+	    private ObservableList<Order> all_orders;
+
+	
     @FXML
     private Button back_btn;
 
@@ -52,7 +74,7 @@ public class UpdateOrderController {
 		Pane root ;
 		loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
 	    root = loader.load();
-		Scene scene = new Scene(root);			
+		scene = new Scene(root);			
 		scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Order");
 		primaryStage.setScene(scene);		
@@ -62,33 +84,66 @@ public class UpdateOrderController {
     	catch (Exception e) {System.out.println("insert load exception");}
     }
     
-    void display_table(ArrayList<Order> orders){
+    
+    public void initialize()
+    {
+    	IndexOrderUI.update.accept("Load_orders");
+    	updated_type.setItems(IndexController.delivery_options);
+    	display_table();
+    	OrderTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null)
+              try {
+                selected_order();
+              } catch (Exception e) {
+                e.printStackTrace();
+              }  
+          });
+
+    }
+    public void start() throws Exception {
+    	FXMLLoader loader = new FXMLLoader();
+    	Stage primaryStage = new Stage();
+    	Pane root = loader.load(getClass().getResource("/gui/UpdateScreen.fxml").openStream());
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
+		primaryStage.setTitle("Update Order");
+		primaryStage.setScene(scene);
+		primaryStage.show();	
+		OrderTable.refresh();
+	}
+    
+    void display_table(){
         
-    	
-    	ObservableList<Order> all_orders = FXCollections.observableArrayList(orders);
-    	/*TableView tableView = new TableView();
-
-        TableColumn<Order, String> column1 = new TableColumn<>("Order");
-        column1.setCellValueFactory(new PropertyValueFactory<>("Resturant"));
-
-
-        TableColumn<Order, String> column2 = new TableColumn<>("Resturant");
-        column2.setCellValueFactory(new PropertyValueFactory<>("Resturant"));*/
-
-    	OrderTable = new TableView<Order>();
-    	order_col= new TableColumn<>("Order");
-		order_col.setCellValueFactory(new PropertyValueFactory<>("Order"));
-		resturant_col = new TableColumn<>("Restuarant");
-		resturant_col.setCellValueFactory(new PropertyValueFactory<>("Resturant"));
-		order_type_col = new TableColumn<>("Order Type");
-		order_type_col.setCellValueFactory(new PropertyValueFactory<>("Order Type"));
-		phone_col = new TableColumn<>("Phone Number");
-		phone_col.setCellValueFactory(new PropertyValueFactory<>("Phone-Number"));
-		time_col = new TableColumn<>("Time of Order");
-		time_col.setCellValueFactory(new PropertyValueFactory<>("Time of Order"));
-		address_col = new TableColumn<>("Order Address");
-		address_col.setCellValueFactory(new PropertyValueFactory<>("Order Address"));     
+    	all_orders = FXCollections.observableArrayList(UpdateOrderClient.all_orders);
+		order_col.setCellValueFactory(new PropertyValueFactory<Order,Integer>("order_num"));
+		resturant_col.setCellValueFactory(new PropertyValueFactory<Order,String>("restuarant"));
+		order_type_col.setCellValueFactory(new PropertyValueFactory<Order,String>("order_type"));
+		phone_col.setCellValueFactory(new PropertyValueFactory<Order,String>("phone"));
+		time_col.setCellValueFactory(new PropertyValueFactory<Order,String>("order_time"));
+		address_col.setCellValueFactory(new PropertyValueFactory<Order,String>("address")); 
  		OrderTable.setItems(all_orders);
- 		OrderTable.getColumns().addAll(order_col, resturant_col, order_type_col, phone_col, time_col, address_col);
+    }
+    
+    void selected_order()
+    {
+    	selected_order.setText("You chose order number: "+OrderTable.getSelectionModel().getSelectedItem().getOrder_num());
+    	updated_address.setText(OrderTable.getSelectionModel().getSelectedItem().getAddress());
+    	updated_type.getSelectionModel().select(OrderTable.getSelectionModel().getSelectedItem().getOrder_type());
+    }
+    
+    @FXML
+    void updateOrder(ActionEvent event) {
+    	String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getPromptText()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
+    	IndexOrderUI.update.accept(msg);
+
+    	for(Order o: all_orders)
+    	{
+    		if(o.getOrder_num()==OrderTable.getSelectionModel().getSelectedItem().getOrder_num())
+    			o.setAddress(updated_address.getText());
+    			o.setOrder_type(updated_type.getSelectionModel().getSelectedItem());
+    	}
+    	OrderTable.refresh();
+    	updated_address.clear();
+    	selected_order.setText(UpdateOrderClient.res);
     }
 }

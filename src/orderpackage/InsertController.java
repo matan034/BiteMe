@@ -41,9 +41,7 @@ public class InsertController {
 	    InsertOrderClient insert_client;
 	    @FXML
 	    public void initialize() {
-	    //not working!!!!! ad matai	
-	    	type_order_info = new ComboBox<String>();
-	    	type_order_info.setItems(FXCollections.observableArrayList("Order-In","Take-Away","Delievery"));
+	    	type_order_info.setItems(IndexController.delivery_options);
 	    }
 	    @FXML
 	    void back_to_index(ActionEvent event) {
@@ -65,7 +63,7 @@ public class InsertController {
     
     @FXML
     void insertOrder(ActionEvent event) {
-    	String str="Insert_order "+rest_info.getText()+" "+type_order_info.getPromptText()+" "+phone_info.getText()+" "+address_info.getText();
+    	String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getPromptText()+"~"+address_info.getText();
     	IndexOrderUI.insert.accept(str);
     	
     	

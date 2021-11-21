@@ -7,8 +7,8 @@ public class Order implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String restuarant,order_type,phone,address,order_time;
-	int order_num;
+	private String restuarant,order_type,phone,address,order_time;
+	private int order_num;
 
 	public Order(String restuarant, String order_type, String phone, String address) {
 		this.restuarant = restuarant;

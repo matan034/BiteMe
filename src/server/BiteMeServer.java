@@ -57,17 +57,6 @@ public class BiteMeServer extends AbstractServer
 	}
 	
 	
-
-	
-	/*public static void update( String field, String val, int order_num)
-	{
-		Statement stmt;
-		try {
-			stmt = myCon.createStatement();
-			stmt.executeUpdate(String.format("UPDATE biteme.order SET %s = '%s' WHERE OrderNumber = %d;",field,val,order_num));
-	 		
-		} catch (SQLException e) {	e.printStackTrace();}
-	}*/
 	@Override
 	/**
 	   * This method handles any messages received from the client.
@@ -79,7 +68,7 @@ public class BiteMeServer extends AbstractServer
 	  public void handleMessageFromClient  (Object msg, ConnectionToClient client)
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
-		    String [] res = ((String)msg).split(" ");
+		    String [] res = ((String)msg).split("~");
 		    String result="";
 			try {
 				switch(res[0])
@@ -88,6 +77,7 @@ public class BiteMeServer extends AbstractServer
 				case "Update_order": updateOrder(res, client); break;
 				case "Search_order": searchOrder(res, client); break;
 				case "Get_connection": getConnection(client); break;
+				case "Load_orders": loadOrders(res,client); break;
 				}
 	
 
@@ -138,22 +128,14 @@ public class BiteMeServer extends AbstractServer
 	  protected void updateOrder(String[]res,ConnectionToClient client) throws SQLException
 	  {
 		  Statement stmt;
-		  stmt = myCon.createStatement();
-		  ResultSet rs;
-		  rs =stmt.executeQuery("SELECT * FROM biteme.order");
-			ArrayList<Order> all_orders = new ArrayList<>();
-			while(rs.next())
-			{
-				String resturant=rs.getString(1);
-				int id=Integer.parseInt(rs.getString(2));
-				String order_time=rs.getString(3);
-				String phone_num=rs.getString(4);
-				String type_of_order=rs.getString(5);
-				String address=rs.getString(6);
-				all_orders.add(new Order(resturant,id,order_time,phone_num,type_of_order,address));
-				
-			}
-			sendToClient(all_orders,client);
+		  int flag;
+			try {
+				stmt = myCon.createStatement();
+				flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET %s = '%s', %s = '%s' WHERE OrderNumber = %d;",res[1],res[2],res[3],res[4],Integer.parseInt(res[5])));
+				if(flag>0)	sendToClient("Updated Successfuly", client);
+				else sendToClient("Failed to update", client);
+					
+			} catch (SQLException e) {	e.printStackTrace();}
 	  }
 	  
 	  protected void searchOrder(String[]res,ConnectionToClient client) throws SQLException
@@ -166,7 +148,7 @@ public class BiteMeServer extends AbstractServer
 			if(rs.next())
 			{
 				System.out.println("Order Found");
-				result= rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5);
+				result= rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
 				sendToClient(result,client);
 			} 
 			else sendToClient("Order Wasnt found", client);
@@ -192,6 +174,27 @@ public class BiteMeServer extends AbstractServer
 		      }
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
+	  }
+	  
+	  protected void loadOrders(String[]res,ConnectionToClient client) throws SQLException
+	  {
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  ResultSet rs;
+		  rs =stmt.executeQuery("SELECT * FROM biteme.order");
+			ArrayList<Order> all_orders = new ArrayList<>();
+			while(rs.next())
+			{
+				String resturant=rs.getString(1);
+				int id=Integer.parseInt(rs.getString(2));
+				String order_time=rs.getString(3);
+				String phone_num=rs.getString(4);
+				String type_of_order=rs.getString(5);
+				String address=rs.getString(6);
+				all_orders.add(new Order(resturant,id,order_time,phone_num,type_of_order,address));
+				
+			}
+			sendToClient(all_orders,client);
 	  }
 	
 }

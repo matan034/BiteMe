@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -60,9 +61,13 @@ public class SearchOrderController {
 
     @FXML
     void searchOrder(ActionEvent event) {
-    	String str="Search_order "+order_number_input.getText();
+    	String str="Search_order~"+order_number_input.getText();
     	IndexOrderUI.search.accept(str);
-    	
+//    	restuarant_result.clear();
+//    	order_time_result.clear();
+//    	phone_result.clear();   	need to make it work
+//    	order_type_result.clear();
+//    	order_address_result.clear();
     	restuarant_result.setText(SearchOrderClient.o1.getRestuarant());
     	order_time_result.setText(SearchOrderClient.o1.getOrder_time());
     	phone_result.setText(SearchOrderClient.o1.getPhone());

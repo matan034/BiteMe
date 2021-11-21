@@ -11,8 +11,8 @@ public class UpdateOrderClient extends AbstractClient{
 	UpdateOrderController clientUI;
 	 public static boolean awaitResponse = false;
 
-	public static Order o1 = new Order(null,null,null,null);
-	
+	public static ArrayList<Order> all_orders=new ArrayList<Order>();
+	public static String res;
 	
 	
 	public UpdateOrderClient(String host, int port, UpdateOrderController clientUI) throws IOException 
@@ -26,10 +26,14 @@ public class UpdateOrderClient extends AbstractClient{
 		// TODO Auto-generated method stub
 		awaitResponse = false;
 		System.out.println(msg);
-		ArrayList<Order> res = ((ArrayList<Order>)msg);//details from db
-		clientUI.display_table(res);
-	
-		
+		if(msg instanceof String)
+		{
+			res= (String)msg;
+		}
+		else {
+		all_orders = ((ArrayList<Order>)msg);//details from db
+		}
+
 	}
 	/**
 	   * This method terminates the client.

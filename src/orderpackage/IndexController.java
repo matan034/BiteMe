@@ -1,5 +1,7 @@
 package orderpackage;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import server.ServerStart;
+import server.serverController;
 
 public class IndexController
 {
@@ -36,11 +39,13 @@ public class IndexController
     
     @FXML
     private Button Exit_btn;
-   
+    
+    public static ObservableList<String> delivery_options;
     @FXML
     public void initialize() {
        IndexOrderUI.index.accept("Get_connection");
        status_label.setText(IndexOrderUI.index.index_client.connection_info);
+       delivery_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
     }
     
    
@@ -77,33 +82,23 @@ public class IndexController
 		Pane root = loader.load(getClass().getResource("/gui/SearchScreen.fxml").openStream());
 	
 		Scene scene = new Scene(root);			
-		//scene.getStylesheets().add(getClass().getResource("/orderpackage/InsertCSS.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/gui/SearchScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Search Order");
 
 		primaryStage.setScene(scene);		
 		primaryStage.show();
     	}
-    	catch (Exception e) {System.out.println("search load exception");}
+    	catch (Exception e) {System.out.println(e+"search load exception");}
     }
 
     @FXML
     void updateOrder(ActionEvent event) {
-    	FXMLLoader loader = new FXMLLoader();
+    	
     	try {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root = loader.load(getClass().getResource("/gui/UpdateScreen.fxml").openStream());
-		Scene scene = new Scene(root);			
-		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
-		primaryStage.setTitle("Update Order");
+        UpdateOrderController aFrame = new UpdateOrderController(); // create 
+    	aFrame.start();
 
-		
-		
-		IndexOrderUI.update.accept("Update_order");
-	
-		
-		primaryStage.setScene(scene);		
-		primaryStage.show();
     	}
     	catch (Exception e) {System.out.println("update load exception");}
     }
