@@ -1,15 +1,15 @@
-package orderpackage;
-
-import java.util.ArrayList;
+package controllers;
 
 
 
+import clients.LoginUI;
+import clients.OrderClient;
+import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 
 import javafx.scene.Scene;
@@ -22,7 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import orderpackage.Order;
 
 public class UpdateOrderController {
 
@@ -58,7 +57,6 @@ public class UpdateOrderController {
 
 	    @FXML
 	    private ComboBox<String> updated_type = new ComboBox<String>(); 
-	    private Scene scene;
 	    private ObservableList<Order> all_orders;
 
 	
@@ -72,10 +70,10 @@ public class UpdateOrderController {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		Pane root ;
-		loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
+		loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
 	    root = loader.load();
-		scene = new Scene(root);			
-		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
+		Scene scene = new Scene(root);			
+		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
 		primaryStage.setTitle("Order");
 		primaryStage.setScene(scene);		
 		primaryStage.show();
@@ -104,7 +102,7 @@ public class UpdateOrderController {
     
     void display_table(){
         
-    	all_orders = FXCollections.observableArrayList(UpdateOrderClient.all_orders);
+    	all_orders = FXCollections.observableArrayList(OrderClient.all_orders);
 		order_col.setCellValueFactory(new PropertyValueFactory<Order,Integer>("order_num"));
 		resturant_col.setCellValueFactory(new PropertyValueFactory<Order,String>("restuarant"));
 		order_type_col.setCellValueFactory(new PropertyValueFactory<Order,String>("order_type"));
@@ -123,17 +121,22 @@ public class UpdateOrderController {
     
     @FXML
     void updateOrder(ActionEvent event) {
-    	String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
-    	LoginUI.order.accept(msg);
+    	if(updated_address.getText()==null) {}
+    	if(updated_type.getSelectionModel().getSelectedItem()==null) {}
+    	if(OrderTable.getSelectionModel().getSelectedItem()==null) {}
+    	else {
+    		String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
+    		LoginUI.order.accept(msg);
 
-    	for(Order o: all_orders)
-    	{
-    		if(o.getOrder_num()==OrderTable.getSelectionModel().getSelectedItem().getOrder_num())
-    			o.setAddress(updated_address.getText());
-    			o.setOrder_type(updated_type.getSelectionModel().getSelectedItem());
+    		for(Order o: all_orders)
+    		{
+    			if(o.getOrder_num()==OrderTable.getSelectionModel().getSelectedItem().getOrder_num())
+    				o.setAddress(updated_address.getText());
+    				o.setOrder_type(updated_type.getSelectionModel().getSelectedItem());
+    		}
+    		OrderTable.refresh();
+    		updated_address.clear();
+    		selected_order.setText(OrderClient.update_msg);
     	}
-    	OrderTable.refresh();
-    	updated_address.clear();
-    	selected_order.setText(UpdateOrderClient.res);
     }
 }

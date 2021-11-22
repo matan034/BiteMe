@@ -62,7 +62,7 @@ public class serverController {
 	
 
 	public void start(Stage primaryStage) throws Exception {	
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/serverFXML.fxml"));		
+		Parent root = FXMLLoader.load(getClass().getResource("/ui/serverFXML.fxml"));		
 		Scene scene = new Scene(root);
 		//scene.getStylesheets().add(getClass().getResource("/gui/ServerPort.css").toExternalForm());
 		primaryStage.setTitle("Server");
@@ -71,6 +71,7 @@ public class serverController {
 	}
     @FXML
     void close_window(ActionEvent event) {
+    	disconnectFromDB(event);
     	Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
     }
@@ -80,12 +81,10 @@ public class serverController {
     	String p;
 		p=getport();
 		if(p.trim().isEmpty()) {
-			System.out.println("You must enter a port number");
-					
+			System.out.println("You must enter a port number");			
 		}
 		else
 		{
-			//((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
 			ServerStart.runServer(p);

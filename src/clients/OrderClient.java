@@ -1,17 +1,19 @@
-package orderpackage;
+package clients;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import entity.Order;
 import ocsf.client.AbstractClient;
 
 public class OrderClient extends AbstractClient {
 
-	 public static boolean awaitResponse = false;
-	 public static String connection_info;
-	 public static ArrayList<Order> all_orders=new ArrayList<Order>();
+	public static boolean awaitResponse = false;
+	public static String connection_info;
+	public static ArrayList<Order> all_orders=new ArrayList<Order>();
 	public static String update_msg;
-	public static Order o1 = new Order(null,null,null,null);
+	public static Order found_order = new Order(null,null,null,null);
+	
 	public OrderClient(String host, int port) throws IOException {
 		super(host, port);
 		// TODO Auto-generated constructor stub
@@ -38,20 +40,19 @@ public class OrderClient extends AbstractClient {
 			case "Search":
 				if(res.length>1)
 				{
-					o1.setRestuarant(res[0]);//need to insert to order
-					o1.setOrder_num(Integer.parseInt(res[1]));
-					o1.setOrder_time(res[2]);
-					o1.setPhone(res[3]);
-					o1.setOrder_type(res[4]);
-					o1.setAddress(res[5]);
+					found_order.setRestuarant(res[1]);//need to insert to order
+					found_order.setOrder_num(Integer.parseInt(res[2]));
+					found_order.setOrder_time(res[3]);
+					found_order.setPhone(res[4]);
+					found_order.setOrder_type(res[5]);
+					found_order.setAddress(res[6]);
 				}
 				else {System.out.println("Order wasn't found");}
 				break;
-				
+			case "IP":
+				connection_info=res[1];
 			}
-		}
-		
-		
+		}	
 	}
 	public void quit()
 	  {

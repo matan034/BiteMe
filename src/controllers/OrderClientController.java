@@ -1,9 +1,11 @@
-package orderpackage;
+package controllers;
 
 //This file contains material supporting section 3.7 of the textbook:
 //"Object Oriented Software Engineering" and is issued under the open-source
 //license found at www.lloseng.com 
 import java.io.*;
+
+import clients.OrderClient;
 
 
 
@@ -31,7 +33,7 @@ public static int DEFAULT_PORT ;
 /**
 * The instance of the client that created this client
 */
-OrderClient order_client;
+public static OrderClient order_client;
 
 
 //Constructors ****************************************************

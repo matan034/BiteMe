@@ -1,4 +1,4 @@
-package orderpackage;
+package entity;
 
 import java.io.Serializable;
 

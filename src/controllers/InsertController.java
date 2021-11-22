@@ -1,5 +1,6 @@
-package orderpackage;
+package controllers;
 
+import clients.LoginUI;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,10 +50,10 @@ public class InsertController {
 	    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 			Stage primaryStage = new Stage();
 			Pane root ;
-			loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
+			loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
 		    root = loader.load();
 			Scene scene = new Scene(root);			
-			scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
 			primaryStage.setTitle("Order");
 			primaryStage.setScene(scene);		
 			primaryStage.show();
@@ -62,10 +63,14 @@ public class InsertController {
     
     @FXML
     void insertOrder(ActionEvent event) {
-    	String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getPromptText()+"~"+address_info.getText();
-    	LoginUI.order.accept(str);
-    	
-    	
+    	if(rest_info.getText()==null) {}
+    	if(phone_info.getText()==null) {}
+    	if(type_order_info.getPromptText()==null) {}
+    	if(address_info.getText()==null) {}
+    	else {
+    		String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getPromptText()+"~"+address_info.getText();
+    		LoginUI.order.accept(str);
+    	}
     }
 
 }

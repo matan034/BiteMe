@@ -11,9 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import orderpackage.Order;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -21,7 +21,7 @@ import ocsf.server.ConnectionToClient;
 public class BiteMeServer extends AbstractServer
 {
 	private static Connection myCon;
-	private static BiteMeServer single_instance = null;
+	//private static BiteMeServer single_instance = null;
 	
 
 	public BiteMeServer(int port) {
@@ -53,7 +53,6 @@ public class BiteMeServer extends AbstractServer
 	{
 		try {
 		myCon.close();
-		single_instance = null;
 		return "Disconnected Successfuly";
 		}
 		catch(Exception e) {return "Couldn't disconnect from server";}
@@ -79,7 +78,7 @@ public class BiteMeServer extends AbstractServer
 				case "Insert_order": insertOrder(res, client); break;
 				case "Update_order": updateOrder(res, client); break;
 				case "Search_order": searchOrder(res, client); break;
-				//case "Get_connection": getConnection(client); break;
+				case "Get_connection": getClientInfo(client); break;
 				case "Load_orders": loadOrders(res,client); break;
 				}
 	
@@ -169,6 +168,11 @@ public class BiteMeServer extends AbstractServer
 
 	  @Override
 	  protected void clientConnected(ConnectionToClient client) {
+		 
+	  }
+	  
+	  protected void getClientInfo(ConnectionToClient client)
+	  {
 		  Thread[] clientThreadList = getClientConnections();
 		  String connectionflag;
 		    for (int i=0; i<clientThreadList.length; i++)
@@ -186,7 +190,7 @@ public class BiteMeServer extends AbstractServer
 		    		  
 		    		  String msg=s.getLocalAddress()+"\nHost name: "+s.getInetAddress().getLocalHost().getCanonicalHostName()+"\nConnection: "+connectionflag;
 		    		  msg=msg.substring(1);
-		    		  msg="Ip Adress: "+msg;
+		    		  msg="IP~Ip Adress: "+msg;
 		    		  ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);
 		    	  }
 		    	  
@@ -195,7 +199,6 @@ public class BiteMeServer extends AbstractServer
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
 	  }
-	  
 	  protected void loadOrders(String[]res,ConnectionToClient client) throws SQLException
 	  {
 		  Statement stmt;

@@ -1,3 +1,6 @@
-/orderpackage/
+/clients/
+/fxml/
 /server/
-/gui/
+/controllers/
+/css/
+/ui/

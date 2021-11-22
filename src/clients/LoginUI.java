@@ -1,7 +1,9 @@
-package orderpackage;
+package clients;
 
 import java.io.IOException;
 
+import controllers.LoginController;
+import controllers.OrderClientController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +22,7 @@ public class LoginUI extends Application{
 		order= new OrderClientController(LoginController.ip, 5555);
 		try {
 		    FXMLLoader loader = new FXMLLoader();
-		    loader.setLocation(getClass().getResource("/gui/LoginScreen.fxml"));
+		    loader.setLocation(getClass().getResource("/ui/LoginScreen.fxml"));
 		    pane = loader.load();
 			Scene scene=new Scene(pane);
 			stage.setTitle("Login");

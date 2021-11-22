@@ -1,5 +1,7 @@
-package orderpackage;
+package controllers;
 
+import clients.LoginUI;
+import clients.OrderClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,10 +37,10 @@ public class SearchOrderController {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		Pane root ;
-		loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
+		loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
 	    root = loader.load();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
 		//scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Insert Order");
 		primaryStage.setScene(scene);		
@@ -49,14 +51,17 @@ public class SearchOrderController {
 
     @FXML
     void searchOrder(ActionEvent event) {
-    	String str="Search_order~"+order_number_input.getText();
-    	LoginUI.order.accept(str);
-    	if(SearchOrderClient.o1.getOrder_num()!=Integer.parseInt(order_number_input.getText()))
+    	if(order_number_input.getText()!=null)
     	{
-    		search_res.setText("Order not found");
+    		String str="Search_order~"+order_number_input.getText();
+    		LoginUI.order.accept(str);
+    		if(OrderClient.found_order.getOrder_num()!=Integer.parseInt(order_number_input.getText()))  	
+    			search_res.setText("Order not found");
+    		else 
+    			search_res.setText(OrderClient.found_order.getRestuarant()+'\n'+OrderClient.found_order.getOrder_time()+'\n'+OrderClient.found_order.getPhone()+'\n'+OrderClient.found_order.getOrder_type()+'\n'+OrderClient.found_order.getAddress());
     	}
     	else {
-        	search_res.setText(SearchOrderClient.o1.getRestuarant()+'\n'+SearchOrderClient.o1.getOrder_time()+'\n'+SearchOrderClient.o1.getPhone()+'\n'+SearchOrderClient.o1.getOrder_type()+'\n'+SearchOrderClient.o1.getAddress());
+    		
     	}
     	
     }

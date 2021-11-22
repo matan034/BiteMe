@@ -1,5 +1,7 @@
-package orderpackage;
+package controllers;
 
+import clients.LoginUI;
+import clients.OrderClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +19,6 @@ import server.serverController;
 
 public class IndexController
 {
-
     @FXML
     private Pane index_pane;
 
@@ -51,6 +52,7 @@ public class IndexController
    
     @FXML
     void exit_program(ActionEvent event) {
+    	OrderClientController.order_client.quit();
     	Stage stage = (Stage) Exit_btn.getScene().getWindow();
         stage.close();
     }
@@ -62,11 +64,11 @@ public class IndexController
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		Pane root ;
-		loader.setLocation(getClass().getResource("/gui/InsertScreen.fxml"));
+		loader.setLocation(getClass().getResource("/ui/InsertScreen.fxml"));
 	    root = loader.load();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/gui/InsertCSS.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/InsertCSS.css").toExternalForm());
 		primaryStage.setTitle("Insert Order");
 		primaryStage.setScene(scene);		
 		primaryStage.show();
@@ -81,11 +83,11 @@ public class IndexController
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
 		Pane root;
-		loader.setLocation(getClass().getResource("/gui/SearchScreen.fxml"));
+		loader.setLocation(getClass().getResource("/ui/SearchScreen.fxml"));
 	    root = loader.load();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/gui/SearchScreenCSS.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/SearchScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Search Order");
 
 		primaryStage.setScene(scene);		
@@ -102,11 +104,11 @@ public class IndexController
     	FXMLLoader loader = new FXMLLoader();
     	Stage primaryStage = new Stage();
     	Pane root;
-    	loader.setLocation(getClass().getResource("/gui/updateScreen.fxml"));
+    	loader.setLocation(getClass().getResource("/ui/updateScreen.fxml"));
 	    root = loader.load();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/ui/updateScreenCss.css").toExternalForm());
 		primaryStage.setTitle("Update Order");
 		primaryStage.setScene(scene);
 		primaryStage.show();	
