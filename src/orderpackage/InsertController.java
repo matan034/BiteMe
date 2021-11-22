@@ -38,7 +38,6 @@ public class InsertController {
 	    @FXML
 	    private Button back_btn;
 
-	    InsertOrderClient insert_client;
 	    @FXML
 	    public void initialize() {
 	    	type_order_info.setItems(IndexController.delivery_options);
@@ -53,7 +52,7 @@ public class InsertController {
 			loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
 		    root = loader.load();
 			Scene scene = new Scene(root);			
-			scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 			primaryStage.setTitle("Order");
 			primaryStage.setScene(scene);		
 			primaryStage.show();
@@ -64,7 +63,7 @@ public class InsertController {
     @FXML
     void insertOrder(ActionEvent event) {
     	String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getPromptText()+"~"+address_info.getText();
-    	IndexOrderUI.insert.accept(str);
+    	LoginUI.order.accept(str);
     	
     	
     }

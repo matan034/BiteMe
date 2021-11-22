@@ -75,7 +75,7 @@ public class UpdateOrderController {
 		loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
 	    root = loader.load();
 		scene = new Scene(root);			
-		scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 		primaryStage.setTitle("Order");
 		primaryStage.setScene(scene);		
 		primaryStage.show();
@@ -87,7 +87,7 @@ public class UpdateOrderController {
     
     public void initialize()
     {
-    	IndexOrderUI.update.accept("Load_orders");
+    	LoginUI.order.accept("Load_orders");
     	updated_type.setItems(IndexController.delivery_options);
     	display_table();
     	OrderTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -100,17 +100,7 @@ public class UpdateOrderController {
           });
 
     }
-    public void start() throws Exception {
-    	FXMLLoader loader = new FXMLLoader();
-    	Stage primaryStage = new Stage();
-    	Pane root = loader.load(getClass().getResource("/gui/UpdateScreen.fxml").openStream());
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
-		primaryStage.setTitle("Update Order");
-		primaryStage.setScene(scene);
-		primaryStage.show();	
-		OrderTable.refresh();
-	}
+
     
     void display_table(){
         
@@ -134,7 +124,7 @@ public class UpdateOrderController {
     @FXML
     void updateOrder(ActionEvent event) {
     	String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
-    	IndexOrderUI.update.accept(msg);
+    	LoginUI.order.accept(msg);
 
     	for(Order o: all_orders)
     	{

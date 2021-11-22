@@ -25,17 +25,14 @@ public class OrderClientController
 * The default port to connect on.
 */
 public static int DEFAULT_PORT ;
-private int client_type;
 
 //Instance variables **********************************************
 
 /**
 * The instance of the client that created this client
 */
-IndexClient index_client;
-InsertOrderClient insert_client;
-UpdateOrderClient update_client;
-SearchOrderClient search_client;
+OrderClient order_client;
+
 
 //Constructors ****************************************************
 
@@ -45,59 +42,22 @@ SearchOrderClient search_client;
 * @param host The host to connect to.
 * @param port The port to connect on.
 */
-public OrderClientController(String host, int port,int type) 
+public OrderClientController(String host, int port) 
 {
-	this.client_type=type;
-	switch(client_type)
-	{
-	case 0:
-		try 
-		 {
-		   index_client= new IndexClient(host, port, new IndexController());
+	
+	try 
+		{
+		   order_client= new OrderClient(host, port);
 		 } 
 		 catch(IOException exception) 
 		 {
 		   System.out.println("Error: Can't setup connection!"+ " Terminating client.");
 		   System.exit(1);
 		 }
-		break;
-	case 1:
-		try 
-		 {
-		   insert_client= new InsertOrderClient(host, port, this);
-		 } 
-		 catch(IOException exception) 
-		 {
-		   System.out.println("Error: Can't setup connection!"+ " Terminating client.");
-		   System.exit(1);
-		 }
-		break;
-	case 2:
-		try 
-		 {
-		   update_client= new UpdateOrderClient(host, port, new UpdateOrderController());
-		 } 
-		 catch(IOException exception) 
-		 {
-		   System.out.println("Error: Can't setup connection!"+ " Terminating client.");
-		   System.exit(1);
-		 }
-		break;
-	case 3:
-		try 
-		 {
-		   search_client= new SearchOrderClient(host, port, this);
-		 } 
-		 catch(IOException exception) 
-		 {
-		   System.out.println("Error: Can't setup connection!"+ " Terminating client.");
-		   System.exit(1);
-		 }
-		break;
+
 		
-	}
- 
 }
+ 
 
 
 //Instance methods ************************************************
@@ -108,21 +68,7 @@ public OrderClientController(String host, int port,int type)
 */
 public void accept(String str) 
 {
-	switch(client_type)
-	{
-	case 0:
-		index_client.handleMessageFromClientUI(str);
-		break;
-	case 1:
-		 insert_client.handleMessageFromClientUI(str);
-		 break;
-	case 2:
-		update_client.handleMessageFromClientUI(str);
-		 break;
-	case 3:
-		search_client.handleMessageFromClientUI(str);
-		 break;
-	}
+	order_client.handleMessageFromClientUI(str);
 	 
 }
 

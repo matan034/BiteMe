@@ -39,7 +39,7 @@ public class SearchOrderController {
 	    root = loader.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Insert Order");
 		primaryStage.setScene(scene);		
 		primaryStage.show();
@@ -50,13 +50,15 @@ public class SearchOrderController {
     @FXML
     void searchOrder(ActionEvent event) {
     	String str="Search_order~"+order_number_input.getText();
-    	IndexOrderUI.search.accept(str);
-//    	restuarant_result.clear();
-//    	order_time_result.clear();
-//    	phone_result.clear();   	need to make it work
-//    	order_type_result.clear();
-//    	order_address_result.clear();
-    	search_res.setText(SearchOrderClient.o1.getRestuarant()+'\n'+SearchOrderClient.o1.getOrder_time()+'\n'+SearchOrderClient.o1.getPhone()+'\n'+SearchOrderClient.o1.getOrder_type()+'\n'+SearchOrderClient.o1.getAddress());
+    	LoginUI.order.accept(str);
+    	if(SearchOrderClient.o1.getOrder_num()!=Integer.parseInt(order_number_input.getText()))
+    	{
+    		search_res.setText("Order not found");
+    	}
+    	else {
+        	search_res.setText(SearchOrderClient.o1.getRestuarant()+'\n'+SearchOrderClient.o1.getOrder_time()+'\n'+SearchOrderClient.o1.getPhone()+'\n'+SearchOrderClient.o1.getOrder_type()+'\n'+SearchOrderClient.o1.getAddress());
+    	}
+    	
     }
 
 }

@@ -1,5 +1,7 @@
 package server;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +79,7 @@ public class BiteMeServer extends AbstractServer
 				case "Insert_order": insertOrder(res, client); break;
 				case "Update_order": updateOrder(res, client); break;
 				case "Search_order": searchOrder(res, client); break;
-				case "Get_connection": getConnection(client); break;
+				//case "Get_connection": getConnection(client); break;
 				case "Load_orders": loadOrders(res,client); break;
 				}
 	
@@ -102,6 +105,11 @@ public class BiteMeServer extends AbstractServer
 	    System.out.println ("Server has stopped listening for connections.");
 	  }  
 	  
+	  
+	  protected void serverClosed() {
+		  disconnectDB();
+	  }
+	  
 	  protected void sendToClient(Object msg,ConnectionToClient client)
 	  {
 		    Thread[] clientThreadList = getClientConnections();
@@ -122,8 +130,9 @@ public class BiteMeServer extends AbstractServer
 		  stmt = myCon.createStatement();
 		  int flag;
 		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (Restaurant, PhoneNumber, TypeOfOrder, OrderAddress) VALUES ('%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4]));
-			if(flag>0) sendToClient("Your Order Has Been Registered", client);
-			else sendToClient("Error saving your order", client);
+			if(flag>0) sendToClient("Insert~Your Order Has Been Registered", client);
+			else sendToClient("Insert~Error saving your order", client);
+		  stmt.close();
 	  }
 	  protected void updateOrder(String[]res,ConnectionToClient client) throws SQLException
 	  {
@@ -132,10 +141,11 @@ public class BiteMeServer extends AbstractServer
 			try {
 				stmt = myCon.createStatement();
 				flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET %s = '%s', %s = '%s' WHERE OrderNumber = %d;",res[1],res[2],res[3],res[4],Integer.parseInt(res[5])));
-				if(flag>0)	sendToClient("Updated Successfuly", client);
-				else sendToClient("Failed to update", client);
-					
+				if(flag>0)	sendToClient("Update~Updated Successfuly", client);
+				else sendToClient("Update~Failed to update", client);
+				stmt.close();	
 			} catch (SQLException e) {	e.printStackTrace();}
+			
 	  }
 	  
 	  protected void searchOrder(String[]res,ConnectionToClient client) throws SQLException
@@ -148,17 +158,19 @@ public class BiteMeServer extends AbstractServer
 			if(rs.next())
 			{
 				System.out.println("Order Found");
-				result= rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
+				result= "Search~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
 				sendToClient(result,client);
 			} 
-			else sendToClient("Order Wasnt found", client);
+			else sendToClient("Search~Order Wasnt found", client);
 			rs.close();
+			stmt.close();
 	  }
 	  
-	  protected void getConnection(ConnectionToClient client) 
-	  {
-		  Thread[] clientThreadList = getClientConnections();
 
+	  @Override
+	  protected void clientConnected(ConnectionToClient client) {
+		  Thread[] clientThreadList = getClientConnections();
+		  String connectionflag;
 		    for (int i=0; i<clientThreadList.length; i++)
 		    {
 		      try
@@ -166,7 +178,15 @@ public class BiteMeServer extends AbstractServer
 		    	  if((ConnectionToClient)clientThreadList[i]==client)
 		    	  {
 		    		  Socket s =((ConnectionToClient)clientThreadList[i]).getClientSocket();
-		    		  String msg=s.getLocalAddress()+" "+s.getLocalPort();
+		    		  if(s.isConnected()) {
+		    			  connectionflag="Client online";
+		    		  }
+		    		  else
+		    			  connectionflag="Client offline";
+		    		  
+		    		  String msg=s.getLocalAddress()+"\nHost name: "+s.getInetAddress().getLocalHost().getCanonicalHostName()+"\nConnection: "+connectionflag;
+		    		  msg=msg.substring(1);
+		    		  msg="Ip Adress: "+msg;
 		    		  ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);
 		    	  }
 		    	  
@@ -195,6 +215,8 @@ public class BiteMeServer extends AbstractServer
 				
 			}
 			sendToClient(all_orders,client);
+			stmt.close();
+			rs.close();
 	  }
 	
 }

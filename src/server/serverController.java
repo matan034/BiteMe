@@ -99,7 +99,7 @@ public class serverController {
     @FXML
     void disconnectFromDB(ActionEvent event) {
     	ServerStart.closeServer();
-    	connect_status.setText(BiteMeServer.disconnectDB());
+    	connect_status.setText("Hello Katrina");
     }
 
 }

@@ -9,10 +9,8 @@ import javafx.scene.layout.Pane;
 	import javafx.stage.Stage;
 
 	public class IndexOrderUI extends Application {
-		public static OrderClientController index; //only one instance
-		public static OrderClientController insert; //only one instance
-		public static OrderClientController search; //only one instance
-		public static OrderClientController update; //only one instance
+		//public static OrderClientController order; //only one instance
+
 	
 		
 		public static void main(String[] args) {
@@ -22,10 +20,7 @@ import javafx.scene.layout.Pane;
 			@Override
 			public void start(Stage stage) {
 				Pane pane;
-				index= new OrderClientController("localhost", 5555,0);
-				insert= new OrderClientController("localhost", 5555,1);
-				update = new OrderClientController("localhost", 5555,2);
-				search= new OrderClientController("localhost", 5555,3);
+				//order= new OrderClientController(LoginController.ip, 5555);
 
 				try {
 				    FXMLLoader loader = new FXMLLoader();

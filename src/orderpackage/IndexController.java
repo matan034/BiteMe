@@ -43,8 +43,8 @@ public class IndexController
     public static ObservableList<String> delivery_options;
     @FXML
     public void initialize() {
-       IndexOrderUI.index.accept("Get_connection");
-       status_label.setText(IndexOrderUI.index.index_client.connection_info);
+       LoginUI.order.accept("Get_connection");
+       status_label.setText(LoginUI.order.order_client.connection_info);
        delivery_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
     }
     
@@ -80,8 +80,9 @@ public class IndexController
     	try {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		Stage primaryStage = new Stage();
-		Pane root = loader.load(getClass().getResource("/gui/SearchScreen.fxml").openStream());
-	
+		Pane root;
+		loader.setLocation(getClass().getResource("/gui/SearchScreen.fxml"));
+	    root = loader.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("/gui/SearchScreenCSS.css").toExternalForm());
@@ -98,8 +99,17 @@ public class IndexController
     	
     	try {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-        UpdateOrderController aFrame = new UpdateOrderController(); // create 
-    	aFrame.start();
+    	FXMLLoader loader = new FXMLLoader();
+    	Stage primaryStage = new Stage();
+    	Pane root;
+    	loader.setLocation(getClass().getResource("/gui/updateScreen.fxml"));
+	    root = loader.load();
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/gui/updateScreenCss.css").toExternalForm());
+		primaryStage.setTitle("Update Order");
+		primaryStage.setScene(scene);
+		primaryStage.show();	
 
     	}
     	catch (Exception e) {System.out.println("update load exception");}
