@@ -133,7 +133,7 @@ public class UpdateOrderController {
     
     @FXML
     void updateOrder(ActionEvent event) {
-    	String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getPromptText()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
+    	String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
     	IndexOrderUI.update.accept(msg);
 
     	for(Order o: all_orders)
