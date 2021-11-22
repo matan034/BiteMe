@@ -64,7 +64,8 @@ public class IndexController
 		Pane root ;
 		loader.setLocation(getClass().getResource("/gui/InsertScreen.fxml"));
 	    root = loader.load();
-		Scene scene = new Scene(root);			
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("/gui/InsertCSS.css").toExternalForm());
 		primaryStage.setTitle("Insert Order");
 		primaryStage.setScene(scene);		
@@ -81,7 +82,8 @@ public class IndexController
 		Stage primaryStage = new Stage();
 		Pane root = loader.load(getClass().getResource("/gui/SearchScreen.fxml").openStream());
 	
-		Scene scene = new Scene(root);			
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("/gui/SearchScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Search Order");
 

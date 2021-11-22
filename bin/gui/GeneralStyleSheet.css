@@ -1,6 +1,8 @@
-
+.pane{
+	-fx-background:#fff;
+}
 .btn{
-    -fx-background-color: #405cf5;
+    -fx-background-color: #03a1fc;
     -fx-border-radius: 6px;
     -fx-border-width: 0;
     -fx-box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
@@ -18,5 +20,11 @@
   }
   .btn:hover {
       -fx-box-shadow:  rgba(0, 0, 0, 0.15);
-      -fx-background-color: #7294c2;
+      -fx-background-color: #0390fc;
   }
+  
+  .lbl{
+	-fx-font-weight:bold;
+	-fx-font-size:12px;
+	-fx-font-family:'sans-sarif'
+}

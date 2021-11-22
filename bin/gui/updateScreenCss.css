@@ -1,8 +1,7 @@
 
-#changescreen{
-    -fx-background: #006b95;
-}
-
-#title{
-    -fx-color: #333333; 
-}
+#cmbOrder {
+	-fx-background-color: white;
+	-fx-border-size:1px;
+	-fx-border-color:grey;
+	-fx-border-radius: 2px;
+	}

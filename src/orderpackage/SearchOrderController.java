@@ -21,26 +21,13 @@ public class SearchOrderController {
     private TextField order_number_input;
 
     @FXML
-    private TextField order_time_result;
-
-    @FXML
-    private TextField phone_result;
-
-    @FXML
-    private TextField order_type_result;
-
-    @FXML
-    private TextField order_address_result;
-
-    @FXML
-    private TextField restuarant_result;
-
-    @FXML
     private Button serach_order_btn;
 
     @FXML
     private Button back_btn;
 
+    @FXML
+    private Label search_res;
     @FXML
     void back_to_index(ActionEvent event) {
     	FXMLLoader loader = new FXMLLoader();
@@ -50,7 +37,8 @@ public class SearchOrderController {
 		Pane root ;
 		loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
 	    root = loader.load();
-		Scene scene = new Scene(root);			
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
 		primaryStage.setTitle("Insert Order");
 		primaryStage.setScene(scene);		
@@ -68,11 +56,7 @@ public class SearchOrderController {
 //    	phone_result.clear();   	need to make it work
 //    	order_type_result.clear();
 //    	order_address_result.clear();
-    	restuarant_result.setText(SearchOrderClient.o1.getRestuarant());
-    	order_time_result.setText(SearchOrderClient.o1.getOrder_time());
-    	phone_result.setText(SearchOrderClient.o1.getPhone());
-    	order_type_result.setText(SearchOrderClient.o1.getOrder_type());
-    	order_address_result.setText(SearchOrderClient.o1.getAddress());
+    	search_res.setText(SearchOrderClient.o1.getRestuarant()+'\n'+SearchOrderClient.o1.getOrder_time()+'\n'+SearchOrderClient.o1.getPhone()+'\n'+SearchOrderClient.o1.getOrder_type()+'\n'+SearchOrderClient.o1.getAddress());
     }
 
 }

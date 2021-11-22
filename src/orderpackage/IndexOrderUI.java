@@ -32,6 +32,7 @@ import javafx.scene.layout.Pane;
 				    loader.setLocation(getClass().getResource("/gui/IndexScreen.fxml"));
 				    pane = loader.load();
 					Scene scene=new Scene(pane);
+					scene.getStylesheets().add(getClass().getResource("/gui/GeneralStyleSheet.css").toExternalForm());
 					scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
 					stage.setTitle("Order");
 					stage.setScene(scene);		
