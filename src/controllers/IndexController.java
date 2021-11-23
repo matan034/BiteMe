@@ -156,7 +156,7 @@ public class IndexController
     	FXMLLoader loader = new FXMLLoader();
     	Stage primaryStage = new Stage();
     	Pane root;
-    	loader.setLocation(getClass().getResource("/ui/updateScreen.fxml"));
+    	loader.setLocation(getClass().getResource("/ui/UpdateScreen.fxml"));
 	    root = loader.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
