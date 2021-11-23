@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -57,6 +58,9 @@ public class UpdateOrderController {
 
 	    @FXML
 	    private ComboBox<String> updated_type = new ComboBox<String>(); 
+	    @FXML
+	    private Tooltip update_order_tooltip;
+
 	    private ObservableList<Order> all_orders;
 
 	
@@ -88,20 +92,60 @@ public class UpdateOrderController {
     	LoginUI.order.accept("Load_orders");
     	updated_type.setItems(IndexController.delivery_options);
     	display_table();
+    	update_order_tooltip.setText("Please choose an order from table");
     	OrderTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null)
               try {
+            	validate_update();
                 selected_order();
               } catch (Exception e) {
                 e.printStackTrace();
               }  
           });
+    	updated_address.textProperty().addListener((obs,oldValue, newValue)-> {
+	    	    if(newValue!=null)
+	    	    {
+	    	    	validate_update();
+	    	    }
+	    	});
+    	updated_type.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	validate_update();
+    	    }
+    	});
 
     }
-
     
-    void display_table(){
-        
+    void validate_update()
+    {
+    	int cnt=0;
+    	if(OrderTable.getSelectionModel().getSelectedItem()!=null) cnt++;
+    	else {
+    		update_order_tooltip.setText("Please choose an order from table");
+    	}
+    	if(updated_type.getSelectionModel().selectedItemProperty().get()==null)  update_order_tooltip.setText("You must choose delivery type");
+    	else{
+    		cnt++;
+    		if(updated_type.getSelectionModel().selectedItemProperty().get().equals("Delivery")) 
+        	{
+        		if(updated_address.getText()!="") cnt++;
+        		else {
+        			update_order_tooltip.setText("You must enter an address for delivery");
+        		}
+        	}
+    		else cnt++;
+    	}
+    	
+    	if(cnt==3)
+    	{
+    		update_btn.setDisable(false);
+    		update_order_tooltip.setText("Update chosen delivery");
+    	}
+    	else update_btn.setDisable(true);
+    }
+    
+    void display_table(){  
     	all_orders = FXCollections.observableArrayList(OrderClient.all_orders);
 		order_col.setCellValueFactory(new PropertyValueFactory<Order,Integer>("order_num"));
 		resturant_col.setCellValueFactory(new PropertyValueFactory<Order,String>("restuarant"));
@@ -121,8 +165,8 @@ public class UpdateOrderController {
     
     @FXML
     void updateOrder(ActionEvent event) {
-    	if(updated_address.getText()==null) {}
-    	if(updated_type.getSelectionModel().getSelectedItem()==null) {}
+    	 {}
+    	
     	if(OrderTable.getSelectionModel().getSelectedItem()==null) {}
     	else {
     		String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();

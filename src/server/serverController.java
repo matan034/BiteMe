@@ -1,9 +1,7 @@
 package server;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -97,8 +95,10 @@ public class serverController {
 
     @FXML
     void disconnectFromDB(ActionEvent event) {
+    	try {
     	ServerStart.closeServer();
-    	connect_status.setText("Hello Katrina");
+    	connect_status.setText("Server Disconnected Successfully");
+    	} catch(Exception e) {connect_status.setText(e.toString());}
     }
 
 }

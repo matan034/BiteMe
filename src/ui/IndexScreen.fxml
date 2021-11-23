@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -23,16 +24,24 @@
         </rowConstraints>
          <children>
             <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Insert" GridPane.rowIndex="1">
-               </Button>
+               <tooltip>
+                  <Tooltip fx:id="insert_tooltip" text="Open isnert screen" />
+               </tooltip></Button>
             <Button fx:id="update_btn" mnemonicParsing="false" onAction="#updateOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               </Button>
+               <tooltip>
+                  <Tooltip fx:id="update_tooltip" text="Open update screen" />
+               </tooltip></Button>
             <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            </Button>
+               <tooltip>
+                  <Tooltip fx:id="search_tooltip" text="Open search screen" />
+               </tooltip></Button>
             <Button fx:id="Exit_btn" mnemonicParsing="false" onAction="#exit_program" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label fx:id="title_lbl" layoutX="493.0" layoutY="172.0" text="BiteMe Prototype" />
-      <Label fx:id="status_label" layoutX="38.0" layoutY="24.0" />
+      <Label fx:id="ip_label" layoutX="42.0" layoutY="24.0" prefHeight="17.0" prefWidth="113.0" text="IP:" />
+      <Label fx:id="host_name" layoutX="42.0" layoutY="41.0" text="Host Name:" />
+      <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" text="Status:" />
    </children>
    <stylesheets>
       <URL value="@GeneralStyleSheet.css" />

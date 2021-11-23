@@ -1,4 +1,15 @@
+
+/**
+*Controller class for our login screen we use it to interact with UI events in login screen
+*@param ip string to save ip address user inputs
+*@param ip_address textfield for user to input
+*@param login_btn button for loging in
+*
+*/
+
 package controllers;
+import java.net.ConnectException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +27,24 @@ public class LoginController {
 
     @FXML
     private Button login_btn;
-
+	
+    public void initialize() {
+    	ip_address.textProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	validate_login();
+    	    }
+    	});
+    }
+    	
+    public void validate_login()
+    {
+    	if(ip_address.getText()!="") login_btn.setDisable(false);
+    	else login_btn.setDisable(true);
+    }
+	/**
+	*LoginToServer func loads our IndexScreen after user logs in to server also saves ip address in our param ip
+	*/
     @FXML
     void LoginToServer(ActionEvent event) {
     	ip=ip_address.getText();
@@ -35,6 +63,7 @@ public class LoginController {
 		primaryStage.setScene(scene);		
 		primaryStage.show();
     	}
+    	catch(ConnectException e) {System.out.println("Server is closed");}
     	catch (Exception e) {System.out.println("Index load exception");}
     	
     }

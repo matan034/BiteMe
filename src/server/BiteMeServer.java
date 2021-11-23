@@ -1,7 +1,5 @@
 package server;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Enumeration;
-
 import entity.Order;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -42,7 +36,7 @@ public class BiteMeServer extends AbstractServer
         	 }
         try 
         {
-            myCon = DriverManager.getConnection("jdbc:mysql://"+ip+"/"+db_name+"?serverTimezone=IST",db_user,db_password);
+            myCon = DriverManager.getConnection("jdbc:mysql://"+ip+"/"+db_name+"?serverTimezone=IST&useSSL=false",db_user,db_password);
            return "SQL connection succeed";
      	} catch (SQLException ex) 
      	    {/* handle any errors*/
@@ -53,9 +47,9 @@ public class BiteMeServer extends AbstractServer
 	{
 		try {
 		myCon.close();
-		return "Disconnected Successfuly";
+		return "SQL Disconnected Successfuly";
 		}
-		catch(Exception e) {return "Couldn't disconnect from server";}
+		catch(Exception e) {return "Couldn't disconnect from SQL";}
 	}
 	
 	
@@ -101,12 +95,15 @@ public class BiteMeServer extends AbstractServer
 	   * when the server stops listening for connections.
 	   */
 	  protected void serverStopped()  {
+		
 	    System.out.println ("Server has stopped listening for connections.");
+	    
+	    System.out.println( disconnectDB());
 	  }  
 	  
 	  
 	  protected void serverClosed() {
-		  disconnectDB();
+		
 	  }
 	  
 	  protected void sendToClient(Object msg,ConnectionToClient client)
@@ -188,7 +185,7 @@ public class BiteMeServer extends AbstractServer
 		    		  else
 		    			  connectionflag="Client offline";
 		    		  
-		    		  String msg=s.getLocalAddress()+"\nHost name: "+s.getInetAddress().getLocalHost().getCanonicalHostName()+"\nConnection: "+connectionflag;
+		    		  String msg=s.getLocalAddress()+"~Host name: "+s.getInetAddress().getLocalHost().getCanonicalHostName()+"~Connection: "+connectionflag;
 		    		  msg=msg.substring(1);
 		    		  msg="IP~Ip Adress: "+msg;
 		    		  ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);

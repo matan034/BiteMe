@@ -1,24 +1,32 @@
 package clients;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.Observable;
 
+import controllers.IndexController;
 import entity.Order;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ocsf.client.AbstractClient;
 
 public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;
-	public static String connection_info;
+	public static String connection_ip="",connection_host="",connection_status="";
 	public static ArrayList<Order> all_orders=new ArrayList<Order>();
-	public static String update_msg;
+	public static String update_msg,insert_msg;
 	public static Order found_order = new Order(null,null,null,null);
+	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
 	public OrderClient(String host, int port) throws IOException {
 		super(host, port);
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * Overridden func for handling messages from server
+	 * @param msg. Msg received from server. The msg is constructed with ~. We split according to ~ to enter correct switch case to update the correct variable with our message*/
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		System.out.println("Msg: "+msg +" recieved");
@@ -27,17 +35,18 @@ public class OrderClient extends AbstractClient {
 			all_orders = ((ArrayList<Order>)msg);//details from db
 		}
 		else {
-			String [] res = ((String)msg).split("~");//details from db
+			String [] res = ((String)msg).split("~");
 			switch(res[0]) {
-			case "Index":
-				connection_info= (String)msg;
+			case "Server Offline":
+				connection_info.set(2, res[0]);
 				break;
-			case "Insert":
+			case "Insert"://update our msg variable we use in our controller to set our label to know if order has been updated correctly
+				insert_msg=res[1];
 				break;
-			case "Update":
-				update_msg= (String)msg;
+			case "Update"://update our msg variable we use in our controller to set our label to know if order has been updated correctly
+				update_msg= res[1];
 				break;
-			case "Search":
+			case "Search"://update found_order that we later use to update label in controller with our found order from DB
 				if(res.length>1)
 				{
 					found_order.setRestuarant(res[1]);//need to insert to order
@@ -49,11 +58,15 @@ public class OrderClient extends AbstractClient {
 				}
 				else {System.out.println("Order wasn't found");}
 				break;
-			case "IP":
-				connection_info=res[1];
+			case "IP"://update connection info, we use this variable in our controller to set our label
+				connection_info.set(0,res[1]);
+				connection_info.set(1,res[2]);
+				connection_info.set(2,res[3]);
 			}
 		}	
 	}
+	/**
+	*func for closing our client*/
 	public void quit()
 	  {
 	    try
@@ -86,13 +99,14 @@ public class OrderClient extends AbstractClient {
 				}
 			}
 	    }
-	    catch(IOException e)
+	    catch(Exception e)
 	    {
-	    	e.printStackTrace();
+	    	//e.printStackTrace();
 	      //IndexOrderUI.display("Could not send message to server: Terminating client."+ e);
 	    	System.out.println("Could not send message to server: Terminating client." + e);
 	      quit();
 	    }
 	  }
+	  
 
 }

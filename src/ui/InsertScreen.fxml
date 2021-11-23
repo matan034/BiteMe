@@ -34,7 +34,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="rest_info" prefHeight="25.0" prefWidth="208.0" promptText="Ex .Tel aviv" GridPane.columnIndex="1" />
+            <TextField fx:id="rest_info" prefHeight="25.0" prefWidth="208.0" promptText="Ex. Mcdonalds - Haifa" GridPane.columnIndex="1" />
             <Label styleClass="lbl" text="Restaurant" textFill="#333333">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -60,12 +60,13 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="address_info" promptText="Ex. Haifa Hashalom 16" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button id="insert_btn" fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" prefHeight="25.0" prefWidth="80.0" styleClass="btn" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button id="insert_btn" fx:id="insert_btn" disable="true" mnemonicParsing="false" onAction="#insertOrder" prefHeight="25.0" prefWidth="80.0" styleClass="btn" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <ComboBox id="cmb" fx:id="type_order_info" prefHeight="25.0" prefWidth="188.0" promptText="Take-Away" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox id="cmb" fx:id="type_order_info" prefHeight="25.0" prefWidth="188.0" promptText="Choose Delivery Type" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="insert_result" minWidth="-Infinity" prefHeight="17.0" prefWidth="129.0" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

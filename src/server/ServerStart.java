@@ -51,6 +51,7 @@ public class ServerStart extends Application {
 	{
 		try 
         {
+			sv.sendToAllClients("Server Offline");
           sv.close(); //stop listenning for connections
         } 
         catch (Exception ex) 

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -30,9 +31,12 @@
       <Button fx:id="back_btn" layoutX="594.0" layoutY="743.0" mnemonicParsing="false" onAction="#back_to_index" prefHeight="25.0" prefWidth="85.0" styleClass="btn" text="Back" />
       <Label layoutX="422.0" layoutY="611.0" styleClass="lbl" text="Order Address" />
       <Label layoutX="431.0" layoutY="662.0" styleClass="lbl" text="Order Type" />
-      <ComboBox id="cmbOrder" fx:id="updated_type" layoutX="565.0" layoutY="658.0" prefWidth="150.0" promptText="Take-Away" />
+      <ComboBox id="cmbOrder" fx:id="updated_type" layoutX="565.0" layoutY="658.0" prefWidth="150.0" promptText="Choose Delivery Type" />
       <TextField fx:id="updated_address" layoutX="565.0" layoutY="607.0" promptText="Ex. Hertzel 16" />
-      <Button fx:id="update_btn" layoutX="741.0" layoutY="632.0" mnemonicParsing="false" onAction="#updateOrder" prefHeight="25.0" prefWidth="125.0" styleClass="btn" text="Update Order" />
+      <Button fx:id="update_btn" disable="true" layoutX="741.0" layoutY="632.0" mnemonicParsing="false" onAction="#updateOrder" prefHeight="25.0" prefWidth="125.0" styleClass="btn" text="Update Order">
+         <tooltip>
+            <Tooltip fx:id="update_order_tooltip" />
+         </tooltip></Button>
       <Label fx:id="selected_order" layoutX="411.0" layoutY="546.0" prefHeight="17.0" prefWidth="456.0" />
    </children>
    <stylesheets>
