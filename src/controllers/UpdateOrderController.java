@@ -62,7 +62,7 @@ public class UpdateOrderController {
 	    private Tooltip update_order_tooltip;
 
 	    private ObservableList<Order> all_orders;
-
+	    private final int max_line_size = 45;
 	
     @FXML
     private Button back_btn;
@@ -129,12 +129,18 @@ public class UpdateOrderController {
     		cnt++;
     		if(updated_type.getSelectionModel().selectedItemProperty().get().equals("Delivery")) 
         	{
-        		if(updated_address.getText()!="") cnt++;
+    			updated_address.setDisable(false);
+        		if(updated_address.getText()!=""&&updated_address.getText().length()<max_line_size) cnt++;
         		else {
         			update_order_tooltip.setText("You must enter an address for delivery");
         		}
         	}
-    		else cnt++;
+    		else {
+    			updated_address.setDisable(true);
+    			updated_address.clear();
+    			cnt++;
+    			
+    		}
     	}
     	
     	if(cnt==3)
@@ -165,7 +171,7 @@ public class UpdateOrderController {
     
     @FXML
     void updateOrder(ActionEvent event) {
-    	 {}
+    	
     	
     	if(OrderTable.getSelectionModel().getSelectedItem()==null) {}
     	else {
@@ -175,8 +181,10 @@ public class UpdateOrderController {
     		for(Order o: all_orders)
     		{
     			if(o.getOrder_num()==OrderTable.getSelectionModel().getSelectedItem().getOrder_num())
+    			{
     				o.setAddress(updated_address.getText());
     				o.setOrder_type(updated_type.getSelectionModel().getSelectedItem());
+    			}
     		}
     		OrderTable.refresh();
     		updated_address.clear();

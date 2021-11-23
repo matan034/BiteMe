@@ -18,7 +18,6 @@ import javax.swing.event.ChangeListener;
 
 import clients.LoginUI;
 import clients.OrderClient;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,7 +57,7 @@ public class InsertController {
 	    private Button back_btn;
 	    @FXML
 	    private Label insert_result;
-	   
+	   private final int max_line_size = 20;
 	   /**
 	   *on InsertController creation create event listeners to count if all input fields have been inserted, if yes we unlock insert button if no insert button remains locked*/
 	    @FXML
@@ -87,6 +84,7 @@ public class InsertController {
 	    	type_order_info.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
 	    	    if(newValue!=null)
 	    	    {
+	    	    	set_address_bar();
 	    	    	validate_insert();
 	    	    }
 	    	});
@@ -113,24 +111,94 @@ public class InsertController {
 	    	catch (Exception e) {System.out.println("insert load exception");}
 	    }
 
+	    void set_address_bar()
+	    {
+	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
+	    	else
+	    	{
+	    		if(!type_order_info.getSelectionModel().selectedItemProperty().get().equals("Delivery"))
+				{
+					address_info.clear();
+					address_info.setDisable(true); 
+				}
+				else
+				{
+					address_info.setDisable(false);
+				}
+	    	}
+	    }
+	    	
 	/**
 	*validate_insert function used to check if user has inputted text if our cnt reaches 4(all details we need) we can enable the button, if not we disable the button
 	*/
 	    void validate_insert() {
 	    	int cnt=0;
-	    	if(rest_info.getText()!="") cnt++;
-	    	if(phone_info.getText()!="") cnt++;
-	    	if(address_info.getText()!="") cnt++;
-	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()!=null) cnt++;
-	    	if(cnt==4) insert_btn.setDisable(false); 
-	    	else insert_btn.setDisable(true); 
+//	    	if(rest_info.getText()!="" && rest_info.getText().length()<max_line_size) cnt++;
+//	    	if(phone_info.getText()!=""&& phone_info.getText().length()<max_line_size) cnt++;
+//	    	if(address_info.getText()!=""&& address_info.getText().length()<max_line_size) cnt++;
+//	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
+//	    	else {
+//	    		cnt++;
+//	    		if(!type_order_info.getSelectionModel().selectedItemProperty().get().equals("Delivery"))
+//		    	{		
+//	    			cnt--;
+//		    		address_info.clear();
+//		    		address_info.setDisable(true);
+//		    		if(cnt==3) insert_btn.setDisable(false); 
+//			    	else insert_btn.setDisable(true); 
+//		    	}
+//		    	else
+//		    	{
+//		    		
+//		    		address_info.setDisable(false);
+//		    		if(cnt==4) insert_btn.setDisable(false); 
+//			    	else insert_btn.setDisable(true); 
+//		    	}
+//	    	}
+	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
+	    	else {
+	    			if(rest_info.getText()!="" && rest_info.getText().length()<max_line_size)
+	    			{
+	    				if(phone_info.getText()!=""&& phone_info.getText().length()<max_line_size) 
+	    				{
+	    					if(!type_order_info.getSelectionModel().selectedItemProperty().get().equals("Delivery"))
+	    					{
+
+	    						insert_btn.setDisable(false); 
+	    					}
+	    					else
+	    					{
+	    						if(address_info.getText()!=""&& address_info.getText().length()<max_line_size)
+	    						{
+	    							insert_btn.setDisable(false); 
+	    						}
+	    						else
+	    						{
+	    							insert_btn.setDisable(true); 
+	    						}
+	    					}
+	    					
+	    				}
+	    				else {
+	    					insert_btn.setDisable(true); 
+	    				}
+	    			}
+	    			else {
+	    				insert_btn.setDisable(true); 
+	    			}
+	    		}    	
 	    }
 	/**
 	*insertOrder function used to send the insert info to server, server inserts order to DB if successfull returns success msg if not returns fail msg 
 	*/
     @FXML
     void insertOrder(ActionEvent event) {
-    		String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getSelectionModel().selectedItemProperty()+"~"+address_info.getText();
+    	String suffix="-";
+    	if(address_info.getText()!="")
+    	{
+    		suffix=address_info.getText();
+    	}
+    		String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getSelectionModel().selectedItemProperty().get()+"~"+suffix;
     		LoginUI.order.accept(str);
     		insert_result.setText(OrderClient.insert_msg);
     }
