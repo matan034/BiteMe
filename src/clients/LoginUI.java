@@ -26,7 +26,7 @@ public class LoginUI extends Application{
 	*@param stage is our stage where we set our screen to display*/
 	public void start(Stage stage) {
 		Pane pane;
-		order= new OrderClientController(LoginController.ip, 5555);
+		
 		try {
 		    FXMLLoader loader = new FXMLLoader();
 		    loader.setLocation(getClass().getResource("/ui/LoginScreen.fxml"));

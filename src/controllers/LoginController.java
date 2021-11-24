@@ -10,6 +10,7 @@
 package controllers;
 import java.net.ConnectException;
 
+import clients.LoginUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +49,7 @@ public class LoginController {
     @FXML
     void LoginToServer(ActionEvent event) {
     	ip=ip_address.getText();
-    	
+    	LoginUI.order= new OrderClientController(ip, 5555);
     	FXMLLoader loader = new FXMLLoader();
     	try {
     	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window

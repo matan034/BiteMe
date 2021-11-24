@@ -1,6 +1,6 @@
 /clients/
-/fxml/
-/server/
 /controllers/
-/css/
+/entity/
+/ocsf/
+/server/
 /ui/

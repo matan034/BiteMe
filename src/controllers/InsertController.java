@@ -157,9 +157,9 @@ public class InsertController {
 //	    	}
 	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
 	    	else {
-	    			if(rest_info.getText()!="" && rest_info.getText().length()<max_line_size)
+	    			if(!rest_info.getText().trim().isEmpty() && rest_info.getText().length()<max_line_size)
 	    			{
-	    				if(phone_info.getText()!=""&& phone_info.getText().length()<max_line_size) 
+	    				if(!phone_info.getText().trim().isEmpty()&& phone_info.getText().length()<max_line_size) 
 	    				{
 	    					if(!type_order_info.getSelectionModel().selectedItemProperty().get().equals("Delivery"))
 	    					{
@@ -168,7 +168,7 @@ public class InsertController {
 	    					}
 	    					else
 	    					{
-	    						if(address_info.getText()!=""&& address_info.getText().length()<max_line_size)
+	    						if(!address_info.getText().trim().isEmpty()&& address_info.getText().length()<max_line_size)
 	    						{
 	    							insert_btn.setDisable(false); 
 	    						}
@@ -194,7 +194,7 @@ public class InsertController {
     @FXML
     void insertOrder(ActionEvent event) {
     	String suffix="-";
-    	if(address_info.getText()!="")
+    	if(!address_info.getText().trim().isEmpty())
     	{
     		suffix=address_info.getText();
     	}

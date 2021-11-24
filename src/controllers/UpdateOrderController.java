@@ -130,7 +130,7 @@ public class UpdateOrderController {
     		if(updated_type.getSelectionModel().selectedItemProperty().get().equals("Delivery")) 
         	{
     			updated_address.setDisable(false);
-        		if(updated_address.getText()!=""&&updated_address.getText().length()<max_line_size) cnt++;
+        		if(!updated_address.getText().trim().isEmpty()&&updated_address.getText().length()<max_line_size) cnt++;
         		else {
         			update_order_tooltip.setText("You must enter an address for delivery");
         		}
@@ -175,7 +175,12 @@ public class UpdateOrderController {
     	
     	if(OrderTable.getSelectionModel().getSelectedItem()==null) {}
     	else {
-    		String msg = "Update_order~"+"OrderAddress~"+updated_address.getText()+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
+    		String suffix="-";
+        	if(!updated_address.getText().trim().isEmpty())
+        	{
+        		suffix=updated_address.getText();
+        	}
+    		String msg = "Update_order~"+"OrderAddress~"+suffix+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
     		LoginUI.order.accept(msg);
 
     		for(Order o: all_orders)

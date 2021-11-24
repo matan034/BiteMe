@@ -40,7 +40,7 @@
             <Button fx:id="disconnect_btn" mnemonicParsing="false" onAction="#disconnectFromDB" text="Disconnect" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Button fx:id="close_btn" mnemonicParsing="false" onAction="#close_window" text="Close" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="connect_status" text="    " GridPane.rowIndex="5" />
-            <PasswordField fx:id="db_pass_input" text="M220794w!" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="db_pass_input" text="Aa123456" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

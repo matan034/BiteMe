@@ -39,9 +39,9 @@
          </children>
       </GridPane>
       <Label fx:id="title_lbl" layoutX="493.0" layoutY="172.0" text="BiteMe Prototype" />
-      <Label fx:id="ip_label" layoutX="42.0" layoutY="24.0" prefHeight="17.0" prefWidth="113.0" text="IP:" />
-      <Label fx:id="host_name" layoutX="42.0" layoutY="41.0" text="Host Name:" />
-      <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" text="Status:" />
+      <Label fx:id="ip_label" layoutX="42.0" layoutY="24.0" prefHeight="17.0" prefWidth="269.0" text="IP:" />
+      <Label fx:id="host_name" layoutX="42.0" layoutY="41.0" prefHeight="17.0" prefWidth="292.0" text="Host Name:" />
+      <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" prefHeight="17.0" prefWidth="345.0" text="Status:" />
    </children>
    <stylesheets>
       <URL value="@GeneralStyleSheet.css" />
