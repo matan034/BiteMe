@@ -11,6 +11,7 @@ package controllers;
 
 import clients.LoginUI;
 import clients.OrderClient;
+import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,21 +61,8 @@ public class SearchOrderController {
     */
     @FXML
     void back_to_index(ActionEvent event) {
-    	FXMLLoader loader = new FXMLLoader();
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root ;
-		loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		//scene.getStylesheets().add(getClass().getResource("/gui/IndexScreenCSS.css").toExternalForm());
-		primaryStage.setTitle("Insert Order");
-		primaryStage.setScene(scene);		
-		primaryStage.show();
-    	}
-    	catch (Exception e) {System.out.println("insert load exception");}
+
+    	Globals.loadFXML(null, Globals.indexFXML, event);
     }
 	 /**
     *searchOrder func activates on search button press event and loads the order if it is found else displays order not found

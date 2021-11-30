@@ -11,6 +11,7 @@ package controllers;
 import java.net.ConnectException;
 
 import clients.LoginUI;
+import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,22 +51,7 @@ public class LoginController {
     void LoginToServer(ActionEvent event) {
     	ip=ip_address.getText();
     	LoginUI.order= new OrderClientController(ip, 5555);
-    	FXMLLoader loader = new FXMLLoader();
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root ;
-		loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		//scene.getStylesheets().add(getClass().getResource("/gui/IndexScreen.css").toExternalForm());
-		primaryStage.setTitle("Index");
-		primaryStage.setScene(scene);		
-		primaryStage.show();
-    	}
-    	catch(ConnectException e) {System.out.println("Server is closed");}
-    	catch (Exception e) {System.out.println("Index load exception");}
-    	
+
+    	Globals.loadFXML(null, "/order/IndexScreen.fxml", event);
     }
 }

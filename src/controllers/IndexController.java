@@ -2,6 +2,7 @@ package controllers;
 
 import clients.LoginUI;
 import clients.OrderClient;
+import common.Globals;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -105,21 +106,8 @@ public class IndexController
 	*/
     @FXML
     void insertOrder(ActionEvent event) {
-    	FXMLLoader loader = new FXMLLoader();
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root ;
-		loader.setLocation(getClass().getResource("/ui/InsertScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/ui/InsertCSS.css").toExternalForm());
-		primaryStage.setTitle("Insert Order");
-		primaryStage.setScene(scene);		
-		primaryStage.show();
-    	}
-    	catch (Exception e) {System.out.println("insert load exception");}
+
+    	Globals.loadFXML(null, Globals.insertFXML, event);
     }
 	/**
 	* this func enters the search screen,displaying its UI and closes the index screen
@@ -127,22 +115,8 @@ public class IndexController
 	*/
     @FXML
     void searchOrder(ActionEvent event) {
-    	FXMLLoader loader = new FXMLLoader();
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root;
-		loader.setLocation(getClass().getResource("/ui/SearchScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/ui/SearchScreenCSS.css").toExternalForm());
-		primaryStage.setTitle("Search Order");
 
-		primaryStage.setScene(scene);		
-		primaryStage.show();
-    	}
-    	catch (Exception e) {System.out.println(e+"search load exception");}
+    	Globals.loadFXML(null, Globals.searchFXML, event);
     }
 	/**
 	* this func enters the update screen,displaying its UI and closes the index screen
@@ -151,22 +125,8 @@ public class IndexController
     @FXML
     void updateOrder(ActionEvent event) {
     	
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-    	FXMLLoader loader = new FXMLLoader();
-    	Stage primaryStage = new Stage();
-    	Pane root;
-    	loader.setLocation(getClass().getResource("/ui/UpdateScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/ui/updateScreenCss.css").toExternalForm());
-		primaryStage.setTitle("Update Order");
-		primaryStage.setScene(scene);
-		primaryStage.show();	
 
-    	}
-    	catch (Exception e) {System.out.println("update load exception");}
+    	Globals.loadFXML(null, Globals.updateFxml, event);
     }
 
 }

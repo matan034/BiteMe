@@ -4,6 +4,7 @@ package controllers;
 
 import clients.LoginUI;
 import clients.OrderClient;
+import common.Globals;
 import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,21 +70,8 @@ public class UpdateOrderController {
 
     @FXML
     void back_to_index(ActionEvent event) {
-    	FXMLLoader loader = new FXMLLoader();
-    	try {
-    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-		Stage primaryStage = new Stage();
-		Pane root ;
-		loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
-	    root = loader.load();
-		Scene scene = new Scene(root);			
-		scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-		primaryStage.setTitle("Order");
-		primaryStage.setScene(scene);		
-		primaryStage.show();
-		
-    	}
-    	catch (Exception e) {System.out.println("insert load exception");}
+
+    	Globals.loadFXML(null, Globals.indexFXML, event);
     }
     
     

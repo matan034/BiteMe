@@ -1,4 +1,5 @@
 package server;
+import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,12 +61,8 @@ public class serverController {
 	
 
 	public void start(Stage primaryStage) throws Exception {	
-		Parent root = FXMLLoader.load(getClass().getResource("/ui/serverFXML.fxml"));		
-		Scene scene = new Scene(root);
-		//scene.getStylesheets().add(getClass().getResource("/gui/ServerPort.css").toExternalForm());
-		primaryStage.setTitle("Server");
-		primaryStage.setScene(scene);
-		primaryStage.show();		
+	
+		Globals.loadFXML(primaryStage, Globals.serverFXML, null);
 	}
     @FXML
     void close_window(ActionEvent event) {
