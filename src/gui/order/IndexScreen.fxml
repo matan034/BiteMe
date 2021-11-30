@@ -44,7 +44,6 @@
       <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" prefHeight="17.0" prefWidth="345.0" text="Status:" />
    </children>
    <stylesheets>
-      <URL value="@GeneralStyleSheet.css" />
-      <URL value="@indexScreenCSS.css" />
+      <URL value="@/general/GeneralStyleSheet.css" />
    </stylesheets>
 </Pane>

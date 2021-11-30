@@ -40,7 +40,6 @@
       <Label fx:id="selected_order" layoutX="411.0" layoutY="546.0" prefHeight="17.0" prefWidth="456.0" />
    </children>
    <stylesheets>
-      <URL value="@GeneralStyleSheet.css" />
-      <URL value="@updateScreenCss.css" />
+      <URL value="@/general/GeneralStyleSheet.css" />
    </stylesheets>
 </Pane>

@@ -71,7 +71,6 @@
       </GridPane>
    </children>
    <stylesheets>
-      <URL value="@GeneralStyleSheet.css" />
-      <URL value="@InsertCSS.css" />
+      <URL value="@/general/GeneralStyleSheet.css" />
    </stylesheets>
 </Pane>

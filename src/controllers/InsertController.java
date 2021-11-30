@@ -18,6 +18,7 @@ import javax.swing.event.ChangeListener;
 
 import clients.LoginUI;
 import clients.OrderClient;
+import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,20 +96,8 @@ public class InsertController {
 	    */
 	    @FXML
 	    void back_to_index(ActionEvent event) {
-	    	FXMLLoader loader = new FXMLLoader();
-	    	try {
-	    	((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
-			Stage primaryStage = new Stage();
-			Pane root ;
-			loader.setLocation(getClass().getResource("/ui/IndexScreen.fxml"));
-		    root = loader.load();
-			Scene scene = new Scene(root);			
-			scene.getStylesheets().add(getClass().getResource("/ui/GeneralStyleSheet.css").toExternalForm());
-			primaryStage.setTitle("Order");
-			primaryStage.setScene(scene);		
-			primaryStage.show();
-	    	}
-	    	catch (Exception e) {System.out.println("insert load exception");}
+
+	    	Globals.loadFXML(null, Globals.indexFXML, event);
 	    }
 
 	    void set_address_bar()
