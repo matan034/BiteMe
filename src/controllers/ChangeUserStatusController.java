@@ -1,6 +1,7 @@
 package controllers;
-import clients.LoginUI;
+
 import clients.OrderClient;
+import clients.StartClient;
 import entity.Order;
 import entity.User;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class ChangeUserStatusController {
     private ObservableList<User> all_users;
     public void initialize()
     {
-    	LoginUI.order.accept("Load_users");
+    	StartClient.order.accept("Load_users");
     	display_table();
 
     }

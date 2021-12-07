@@ -2,8 +2,8 @@ package entity;
 
 public class Account {
 	
-	private String FirstName,LastName,ID,Telephone,Email,w4cNum;
-	private int Balance=0;
+	private String FirstName,LastName,ID,Telephone,Email;
+	private int Balance=0,w4cNum,accountNum;
 
 	public Account(String FirstName,String LastName,String ID,String Telephone,String Email) {
 		this.FirstName=FirstName;
@@ -21,10 +21,16 @@ public class Account {
 	}
 
 	
-	public String getW4cNum() {
+	public int getAccountNum() {
+		return accountNum;
+	}
+	public void setAccountNum(int accountNum) {
+		this.accountNum = accountNum;
+	}
+	public int getW4cNum() {
 		return w4cNum;
 	}
-	public void setW4cNum(String w4cNum) {
+	public void setW4cNum(int w4cNum) {
 		this.w4cNum = w4cNum;
 	}
 	public int getBalance() {

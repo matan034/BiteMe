@@ -1,6 +1,7 @@
 package controllers;
-import clients.LoginUI;
+
 import clients.OrderClient;
+import clients.StartClient;
 import entity.Employer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class RegNewEmployerController {
     		
     	
     	Employer employer=new Employer(name_lbl.getText(),address_lbl.getText(),number_lbl.getText());
-    	LoginUI.order.accept("Reg_employer~"+employer.toString());
+    	StartClient.order.accept("Reg_employer~"+employer.toString());
     	res_lbl.setText(OrderClient.employer_reg_msg);
     }
 

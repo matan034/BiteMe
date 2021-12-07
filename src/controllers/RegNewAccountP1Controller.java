@@ -3,8 +3,9 @@ package controllers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import clients.LoginUI;
+
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
 import entity.Account;
 import javafx.event.ActionEvent;
@@ -98,7 +99,7 @@ public class RegNewAccountP1Controller {
     		flag=false;
     	}
     	if(flag==true) {
-           	LoginUI.order.accept("Check_account_input~"+new_account.toString());
+           	StartClient.order.accept("Check_account_input~"+new_account.toString());
            	if(OrderClient.account_reg_errors.get("Errors")==false) {//no errors found in input
            		return flag;
            	}

@@ -1,7 +1,8 @@
 package controllers;
 
-import clients.LoginUI;
+
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
 import entity.BusinessAccount;
 import entity.PrivateAccount;
@@ -68,10 +69,10 @@ public class RegNewAccountP2Controller {
 	    	
 	    	}
 	    	if(pAccount!=null) {
-	    		LoginUI.order.accept(pAccount.toString());
+	    		StartClient.order.accept(pAccount.toString());
 	    	}
 	    	if(bAccount!=null) {
-	    		LoginUI.order.accept(bAccount.toString());
+	    		StartClient.order.accept(bAccount.toString());
 	    	}
 	    	if(employer_name_lbl.getText().trim().isEmpty() && cc_lbl.getText().trim().isEmpty())//user didn't input anything in textfields
 	    	{
@@ -81,7 +82,7 @@ public class RegNewAccountP2Controller {
 	    }
 	   private boolean CheckEmployer(String employer_name) {
 		   employer_name_error_lbl.setText("");
-		   LoginUI.order.accept("Check_employer~"+employer_name);
+		   StartClient.order.accept("Check_employer~"+employer_name);
 		   
 		   if(OrderClient.employer_reg_errors.get("Errors")==false) {//no errors found in input
           		return true;
