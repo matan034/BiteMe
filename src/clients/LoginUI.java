@@ -27,19 +27,7 @@ public class LoginUI extends Application{
 	*start func loads our fxml onto a stage and displays it
 	*@param stage is our stage where we set our screen to display*/
 	public void start(Stage stage) {
-//		Pane pane;
-//		try {
-//		    FXMLLoader loader = new FXMLLoader();
-//		    loader.setLocation(getClass().getResource("/general/LoginScreen.fxml"));
-//		    pane = loader.load();
-//			Scene scene=new Scene(pane);
-//			stage.setTitle("Login");
-//			stage.setScene(scene);		
-//			stage.show();
-//		} catch (IOException e) {
-//		    e.printStackTrace();
-//		    return;
-//		}
+
 		Globals.loadFXML(stage,Globals.loginFXML , null);
 	}
 }

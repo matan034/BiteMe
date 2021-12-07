@@ -1,2 +1,8 @@
-/order/
+/clients/
+/common/
 /controllers/
+/entity/
+/general/
+/ocsf/
+/order/
+/server/

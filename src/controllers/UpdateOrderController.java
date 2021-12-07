@@ -140,7 +140,7 @@ public class UpdateOrderController {
     }
     
     void display_table(){  
-    	all_orders = FXCollections.observableArrayList(OrderClient.all_orders);
+    	//all_orders = FXCollections.observableArrayList(OrderClient.all_orders);
 		order_col.setCellValueFactory(new PropertyValueFactory<Order,Integer>("order_num"));
 		resturant_col.setCellValueFactory(new PropertyValueFactory<Order,String>("restuarant"));
 		order_type_col.setCellValueFactory(new PropertyValueFactory<Order,String>("order_type"));

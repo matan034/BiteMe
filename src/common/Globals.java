@@ -2,6 +2,7 @@ package common;
 
 import java.io.IOException;
 
+import controllers.RegNewAccountP1Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,7 +16,12 @@ public class Globals {
 			updateFxml="/order/UpdateScreen.fxml",
 			indexFXML="/order/IndexScreen.fxml",
 			serverFXML="/server/serverFXML.fxml",
-			loginFXML="/general/LoginScreen.fxml";
+			loginFXML="/general/LoginScreen.fxml",
+			userloginFXML="/general/UserLoginScreen.fxml",
+			regnewaccountp1FXML="/general/RegNewAccountP1Screen.fxml",
+			regnewaccountp2FXML="/general/RegNewAccountP2Screen.fxml",
+			regnewemployerFXML="/general/RegNewEmployerScreen.fxml",
+			changeuserstatusFXML="/general/ChangeUserStatusScreen.fxml";
 	
 	public static void loadFXML(Stage stage,String fxml_name,ActionEvent event)
 	{
@@ -31,6 +37,7 @@ public class Globals {
 		    loader.setLocation(Globals.class.getResource(fxml_name));
 		    pane = loader.load();
 			Scene scene=new Scene(pane);
+				 
 			stage.setTitle("Login");
 			stage.setScene(scene);		
 			stage.show();

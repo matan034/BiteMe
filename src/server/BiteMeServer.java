@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import entity.Order;
+import entity.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -73,7 +74,13 @@ public class BiteMeServer extends AbstractServer
 				case "Update_order": updateOrder(res, client); break;
 				case "Search_order": searchOrder(res, client); break;
 				case "Get_connection": getClientInfo(client); break;
-				case "Load_orders": loadOrders(res,client); break;
+				case "Load_users": loadUsers(res,client); break;
+				case "User_login":userLogin(res,client);break;
+				case "Business_account":privateOrBusinessAccountReg(res,client);break;
+				case "Private_account":privateOrBusinessAccountReg(res,client);break;
+				case "Check_account_input":checkAccountInput(res,client);break;
+				case "Check_employer":checkEmployer(res,client);break;
+				case "Reg_employer":regEmployer(res,client);break;
 				}
 	
 
@@ -120,6 +127,132 @@ public class BiteMeServer extends AbstractServer
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
 		  }
+	  
+	  protected void regEmployer(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  int flag;
+		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.employer (Name, Address, Telephone) VALUES ('%s', '%s', '%s');",res[1],res[2],res[3]));
+			if(flag>0) sendToClient("Employer Register~Employer Has Been Registered", client);
+			else sendToClient("Employer Register ~Error Registering Employer", client);
+		  stmt.close();
+	  }
+	  
+	  protected void checkEmployer(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  String result="Check Employer Input~";
+		  ResultSet rs;
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.employer WHERE Name='%s'",res[1]));
+		  if (rs.isBeforeFirst()) {//check if we got a result
+			  result+="Name~";
+			  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.employer WHERE Name='%s' AND  IsApproved=%d",res[1],1));
+			  if (rs.isBeforeFirst()) {//check if we got a result
+				  result+="Approved~";
+			  }
+			  else
+				  result+="NoApproved~";
+		  }
+		  else {
+			  result+="NoName~";
+			  result+="NoApproved~";
+		  }
+			 
+		  
+		
+		  sendToClient(result,client);
+		  rs.close();
+		  stmt.close();
+	  }
+	  
+	  protected void checkAccountInput(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  String result="Check Account Input~";
+		  ResultSet rs;
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE ID='%s'",res[3]));
+		  if (rs.isBeforeFirst()) {//check if we got a result
+			  result+="ID~";
+		  }
+		  else
+			  result+="NoIDError~";
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE Telephone='%s'",res[4]));
+		  if (rs.isBeforeFirst()) {//check if we got a result
+			  result+="Telephone~";
+		  }
+		  else
+			  result+="NoTelephoneError~";
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE Email='%s'",res[5]));
+		  if (rs.isBeforeFirst()) {//check if we got a result
+			  result+="Email";
+		  }
+		  else
+			  result+="NoEmailError";
+		  sendToClient(result,client);
+		  rs.close();
+		  stmt.close();
+		  
+	  }
+	  protected int accountReg(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  int flag;
+		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.account (FirstName, LastName,ID, Telephone,Email) VALUES ('%s', '%s', '%s', '%s', '%s');",res[1],res[2],res[3],res[4],res[5]));
+			if(flag>0) {stmt.close();return 1;}
+			else {stmt.close();return 0;}
+	  }
+	  
+	  protected void privateOrBusinessAccountReg(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  int flagAccountReg=1,flagReg=0;
+		  ResultSet rs;
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE ID='%s'",res[3]));
+		  if (!rs.isBeforeFirst()) {//check if we need to create an account first
+			  flagAccountReg=accountReg(res,client);
+		  }  
+		 
+		  if(flagAccountReg==1)//account created successfully
+		  {
+			  if(res[0].equals("Private_account")) {
+			  flagReg=stmt.executeUpdate(String.format("INSERT INTO biteme.privateaccount (AccountNum, CreditCardNumber) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),'%s');"
+					  							,res[3],res[6]));}
+			  else//business_account
+				  flagReg=stmt.executeUpdate(String.format("INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');"
+							,res[3],res[6],Integer.parseInt(res[7])));
+			 
+			  if(flagReg>0) {
+				  sendToClient("New Account~Created Succesfully",client);
+			  }
+			  else sendToClient("New Account~Failed business account creation", client);
+		  }
+		  else sendToClient("New Account~Failed new account creation", client);
+		  rs.close();
+		  stmt.close();
+	  }
+
+	  protected void userLogin(String []res,ConnectionToClient client) throws SQLException{
+		  String result;
+		Statement stmt = myCon.createStatement(
+                  ResultSet.TYPE_SCROLL_INSENSITIVE,
+                  ResultSet.CONCUR_UPDATABLE);
+		  //Statement stmt = myCon.createStatement();
+		  ResultSet rs;
+		  rs =stmt.executeQuery(String.format("SELECT * FROM biteme.users WHERE UserName='%s' AND Password='%s'",res[1],res[2]));
+			if(rs.next())
+			{
+				System.out.println("User found:logging in");
+				rs.updateInt("IsLoggedIn",1);
+				rs.updateRow();
+				result= "User login~"+rs.getString(2)+" "+rs.getString(3);
+				sendToClient(result,client);
+			} 
+			else sendToClient("User login~User not Found", client);
+			rs.close();
+			stmt.close();
+	  }
+	  
+	  
 	  protected void insertOrder(String[]res,ConnectionToClient client) throws SQLException
 	  {
 		  Statement stmt;
@@ -196,25 +329,20 @@ public class BiteMeServer extends AbstractServer
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
 	  }
-	  protected void loadOrders(String[]res,ConnectionToClient client) throws SQLException
+	  protected void loadUsers(String[]res,ConnectionToClient client) throws SQLException
 	  {
 		  Statement stmt;
 		  stmt = myCon.createStatement();
 		  ResultSet rs;
-		  rs =stmt.executeQuery("SELECT * FROM biteme.order");
-			ArrayList<Order> all_orders = new ArrayList<>();
+		  rs =stmt.executeQuery("SELECT * FROM biteme.users");
+			ArrayList<User> all_users = new ArrayList<>();
 			while(rs.next())
 			{
-				String resturant=rs.getString(1);
-				int id=Integer.parseInt(rs.getString(2));
-				String order_time=rs.getString(3);
-				String phone_num=rs.getString(4);
-				String type_of_order=rs.getString(5);
-				String address=rs.getString(6);
-				all_orders.add(new Order(resturant,id,order_time,phone_num,type_of_order,address));
+
+				all_users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(10)));
 				
 			}
-			sendToClient(all_orders,client);
+			sendToClient(all_users,client);
 			stmt.close();
 			rs.close();
 	  }

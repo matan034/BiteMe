@@ -52,6 +52,6 @@ public class LoginController {
     	ip=ip_address.getText();
     	LoginUI.order= new OrderClientController(ip, 5555);
 
-    	Globals.loadFXML(null, "/order/IndexScreen.fxml", event);
+    	Globals.loadFXML(null, Globals.changeuserstatusFXML, event);
     }
 }

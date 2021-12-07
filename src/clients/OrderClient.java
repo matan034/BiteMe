@@ -3,10 +3,13 @@ package clients;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 import controllers.IndexController;
 import entity.Order;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ocsf.client.AbstractClient;
@@ -14,9 +17,11 @@ import ocsf.client.AbstractClient;
 public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;
-	public static String connection_ip="",connection_host="",connection_status="";
-	public static ArrayList<Order> all_orders=new ArrayList<Order>();
-	public static String update_msg,insert_msg;
+	public static String connection_ip="",connection_host="",connection_status="",employer_reg_msg="";
+	public static ArrayList<User> all_users=new ArrayList<>();
+	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
+	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg;
 	public static Order found_order = new Order(null,null,null,null);
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
@@ -32,7 +37,7 @@ public class OrderClient extends AbstractClient {
 		System.out.println("Msg: "+msg +" recieved");
 		awaitResponse = false;
 		if(msg instanceof ArrayList) {
-			all_orders = ((ArrayList<Order>)msg);//details from db
+			all_users = ((ArrayList<User>)msg);//details from db
 		}
 		else {
 			String [] res = ((String)msg).split("~");
@@ -62,7 +67,48 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(0,res[1]);
 				connection_info.set(1,res[2]);
 				connection_info.set(2,res[3]);
+				break;
+			case "User login":
+				user_login_msg=res[1];
+				break;
+			case "New Account":
+				account_reg_msg=res[1];
+				break;
+			case "Check Account Input":
+				boolean flag=false;
+				if(res[1].equals("ID")) {
+					account_reg_errors.put("ID",true);
+					flag=true;
+				}
+				else
+					account_reg_errors.put("ID",false);
+				
+				if(res[2].equals("Telephone")) {
+					account_reg_errors.put("Telephone",true);
+					flag=true;
+				}
+				else
+					account_reg_errors.put("Telephone",false);
+				
+				if(res[3].equals("Email")) {
+					account_reg_errors.put("Email",true);
+					flag=true;
+				}
+				else
+					account_reg_errors.put("Email",false);
+				if(flag==true)account_reg_errors.put("Errors",true);
+				else account_reg_errors.put("Errors",false);
+				break;
+			case "Check Employer Input"://FIX THIS ERRORS ALWAYS EQUALS FALSE;
+				boolean flag1=false;
+				employer_reg_errors.put("NameError", res[1].equals("Name")?false:true);//if res[1]=="Name" then employer name was found -->No errors --> false if it's not found error-->true
+				employer_reg_errors.put("ApprovedError", res[2].equals("Approved")?false:true);//if res[2]=="Approved" then employer is approved -->No errors --> false if it's not approved error-->true
+				if(res[1].equals("NoName")|| res[2].equals("NoApproved"))flag1=true;
+				employer_reg_errors.put("Errors", flag1);
+			case "Employer register":
+				employer_reg_msg=res[1];
 			}
+		
 		}	
 	}
 	/**

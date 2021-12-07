@@ -122,28 +122,6 @@ public class InsertController {
 	*/
 	    void validate_insert() {
 	    	int cnt=0;
-//	    	if(rest_info.getText()!="" && rest_info.getText().length()<max_line_size) cnt++;
-//	    	if(phone_info.getText()!=""&& phone_info.getText().length()<max_line_size) cnt++;
-//	    	if(address_info.getText()!=""&& address_info.getText().length()<max_line_size) cnt++;
-//	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
-//	    	else {
-//	    		cnt++;
-//	    		if(!type_order_info.getSelectionModel().selectedItemProperty().get().equals("Delivery"))
-//		    	{		
-//	    			cnt--;
-//		    		address_info.clear();
-//		    		address_info.setDisable(true);
-//		    		if(cnt==3) insert_btn.setDisable(false); 
-//			    	else insert_btn.setDisable(true); 
-//		    	}
-//		    	else
-//		    	{
-//		    		
-//		    		address_info.setDisable(false);
-//		    		if(cnt==4) insert_btn.setDisable(false); 
-//			    	else insert_btn.setDisable(true); 
-//		    	}
-//	    	}
 	    	if(type_order_info.getSelectionModel().selectedItemProperty().get()==null) {}
 	    	else {
 	    			if(!rest_info.getText().trim().isEmpty() && rest_info.getText().length()<max_line_size)
