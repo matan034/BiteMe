@@ -280,9 +280,9 @@ public class BiteMeServer extends AbstractServer
 		  if(supply_way.equals("Delivery"))
 		  {
 			  Delivery_type=res[6];
-			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay, DeliveryType,IsEarlyOrder,RequestOrderTime) OUTPUT OrderID VALUES ('%d','%d', '%s', '%s','%d','%s');",branch_id,customer_num,supply_way,Delivery_type,isEarlyOrder,requested_order_time));
+			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay, DeliveryType,IsEarlyOrder,RequestOrderTime)  VALUES ('%d','%d', '%s', '%s','%d','%s');",branch_id,customer_num,supply_way,Delivery_type,isEarlyOrder,requested_order_time));
 		  }
-		  else flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime) OUTPUT OrderID VALUES ('%d','%d', '%s', '%d','%s');",branch_id,customer_num,supply_way,isEarlyOrder,requested_order_time));
+		  else flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES ('%d','%d', '%s', '%d','%s');",branch_id,customer_num,supply_way,isEarlyOrder,requested_order_time));
 		  
 			if(flag>0) sendToClient("Insert~Your Order Has Been Registered", client);
 			
@@ -382,11 +382,11 @@ public class BiteMeServer extends AbstractServer
 		  try {
 		  stmt = myCon.createStatement();
 		  
-		  rs =stmt.executeQuery("SELECT * FROM biteme.account WHERE CardNumber="+res[1]);
+		  rs =stmt.executeQuery("SELECT * FROM biteme.account WHERE W4C="+res[1]);
 			if(rs.next())
 			{
 				System.out.println("card found"); 
-				result= "W4C verify~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5);
+				result= "W4C verify~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6)+"~"+rs.getString(7)+"~"+rs.getString(8);
 				sendToClient(result,client);
 			} 
 			else sendToClient("W4C verify~W4C Wasnt found", client);

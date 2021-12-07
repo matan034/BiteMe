@@ -3,7 +3,8 @@ package entity;
 public class Account {
 	
 	private String FirstName,LastName,ID,Telephone,Email;
-	private int Balance=0,w4cNum,accountNum;
+	private Double Balance=0.0;
+	int w4cNum,accountNum;
 
 	public Account(String FirstName,String LastName,String ID,String Telephone,String Email) {
 		this.FirstName=FirstName;
@@ -33,11 +34,11 @@ public class Account {
 	public void setW4cNum(int w4cNum) {
 		this.w4cNum = w4cNum;
 	}
-	public int getBalance() {
+	public double getBalance() {
 		return Balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		Balance = balance;
 	}
 

@@ -32,7 +32,7 @@ public class OrderClient extends AbstractClient {
 
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
 	public static Order found_order = new Order(null);
-	public static Account account ;
+	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
 	
 
@@ -131,8 +131,13 @@ public class OrderClient extends AbstractClient {
 
 			case "W4C verify"://change according to type
 				account.setAccountNum(Integer.parseInt(res[1]));
-				account.setW4cNum(Integer.parseInt(res[2]));
-				account.setBalance(Integer.parseInt(res[3]));
+				account.setBalance(Integer.parseInt(res[2]));
+				account.setFirstName(res[3]);
+				account.setLastName(res[4]);
+				account.setID(res[5]);
+				account.setTelephone(res[6]);
+				account.setEmail(res[7]);
+				account.setW4cNum(Integer.parseInt(res[8]));
 			
 				break;
 			case "Customer load":

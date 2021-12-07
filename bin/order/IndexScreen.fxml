@@ -11,11 +11,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.IndexController">
    <children>
-      <GridPane layoutX="376.0" layoutY="270.0" prefHeight="219.0" prefWidth="525.0">
+      <GridPane layoutX="282.0" layoutY="221.0" prefHeight="262.0" prefWidth="717.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="132.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="146.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="134.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
@@ -23,25 +23,27 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insertOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Insert" GridPane.rowIndex="1">
+            <Button fx:id="create_order_btn" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" styleClass="btn" text="Create New Order" GridPane.rowIndex="1">
                <tooltip>
                   <Tooltip fx:id="insert_tooltip" text="Open isnert screen" />
                </tooltip></Button>
-            <Button fx:id="update_btn" mnemonicParsing="false" onAction="#updateOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="change_user_status_btn" mnemonicParsing="false" onAction="#changeUserStatus" prefHeight="30.0" styleClass="btn" text="Change User Status" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <tooltip>
                   <Tooltip fx:id="update_tooltip" text="Open update screen" />
                </tooltip></Button>
-            <Button fx:id="search_btn" mnemonicParsing="false" onAction="#searchOrder" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="register_new_employer_btn" mnemonicParsing="false" onAction="#registerNewEmployer" prefHeight="30.0" styleClass="btn" text="Register New Employer" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <tooltip>
                   <Tooltip fx:id="search_tooltip" text="Open search screen" />
                </tooltip></Button>
-            <Button fx:id="Exit_btn" mnemonicParsing="false" onAction="#exit_program" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="login_btn" mnemonicParsing="false" onAction="#login" text="Login" GridPane.rowIndex="2" />
+            <Button fx:id="register_new_account_btn" mnemonicParsing="false" onAction="#registerNewAccount" text="Register New Account" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label fx:id="title_lbl" layoutX="493.0" layoutY="172.0" text="BiteMe Prototype" />
+      <Label fx:id="title_lbl" layoutX="562.0" layoutY="111.0" text="BiteMe " />
       <Label fx:id="ip_label" layoutX="42.0" layoutY="24.0" prefHeight="17.0" prefWidth="269.0" text="IP:" />
       <Label fx:id="host_name" layoutX="42.0" layoutY="41.0" prefHeight="17.0" prefWidth="292.0" text="Host Name:" />
       <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" prefHeight="17.0" prefWidth="345.0" text="Status:" />
+      <Button fx:id="Exit_btn" layoutX="562.0" layoutY="637.0" mnemonicParsing="false" onAction="#exit_program" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Exit" />
    </children>
    <stylesheets>
       <URL value="@/general/GeneralStyleSheet.css" />
