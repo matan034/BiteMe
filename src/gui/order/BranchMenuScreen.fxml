@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BranchMenuController">
+   <children>
+      <TableView fx:id="menu_table" layoutX="187.0" layoutY="37.0" prefHeight="197.0" prefWidth="226.0">
+        <columns>
+          <TableColumn fx:id="dish_name" prefWidth="75.0" text="Dish" />
+          <TableColumn fx:id="price" prefWidth="150.0" text="Price" />
+            <TableColumn fx:id="buttons" minWidth="0.0" prefWidth="0.0" />
+        </columns>
+      </TableView>
+      <Button fx:id="back_btn" layoutX="281.0" layoutY="339.0" mnemonicParsing="false" onAction="#back_to_branch_selection" text="Back" />
+      <Button fx:id="add_btn" layoutX="260.0" layoutY="295.0" mnemonicParsing="false" onAction="#addToOrder" text="Add To Order" />
+      <Label fx:id="selected_item_label" layoutX="283.0" layoutY="254.0" />
+      <Button fx:id="cart_btn" layoutX="476.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToCart" text="Cart" />
+   </children>
+</Pane>

@@ -2,7 +2,7 @@ package entity;
 
 public class Account {
 	
-	private String FirstName,LastName,ID,Telephone,Email;
+	private String FirstName,LastName,ID,Telephone,Email,w4cNum;
 	private int Balance=0;
 
 	public Account(String FirstName,String LastName,String ID,String Telephone,String Email) {
@@ -20,6 +20,13 @@ public class Account {
 		this.Email=account.getEmail();
 	}
 
+	
+	public String getW4cNum() {
+		return w4cNum;
+	}
+	public void setW4cNum(String w4cNum) {
+		this.w4cNum = w4cNum;
+	}
 	public int getBalance() {
 		return Balance;
 	}
@@ -72,6 +79,6 @@ public class Account {
 	public String toString() {
 		return FirstName+ "~" +LastName + "~" + ID + "~" + Telephone
 				+ "~" + Email;
+
 	}
-	
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SupplyWayController">
+   <children>
+      <Label id="title_lbl" layoutX="508.0" layoutY="148.0" prefHeight="45.0" prefWidth="315.0" text="Supply Method" textAlignment="CENTER" textFill="#333333">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="back_btn" layoutX="608.0" layoutY="681.0" mnemonicParsing="false" onAction="#backFunc" text="Back" />
+      <Button fx:id="take_away_btn" layoutX="498.0" layoutY="264.0" mnemonicParsing="false" onAction="#takeAway" text="take away" />
+      <Button fx:id="delivery_btn" layoutX="864.0" layoutY="264.0" mnemonicParsing="false" onAction="#delivery" text="delivery" />
+   </children>
+   <stylesheets>
+      <URL value="@/general/GeneralStyleSheet.css" />
+   </stylesheets>
+</Pane>

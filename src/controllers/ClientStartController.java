@@ -10,7 +10,7 @@
 package controllers;
 import java.net.ConnectException;
 
-import clients.LoginUI;
+import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class LoginController {
+public class ClientStartController {
 	public static String ip;
     @FXML
     private TextField ip_address;
@@ -50,7 +50,7 @@ public class LoginController {
     @FXML
     void LoginToServer(ActionEvent event) {
     	ip=ip_address.getText();
-    	LoginUI.order= new OrderClientController(ip, 5555);
+    	StartClient.order= new OrderClientController(ip, 5555);
 
     	Globals.loadFXML(null, Globals.changeuserstatusFXML, event);
     }

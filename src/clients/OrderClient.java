@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import common.Globals;
 import controllers.IndexController;
+import entity.Account;
+import entity.Branch;
+import entity.Customer;
+import entity.Dish;
 import entity.Order;
 import entity.User;
 import javafx.collections.FXCollections;
@@ -17,12 +22,20 @@ import ocsf.client.AbstractClient;
 public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;
+
 	public static String connection_ip="",connection_host="",connection_status="",employer_reg_msg="";
 	public static ArrayList<User> all_users=new ArrayList<>();
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
-	public static String update_msg,insert_msg,user_login_msg,account_reg_msg;
-	public static Order found_order = new Order(null,null,null,null);
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status;
+
+
+	public static ArrayList<Dish> branch_menu=new ArrayList<>();
+	public static Order found_order = new Order(null);
+	public static Account account = new Account(0, 0, 0, null, null);//check
+	public static Customer customer=new Customer(0, 0, null, null);
+	
+
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
 	public OrderClient(String host, int port) throws IOException {
@@ -37,13 +50,21 @@ public class OrderClient extends AbstractClient {
 		System.out.println("Msg: "+msg +" recieved");
 		awaitResponse = false;
 		if(msg instanceof ArrayList) {
-			all_users = ((ArrayList<User>)msg);//details from db
+
+			Object[]arr=((ArrayList) msg).toArray();
+			if(arr[0] instanceof User)
+				all_users = ((ArrayList<User>)msg);
+			if(arr[0] instanceof Dish)
+				branch_menu = ((ArrayList<Dish>)msg);
+			if(arr[0] instanceof Branch)
+				Globals.branches=FXCollections.observableArrayList((ArrayList<Branch>)msg);
 		}
+		
 		else {
 			String [] res = ((String)msg).split("~");
 			switch(res[0]) {
 			case "Server Offline":
-				connection_info.set(2, res[0]);
+				serverOffline(res);
 				break;
 			case "Insert"://update our msg variable we use in our controller to set our label to know if order has been updated correctly
 				insert_msg=res[1];
@@ -54,12 +75,12 @@ public class OrderClient extends AbstractClient {
 			case "Search"://update found_order that we later use to update label in controller with our found order from DB
 				if(res.length>1)
 				{
-					found_order.setRestuarant(res[1]);//need to insert to order
+					//found_order.setRestuarant(res[1]);//need to insert to order
 					found_order.setOrder_num(Integer.parseInt(res[2]));
 					found_order.setOrder_time(res[3]);
 					found_order.setPhone(res[4]);
 					found_order.setOrder_type(res[5]);
-					found_order.setAddress(res[6]);
+					//found_order.setAddress(res[6]);
 				}
 				else {System.out.println("Order wasn't found");}
 				break;
@@ -107,6 +128,21 @@ public class OrderClient extends AbstractClient {
 				employer_reg_errors.put("Errors", flag1);
 			case "Employer register":
 				employer_reg_msg=res[1];
+
+			case "W4C verify":
+				account.setAccountNum(Integer.parseInt(res[1]));
+				account.setW4cNum(Integer.parseInt(res[2]));
+				account.setBalance(Integer.parseInt(res[3]));
+				account.setType(res[4]);
+				account.setEmpName(res[5]);
+				break;
+			case "Customer load":
+				customer.setCustomerNumber(Integer.parseInt(res[1]));
+				customer.setId(res[2]);
+				customer.setAccount_num(Integer.parseInt(res[3]));
+				customer.setStatus(res[4]);
+				break;
+
 			}
 		
 		}	
@@ -154,5 +190,8 @@ public class OrderClient extends AbstractClient {
 	    }
 	  }
 	  
-
+	  public void serverOffline(String[]res)
+	  {
+		  connection_info.set(2, res[0]);
+	  }
 }

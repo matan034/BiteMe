@@ -9,13 +9,10 @@ import common.Globals;
 
 import controllers.OrderClientController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+
 import javafx.stage.Stage;
 
-public class LoginUI extends Application{
+public class StartClient extends Application{
 	
 	public static OrderClientController order; //only one instance
 	/**

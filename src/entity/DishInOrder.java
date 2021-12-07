@@ -1,0 +1,65 @@
+package entity;
+
+public class DishInOrder {
+	private String size,cooking_lvl,extras,dish_name;
+	private int dishID,orderNum;
+	private double price;
+	public DishInOrder(String size, String cooking_lvl, String extras,String dish_name, int dishID, int orderNum,double price) {
+		super();
+		this.size = size;
+		this.cooking_lvl = cooking_lvl;
+		this.extras = extras;
+		this.dishID = dishID;
+		this.orderNum = orderNum;
+		this.dish_name=dish_name;
+		this.price=price;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getDish_name() {
+		return dish_name;
+	}
+
+	public void setDish_name(String dish_name) {
+		this.dish_name = dish_name;
+	}
+
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getCooking_lvl() {
+		return cooking_lvl;
+	}
+	public void setCooking_lvl(String cooking_lvl) {
+		this.cooking_lvl = cooking_lvl;
+	}
+	public String getExtras() {
+		return extras;
+	}
+	public void setExtras(String extras) {
+		this.extras = extras;
+	}
+	public int getDishID() {
+		return dishID;
+	}
+	public void setDishID(int dishID) {
+		this.dishID = dishID;
+	}
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+	
+}

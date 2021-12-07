@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegNewAccountP2Controller">
+   <children>
+      <TextField fx:id="cc_lbl" layoutX="225.0" layoutY="81.0" promptText="Credit Card Number" />
+      <TextField fx:id="employer_name_lbl" layoutX="225.0" layoutY="188.0" promptText="Employer Name" text="Refael" />
+      <Label layoutX="258.0" layoutY="37.0" text="Private Account" />
+      <Label layoutX="251.0" layoutY="151.0" text="Bussiness Account" />
+      <Button fx:id="back_btn" layoutX="27.0" layoutY="331.0" mnemonicParsing="false" onAction="#BackPage" text="Back" />
+      <Button fx:id="reg_btn" layoutX="275.0" layoutY="331.0" mnemonicParsing="false" onAction="#RegisterAccount" text="Register" />
+      <Label fx:id="res_lbl" layoutX="179.0" layoutY="295.0" prefHeight="17.0" prefWidth="260.0" textFill="RED" />
+      <Label fx:id="cc_error_lbl" layoutX="411.0" layoutY="106.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
+      <Label fx:id="employer_name_error_lbl" layoutX="397.0" layoutY="192.0" prefHeight="17.0" prefWidth="140.0" textFill="RED" />
+      <TextField fx:id="budget_lbl" layoutX="225.0" layoutY="240.0" promptText="Monthly Budget " />
+   </children>
+</Pane>

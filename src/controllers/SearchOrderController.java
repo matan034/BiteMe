@@ -9,7 +9,7 @@
 
 package controllers;
 
-import clients.LoginUI;
+import clients.StartClient;
 import clients.OrderClient;
 import common.Globals;
 import javafx.event.ActionEvent;
@@ -73,11 +73,11 @@ public class SearchOrderController {
     	if(order_number_input.getText()!=null)
     	{
     		String str="Search_order~"+order_number_input.getText();
-    		LoginUI.order.accept(str);//send to server request for order
+    		StartClient.order.accept(str);//send to server request for order
     		if(OrderClient.found_order.getOrder_num()!=Integer.parseInt(order_number_input.getText()))//order not found
     			search_res.setText("Order not found");
-    		else //if we found an order with the same number as the one requessted
-    			search_res.setText(OrderClient.found_order.getRestuarant()+'\n'+OrderClient.found_order.getOrder_time()+'\n'+OrderClient.found_order.getPhone()+'\n'+OrderClient.found_order.getOrder_type()+'\n'+OrderClient.found_order.getAddress());
+    		//else //if we found an order with the same number as the one requessted
+    			//search_res.setText(OrderClient.found_order.getRestuarant()+'\n'+OrderClient.found_order.getOrder_time()+'\n'+OrderClient.found_order.getPhone()+'\n'+OrderClient.found_order.getOrder_type()+'\n');
     	}
     	else {
     		
