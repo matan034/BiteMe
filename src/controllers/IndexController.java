@@ -1,6 +1,6 @@
 package controllers;
 
-import clients.LoginUI;
+import clients.StartClient;
 import clients.OrderClient;
 import common.Globals;
 import javafx.application.Platform;
@@ -65,7 +65,7 @@ public class IndexController
     This func initalizes our index screen to display connection info we get from server aswell as initalize our combo box options*/
     @FXML
     public void initialize() {
-       LoginUI.order.accept("Get_connection");
+       StartClient.order.accept("Get_connection");
        ip_label.setText(OrderClient.connection_info.get(0));
 	   host_name.setText(OrderClient.connection_info.get(1));
 	   connection_status.setText(OrderClient.connection_info.get(2));
@@ -107,7 +107,7 @@ public class IndexController
     @FXML
     void insertOrder(ActionEvent event) {
 
-    	Globals.loadFXML(null, Globals.insertFXML, event);
+    	Globals.loadFXML(null, Globals.W4CLoginFXML, event);
     }
 	/**
 	* this func enters the search screen,displaying its UI and closes the index screen

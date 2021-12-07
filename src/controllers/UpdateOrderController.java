@@ -2,7 +2,7 @@ package controllers;
 
 
 
-import clients.LoginUI;
+import clients.StartClient;
 import clients.OrderClient;
 import common.Globals;
 import entity.Order;
@@ -77,7 +77,7 @@ public class UpdateOrderController {
     
     public void initialize()
     {
-    	LoginUI.order.accept("Load_orders");
+    	StartClient.order.accept("Load_orders");
     	updated_type.setItems(IndexController.delivery_options);
     	display_table();
     	update_order_tooltip.setText("Please choose an order from table");
@@ -153,7 +153,7 @@ public class UpdateOrderController {
     void selected_order()
     {
     	selected_order.setText("You chose order number: "+OrderTable.getSelectionModel().getSelectedItem().getOrder_num());
-    	updated_address.setText(OrderTable.getSelectionModel().getSelectedItem().getAddress());
+    	//updated_address.setText(OrderTable.getSelectionModel().getSelectedItem().getAddress());
     	updated_type.getSelectionModel().select(OrderTable.getSelectionModel().getSelectedItem().getOrder_type());
     }
     
@@ -169,13 +169,13 @@ public class UpdateOrderController {
         		suffix=updated_address.getText();
         	}
     		String msg = "Update_order~"+"OrderAddress~"+suffix+"~TypeOfOrder~"+updated_type.getSelectionModel().getSelectedItem()+"~"+OrderTable.getSelectionModel().getSelectedItem().getOrder_num();
-    		LoginUI.order.accept(msg);
+    		StartClient.order.accept(msg);
 
     		for(Order o: all_orders)
     		{
     			if(o.getOrder_num()==OrderTable.getSelectionModel().getSelectedItem().getOrder_num())
     			{
-    				o.setAddress(updated_address.getText());
+    				//o.setAddress(updated_address.getText());
     				o.setOrder_type(updated_type.getSelectionModel().getSelectedItem());
     			}
     		}

@@ -16,7 +16,7 @@ package controllers;
 
 import javax.swing.event.ChangeListener;
 
-import clients.LoginUI;
+import clients.StartClient;
 import clients.OrderClient;
 import common.Globals;
 import javafx.event.ActionEvent;
@@ -63,32 +63,32 @@ public class InsertController {
 	   *on InsertController creation create event listeners to count if all input fields have been inserted, if yes we unlock insert button if no insert button remains locked*/
 	    @FXML
 	    public void initialize() {
-	    	type_order_info.setItems(IndexController.delivery_options);
-	    	rest_info.textProperty().addListener((obs,oldValue, newValue)-> {
-	    	    if(newValue!=null)
-	    	    {
-	    	    	validate_insert();
-	    	    }
-	    	});
-	    	phone_info.textProperty().addListener((obs,oldValue, newValue)-> {
-	    	    if(newValue!=null)
-	    	    {
-	    	    	validate_insert();
-	    	    }
-	    	});
-	    	address_info.textProperty().addListener((obs,oldValue, newValue)-> {
-	    	    if(newValue!=null)
-	    	    {
-	    	    	validate_insert();
-	    	    }
-	    	});
-	    	type_order_info.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
-	    	    if(newValue!=null)
-	    	    {
-	    	    	set_address_bar();
-	    	    	validate_insert();
-	    	    }
-	    	});
+	    	//type_order_info.setItems(IndexController.delivery_options);
+//	    	rest_info.textProperty().addListener((obs,oldValue, newValue)-> {
+//	    	    if(newValue!=null)
+//	    	    {
+//	    	    	validate_insert();
+//	    	    }
+//	    	});
+//	    	phone_info.textProperty().addListener((obs,oldValue, newValue)-> {
+//	    	    if(newValue!=null)
+//	    	    {
+//	    	    	validate_insert();
+//	    	    }
+//	    	});
+//	    	address_info.textProperty().addListener((obs,oldValue, newValue)-> {
+//	    	    if(newValue!=null)
+//	    	    {
+//	    	    	validate_insert();
+//	    	    }
+//	    	});
+//	    	type_order_info.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+//	    	    if(newValue!=null)
+//	    	    {
+//	    	    	set_address_bar();
+//	    	    	validate_insert();
+//	    	    }
+//	    	});
 	    }
 	    /**
 	    *back_to_index func used to go back to index screen while hiding insertScreen
@@ -188,7 +188,7 @@ public class InsertController {
     		suffix=address_info.getText();
     	}
     		String str="Insert_order~"+rest_info.getText()+"~"+phone_info.getText()+"~"+type_order_info.getSelectionModel().selectedItemProperty().get()+"~"+suffix;
-    		LoginUI.order.accept(str);
+    		StartClient.order.accept(str);
     		insert_result.setText(OrderClient.insert_msg);
     }
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseBranchController">
+   <children>
+      <Label layoutX="168.0" layoutY="67.0" text="Choose Branch" textAlignment="CENTER">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="choose_branch_combo_box" layoutX="232.0" layoutY="158.0" prefHeight="31.0" prefWidth="155.0" promptText="Choose Branch" />
+      <Button fx:id="view_menu_btn" layoutX="268.0" layoutY="252.0" mnemonicParsing="false" onAction="#viewMenu" text="View Menu" />
+      <Button fx:id="back_btn" layoutX="61.0" layoutY="335.0" mnemonicParsing="false" onAction="#back" text="Back" />
+   </children>
+</Pane>

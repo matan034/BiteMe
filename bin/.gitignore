@@ -1,2 +1,5 @@
-/order/
+/clients/
+/server/
 /controllers/
+/entity/
+/common/

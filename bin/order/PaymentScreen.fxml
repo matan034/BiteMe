@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PaymentController">
+   <children>
+      <Label layoutX="231.0" layoutY="57.0" text="Payment Method" />
+      <RadioButton fx:id="buisness_btn" layoutX="94.0" layoutY="179.0" mnemonicParsing="false" text="Buisness Order">
+         <toggleGroup>
+            <ToggleGroup fx:id="payment_type" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="private_btn" layoutX="94.0" layoutY="129.0" mnemonicParsing="false" selected="true" text="Private Order" toggleGroup="$payment_type" />
+      <TextField fx:id="employer_name_input" disable="true" layoutX="95.0" layoutY="222.0" promptText="Employer Name" />
+      <TextField fx:id="employer_w4c_input" disable="true" layoutX="309.0" layoutY="222.0" promptText="Employer W4C" />
+      <Button fx:id="back_btn" layoutX="86.0" layoutY="315.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="pay_btn" layoutX="345.0" layoutY="315.0" mnemonicParsing="false" onAction="#payAndCompleteOrder" text="Pay And Complete Order" />
+   </children>
+</Pane>
