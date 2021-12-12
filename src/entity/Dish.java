@@ -9,11 +9,9 @@ public class Dish implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int dishID,chooseSize,chooseCookingLvl,chooseExtras;
 	private double price;
-	private String name,type;
+	private String name,type,imgSrc;
 	
-
-	public Dish(int dishID, int chooseSize, int chooseCookingLvl, int chooseExtras, double price, String name,
-			String type) {
+	public Dish(int dishID, int chooseSize, int chooseCookingLvl, int chooseExtras, double price, String name,String type,String imgSrc) {
 		super();
 		this.dishID = dishID;
 		this.chooseSize = chooseSize;
@@ -22,6 +20,7 @@ public class Dish implements Serializable {
 		this.price = price;
 		this.name = name;
 		this.type = type;
+		this.imgSrc=imgSrc;
 	}
 	@Override
 	public String toString() {
@@ -70,5 +69,12 @@ public class Dish implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
 
 }

@@ -1,9 +1,0 @@
-CREATE TABLE `order` (
-  `Restaurant` varchar(45) DEFAULT NULL,
-  `OrderNumber` int NOT NULL AUTO_INCREMENT,
-  `OrderTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `PhoneNumber` varchar(45) DEFAULT NULL,
-  `TypeOfOrder` varchar(45) DEFAULT NULL,
-  `OrderAddress` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`OrderNumber`)
-) ;

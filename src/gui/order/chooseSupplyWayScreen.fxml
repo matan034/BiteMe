@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SupplyWayController">
+<AnchorPane prefHeight="363.0" prefWidth="760.0" styleClass="pane" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SupplyWayController">
    <children>
-      <Label id="title_lbl" layoutX="508.0" layoutY="148.0" prefHeight="45.0" prefWidth="315.0" text="Supply Method" textAlignment="CENTER" textFill="#333333">
-         <font>
-            <Font name="SansSerif Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="back_btn" layoutX="608.0" layoutY="681.0" mnemonicParsing="false" onAction="#backFunc" text="Back" />
-      <Button fx:id="take_away_btn" layoutX="498.0" layoutY="264.0" mnemonicParsing="false" onAction="#takeAway" text="take away" />
-      <Button fx:id="delivery_btn" layoutX="864.0" layoutY="264.0" mnemonicParsing="false" onAction="#delivery" text="delivery" />
+      <BorderPane layoutX="300.0" layoutY="171.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label id="title_lbl" prefHeight="45.0" prefWidth="315.0" text="Supply Method" textAlignment="CENTER" textFill="#333333">
+                           <font>
+                              <Font name="SansSerif Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="delivery_btn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delivery" styleClass="btn" text="Delivery">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="take_away_btn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#takeAway" styleClass="btn" text="Take-Away">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="back_btn" mnemonicParsing="false" onAction="#backFunc" text="Back" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
-   <stylesheets>
-      <URL value="@/general/GeneralStyleSheet.css" />
-   </stylesheets>
-</Pane>
+</AnchorPane>

@@ -14,7 +14,14 @@ public class DishInOrder {
 		this.dish_name=dish_name;
 		this.price=price;
 	}
+	@Override
+	public String toString() {
 	
+		if(size==null) size=" ";
+		if(cooking_lvl==null) cooking_lvl=" ";
+		if(extras==null||extras.equals("")) extras=" ";
+		return dishID+"~"+orderNum+"~"+size+"~"+cooking_lvl+"~"+extras;
+	}
 	public double getPrice() {
 		return price;
 	}

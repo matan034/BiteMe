@@ -74,6 +74,7 @@ public class OrderInformationController {
 
     public void initialize()
     {
+    	continue_btn.setDisable(true);
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
     		delivery_details.setVisible(true);
@@ -82,12 +83,33 @@ public class OrderInformationController {
     	private_btn.setUserData("Private");
     	shared_btn.setUserData("Shared");
     	robot_btn.setUserData("Robot");
+    	date_input.valueProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	validate_input();
+    	    }
+    	});
+    	hour_input.textProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	validate_input();
+    	    }
+    	});
     }
     @FXML
     void back(ActionEvent event) {
-    	Globals.loadFXML(null, Globals.cartFXML, event);
+    	Globals.loadInsideFXML( Globals.branch_menuFXML);
     }
 
+    private void validate_input()
+    {
+    	int i=0;
+    	if(!hour_input.getText().equals("")) i++;
+    	if(date_input.getValue()!=null) i++;
+    	if(i==2) continue_btn.setDisable(false);
+    	else continue_btn.setDisable(true);
+    	
+    }
     @FXML
     void continueCheckout(ActionEvent event) {//validation!!!!!
     	
@@ -109,7 +131,7 @@ public class OrderInformationController {
     	{
     		Globals.newOrder.setPrice(Globals.newOrder.getPrice()*0.9);
     	}
-    	Globals.loadFXML(null, Globals.paymentFXML, event);
+    	Globals.loadInsideFXML( Globals.paymentFXML);
     
     }
     

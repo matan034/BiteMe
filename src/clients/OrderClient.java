@@ -29,9 +29,9 @@ public class OrderClient extends AbstractClient {
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status;
 
-
+	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
-	public static Order found_order = new Order(null);
+	public static Order found_order = new Order(null,null);
 	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
 	
@@ -67,7 +67,7 @@ public class OrderClient extends AbstractClient {
 				serverOffline(res);
 				break;
 			case "Insert"://update our msg variable we use in our controller to set our label to know if order has been updated correctly
-				insert_msg=res[1];
+				Globals.newOrder.setOrder_num(Integer.parseInt(res[1]));
 				break;
 			case "Update"://update our msg variable we use in our controller to set our label to know if order has been updated correctly
 				update_msg= res[1];
@@ -146,10 +146,23 @@ public class OrderClient extends AbstractClient {
 				customer.setAccount_num(Integer.parseInt(res[3]));
 				customer.setStatus(res[4]);
 				break;
+			case "W4C_load_list":
+				w4cList(res);break;
 
 			}
 		
 		}	
+	}
+	
+	private void w4cList(String[]res)
+	{
+		if(res.length>1)
+		{
+			for(int i=1;i<res.length;i++)
+			{
+				w4cList.add(res[i]);
+			}
+		}
 	}
 	/**
 	*func for closing our client*/

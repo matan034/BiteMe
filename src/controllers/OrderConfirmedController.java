@@ -21,11 +21,15 @@ public class OrderConfirmedController {
     private Button home_btn;
 
     @FXML
+    private Label total_payment_label;
+
+    @FXML
     void initialize()
     {
     	order_number_output.setText(order_number_output.getText()+Globals.newOrder.getOrder_num());
     	supply_method_output.setText(Globals.newOrder.getOrder_type());
     	supply_time_output.setText(Globals.newOrder.getOrder_time());
+    	total_payment_label.setText(total_payment_label.getText()+Globals.newOrder.getPrice());
     }
     @FXML
     void goHome(ActionEvent event) {

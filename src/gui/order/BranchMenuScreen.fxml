@@ -1,23 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BranchMenuController">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BranchMenuController">
    <children>
-      <TableView fx:id="menu_table" layoutX="187.0" layoutY="37.0" prefHeight="197.0" prefWidth="226.0">
-        <columns>
-          <TableColumn fx:id="dish_name" prefWidth="75.0" text="Dish" />
-          <TableColumn fx:id="price" prefWidth="150.0" text="Price" />
-            <TableColumn fx:id="buttons" minWidth="0.0" prefWidth="0.0" />
-        </columns>
-      </TableView>
-      <Button fx:id="back_btn" layoutX="281.0" layoutY="339.0" mnemonicParsing="false" onAction="#back_to_branch_selection" text="Back" />
-      <Button fx:id="add_btn" layoutX="260.0" layoutY="295.0" mnemonicParsing="false" onAction="#addToOrder" text="Add To Order" />
-      <Label fx:id="selected_item_label" layoutX="283.0" layoutY="254.0" />
-      <Button fx:id="cart_btn" layoutX="476.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToCart" text="Cart" />
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="cart_count" stylesheets="@../general/GeneralStyleSheet.css" text="0">
+                           <styleClass>
+                              <String fx:value="lbl" />
+                              <String fx:value="span" />
+                           </styleClass>
+                        </Label>
+                        <ImageView fx:id="cart_img" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goCart" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../cart.jpg" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <AnchorPane fx:id="cart_pane" minHeight="-Infinity" minWidth="-Infinity" />
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label stylesheets="@../general/GeneralStyleSheet.css" text="Chosen Dish">
+                           <styleClass>
+                              <String fx:value="lbl" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="629.0" prefWidth="94.0" styleClass="chosen-dish-card" stylesheets="@../general/GeneralStyleSheet.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="selected_dish_name" prefHeight="53.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish name" />
+                              <Label fx:id="selected_dish_price" prefHeight="53.0" prefWidth="64.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish price" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="selected_dish_img" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../pizaa.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox fx:id="dish_options_vbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <Button fx:id="add_btn" mnemonicParsing="false" onAction="#addToOrder" prefHeight="22.0" prefWidth="149.0" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Order" textAlignment="CENTER">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="add-btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back_to_branch_selection" text="Back">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <left>
+            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="845.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" fillHeight="false" prefHeight="697.0" prefWidth="697.0">
+                     <children>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="654.0" prefWidth="792.0" styleClass="transparent" stylesheets="@../general/GeneralStyleSheet.css">
+                          <content>
+                              <GridPane fx:id="items_grid" alignment="CENTER" hgap="10.0" prefHeight="0.0" prefWidth="0.0" vgap="10.0">
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                              </GridPane>
+                          </content>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
    </children>
-</Pane>
+</AnchorPane>

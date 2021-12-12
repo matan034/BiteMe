@@ -22,15 +22,61 @@
       -fx-box-shadow:  rgba(0, 0, 0, 0.15);
       -fx-background-color: #0390fc;
   }
-  
+  .dish-item{
+    -fx-background-color: #FFFFFF;
+        -fx-background-radius: 30;
+}
+.text-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
   .lbl{
 	-fx-font-weight:bold;
 	-fx-font-size:12px;
 	-fx-font-family:'sans-sarif'
 }
+
 #title_lbl{
     -fx-color: #333333;
     -fx-font-weight: bold;
     -fx-font-size: 35px;
     -fx-font-family:'sans-sarif'
+}
+
+.chosen-dish-card{
+    -fx-background-color: #F16C31;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.span{
+    font-size: 14px;
+    font-weight: 900;
+    position: absolute;
+    border: solid blue;
+    border-radius: 60%;
+    height: 14px;
+    width: 8px;
+    background:blue;
 }

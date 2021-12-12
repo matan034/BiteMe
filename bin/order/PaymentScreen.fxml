@@ -1,25 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PaymentController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PaymentController">
    <children>
-      <Label layoutX="231.0" layoutY="57.0" text="Payment Method" />
-      <RadioButton fx:id="buisness_btn" layoutX="94.0" layoutY="179.0" mnemonicParsing="false" text="Buisness Order">
-         <toggleGroup>
-            <ToggleGroup fx:id="payment_type" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="private_btn" layoutX="94.0" layoutY="129.0" mnemonicParsing="false" selected="true" text="Private Order" toggleGroup="$payment_type" />
-      <TextField fx:id="employer_name_input" disable="true" layoutX="95.0" layoutY="222.0" promptText="Employer Name" />
-      <TextField fx:id="employer_w4c_input" disable="true" layoutX="309.0" layoutY="222.0" promptText="Employer W4C" />
-      <Button fx:id="back_btn" layoutX="86.0" layoutY="315.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Button fx:id="pay_btn" layoutX="345.0" layoutY="315.0" mnemonicParsing="false" onAction="#payAndCompleteOrder" text="Pay And Complete Order" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Payment Method" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <RadioButton fx:id="private_btn" mnemonicParsing="false" selected="true" text="Private Order">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="payment_type" />
+                           </toggleGroup>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <RadioButton fx:id="buisness_btn" mnemonicParsing="false" text="Buisness Order" toggleGroup="$payment_type">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <TextField fx:id="employer_name_input" disable="true" promptText="Employer Name">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="employer_w4c_input" disable="true" promptText="Employer W4C">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back" text="Back">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="pay_btn" mnemonicParsing="false" onAction="#payAndCompleteOrder" text="Pay And Complete Order">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <right>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label text="Order Summary">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox fx:id="order_items" />
+                  <VBox fx:id="extra_fees_vbox" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Total">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="50.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="total_price_label" text="2.5 $">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
    </children>
-</Pane>
+</AnchorPane>

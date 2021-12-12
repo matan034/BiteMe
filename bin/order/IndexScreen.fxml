@@ -1,51 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.IndexController">
+
+<AnchorPane prefHeight="440.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.IndexController">
    <children>
-      <GridPane layoutX="282.0" layoutY="221.0" prefHeight="262.0" prefWidth="717.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="create_order_btn" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" styleClass="btn" text="Create New Order" GridPane.rowIndex="1">
-               <tooltip>
-                  <Tooltip fx:id="insert_tooltip" text="Open isnert screen" />
-               </tooltip></Button>
-            <Button fx:id="change_user_status_btn" mnemonicParsing="false" onAction="#changeUserStatus" prefHeight="30.0" styleClass="btn" text="Change User Status" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <tooltip>
-                  <Tooltip fx:id="update_tooltip" text="Open update screen" />
-               </tooltip></Button>
-            <Button fx:id="register_new_employer_btn" mnemonicParsing="false" onAction="#registerNewEmployer" prefHeight="30.0" styleClass="btn" text="Register New Employer" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <tooltip>
-                  <Tooltip fx:id="search_tooltip" text="Open search screen" />
-               </tooltip></Button>
-            <Button fx:id="login_btn" mnemonicParsing="false" onAction="#login" text="Login" GridPane.rowIndex="2" />
-            <Button fx:id="register_new_account_btn" mnemonicParsing="false" onAction="#registerNewAccount" text="Register New Account" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-         </children>
-      </GridPane>
-      <Label fx:id="title_lbl" layoutX="562.0" layoutY="111.0" text="BiteMe " />
-      <Label fx:id="ip_label" layoutX="42.0" layoutY="24.0" prefHeight="17.0" prefWidth="269.0" text="IP:" />
-      <Label fx:id="host_name" layoutX="42.0" layoutY="41.0" prefHeight="17.0" prefWidth="292.0" text="Host Name:" />
-      <Label fx:id="connection_status" layoutX="42.0" layoutY="58.0" prefHeight="17.0" prefWidth="345.0" text="Status:" />
-      <Button fx:id="Exit_btn" layoutX="562.0" layoutY="637.0" mnemonicParsing="false" onAction="#exit_program" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Exit" />
+      <BorderPane prefHeight="440.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="158.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="ip_label" prefHeight="17.0" prefWidth="269.0" text="IP:" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="host_name" prefHeight="17.0" prefWidth="292.0" text="Host Name:" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="connection_status" prefHeight="17.0" prefWidth="345.0" text="Status:" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="440.0" prefWidth="595.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="title_lbl" text="BiteMe " />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <GridPane prefHeight="262.0" prefWidth="717.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="create_order_btn" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" styleClass="btn" text="Create New Order" GridPane.rowIndex="1">
+                                       <tooltip>
+                                          <Tooltip fx:id="insert_tooltip" text="Open isnert screen" />
+                                       </tooltip>
+                                    </Button>
+                                    <Button fx:id="change_user_status_btn" mnemonicParsing="false" onAction="#changeUserStatus" prefHeight="30.0" styleClass="btn" text="Change User Status" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <tooltip>
+                                          <Tooltip fx:id="update_tooltip" text="Open update screen" />
+                                       </tooltip>
+                                    </Button>
+                                    <Button fx:id="register_new_employer_btn" mnemonicParsing="false" onAction="#registerNewEmployer" prefHeight="30.0" styleClass="btn" text="Register New Employer" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <tooltip>
+                                          <Tooltip fx:id="search_tooltip" text="Open search screen" />
+                                       </tooltip>
+                                    </Button>
+                                    <Button fx:id="login_btn" mnemonicParsing="false" onAction="#login" text="Login" GridPane.rowIndex="2" />
+                                    <Button fx:id="register_new_account_btn" mnemonicParsing="false" onAction="#registerNewAccount" text="Register New Account" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="620.0">
+                           <children>
+                              <Button fx:id="Exit_btn" mnemonicParsing="false" onAction="#exit_program" prefHeight="30.0" prefWidth="120.0" styleClass="btn" text="Exit" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
    </children>
-   <stylesheets>
-      <URL value="@/general/GeneralStyleSheet.css" />
-   </stylesheets>
-</Pane>
+</AnchorPane>

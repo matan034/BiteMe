@@ -3,6 +3,7 @@ package server;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -88,10 +89,11 @@ public class BiteMeServer extends AbstractServer
 
 				//case "Load_orders": loadOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
+				case "W4C_load_list": w4cLoadList(res,client);break;
 				case "Load_dishes": loadDishes(res,client);break;
 				case "Load_customer": loadCustomer(res,client);break;
 				case "Load_branches": loadBranches(res,client);break;
-
+				case "Add_dishInOrder":addDishInOrder(res,client);break;
 				}
 	
 
@@ -267,24 +269,58 @@ public class BiteMeServer extends AbstractServer
 	  protected void insertOrder(String[]res,ConnectionToClient client) throws SQLException
 	  {
 		  Statement stmt;
+		  ResultSet rs;
 		  stmt = myCon.createStatement();
 		  int flag,branch_id,customer_num,isEarlyOrder;
-		  String supply_way,Delivery_type,requested_order_time;
+		  String supply_way,Delivery_type,requested_order_time,delivery_query,takeAway_query,recieverName,recieverPhone,businessName,street,city,zip;
+		  PreparedStatement preparedStmt;
+		  delivery_query = "INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay, DeliveryType,IsEarlyOrder,RequestOrderTime,RecieverName,BusinessName,RecieverPhone,DeliveryStreet,DeliveryCity,DeliveryZip) "
+		  		+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+		  takeAway_query="INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES (?,?, ?, ?,?);";
 		  try {
 		  branch_id=Integer.parseInt(res[1]);
 		  customer_num=Integer.parseInt(res[2]);
-		  isEarlyOrder=Integer.parseInt(res[3]);
-		  supply_way=res[5];
-		  
-		  requested_order_time=res[4];
+		  supply_way=res[3];
+		  isEarlyOrder=Integer.parseInt(res[4]);
+		  requested_order_time=res[5];
 		  if(supply_way.equals("Delivery"))
 		  {
 			  Delivery_type=res[6];
-			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay, DeliveryType,IsEarlyOrder,RequestOrderTime)  VALUES ('%d','%d', '%s', '%s','%d','%s');",branch_id,customer_num,supply_way,Delivery_type,isEarlyOrder,requested_order_time));
+			  recieverName=res[7];  
+			  businessName=res[8];
+			  recieverPhone=res[9];
+			  street=res[10];
+			  city=res[11];
+			  zip=res[12];
+			  // create the mysql insert preparedstatement	  
+		      preparedStmt = myCon.prepareStatement(delivery_query);
+		      preparedStmt.setInt (1,branch_id);
+		      preparedStmt.setInt (2,customer_num);
+		      preparedStmt.setString (3,supply_way);
+		      preparedStmt.setString (4,Delivery_type);
+		      preparedStmt.setInt (5,isEarlyOrder);
+		      preparedStmt.setString (6,requested_order_time);
+		      preparedStmt.setString (7,recieverName);
+		      preparedStmt.setString (8,businessName);
+		      preparedStmt.setString (9,recieverPhone);
+		      preparedStmt.setString (10,street);
+		      preparedStmt.setString (11,city);
+		      preparedStmt.setString (12,zip);
+		      preparedStmt.execute();		
 		  }
-		  else flag=stmt.executeUpdate(String.format("INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES ('%d','%d', '%s', '%d','%s');",branch_id,customer_num,supply_way,isEarlyOrder,requested_order_time));
-		  
-			if(flag>0) sendToClient("Insert~Your Order Has Been Registered", client);
+		  else
+			  {
+			  preparedStmt = myCon.prepareStatement(takeAway_query);
+		      preparedStmt.setInt (1,branch_id);
+		      preparedStmt.setInt (2,customer_num);
+		      preparedStmt.setString (3,supply_way);
+		      preparedStmt.setInt (4,isEarlyOrder);
+		      preparedStmt.setString (5,requested_order_time);
+		      preparedStmt.execute();			
+			  }
+		  rs=stmt.executeQuery("SELECT last_insert_id()");//get new order id
+			if(rs.next()) 
+				sendToClient("Insert~"+rs.getString(1), client);
 			
 			else sendToClient("Insert~Error saving your order", client);
 		  }
@@ -396,6 +432,26 @@ public class BiteMeServer extends AbstractServer
 			// TODO: handle exception
 		}
 	  }
+	  protected void w4cLoadList(String[]res,ConnectionToClient client) 
+	  {
+		  String result="W4C_load_list";
+		  Statement stmt;
+		  ResultSet rs;
+		  try {
+		  stmt = myCon.createStatement();		  
+		  rs =stmt.executeQuery("SELECT W4C FROM biteme.account");
+			while(rs.next())
+			{
+				result+="~"+rs.getString(1);
+				
+			} 
+			sendToClient(result,client);
+			rs.close();
+			stmt.close();
+		  }catch (Exception e) {
+			// TODO: handle exception
+		}
+	  }
 	  protected void loadDishes(String[]res,ConnectionToClient  client)
 	  {
 		  
@@ -416,14 +472,17 @@ public class BiteMeServer extends AbstractServer
 
 		  	  while(rs.next())
 		  	  {			  
-					  int dishID=rs.getInt(1);
-					  String DishName=rs.getString(2);
-					  String DishType=rs.getString(3);
-					  int price=rs.getInt(4);
-					  int chooseSize=rs.getInt(5);
-					  int chooseCookLvl=rs.getInt(6);
-					  int chooseExtras=rs.getInt(7);
-					  dishes.add(new Dish(dishID,chooseSize,chooseCookLvl,chooseExtras,price,DishName,DishType));		 	
+		  		  	
+					int dishID=rs.getInt(1);
+					String DishName=rs.getString(2);
+					String DishType=rs.getString(3);
+					Double price=rs.getDouble(4);
+					int chooseSize=rs.getInt(5);
+					int chooseCookLvl=rs.getInt(6);
+					int chooseExtras=rs.getInt(7);
+					String imgSrc=rs.getString(8);
+					Dish newDish=new Dish(dishID, chooseSize, chooseCookLvl, chooseExtras, price, DishName, DishType, imgSrc);	  
+					dishes.add(newDish);		 	
 		  	  }
 		  
 		  	sendToClient(dishes,client);
@@ -463,6 +522,7 @@ public class BiteMeServer extends AbstractServer
 	  {
 		  Statement stmt;
 		  ResultSet rs;
+		
 		  try {
 		  stmt = myCon.createStatement();
 		  rs =stmt.executeQuery("SELECT * FROM biteme.branch");
@@ -476,6 +536,21 @@ public class BiteMeServer extends AbstractServer
 	  
 		  sendToClient(branches,client);
 			rs.close();
+			stmt.close();
+		  }
+		  catch (Exception e) {
+			
+		}
+	  }
+	  protected void addDishInOrder(String[]res,ConnectionToClient  client)
+	  {
+		  Statement stmt;
+		  int flag;
+		  try {
+		  stmt = myCon.createStatement();
+		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.dishinorder (DishID, OrderNumber, Size, CookingLevel,Extras)  VALUES ('%d','%d', '%s', '%s','%s')",Integer.parseInt(res[1]),Integer.parseInt(res[2]),res[3],res[4],res[5]));
+		  if(flag==1) sendToClient("Insert dishinorder~Inserted successfuly",client);
+		  else sendToClient("Insert dishinorder~Insert failed", client);
 			stmt.close();
 		  }
 		  catch (Exception e) {

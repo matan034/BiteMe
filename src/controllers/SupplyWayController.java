@@ -41,17 +41,17 @@ public class SupplyWayController {
 	    private Button delivery_btn;
 	    @FXML
 	    public void initialize() {
-	    	Image takeaway=new Image("takeaway.png");
-	    	take_away_btn.setPrefSize(100,100);	
-	    	take_away_btn.setContentDisplay(ContentDisplay.CENTER);
-	    	take_away_btn.setMaxHeight(Double.MAX_VALUE);
-	    	take_away_btn.setMaxWidth(Double.MAX_VALUE);
-	    	delivery_btn.setPrefSize(100,100);	
-	    	delivery_btn.setContentDisplay(ContentDisplay.CENTER);
-	    	delivery_btn.setMaxHeight(Double.MAX_VALUE);
-	    	delivery_btn.setMaxWidth(Double.MAX_VALUE);
-			take_away_btn.setBackground(Globals.bTakeaway);
-	    	delivery_btn.setBackground(Globals.bDelivery);
+//	    	Image takeaway=new Image("takeaway.png");
+//	    	take_away_btn.setPrefSize(100,100);	
+//	    	take_away_btn.setContentDisplay(ContentDisplay.CENTER);
+//	    	take_away_btn.setMaxHeight(Double.MAX_VALUE);
+//	    	take_away_btn.setMaxWidth(Double.MAX_VALUE);
+//	    	delivery_btn.setPrefSize(100,100);	
+//	    	delivery_btn.setContentDisplay(ContentDisplay.CENTER);
+//	    	delivery_btn.setMaxHeight(Double.MAX_VALUE);
+//	    	delivery_btn.setMaxWidth(Double.MAX_VALUE);
+//			take_away_btn.setBackground(Globals.bTakeaway);
+//	    	delivery_btn.setBackground(Globals.bDelivery);
 	    }
 	    @FXML
 	    void backFunc(ActionEvent event) {
@@ -60,14 +60,14 @@ public class SupplyWayController {
 
 	    @FXML
 	    void delivery(ActionEvent event) {
-	    	Globals.newOrder=new Order("Delivery");
-	    	Globals.loadFXML(null, Globals.ChooseBranchFXML, event);
+	    	Globals.newOrder=new Order("Delivery",OrderClient.customer);
+	    	Globals.loadInsideFXML(Globals.ChooseBranchFXML);
 	    }
 
 	    @FXML
 	    void takeAway(ActionEvent event) {
-	    	Globals.newOrder=new Order("Take-Away");
-	    	Globals.loadFXML(null, Globals.ChooseBranchFXML, event);
+	    	Globals.newOrder=new Order("Take-Away",OrderClient.customer);
+	    	Globals.loadInsideFXML(Globals.ChooseBranchFXML);
 
 	    }
 	    

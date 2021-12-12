@@ -19,17 +19,24 @@ public class ChooseBranchController {
 	    public void initialize() {
 	    	StartClient.order.accept("Load_branches");
 	    	choose_branch_combo_box.setItems(Globals.branches);
+	    	view_menu_btn.setDisable(true);
+	    	choose_branch_combo_box.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+	    	    if(newValue!=null)
+	    	    {
+	    	    	view_menu_btn.setDisable(false);
+	    	    }
+	    	});
 	    }
 	    @FXML
 	    void viewMenu(ActionEvent event) {
 	    	Globals.newOrder.setBranch(choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
-	    	Globals.loadFXML(null, Globals.branch_menuFXML, event);
+	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
 	    }
 	    @FXML
 	    void back(ActionEvent event)
 	    {
-	    	Globals.loadFXML(null, Globals.supply_wayFXML, event);
+	    	Globals.loadInsideFXML( Globals.supply_wayFXML);
 	    }
 
 	}
