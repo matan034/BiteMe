@@ -1,5 +1,8 @@
-/clients/
 /controllers/
-/entity/
+/general/
 /server/
+/Utility/
+/utility/
+/entity/
+/clients/
 /order/

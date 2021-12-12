@@ -55,12 +55,24 @@ public class RegNewAccountP1Controller {
     @FXML
     private Label confirm_email_error_lbl;
     
+    @FXML
+    private Label first_error_lbl;
+
+    @FXML
+    private Label last_error_lbl;
+    
     public static Account new_account;
     
-    private static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+    private Pattern VALID_EMAIL_ADDRESS_REGEX = 
     	    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
   
+    private Pattern pattern = Pattern.compile("\\d+");
+    
 
+
+    /**
+     * Function to go to next page, account details in this page are saved to new_account*/
     @FXML
     void NextPage(ActionEvent event) {
     	new_account= new Account(first_name_lbl.getText(),last_name_lbl.getText(),id_lbl.getText(),telephone_lbl.getText(),email_lbl.getText());
@@ -79,7 +91,46 @@ public class RegNewAccountP1Controller {
     	confirm_email_error_lbl.setText("");
     	id_error_lbl.setText("");
     	phone_error_lbl.setText("");
+    	first_error_lbl.setText("");
+    	last_error_lbl.setText("");
     	boolean flag=true;
+    	if(id_lbl.getText().trim().isEmpty()){
+    		id_error_lbl.setText("Must input ID");
+    		flag=false;
+    	}
+    	if(first_name_lbl.getText().trim().isEmpty()){
+    		first_error_lbl.setText("Must input a first name");
+    		flag=false;
+    	}
+    	else if(!isValidName(first_name_lbl.getText())){
+    		first_error_lbl.setText("Name must be with valid characters");
+    		flag=false;
+    	}
+    	if(last_name_lbl.getText().trim().isEmpty()){
+    		last_error_lbl.setText("Must input a last name");
+    		flag=false;
+    	}
+    	else if(!isValidName(last_name_lbl.getText())){
+    		last_error_lbl.setText("Last name must be with valid characters");
+    		flag=false;
+    	}
+    	if(!isNumeric(id_lbl.getText()))
+    	{
+    		id_error_lbl.setText("ID must be a number");
+    		flag=false;
+    	}
+    	else if (id_lbl.getText().length()!=9) {
+    		id_error_lbl.setText("ID must be 9 digits");
+    		flag=false;
+    	}
+    	if(!isNumeric(telephone_lbl.getText())) {
+    		phone_error_lbl.setText("Phone must a number");
+    		flag=false;
+    	}
+    	else if (telephone_lbl.getText().length()!=10) {
+    		phone_error_lbl.setText("Number must be 10 digits");
+    		flag=false;
+    	}
     	if(!email_lbl.getText().equals(confirm_email_lbl.getText())) {
     		confirm_email_error_lbl.setText("Emails must match");
     		flag=false;
@@ -122,12 +173,25 @@ public class RegNewAccountP1Controller {
     		return flag;
     	
     }
-    
-  	public static boolean validateEmail(String emailStr) {
+    /**
+     * Function to validate correct email address (ending with shtrudol and .com and so on)*/
+  	private boolean validateEmail(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
 }
 
+  	private boolean isNumeric(String strNum) {
+  	    if (strNum == null) {
+  	        return false; 
+  	    }
+  	    return pattern.matcher(strNum).matches();
+  	}
+  	private boolean isValidName(String name) {
+  		 if (name == null) {
+   	        return false; 
+   	    }
+   	    return namePattern.matcher(name).matches();
+  	}
  
 
 }

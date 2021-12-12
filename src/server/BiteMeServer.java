@@ -85,6 +85,8 @@ public class BiteMeServer extends AbstractServer
 				case "Check_account_input":checkAccountInput(res,client);break;
 				case "Check_employer":checkEmployer(res,client);break;
 				case "Reg_employer":regEmployer(res,client);break;
+				case "Update_user":updateUser(res,client);break;
+				case "Import_users":importUsers(res,client);break;
 
 				//case "Load_orders": loadOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
@@ -138,6 +140,28 @@ public class BiteMeServer extends AbstractServer
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
 		  }
+	  
+	  protected void importUsers(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  int flag;
+		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s');",res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10]));
+			if(flag>0) sendToClient("User import~Users Imported", client);
+			else sendToClient("User import ~Error importing users", client);
+		  stmt.close();
+	  }
+	  
+	  protected void updateUser(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  int flag;
+			try {
+				stmt = myCon.createStatement();
+				flag=stmt.executeUpdate(String.format("UPDATE biteme.users SET Status = '%s' WHERE ID = %s;",res[1],res[2]));
+				if(flag>0)	sendToClient("Update~Updated Successfuly", client);
+				else sendToClient("Update~Failed to update", client);
+				stmt.close();	
+			} catch (SQLException e) {	e.printStackTrace();}
+	  }
 	  
 	  protected void regEmployer(String []res,ConnectionToClient client) throws SQLException{
 		  Statement stmt;

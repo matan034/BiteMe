@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import server.ServerStart;
 import server.serverController;
+import utility.UserImportUtility;
 
 public class IndexController
 {
@@ -58,6 +59,9 @@ public class IndexController
 
 	    @FXML
 	    private Label connection_status;
+	    
+	    @FXML
+	    private Button import_users_btn;
 
 	    @FXML
 	    private Button Exit_btn;
@@ -66,7 +70,7 @@ public class IndexController
 	   
 	    /**
 	    This func initalizes our index screen to display connection info we get from server aswell as initalize our combo box options*/
-	    @FXML
+	   /* @FXML
 	    public void initialize() {
 	       StartClient.order.accept("Get_connection");
 	       ip_label.setText(OrderClient.connection_info.get(0));
@@ -90,9 +94,13 @@ public class IndexController
 	    	 }
 	  });     
 	       delivery_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
+	    }*/
+	    
+	    @FXML
+	    void importUsers(ActionEvent event) {
+	    	UserImportUtility user_import_utility = new UserImportUtility();
+	    	user_import_utility.ImportUsers();
 	    }
-	    
-	    
 	    
 	    @FXML
 	    void changeUserStatus(ActionEvent event) {
