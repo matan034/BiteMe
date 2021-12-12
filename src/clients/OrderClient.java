@@ -27,7 +27,7 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<User> all_users=new ArrayList<>();
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
-	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status;
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
 
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
@@ -120,14 +120,18 @@ public class OrderClient extends AbstractClient {
 				if(flag==true)account_reg_errors.put("Errors",true);
 				else account_reg_errors.put("Errors",false);
 				break;
-			case "Check Employer Input"://FIX THIS ERRORS ALWAYS EQUALS FALSE;
+			case "Check Employer Input":
 				boolean flag1=false;
 				employer_reg_errors.put("NameError", res[1].equals("Name")?false:true);//if res[1]=="Name" then employer name was found -->No errors --> false if it's not found error-->true
 				employer_reg_errors.put("ApprovedError", res[2].equals("Approved")?false:true);//if res[2]=="Approved" then employer is approved -->No errors --> false if it's not approved error-->true
 				if(res[1].equals("NoName")|| res[2].equals("NoApproved"))flag1=true;
 				employer_reg_errors.put("Errors", flag1);
-			case "Employer register":
+				break;
+			case "Employer Register":
 				employer_reg_msg=res[1];
+				
+			case "User import":
+				user_import_msg=res[1];
 
 			case "W4C verify"://change according to type
 				account.setAccountNum(Integer.parseInt(res[1]));

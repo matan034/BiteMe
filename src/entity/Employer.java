@@ -2,7 +2,7 @@ package entity;
 
 public class Employer {
 
-	private String name,address,phone;
+	private String name,address="-",phone;
 
 	public Employer(String name, String address, String phone) {
 		this.name = name;

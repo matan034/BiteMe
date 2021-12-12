@@ -9,6 +9,7 @@ import entity.PrivateAccount;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -37,7 +38,58 @@ public class RegNewAccountP2Controller {
 	    
 	    @FXML
 	    private TextField budget_lbl;
+	    
+	    @FXML
+	    private CheckBox BusinessCheckBox;
 
+	    @FXML
+	    private CheckBox PrivateCheckBox;
+	    
+	    public void initialize() {
+	    	cc_lbl.setDisable(true);
+	    	employer_name_lbl.setDisable(true);
+	    	budget_lbl.setDisable(true);
+	    	PrivateCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> {
+	    		if(newSelection!=null) {
+	    			try {
+	    				PrivateCheckOnChange();
+	    			}catch(Exception e) {e.printStackTrace();}
+	    			
+	    		}
+	    	});
+	    	BusinessCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> {
+	    		if(newSelection!=null) {
+	    			try {
+	    				BusinessCheckOnChange();
+	    			}catch(Exception e) {e.printStackTrace();}
+	    			
+	    		}
+	    	});
+	    }
+
+	    private void PrivateCheckOnChange() {
+	    	if(cc_lbl.isDisable()) {
+	    		cc_lbl.setDisable(false);
+	    	}
+	    	else {
+	    		cc_lbl.setDisable(true);
+	    		cc_lbl.clear();
+	    	}
+	    		
+	    }
+	    
+	    private void BusinessCheckOnChange() {
+	    	if(employer_name_lbl.isDisable() && budget_lbl.isDisable()) {
+	    		employer_name_lbl.setDisable(false);
+	    		budget_lbl.setDisable(false);
+	    	}
+	    	else {
+	    		employer_name_lbl.clear();
+	    		budget_lbl.clear();
+	    		employer_name_lbl.setDisable(true);
+	    		budget_lbl.setDisable(true);
+	    	}
+	    }
 	    @FXML
 	    void BackPage(ActionEvent event) {
 	    	Globals.loadFXML(null, Globals.regnewaccountp1FXML, event);

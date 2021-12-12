@@ -80,6 +80,12 @@ public class User implements Serializable {
 	public String getPassword() {
 		return Password;
 	}
+	@Override
+	public String toString() {
+		return ID + "~" + FirstName + "~" + LastName + "~" + Email
+				+ "~" + Phone + "~" + Type + "~" + UserName + "~" + Password
+				+ "~"+ IsLoggedIn+"~"+ Status;
+	}
 	public void setPassword(String password) {
 		Password = password;
 	}
