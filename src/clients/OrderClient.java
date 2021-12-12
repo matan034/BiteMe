@@ -28,12 +28,13 @@ public class OrderClient extends AbstractClient {
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
-
+	
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
 	public static Order found_order = new Order(null,null);
 	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
+	public static User user;
 	
 
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
@@ -90,7 +91,7 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(2,res[3]);
 				break;
 			case "User login":
-				user_login_msg=res[1];
+				user=new User(res[1],res[2],res[3]);
 				break;
 			case "New Account":
 				account_reg_msg=res[1];

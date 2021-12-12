@@ -22,6 +22,7 @@ public class UserImportUtility {
 		User U3=new User("207727744","Yeela","Malka","Yeela1231@gmail.com","0546535154","HR","Yeela1231","1231","Active");
 		User U4=new User("312165913","Matan","Weisberg","Matan034@gmail.com","0546535153","Certified Employee","matan","Aa123456","Frozen");
 		User U5=new User("316449495","Muhamad","Abu-asad","M7mad144@gmail.com","05465351522","Supplier","m7","1","Active");
+		User U6=new User("303245142","Freddy","Kruger","Scray@gmail.com","0546535151","Customer","fred","2","Frozen");
 		all_users.add(U1);
 		all_users.add(U2);
 		all_users.add(U3);

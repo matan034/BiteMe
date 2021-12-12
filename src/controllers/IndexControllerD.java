@@ -1,5 +1,6 @@
 package controllers;
 
+import clients.OrderClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -36,7 +37,7 @@ public class IndexControllerD {
 	{
 
 		
-		String typeUser="Customer";
+		String typeUser=OrderClient.user.getType();
 		
 		switch(typeUser) {
 		
@@ -73,7 +74,7 @@ public class IndexControllerD {
 		
 			break;
 			
-       case "BrenchManager":
+       case "Branch Manager":
     	   
     	   hello_label.setText("Hello Brench Manager");
     	   
@@ -132,7 +133,7 @@ public class IndexControllerD {
 			
     			break;
 
-       case "CertifiedEmployee":
+       case "Certified Employee":
     	   hello_label.setText("Hello Certified Employee");
 			
     	   Button CEOption1= new Button ("Update Menu");

@@ -281,7 +281,7 @@ public class BiteMeServer extends AbstractServer
 				System.out.println("User found:logging in");
 				rs.updateInt("IsLoggedIn",1);
 				rs.updateRow();
-				result= "User login~"+rs.getString(2)+" "+rs.getString(3);
+				result= "User login~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(6);
 				sendToClient(result,client);
 			} 
 			else sendToClient("User login~User not Found", client);

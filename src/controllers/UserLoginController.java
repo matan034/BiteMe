@@ -2,6 +2,7 @@
 
 import clients.OrderClient;
 import clients.StartClient;
+import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,8 +32,11 @@ public class UserLoginController {
         	StartClient.order.accept(msg);
         	if(OrderClient.user_login_msg=="User not Found")
         		login_res_lbl.setText(OrderClient.user_login_msg);
-        	else
-        		login_res_lbl.setText(OrderClient.user_login_msg);
+        	else {
+        		//login_res_lbl.setText(OrderClient.user_login_msg);
+        		Globals.loadFXML(null,Globals.indexFXML, event);
+        	}
+        		
     	}
     	else if(username_lbl.getText().trim().isEmpty() && password_lbl.getText().trim().isEmpty())
     		login_res_lbl.setText("Please input User name and Password");
