@@ -11,7 +11,14 @@ public class Order implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time;
+	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time,dish_name;
+	public String getDish_name() {
+		return dish_name;
+	}
+	public void setDish_name(String dish_name) {
+		this.dish_name = dish_name;
+	}
+
 	private Branch branch;
 	private Customer customer;
 	private int order_num,is_early_order=0;
@@ -23,6 +30,7 @@ public class Order implements Serializable{
 		this.order_type = order_type;
 		this.customer=customer;
 	}
+	public Order() {}
 	
 	@Override
 	public String toString() {

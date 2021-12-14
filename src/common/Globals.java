@@ -62,7 +62,8 @@ public class Globals {
 			order_informationFXML="/order/OrderInformationScreen.fxml",
 			paymentFXML="/order/PaymentScreen.fxml",
 			order_confirmedFXML="/order/OrderConfirmedScreen.fxml",
-			reportFXML="/report/reportsScreen";
+			reportFXML="/report/reportsScreen.fxml",
+			NewOrdersFXML="/general/NewOrdersScreen.fxml";
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");

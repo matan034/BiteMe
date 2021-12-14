@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entity.Branch;
+import entity.Customer;
 import entity.Dish;
 import entity.Order;
 import entity.User;
@@ -89,7 +90,7 @@ public class BiteMeServer extends AbstractServer
 				case "Update_user":updateUser(res,client);break;
 				case "Import_users":importUsers(res,client);break;
 
-				//case "Load_orders": loadOrders(res,client); break;
+				case "Load_orders": loadOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
 				case "W4C_load_list": w4cLoadList(res,client);break;
 				case "Load_dishes": loadDishes(res,client);break;
@@ -142,6 +143,60 @@ public class BiteMeServer extends AbstractServer
 		      catch (Exception ex) {System.out.println(ex);}
 		    }
 		  }
+	  
+	  protected void loadOrders(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  String result="Load Orders~";
+		  ArrayList <Order> orders=new ArrayList<>();
+		  int flag;
+		  ResultSet rs;
+		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.DishesInOrders \r\n"
+		  		+ "SELECT * \r\n"
+		  		+ "FROM (\r\n"
+		  		+ "	SELECT biteme.dishes.DishName,DishesByOrderNumber.DishID,DishesByOrderNumber.OrderNumber\r\n"
+		  		+ "	FROM biteme.dishes\r\n"
+		  		+ "	INNER JOIN (SELECT dishinorder.DishID,dishinorder.OrderNumber\r\n"
+		  		+ "	FROM biteme.dishinorder\r\n"
+		  		+ "		INNER JOIN (SELECT biteme.order.OrderID, biteme.order.CustomerNumber\r\n"
+		  		+ "					FROM biteme.order\r\n"
+		  		+ "					WHERE biteme.order.ResturantNumber=1)AS OrderByRestaurant\r\n"
+		  		+ "	ON OrderNumber=OrderID)AS DishesByOrderNumber\r\n"
+		  		+ "	WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;");
+		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders \r\n"
+		  		+ "SELECT * \r\n"
+		  		+ "FROM(\r\n"
+		  		+ "SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
+		  		+ "FROM biteme.account\r\n"
+		  		+ "INNER JOIN (SELECT biteme.order.SupplyWay, biteme.order.RequestOrderTime, customers.AccountNum,biteme.order.OrderID\r\n"
+		  		+ "	FROM biteme.order\r\n"
+		  		+ "	INNER JOIN biteme.customers\r\n"
+		  		+ "	ON biteme.order.CustomerNumber=customers.CustomerNumber)AS CustomerOrderJoin\r\n"
+		  		+ "ON account.AccountNum=CustomerOrderJoin.AccountNum)AS y;");
+		  
+		  rs=stmt.executeQuery("SELECT DishesInOrders.DishName, CustomersInOrders.FirstName,CustomersInOrders.LastName,CustomersInOrders.SupplyWay,CustomersInOrders.RequestOrderTime\r\n"
+		  		+ "FROM biteme.DishesInOrders\r\n"
+		  		+ "INNER JOIN biteme.CustomersInOrders\r\n"
+		  		+ "ON CustomersInOrders.OrderID=DishesInOrders.OrderNumber;");
+		  while(rs.next())
+		  {
+			  Order new_order=new Order();
+			  new_order.setDish_name(rs.getString(1));
+			  new_order.setRecieving_name(rs.getString(2)+" "+ rs.getString(3));
+			  new_order.setOrder_type(rs.getString(4));
+			  new_order.setOrder_time(rs.getString(5));
+			  orders.add(new_order);
+		  }
+		  
+		  sendToClient(orders,client);
+		  rs.close();
+		  stmt.close();
+		  
+	
+		  
+		 
+	  }
+	  
 	  
 	  protected void importUsers(String []res,ConnectionToClient client) throws SQLException{
 		  Statement stmt;

@@ -31,6 +31,7 @@ public class OrderClient extends AbstractClient {
 	
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
+	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null);
 	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
@@ -59,6 +60,10 @@ public class OrderClient extends AbstractClient {
 				branch_menu = ((ArrayList<Dish>)msg);
 			if(arr[0] instanceof Branch)
 				Globals.branches=FXCollections.observableArrayList((ArrayList<Branch>)msg);
+			if(arr[0] instanceof Order)
+				ordersInBranch= ((ArrayList<Order>)msg);
+					
+				
 		}
 		
 		else {
