@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class UserLoginController {
@@ -15,7 +16,7 @@ public class UserLoginController {
     private TextField username_lbl;
 
     @FXML
-    private TextField password_lbl;
+    private PasswordField password_lbl;
 
     @FXML
     private Button login_btn;
@@ -34,7 +35,7 @@ public class UserLoginController {
         		login_res_lbl.setText(OrderClient.user_login_msg);
         	else {
         		//login_res_lbl.setText(OrderClient.user_login_msg);
-        		Globals.loadFXML(null,Globals.indexFXML, event);
+        		Globals.loadFXML(null,Globals.NewOrdersFXML, event);
         	}
         		
     	}

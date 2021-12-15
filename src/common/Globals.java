@@ -45,7 +45,7 @@ public class Globals {
 	
 	public static IndexControllerD index_controller;
 	
-	public static String currency="¤";
+	public static String currency="ï¿½";
 	public static String insertFXML="/order/InsertScreen.fxml",
 			searchFXML="/order/SearchScreen.fxml",
 			updateFxml="/order/UpdateScreen.fxml",
@@ -67,7 +67,6 @@ public class Globals {
 			order_informationFXML="/order/OrderInformationScreen.fxml",
 			paymentFXML="/order/PaymentScreen.fxml",
 			order_confirmedFXML="/order/OrderConfirmedScreen.fxml",
-			reportFXML="/report/reportsScreen",
 			myOrdersFXML="/customer/MyOrdersScreen.fxml",
 			reports_screenFXML = "/report/ReportsScreen.fxml",
 			create_reportsFXML = "/report/CreateReport.fxml", view_reportsFXML = "/report/ViewReports.fxml",
@@ -76,7 +75,10 @@ public class Globals {
 			purchase_reportFXML = "/report/PurchaseReport.fxml",
 			quarter_delay_reportFXML = "/report/QuarterlyDelaySupplyReport.fxml",
 			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml",
-			view_employersFXML="/branch_manager/MyEmployersScreen.fxml";
+			view_employersFXML="/branch_manager/MyEmployersScreen.fxml",
+			reportFXML="/report/reportsScreen.fxml",
+			NewOrdersFXML="/general/NewOrdersScreen.fxml";
+
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");

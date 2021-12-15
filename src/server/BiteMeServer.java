@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import entity.Branch;
+import entity.Customer;
 import entity.Dish;
 import entity.DishInOrder;
 import entity.Order;
@@ -91,7 +92,7 @@ public class BiteMeServer extends AbstractServer {
 				case "Update_user":updateUser(res,client);break;
 				case "Import_users":importUsers(res,client);break;
 
-				//case "Load_orders": loadOrders(res,client); break;
+				case "Load_orders": loadOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
 				case "W4C_load_list": w4cLoadList(res,client);break;
 				case "Load_dishes": loadDishes(res,client);break;
@@ -99,7 +100,6 @@ public class BiteMeServer extends AbstractServer {
 				case "Load_branches": loadBranches(res,client);break;
 				case "Load_suppliers": loadSuppliers(res,client);break;
 				case "Add_dishInOrder":addDishInOrder(res,client);break;
-				case "Load_orders": loadOrders(res,client);break;
 				case "Order_arrived": orderArrived(res,client);break;
 				case "Load_orderDishes": loadOrderDishes(res,client);break;
 				case "Load_components":loadComponentsOfOrder(res, client);break;
@@ -107,12 +107,15 @@ public class BiteMeServer extends AbstractServer {
 				case "Load_myEmployers": loadMyEmployers(res,client);break;
 				case "Employer_approved": approveEmployer(res,client);break;
 				case "Update_recieve_time": updateRecieveTime(res,client);break;
-				case "Load_monthly_performance":
-					loadMonthlyPerformance(res, client);
-					break;
+				case "Load_monthly_performance":loadMonthlyPerformance(res, client);break;	
+				case "Check_approved":CheckApproved(res,client);break;
+				case "Approve_order":ApproveOrder(res,client);break;
+				case "Load_business_account":LoadBusinessAccount(res,client);break;
 				}
 				}catch (Exception e) {
 					// TODO: handle exception
+				
+				
 				}
 	
 			}
@@ -124,27 +127,163 @@ public class BiteMeServer extends AbstractServer {
 	protected void serverStarted() {
 		System.out.println("Server listening for connections on port " + getPort());
 
-	}
+		}
 
-	/**
-	 * This method overrides the one in the superclass. Called when the server stops
-	 * listening for connections.
-	 */
-	protected void serverStopped() {
+	  protected void serverStopped()  {
+		
+	    System.out.println ("Server has stopped listening for connections.");
+	    
+	    System.out.println( disconnectDB());
+	  }  
+	  
+	  
+	  protected void serverClosed() {
+		
+	  }
+	  
+	  protected void sendToClient(Object msg,ConnectionToClient client)
+	  {
+		    Thread[] clientThreadList = getClientConnections();
 
-		System.out.println("Server has stopped listening for connections.");
-
-		System.out.println(disconnectDB());
-	}
-
-	protected void serverClosed() {
-
-	}
-
-	protected void sendToClient(Object msg, ConnectionToClient client) {
-		Thread[] clientThreadList = getClientConnections();
-
-		for (int i = 0; i < clientThreadList.length; i++) {
+		    for (int i=0; i<clientThreadList.length; i++)
+		    {
+		      try
+		      {
+		    	  if((ConnectionToClient)clientThreadList[i]==client)
+		        ((ConnectionToClient)clientThreadList[i]).sendToClient(msg);
+		      }
+		      catch (Exception ex) {System.out.println(ex);}
+		    }
+		  }
+	  protected void LoadBusinessAccount(String []res,ConnectionToClient client) throws SQLException{
+		  String result;
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  ResultSet rs;
+		  ArrayList<String> usersToApprove=new ArrayList<>();
+		  rs =stmt.executeQuery("SELECT employer.Name ,employer.IsApproved,AccountWithBusiness.ID,AccountWithBusiness.FirstName,AccountWithBusiness.LastName,AccountWithBusiness.IsApproved\r\n"
+		  		+ "FROM biteme.employer\r\n"
+		  		+ "INNER JOIN (SELECT account.ID,account.AccountNum, account.FirstName,account.LastName,businessaccount.EmployerNum,businessaccount.IsApproved\r\n"
+		  		+ "	FROM biteme.account\r\n"
+		  		+ "	INNER JOIN biteme.businessaccount\r\n"
+		  		+ "	ON biteme.businessaccount.AccountNum=account.AccountNum\r\n"
+		  		+ ")As AccountWithBusiness\r\n"
+		  		+ "ON employer.EmployerNum=AccountWithBusiness.EmployerNum\r\n"
+		  		+ "WHERE AccountWithBusiness.IsApproved=0 AND employer.IsApproved=1");
+			while(rs.next())
+			{
+				System.out.println("Business User to approve found Found");
+				usersToApprove.add("Approve Business~"+rs.getString(1)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5));
+				sendToClient(usersToApprove,client);
+			}
+			rs.close();
+			stmt.close();
+	  }
+	  
+	  protected void ApproveOrder(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  int flag;
+			try {
+				stmt = myCon.createStatement();
+				flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET IsApproved = '1' WHERE OrderID = %d;",Integer.parseInt(res[1])));
+				if(flag>0)	sendToClient("OrderApproved~Updated Successfuly", client);
+				else sendToClient("OrderApproved~Failed to update", client);
+				stmt.close();	
+			} catch (SQLException e) {	e.printStackTrace();}
+			
+	  }
+	  
+	  protected void CheckApproved(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  ResultSet rs;
+		  String result;
+		  rs=stmt.executeQuery(String.format("SELECT IsApproved FROM biteme.order WHERE OrderID='%d'",Integer.parseInt(res[1])));
+		  try {
+			  if(rs.next())
+				{
+					System.out.println("Order found"); 
+					result= "Check Approved Order~"+res[1]+"~"+rs.getInt(1);
+					sendToClient(result,client);
+				} 
+				else sendToClient("Check Approved Order~Order Wasnt found", client);
+				rs.close();
+				stmt.close();
+		  }catch(Exception e) {};
+		  }
+	  
+	  protected void loadOrders(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  String result="Load Orders~";
+		  ArrayList <String> orders=new ArrayList<>();
+		  int flag;
+		  ResultSet rs;
+		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.DishesInOrders \r\n"
+		  		+ "SELECT * \r\n"
+		  		+ "FROM (\r\n"
+		  		+ "	SELECT biteme.dishes.DishName,DishesByOrderNumber.DishID,DishesByOrderNumber.OrderNumber\r\n"
+		  		+ "	FROM biteme.dishes\r\n"
+		  		+ "	INNER JOIN (SELECT dishinorder.DishID,dishinorder.OrderNumber\r\n"
+		  		+ "	FROM biteme.dishinorder\r\n"
+		  		+ "		INNER JOIN (SELECT biteme.order.OrderID, biteme.order.CustomerNumber\r\n"
+		  		+ "					FROM biteme.order\r\n"
+		  		+ "					WHERE biteme.order.ResturantNumber=1)AS OrderByRestaurant\r\n"
+		  		+ "	ON OrderNumber=OrderID)AS DishesByOrderNumber\r\n"
+		  		+ "	WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;");
+		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders \r\n"
+		  		+ "SELECT * \r\n"
+		  		+ "FROM(\r\n"
+		  		+ "SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
+		  		+ "FROM biteme.account\r\n"
+		  		+ "INNER JOIN (SELECT biteme.order.SupplyWay, biteme.order.RequestOrderTime, customers.AccountNum,biteme.order.OrderID\r\n"
+		  		+ "	FROM biteme.order\r\n"
+		  		+ "	INNER JOIN biteme.customers\r\n"
+		  		+ "	ON biteme.order.CustomerNumber=customers.CustomerNumber)AS CustomerOrderJoin\r\n"
+		  		+ "ON account.AccountNum=CustomerOrderJoin.AccountNum)AS y;");
+		  
+		  rs=stmt.executeQuery("SELECT DishesInOrders.DishName, CustomersInOrders.FirstName,CustomersInOrders.LastName,CustomersInOrders.SupplyWay,CustomersInOrders.RequestOrderTime,CustomersInOrders.OrderID\r\n"
+		  		+ "FROM biteme.DishesInOrders\r\n"
+		  		+ "INNER JOIN biteme.CustomersInOrders\r\n"
+		  		+ "ON CustomersInOrders.OrderID=DishesInOrders.OrderNumber;\r\n"
+		  		+ "");
+		  while(rs.next())
+		  {
+			  /*Order new_order=new Order();
+			  new_order.setDish_name(rs.getString(1));
+			  new_order.setRecieving_name(rs.getString(2)+" "+ rs.getString(3));
+			  new_order.setOrder_type(rs.getString(4));
+			  new_order.setOrder_time(rs.getString(5));
+			  orders.add(new_order);*/
+			  String new_order="Order~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
+			  orders.add(new_order);
+		  }
+		  flag=stmt.executeUpdate("DROP TABLE biteme.CustomersInOrders;");
+		  flag=stmt.executeUpdate("DROP TABLE biteme.DishesInOrders;");
+		  
+		  sendToClient(orders,client);
+		  rs.close();
+		  stmt.close();
+		  
+	
+		  
+		 
+	  }
+	  
+	  
+	  protected void importUsers(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  stmt = myCon.createStatement();
+		  int flag;
+		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s');",res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10]));
+			if(flag>0) sendToClient("User import~Users Imported", client);
+			else sendToClient("User import ~Error importing users", client);
+		  stmt.close();
+	  }
+	  
+	  protected void updateUser(String []res,ConnectionToClient client) throws SQLException{
+		  Statement stmt;
+		  int flag;
 			try {
 				if ((ConnectionToClient) clientThreadList[i] == client)
 					((ConnectionToClient) clientThreadList[i]).sendToClient(msg);
@@ -152,7 +291,6 @@ public class BiteMeServer extends AbstractServer {
 				System.out.println(ex);
 			}
 		}
-	}
 
 	protected void importUsers(String[] res, ConnectionToClient client) throws SQLException {
 		Statement stmt;
