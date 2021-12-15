@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,6 +13,7 @@
             <Image url="@BackgroundImage.png" />
          </image>
       </ImageView>
-      <Accordion fx:id="accordion" layoutX="413.0" layoutY="140.0" prefHeight="444.0" prefWidth="454.0" />
+      <Accordion fx:id="accordion" layoutX="413.0" layoutY="143.0" prefHeight="444.0" prefWidth="454.0" />
+      <Label layoutX="626.0" layoutY="78.0" text="Orders " />
    </children>
 </AnchorPane>

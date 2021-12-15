@@ -55,7 +55,7 @@
                      </image>
                   </ImageView>
                   <Label fx:id="login_res_lbl" layoutX="354.0" layoutY="585.0" prefHeight="17.0" prefWidth="203.0" />
-                  <PasswordField fx:id="password_lbl" alignment="CENTER" layoutX="312.0" layoutY="454.0" prefHeight="25.0" prefWidth="220.0" promptText="Password" />
+                  <PasswordField fx:id="password_lbl" alignment="CENTER" layoutX="312.0" layoutY="454.0" prefHeight="25.0" prefWidth="219.0" promptText="Password" />
                </children>
             </AnchorPane>
          </center>

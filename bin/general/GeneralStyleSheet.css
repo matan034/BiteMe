@@ -14,7 +14,7 @@
     -fx-border-radius: 5px;
     -fx-box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
     -fx-box-sizing: border-box;
-    fx-color: #fff;
+    -fx-color: #fff;
     -fx-cursor: pointer;
     -fx-display: inline-flex;
     -fx-font-size: 16px;
@@ -30,12 +30,7 @@
     -fx-touch-action: manipulation;
     -fx-width: auto;
   }
-  #minus_btn
-  {
-  	-fx-background-radius: 100;
-  	-fx-background-color: #ff0000;
-  	 -fx-font-color: #ffffff;
-  }
+  
  .dish-item{
     -fx-background-color: #FFFFFF;
         -fx-background-radius: 30;
@@ -106,5 +101,31 @@
   -fx-background-color: #ec7729;
   -fx-box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
 }
+
+
+.ViewBtn {
+  -fx-background-color:#F9E3B4;
+  -fx-box-sizing: border-box;
+  -fx-cursor: pointer;
+  -fx-display: inline-block;
+  -fx-font-weight: 600;
+  -fx-line-height: 1;
+  -fx-text-align: center;
+  -fx-text-decoration-thickness: auto;
+  -fx-transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  -fx-user-select: none;
+  -fx-border-color:#E6E1D6;
+  -fx-touch-action: manipulation;
+  -fx-background-radius:50;
+  -fx-border-radius:50;
+
+}
+
+.ViewBtn:hover {
+  -fx-background-color: #fff;
+}
+
+
+
 
 
