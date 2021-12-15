@@ -30,7 +30,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import server.ServerStart;
@@ -62,7 +61,7 @@ public class Globals {
 			order_informationFXML="/order/OrderInformationScreen.fxml",
 			paymentFXML="/order/PaymentScreen.fxml",
 			order_confirmedFXML="/order/OrderConfirmedScreen.fxml",
-			reportFXML="/report/reportsScreen";
+			reportFXML="/report/reportsScreen.fxml";
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
