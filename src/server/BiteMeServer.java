@@ -7,8 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import entity.Branch;
@@ -106,6 +108,10 @@ public class BiteMeServer extends AbstractServer
 				case "Load_orderDishes": loadOrderDishes(res,client);break;
 				// reports cases
 				case "Load_components":loadComponentsOfOrder(res, client);break;
+				case "Insert_quantity": insertItemsAmount(res,client);break;
+				case "Load_myEmployers": loadMyEmployers(res,client);break;
+				case "Employer_approved": approveEmployer(res,client);break;
+				case "Update_recieve_time": updateRecieveTime(res,client);break;
 				}
 	
 
@@ -308,7 +314,7 @@ public class BiteMeServer extends AbstractServer
 		  int orderId=-1,branch_id,customer_num,isEarlyOrder;
 		  String order,supply_way,Delivery_type,requested_order_time,delivery_query,takeAway_query,recieverName,recieverPhone,businessName,street,city,zip;
 		  PreparedStatement preparedStmt;
-		  order="INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES (?,?, ?, ?,?);";
+		  order="INSERT INTO biteme.order (ResturantNumber, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES (?,?, ?, ?,?);";
 		  try {
 		  branch_id=Integer.parseInt(res[1]);
 		  customer_num=Integer.parseInt(res[2]);
@@ -745,8 +751,90 @@ public class BiteMeServer extends AbstractServer
 
 			}
 		}
+	
+protected void insertItemsAmount(String[] res, ConnectionToClient client) {
+
+	  Statement stmt;
+	  int flag;
+	  try {
+	  stmt = myCon.createStatement();
+	  flag =stmt.executeUpdate(String.format("UPDATE biteme.orderbytype\r\n"
+	  		+ "SET Starter =Starter+ '%d', Main =Main+ '%d', Salad =Salad+ '%d',Dessert = Dessert+'%d',Drink =Drink+ '%d'\r\n"
+	  		+ "WHERE Restaurant = '%d'",Integer.parseInt(res[1]) ,Integer.parseInt(res[2]),Integer.parseInt(res[3]),Integer.parseInt(res[4]),Integer.parseInt(res[5]),Integer.parseInt(res[6])));
+	  sendToClient("update amount~Updated Successfully",client);
+		stmt.close();
+	  }
+	  catch (Exception e) {
+		
+	}
+}
+protected void loadMyEmployers(String[]res,ConnectionToClient  client)
+{
+	  Statement stmt;
+	  ResultSet rs;
+	
+	  try {
+	  stmt = myCon.createStatement();
+	  rs =stmt.executeQuery("SELECT EmployerNum,Name,IsApproved,Address,Telephone FROM biteme.employer WHERE BranchID="+res[1]);
+	  ArrayList<String> myEmployers=new ArrayList<>();
+	  myEmployers.add("load my employer");
+	  while(rs.next())
+	  {			  
+		  int emplyerNum=rs.getInt(1);
+		  String name=rs.getString(2);
+		  int isApproved=rs.getInt(3);    
+		  String address=rs.getString(4);
+		  String telephone=rs.getString(5);
+		  String temp=emplyerNum+"~"+name+"~"+address+"~"+telephone+"~"+isApproved;
+		  myEmployers.add(temp);		 	
+	  }
+
+	  sendToClient(myEmployers,client);
+		rs.close();
+		stmt.close();
+	  }
+	  catch (Exception e) {
+		System.out.println(e);
+	}
+}
+protected void approveEmployer(String[]res,ConnectionToClient  client)
+{
+	  Statement stmt;
+	  int flag;
+	  try {
+	  stmt = myCon.createStatement();
+	  flag =stmt.executeUpdate(String.format("UPDATE biteme.employer SET IsApproved = %d WHERE EmployerNum = %d;",Integer.parseInt(res[1]) ,Integer.parseInt(res[2])));
+	  sendToClient("Order_arrived~Updatet Successfully",client);
+		stmt.close();
+	  }
+	  catch (Exception e) {
+		
 	}
 	  
+}
+
+protected void updateRecieveTime(String[]res,ConnectionToClient  client)
+{
+	
+	  Statement stmt;
+	  int flag;
+	  try {
+	  Date date1 = new Date();
+	  SimpleDateFormat format = new SimpleDateFormat("HH:mm yyyy-MM-dd");
+	  String curr_time=format.format(date1);
+	  stmt = myCon.createStatement();
+	  flag =stmt.executeUpdate(String.format("UPDATE biteme.order SET CustomerReciveTime = '%s' WHERE OrderID = '%d';", curr_time ,Integer.parseInt(res[1])));
+	  sendToClient("Order_customer recieved time Updated Successfully",client);
+		stmt.close();
+	  }
+	  catch (Exception e) {
+		
+	}
+	  
+	  
+}
+
+}
 
 
 

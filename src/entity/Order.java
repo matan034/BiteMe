@@ -2,7 +2,9 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +19,14 @@ public class Order implements Serializable{
 	private Customer customer;
 	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;
 	private Double price=0.0;
-	
+	private Map<String,Integer> items_by_type=new HashMap<String,Integer>()
+	{{
+		 put("Appetizer",0);
+		 put("Main Dish",0);
+		 put("Dessert",0);
+		 put("Drink",0);
+		 put("Salad",0);
+	}};
 	private ObservableList<DishInOrder> dishes=FXCollections.observableArrayList();
 	
 	public Order( String order_type,Customer customer) {
@@ -146,6 +155,7 @@ public class Order implements Serializable{
 	public boolean addDish(DishInOrder dish)
 	{
 		price+=dish.getPrice();
+		
 		return dishes.add(dish);
 	}
 	public ObservableList<DishInOrder> getDishes()
@@ -158,6 +168,21 @@ public class Order implements Serializable{
 		price-=dish.getPrice();
 		if(price<0)price=0.0;
 		return dishes.remove(dish);
+	}
+	
+	public Map<String, Integer> getItems_by_type() {
+		return items_by_type;
+	}
+	public void setItems_by_type(Map<String, Integer> items_by_type) {
+		this.items_by_type = items_by_type;
+	}
+	public void addQuantity(String type)
+	{
+		items_by_type.put(type, items_by_type.get(type)+1);
+	}
+	public void removeQuantity(String type)
+	{
+		items_by_type.put(type, items_by_type.get(type)-1);
 	}
 	
 	public boolean removeAllDishes()

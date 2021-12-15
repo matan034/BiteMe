@@ -38,7 +38,7 @@ public class CartController {
 			cartItemListener = new MyListener() {
 	    		   @Override
 	                public void onClickListener(Object dish) {
-	    			  
+	    			  // Globals.newOrder.removeQuantity();
 	                    Globals.newOrder.removeDish((DishInOrder)dish);
 	                   
 	                }  

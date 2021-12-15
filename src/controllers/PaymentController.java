@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Map;
 
 import clients.OrderClient;
 import clients.StartClient;
@@ -146,8 +147,16 @@ public class PaymentController {
 
     	String createOrder="Insert_order~"+Globals.newOrder.toString();
     	StartClient.order.accept(createOrder);
+    	String insertAmount="Insert_quantity~"+Globals.newOrder.getSupplier().getSupplierNum();
+    	Map <String,Integer> items_by_types=Globals.newOrder.getItems_by_type();
+    	for (Map.Entry<String, Integer> pair : items_by_types.entrySet()) {
+    	    insertAmount+="~"+pair.getValue();
+    	}
+    	
+    	StartClient.order.accept(insertAmount);
     	for(DishInOrder o:Globals.newOrder.getDishes()) {
     		o.setOrderNum(Globals.newOrder.getOrder_num());//give the order number to each dish in our current order
+    		
     		StartClient.order.accept("Add_dishInOrder~"+o.toString());
     	}
     	

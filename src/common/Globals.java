@@ -75,7 +75,8 @@ public class Globals {
 			performance_reportFXML = "/report/PerformanceReport.fxml",
 			purchase_reportFXML = "/report/PurchaseReport.fxml",
 			quarter_delay_reportFXML = "/report/QuarterlyDelaySupplyReport.fxml",
-			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml";
+			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml",
+			view_employersFXML="/branch_manager/MyEmployersScreen.fxml";
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");

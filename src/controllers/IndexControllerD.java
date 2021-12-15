@@ -103,6 +103,12 @@ public class IndexControllerD {
 			    public void handle(ActionEvent e) {
 			    	Globals.loadInsideFXML(Globals.reports_screenFXML);
 			    }});
+			
+			BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent e) {
+			    	Globals.loadInsideFXML(Globals.view_employersFXML);
+			    }});
 			break;	
 			
        case "Customer":

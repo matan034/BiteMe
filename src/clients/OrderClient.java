@@ -16,6 +16,7 @@ import entity.Branch;
 import entity.Customer;
 import entity.Dish;
 import entity.DishInOrder;
+import entity.Employer;
 import entity.Order;
 import entity.Supplier;
 import entity.User;
@@ -42,7 +43,7 @@ public class OrderClient extends AbstractClient {
 	public static Customer customer=new Customer(0, 0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
-
+	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
 	public OrderClient(String host, int port) throws IOException {
@@ -72,6 +73,11 @@ public class OrderClient extends AbstractClient {
 				{
 					((ArrayList<String>)msg).remove(0);
 					getMyOrders((ArrayList<String>)msg);
+				}
+				if(((String)arr[0]).equals("load my employer"))
+				{
+					((ArrayList<String>)msg).remove(0);
+					getMyEmployers((ArrayList<String>)msg);
 				}
 			}
 			if(arr[0] instanceof DishInOrder)
@@ -259,5 +265,17 @@ public class OrderClient extends AbstractClient {
 			
 		  }
 	  }
+	  private void getMyEmployers(ArrayList<String> myEmployers)
+	  {
+		  this.myEmployers.clear();
+		  for(String employer:myEmployers)
+		  {
+			  String[]temp=employer.split("~");
+			  //name address phone isapproved
+			  this.myEmployers.add(new Employer(Integer.parseInt(temp[0]),temp[1],temp[2],temp[3],Integer.parseInt(temp[4])));
+			
+		  }
+	  }
+
 	  
 }

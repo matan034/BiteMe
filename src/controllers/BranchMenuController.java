@@ -221,7 +221,7 @@ public class BranchMenuController {
 	    	if(selected_dish.getChooseExtras()==1)
 	    		extras=extra_input.getText();
 	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice());    	
-	    	
+	    	Globals.newOrder.addQuantity(selected_dish.getType());
 	    	Globals.newOrder.addDish(dish);
 	    	
 	    }

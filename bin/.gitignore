@@ -1,2 +1,6 @@
 /controllers/
 /server/
+/entity/
+/clients/
+/branch_manager/
+/common/

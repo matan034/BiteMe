@@ -41,6 +41,8 @@ public class MyOrdersController {
 				order.setIs_arrived(1);
 				String orderArrived="Order_arrived~"+1+"~"+order.getOrder_num();
 				StartClient.order.accept(orderArrived);
+				String update_recieve_time="Update_recieve_time~"+order.getOrder_num();
+				StartClient.order.accept(update_recieve_time);
 				
 			}
 		};
