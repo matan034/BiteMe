@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -53,9 +54,11 @@ public class PaymentController {
     @FXML
     private Label total_price_label;
 
-
+    private int delivery_pay;
+    private double early_discount;
     public void initialize()
     {
+    	
     	payment_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     		
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -71,6 +74,7 @@ public class PaymentController {
     	     } 
     	});
     	
+
     	for(DishInOrder d : Globals.newOrder.getDishes())
     	{
     		 try {
@@ -91,16 +95,30 @@ public class PaymentController {
     	}
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
+    		String delivery_method=Globals.newOrder.getDelivery_method();
+    		if(delivery_method.equals("Shared"))
+        	{
+    	    	private_btn.setDisable(true);
+    	    	buisness_btn.setDisable(false);
+    	    	buisness_btn.setSelected(true);
+    			getSharedDeliveryPrice();
+        	}
+    		addDeliveryPrice(delivery_method);
     		Separator sep= new Separator();
     		Label delivery=new Label("Delivery");
-    		Label delivery_type=new Label(Globals.newOrder.getDelivery_method());
-    		Label delivery_fee=new Label(Globals.delivery_fee.get(Globals.newOrder.getDelivery_method())+Globals.currency);
+    		Label delivery_type=new Label(delivery_method);
+    		Label delivery_fee=new Label(Globals.delivery_fee.get(delivery_method)+Globals.currency+" X"+Globals.newOrder.getPeople_in_delivery());
+    		
     		HBox hbox=new HBox();
+    		delivery_type.setPadding(new Insets(10));
+    		delivery_fee.setPadding(new Insets(10));
     		hbox.getChildren().addAll(delivery_type,delivery_fee);
     		extra_fees_vbox.getChildren().addAll(sep,delivery,hbox);
     	}
     	if(Globals.newOrder.getIs_early_order()==1)
     	{
+    		early_discount=Globals.newOrder.getPrice()*0.1;
+    		Globals.newOrder.setPrice(Globals.newOrder.getPrice()*0.9);
     		Separator sep= new Separator();
     		Label discount=new Label("Discount");
     		Label early_order=new Label("Early Order 10%");
@@ -113,6 +131,13 @@ public class PaymentController {
     
     @FXML
     void back(ActionEvent event) {
+    	double temp=Globals.newOrder.getPrice();
+    	if(Globals.newOrder.getIs_early_order()==1)
+    	{
+    		temp += early_discount;
+    	}
+    	temp-= delivery_pay;
+    	Globals.newOrder.setPrice(temp);
     	Globals.loadInsideFXML( Globals.order_informationFXML);
     }
 
@@ -129,5 +154,30 @@ public class PaymentController {
     	
     	Globals.loadInsideFXML(Globals.order_confirmedFXML);
     }
+    private void addDeliveryPrice(String delivery_method)
+	{
+    	
+		double current_price=Globals.newOrder.getPrice();
+		delivery_pay=Globals.delivery_fee.get(delivery_method);
+		
+		switch(delivery_method)
+		{
+			case "Private": Globals.newOrder.setPrice(current_price+delivery_pay); break;
+			case "Shared": int people_count=Globals.newOrder.getPeople_in_delivery();
+							delivery_pay*=people_count;
+							Globals.newOrder.setPrice(current_price+delivery_pay);
+							break;
+			case "Robot":Globals.newOrder.setPrice(current_price+delivery_pay); break;
+		}
+	}
+	private void getSharedDeliveryPrice()
+	{
+		int price= Globals.regular_delivery_fee;
+		int people_count=Globals.newOrder.getPeople_in_delivery();
+		if(people_count>=3) price =15;
+		else price -= (people_count-1)*5;
+		Globals.delivery_fee.put(Globals.newOrder.getDelivery_method(), price);
+	}
+
 
 }

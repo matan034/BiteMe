@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderComponentsRating">
+   <children>
+      <Pane layoutX="-88.0" layoutY="-142.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="113.0" layoutY="184.0" text="Branch:" />
+            <Label layoutX="113.0" layoutY="210.0" text="Month:" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="145.0" prefHeight="39.0" prefWidth="143.0" text="Order components rating" textAlignment="CENTER" />
+            <TableView fx:id="ratingTable" layoutX="210.0" layoutY="201.0" prefHeight="137.0" prefWidth="376.0">
+              <columns>
+                  <TableColumn fx:id="restaurantName" prefWidth="75.0" text="restaurant" />
+                <TableColumn fx:id="startersColumn" prefWidth="60.0" text="starters" />
+                  <TableColumn fx:id="drinksColumn" prefWidth="60.0" text="drinks" />
+                  <TableColumn fx:id="dessertsColumn" prefWidth="60.0" text="desserts" />
+                  <TableColumn fx:id="saladsColumn" prefWidth="60.0" text="salads" />
+                <TableColumn fx:id="mainsColumn" prefWidth="60.0" text="mains" />
+              </columns>
+            </TableView>
+            <Button fx:id="backToViewReports" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#back_to_view_reports" text="back" />
+            <Label fx:id="branchName_lbl" layoutX="159.0" layoutY="184.0" />
+            <Label fx:id="monthNum_lbl" layoutX="159.0" layoutY="210.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

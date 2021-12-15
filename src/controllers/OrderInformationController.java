@@ -5,14 +5,21 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import common.Globals;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -71,10 +78,45 @@ public class OrderInformationController {
 
     @FXML
     private RadioButton robot_btn;
+    
+    @FXML
+    private Label people_cnt;
+
+    @FXML
+    private Button plus_btn;
+
+    @FXML
+    private Button minus_btn;
+
+    @FXML
+    private HBox shared_options;
 
     public void initialize()
     {
+    	
     	continue_btn.setDisable(true);
+    	class peopleCounter implements EventHandler<ActionEvent>{
+
+    		private int mul;
+    	
+			public peopleCounter(int mul) {
+				super();
+				this.mul = mul;
+			}
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				int temp=Integer.parseInt(people_cnt.getText());
+				if((mul==-1&& temp>1)|| mul==1)
+					temp+=1*mul;
+				people_cnt.setText(Integer.toString(temp));
+				
+			}
+    		
+    	}
+    	
+    	plus_btn.setOnAction(new peopleCounter(1));
+    	minus_btn.setOnAction(new peopleCounter(-1));
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
     		delivery_details.setVisible(true);
@@ -94,6 +136,18 @@ public class OrderInformationController {
     	    {
     	    	validate_input();
     	    }
+    	});
+    	
+    	delivery_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+    	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+
+    	         if (delivery_type.getSelectedToggle().equals(shared_btn)) {
+    	        	 shared_options.setDisable(false);
+    	         }
+    	         if (delivery_type.getSelectedToggle().equals(private_btn)) {
+    	        	 shared_options.setDisable(true);
+    	         }
+    	     } 
     	});
     }
     @FXML
@@ -115,22 +169,24 @@ public class OrderInformationController {
     	
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
-    		addDeliveryPrice(delivery_type.getSelectedToggle().getUserData().toString());
+    		String delivery_method=delivery_type.getSelectedToggle().getUserData().toString();	
     		Globals.newOrder.setRecieving_name(first_name_input.getText()+" "+last_name_input.getText());
-    		Globals.newOrder.setDelivery_method(delivery_type.getSelectedToggle().getUserData().toString());
+    		Globals.newOrder.setDelivery_method(delivery_method);
     		Globals.newOrder.setCity(city_input.getText());
     		Globals.newOrder.setStreet(street_input.getText());
     		Globals.newOrder.setPhone(phone_input.getText());
     		Globals.newOrder.setZip(zip_input.getText());
-        	Globals.newOrder.setBuisness_name(company_input.getText());	
+        	Globals.newOrder.setBuisness_name(company_input.getText());
+        	if(delivery_method.equals("Shared"))
+        	{
+        		Globals.newOrder.setPeople_in_delivery(Integer.parseInt(people_cnt.getText()));
+        	}
+    		
     	}
     	String time=hour_input.getText();
     	LocalDate date = date_input.getValue();
     	Globals.newOrder.setOrder_time(time+" "+date);
-    	if(checkIfEarlyOrder(time,date))
-    	{
-    		Globals.newOrder.setPrice(Globals.newOrder.getPrice()*0.9);
-    	}
+    	checkIfEarlyOrder(time,date);
     	Globals.loadInsideFXML( Globals.paymentFXML);
     
     }
@@ -165,14 +221,6 @@ public class OrderInformationController {
     	}
 	     
     }
-	private void addDeliveryPrice(String delivery_method)
-	{
-		switch(delivery_method)
-		{
-			case "Private": Globals.newOrder.setPrice(Globals.newOrder.getPrice()+25); break;
-			case "Shared":
-			case "Robot": break;
-		}
-	}
+	
     
 }

@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +13,9 @@ public class Order implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time;
-	private Branch branch;
+	private Supplier supplier;
 	private Customer customer;
-	private int order_num,is_early_order=0;
+	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;
 	private Double price=0.0;
 	
 	private ObservableList<DishInOrder> dishes=FXCollections.observableArrayList();
@@ -23,13 +24,43 @@ public class Order implements Serializable{
 		this.order_type = order_type;
 		this.customer=customer;
 	}
-	
+	public Order(int order_num,String order_type,String order_time,int is_arrived)
+	{
+		this.order_num = order_num;
+		this.order_type = order_type;
+		this.order_time = order_time;
+		this.is_arrived=is_arrived;
+		
+	}
 	@Override
 	public String toString() {
-		
-		return branch.getBranchID()+"~"+customer.getCustomerNumber()+"~"+order_type+"~"+is_early_order+"~"+order_time+"~"+
+		if(supplier!=null)
+		return supplier.getSupplierNum()+"~"+customer.getCustomerNumber()+"~"+order_type+"~"+is_early_order+"~"+order_time+"~"+
 				delivery_method+"~"+recieving_name+"~"+buisness_name+"~"+phone+"~"+street+"~"+city+"~"+zip;
+		else
+			return order_num+"~"+order_type+"~"+order_time+"~"+is_arrived;
 	}
+	
+	public int getIs_arrived() {
+		return is_arrived;
+	}
+	public void setIs_arrived(int is_arrived) {
+		this.is_arrived = is_arrived;
+	}
+	public int getIs_approved() {
+		return is_approved;
+	}
+	public void setIs_approved(int is_approved) {
+		this.is_approved = is_approved;
+	}
+	public int getPeople_in_delivery() {
+		return people_in_delivery;
+	}
+
+	public void setPeople_in_delivery(int people_in_delivery) {
+		this.people_in_delivery = people_in_delivery;
+	}
+
 	public int getIs_early_order() {
 		return is_early_order;
 	}
@@ -119,6 +150,7 @@ public class Order implements Serializable{
 	}
 	public ObservableList<DishInOrder> getDishes()
 	{
+		
 		return dishes;
 	}
 	public boolean removeDish(DishInOrder dish)
@@ -155,13 +187,13 @@ public class Order implements Serializable{
 	}
 
 
-	public Branch getBranch() {
-		return branch;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
 
-	public void setBranch(Branch branch) {
-		this.branch = branch;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 
 

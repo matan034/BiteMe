@@ -30,7 +30,7 @@ public class CartController {
 
 
 	    
-	    
+	  
 
 	    private MyListener cartItemListener;
 	    public void initialize()
@@ -38,10 +38,13 @@ public class CartController {
 			cartItemListener = new MyListener() {
 	    		   @Override
 	                public void onClickListener(Object dish) {
+	    			  
 	                    Globals.newOrder.removeDish((DishInOrder)dish);
+	                   
 	                }  
 			};
 	    	setCartItems();
+	    
 	    	Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { //// not WORKING!!!!
 	    		@Override
 		    	 public void onChanged(javafx.collections.ListChangeListener.Change<? extends DishInOrder> c) {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MyOrdersController">
+   <children>
+      <BorderPane layoutX="200.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
+                     <children>
+                        <Label id="title_lbl" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="My Orders" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox fx:id="new_orders_vbox" alignment="CENTER" prefHeight="24.0" prefWidth="600.0">
+                     <children>
+                        <HBox fillHeight="false" minHeight="-Infinity" minWidth="-Infinity">
+                           <children>
+                              <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="New Orders">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Accordion fx:id="new_orders_accordion" />
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+                  <VBox fx:id="history_vbox" alignment="CENTER" prefHeight="37.0" prefWidth="600.0">
+                     <children>
+                        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="600.0">
+                           <children>
+                              <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="History">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Accordion fx:id="history_accordion" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

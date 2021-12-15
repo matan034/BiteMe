@@ -2,6 +2,7 @@ package common;
 
 import java.io.IOException;
 import java.lang.ModuleLayer.Controller;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,10 @@ import controllers.MyListener;
 import controllers.OrderClientController;
 import entity.Branch;
 import entity.Dish;
+import entity.DishInOrder;
 import entity.Order;
+import entity.Supplier;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -31,6 +35,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import server.ServerStart;
@@ -62,16 +67,25 @@ public class Globals {
 			order_informationFXML="/order/OrderInformationScreen.fxml",
 			paymentFXML="/order/PaymentScreen.fxml",
 			order_confirmedFXML="/order/OrderConfirmedScreen.fxml",
-			reportFXML="/report/reportsScreen";
+			reportFXML="/report/reportsScreen",
+			myOrdersFXML="/customer/MyOrdersScreen.fxml",
+			reports_screenFXML = "/report/ReportsScreen.fxml",
+			create_reportsFXML = "/report/CreateReport.fxml", view_reportsFXML = "/report/ViewReports.fxml",
+			order_components_rating_reportFXML = "/report/OrderComponentsRating.fxml",
+			performance_reportFXML = "/report/PerformanceReport.fxml",
+			purchase_reportFXML = "/report/PurchaseReport.fxml",
+			quarter_delay_reportFXML = "/report/QuarterlyDelaySupplyReport.fxml",
+			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml";
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);
 	 
 	 public static ObservableList<Branch> branches;
+	 public static ObservableList<Supplier> suppliers;
+	 public static ArrayList<DishInOrder> order_dishes;
 	 public static Dish selected_dish;
 	 public static Order newOrder;
-	 
 	 private static Image takeaway=new Image("takeaway.png");
 	 private static Image delivery=new Image("delivery.jpg");
 	 protected static BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
@@ -97,7 +111,8 @@ public class Globals {
 			 	FXMLLoader loader = new FXMLLoader();
 			    loader.setLocation(Globals.class.getResource(fxml_name));
 	    		AnchorPane newLoadedPane =loader.load();
-
+	    		newLoadedPane.autosize();
+	  
 			   Globals.index_controller.getPaneInPane().getChildren().add(newLoadedPane);
 			    
 	            }
@@ -125,6 +140,7 @@ public class Globals {
 		    pane.setPrefSize(800, 600);
 			Scene scene=new Scene(pane);
 			stage.setTitle(window_name);
+			//stage.setMaximized(true);
 			stage.setScene(scene);	
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		     public void handle(WindowEvent we) {

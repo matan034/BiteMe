@@ -7,13 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import common.Globals;
 import controllers.IndexController;
 import entity.Account;
 import entity.Branch;
 import entity.Customer;
 import entity.Dish;
+import entity.DishInOrder;
 import entity.Order;
+import entity.Supplier;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,15 +31,17 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<User> all_users=new ArrayList<>();
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
+	public static Map<String,ArrayList<Dish>> branch_menu=new HashMap<String,ArrayList<Dish>>();
+
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
 	
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
-	public static ArrayList<Dish> branch_menu=new ArrayList<>();
+	//public static ArrayList<Dish> branch_menu=new ArrayList<>();
 	public static Order found_order = new Order(null,null);
 	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
 	public static User user;
-	
+	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
 
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
@@ -51,14 +57,26 @@ public class OrderClient extends AbstractClient {
 		System.out.println("Msg: "+msg +" recieved");
 		awaitResponse = false;
 		if(msg instanceof ArrayList) {
-
 			Object[]arr=((ArrayList) msg).toArray();
 			if(arr[0] instanceof User)
 				all_users = ((ArrayList<User>)msg);
 			if(arr[0] instanceof Dish)
-				branch_menu = ((ArrayList<Dish>)msg);
+				loadBranchMenu((ArrayList<Dish>)msg);
 			if(arr[0] instanceof Branch)
 				Globals.branches=FXCollections.observableArrayList((ArrayList<Branch>)msg);
+			if(arr[0] instanceof Supplier)
+				Globals.suppliers=FXCollections.observableArrayList((ArrayList<Supplier>)msg);
+			if(arr[0] instanceof String)
+			{
+				if(((String)arr[0]).equals("load my orders"))
+				{
+					((ArrayList<String>)msg).remove(0);
+					getMyOrders((ArrayList<String>)msg);
+				}
+			}
+			if(arr[0] instanceof DishInOrder)
+				Globals.order_dishes=(ArrayList<DishInOrder>)msg;
+				
 		}
 		
 		else {
@@ -91,7 +109,7 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(2,res[3]);
 				break;
 			case "User login":
-				user=new User(res[1],res[2],res[3]);
+				user=new User(res[1],res[2],res[3],res[4]);
 				break;
 			case "New Account":
 				account_reg_msg=res[1];
@@ -216,4 +234,30 @@ public class OrderClient extends AbstractClient {
 	  {
 		  connection_info.set(2, res[0]);
 	  }
+	  
+	  private void loadBranchMenu(ArrayList<Dish> all_dishes)
+	  {
+		  branch_menu.put("Appetizer",new ArrayList<Dish>());
+		  branch_menu.put("Salad",new ArrayList<Dish>());
+		  branch_menu.put("Main Dish",new ArrayList<Dish>());
+		  branch_menu.put("Dessert",new ArrayList<Dish>());
+		  branch_menu.put("Drink",new ArrayList<Dish>());
+		 for(Dish dish:all_dishes)
+		 {
+			 ArrayList<Dish> temp=branch_menu.get(dish.getType());
+			 temp.add(dish);
+			 branch_menu.put(dish.getType(),temp );
+		 }
+	  }
+	  private void getMyOrders(ArrayList<String> myOrders)
+	  {
+		  this.myOrders.clear();
+		  for(String order:myOrders)
+		  {
+			  String[]temp=order.split("~");
+			  this.myOrders.add(new Order(Integer.parseInt(temp[0]),temp[1],temp[2],Integer.parseInt(temp[3])));
+			
+		  }
+	  }
+	  
 }

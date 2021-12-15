@@ -1,7 +1,11 @@
 package controllers;
+import java.util.ArrayList;
+
+import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import entity.Branch;
+import entity.Supplier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,15 +14,15 @@ public class ChooseBranchController {
 
 
 	    @FXML
-	    private ComboBox<Branch> choose_branch_combo_box;
+	    private ComboBox<Supplier> choose_branch_combo_box;
 	    @FXML
 	    private Button back_btn;
 	    @FXML
 	    private Button view_menu_btn;
 	    @FXML
 	    public void initialize() {
-	    	StartClient.order.accept("Load_branches");
-	    	choose_branch_combo_box.setItems(Globals.branches);
+	    	StartClient.order.accept("Load_suppliers");
+	    	choose_branch_combo_box.setItems(Globals.suppliers);
 	    	view_menu_btn.setDisable(true);
 	    	choose_branch_combo_box.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
 	    	    if(newValue!=null)
@@ -29,7 +33,7 @@ public class ChooseBranchController {
 	    }
 	    @FXML
 	    void viewMenu(ActionEvent event) {
-	    	Globals.newOrder.setBranch(choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
 	    }

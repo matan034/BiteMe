@@ -1,6 +1,12 @@
 package entity;
 
-public class DishInOrder {
+import java.io.Serializable;
+
+public class DishInOrder implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String size,cooking_lvl,extras,dish_name;
 	private int dishID,orderNum;
 	private double price;

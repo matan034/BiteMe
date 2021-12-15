@@ -1,6 +1,7 @@
 package controllers;
 
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -35,7 +36,8 @@ public class IndexControllerD {
 	
 	public void initialize()
 	{
-
+		
+		paneInPane.autosize();
 		
 		String typeUser=OrderClient.user.getType();
 		
@@ -96,12 +98,17 @@ public class IndexControllerD {
 			options_grid1.add(BranchManagerOption7,0,6);
 			options_grid1.add(BranchManagerOption8,0,8);
 			
-			
+			BranchManagerOption1.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent e) {
+			    	Globals.loadInsideFXML(Globals.reports_screenFXML);
+			    }});
 			break;	
 			
        case "Customer":
+    	   StartClient.order.accept("Load_customer~"+OrderClient.user.getID());
     	   
-    	   hello_label.setText("Hello Customer");
+    	   hello_label.setText("Hello "+OrderClient.user.getFirstName());
     	   
     	   Button CustomerOption1= new Button ("New Order");
 		   Button CustomerOption2= new Button ("My Orders");
@@ -112,6 +119,11 @@ public class IndexControllerD {
 			    @Override
 			    public void handle(ActionEvent e) {
 			    	Globals.loadInsideFXML( Globals.W4CLoginFXML);
+			    }});
+		   CustomerOption2.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override
+			    public void handle(ActionEvent e) {
+			    	Globals.loadInsideFXML( Globals.myOrdersFXML);
 			    }});
 		   
 		   options_grid1.add(CustomerOption1,0,0);

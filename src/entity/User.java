@@ -23,7 +23,8 @@ public class User implements Serializable {
 		FullName=FirstName+" "+LastName;
 		Status=status;
 	}
-	public User(String firstName, String lastName,String type) {
+	public User(String id,String firstName, String lastName,String type) {
+		this.ID=id;
 		FirstName = firstName;
 		LastName = lastName;
 		Type = type;

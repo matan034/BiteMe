@@ -8,10 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import entity.Branch;
 import entity.Dish;
+import entity.DishInOrder;
 import entity.Order;
+import entity.Supplier;
 import entity.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -95,7 +99,13 @@ public class BiteMeServer extends AbstractServer
 				case "Load_dishes": loadDishes(res,client);break;
 				case "Load_customer": loadCustomer(res,client);break;
 				case "Load_branches": loadBranches(res,client);break;
+				case "Load_suppliers": loadSuppliers(res,client);break;
 				case "Add_dishInOrder":addDishInOrder(res,client);break;
+				case "Load_orders": loadOrders(res,client);break;
+				case "Order_arrived": orderArrived(res,client);break;
+				case "Load_orderDishes": loadOrderDishes(res,client);break;
+				// reports cases
+				case "Load_components":loadComponentsOfOrder(res, client);break;
 				}
 	
 
@@ -281,7 +291,7 @@ public class BiteMeServer extends AbstractServer
 				System.out.println("User found:logging in");
 				rs.updateInt("IsLoggedIn",1);
 				rs.updateRow();
-				result= "User login~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(6);
+				result= "User login~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(6);
 				sendToClient(result,client);
 			} 
 			else sendToClient("User login~User not Found", client);
@@ -295,20 +305,31 @@ public class BiteMeServer extends AbstractServer
 		  Statement stmt;
 		  ResultSet rs;
 		  stmt = myCon.createStatement();
-		  int flag,branch_id,customer_num,isEarlyOrder;
-		  String supply_way,Delivery_type,requested_order_time,delivery_query,takeAway_query,recieverName,recieverPhone,businessName,street,city,zip;
+		  int orderId=-1,branch_id,customer_num,isEarlyOrder;
+		  String order,supply_way,Delivery_type,requested_order_time,delivery_query,takeAway_query,recieverName,recieverPhone,businessName,street,city,zip;
 		  PreparedStatement preparedStmt;
-		  delivery_query = "INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay, DeliveryType,IsEarlyOrder,RequestOrderTime,RecieverName,BusinessName,RecieverPhone,DeliveryStreet,DeliveryCity,DeliveryZip) "
-		  		+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-		  takeAway_query="INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES (?,?, ?, ?,?);";
+		  order="INSERT INTO biteme.order (BranchID, CustomerNumber, SupplyWay,IsEarlyOrder,RequestOrderTime)  VALUES (?,?, ?, ?,?);";
 		  try {
 		  branch_id=Integer.parseInt(res[1]);
 		  customer_num=Integer.parseInt(res[2]);
 		  supply_way=res[3];
 		  isEarlyOrder=Integer.parseInt(res[4]);
 		  requested_order_time=res[5];
+		  // create the mysql insert new order	  
+	      preparedStmt = myCon.prepareStatement(order);
+	      preparedStmt.setInt (1,branch_id);
+	      preparedStmt.setInt (2,customer_num);
+	      preparedStmt.setString (3,supply_way);
+	      preparedStmt.setInt (4,isEarlyOrder);
+	      preparedStmt.setString (5,requested_order_time);
+	      preparedStmt.execute();	
+	      rs=stmt.executeQuery("SELECT last_insert_id()");//get new order id
+			if(rs.next()) 
+				orderId=rs.getInt(1);	
 		  if(supply_way.equals("Delivery"))
 		  {
+			  String insertDelivery="INSERT INTO biteme.delivery_details (OrderID, DeliveryType, RecieverName,BusinessName,RecieverPhone,DeliveryStreet,DeliveryCity,DeliveryZip)"
+			  		+ "  VALUES (?,?, ?, ?,?,?,?,?);";
 			  Delivery_type=res[6];
 			  recieverName=res[7];  
 			  businessName=res[8];
@@ -316,37 +337,22 @@ public class BiteMeServer extends AbstractServer
 			  street=res[10];
 			  city=res[11];
 			  zip=res[12];
-			  // create the mysql insert preparedstatement	  
-		      preparedStmt = myCon.prepareStatement(delivery_query);
-		      preparedStmt.setInt (1,branch_id);
-		      preparedStmt.setInt (2,customer_num);
-		      preparedStmt.setString (3,supply_way);
-		      preparedStmt.setString (4,Delivery_type);
-		      preparedStmt.setInt (5,isEarlyOrder);
-		      preparedStmt.setString (6,requested_order_time);
-		      preparedStmt.setString (7,recieverName);
-		      preparedStmt.setString (8,businessName);
-		      preparedStmt.setString (9,recieverPhone);
-		      preparedStmt.setString (10,street);
-		      preparedStmt.setString (11,city);
-		      preparedStmt.setString (12,zip);
+			  // create the mysql insert deliveryDetails	  
+		      preparedStmt = myCon.prepareStatement(insertDelivery);
+		      preparedStmt.setInt (1,orderId);
+		      preparedStmt.setString (2,Delivery_type);
+		      preparedStmt.setString (3,recieverName);
+		      preparedStmt.setString (4,businessName);
+		      preparedStmt.setString (5,recieverPhone);
+		      preparedStmt.setString (6,street);
+		      preparedStmt.setString (7,city);
+		      preparedStmt.setString (8,zip);
 		      preparedStmt.execute();		
 		  }
+		  if(orderId!=-1)
+			sendToClient("Insert~"+orderId, client);
 		  else
-			  {
-			  preparedStmt = myCon.prepareStatement(takeAway_query);
-		      preparedStmt.setInt (1,branch_id);
-		      preparedStmt.setInt (2,customer_num);
-		      preparedStmt.setString (3,supply_way);
-		      preparedStmt.setInt (4,isEarlyOrder);
-		      preparedStmt.setString (5,requested_order_time);
-		      preparedStmt.execute();			
-			  }
-		  rs=stmt.executeQuery("SELECT last_insert_id()");//get new order id
-			if(rs.next()) 
-				sendToClient("Insert~"+rs.getString(1), client);
-			
-			else sendToClient("Insert~Error saving your order", client);
+			  sendToClient("Insert~fail insert order", client);
 		  }
 		  catch (Exception e) {
 			  System.out.println(e);
@@ -489,8 +495,8 @@ public class BiteMeServer extends AbstractServer
 		  		+ "INNER JOIN \r\n"
 		  		+ "(\r\n"
 		  		+ "SELECT DishID FROM biteme.dishinmenu WHERE MenuID=\r\n"
-		  		+ "(SELECT MenuID FROM biteme.menu WHERE BranchID=\r\n"
-		  		+ "(SELECT BranchID FROM biteme.branch WHERE BranchName=\""+res[1] +"\"))\r\n"
+		  		+ "(SELECT MenuID FROM biteme.menu WHERE RestaurantNum=\r\n"
+		  		+ "(SELECT Number FROM biteme.restaurant WHERE Name=\""+res[1] +"\"))\r\n"
 		  		+ ") as x\r\n"
 		  		+ " ON biteme.dishes.dishID=x.DishID");
 
@@ -520,6 +526,28 @@ public class BiteMeServer extends AbstractServer
 			  sendToClient("Cant Load Menu "+e,client);
 		}
 	  }
+//	  protected void loadCustomer(String[]res,ConnectionToClient  client)
+//	  {
+//		  Statement stmt;
+//		  ResultSet rs;
+//		  String result;
+//		  try {
+//		  stmt = myCon.createStatement();
+//		  rs =stmt.executeQuery("SELECT * FROM biteme.customers WHERE AccountNum="+Integer.parseInt(res[1]));
+//		  if(rs.next())
+//			{
+//				System.out.println("customer found"); 
+//				result= "Customer load~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4);
+//				sendToClient(result,client);
+//			} 
+//			else sendToClient("Customer load~Customer Wasnt found", client);
+//			rs.close();
+//			stmt.close();
+//		  }
+//		  catch (Exception e) {
+//			
+//		}
+//	  }
 	  protected void loadCustomer(String[]res,ConnectionToClient  client)
 	  {
 		  Statement stmt;
@@ -527,7 +555,7 @@ public class BiteMeServer extends AbstractServer
 		  String result;
 		  try {
 		  stmt = myCon.createStatement();
-		  rs =stmt.executeQuery("SELECT * FROM biteme.customers WHERE AccountNum="+Integer.parseInt(res[1]));
+		  rs =stmt.executeQuery("SELECT * FROM biteme.customers WHERE ID="+Integer.parseInt(res[1]));
 		  if(rs.next())
 			{
 				System.out.println("customer found"); 
@@ -566,6 +594,66 @@ public class BiteMeServer extends AbstractServer
 			
 		}
 	  }
+	  protected void loadSuppliers(String[]res,ConnectionToClient  client)
+	  {
+		  Statement stmt;
+		  ResultSet rs;
+		
+		  try {
+		  stmt = myCon.createStatement();
+		  rs =stmt.executeQuery("SELECT * FROM biteme.restaurant");
+		  ArrayList<Supplier> suppliers=new ArrayList<>();
+		  while(rs.next())
+	  	  {			  
+			  int supplierNum=rs.getInt(1);
+			  int branchNum=rs.getInt(2);
+			  int isApproved=rs.getInt(3);
+			  String name=rs.getString(4);
+			  String address=rs.getString(5);
+			  String city=rs.getString(6);
+			  String type=rs.getString(7);
+			  String manager=rs.getString(8);
+			  suppliers.add(new Supplier(supplierNum,branchNum,isApproved,name,address,city,type,manager));		 	
+	  	  }
+	  
+		  sendToClient(suppliers,client);
+			rs.close();
+			stmt.close();
+		  }
+		  catch (Exception e) {
+			
+		}
+	  }
+	  
+	  protected void loadOrders(String[]res,ConnectionToClient  client)
+	  {
+		  Statement stmt;
+		  ResultSet rs;
+		
+		  try {
+		  stmt = myCon.createStatement();
+		  rs =stmt.executeQuery("SELECT OrderID, SupplyWay,RequestOrderTime,IsArrived FROM biteme.order WHERE CustomerNumber="+res[1]);
+		  ArrayList<String> myOrders=new ArrayList<>();
+		  myOrders.add("load my orders");
+		  while(rs.next())
+	  	  {			  
+			  int orderNum=rs.getInt(1);  
+			  String orderType=rs.getString(2);
+			  String orderTime=rs.getString(3);
+			  int isApproved=rs.getInt(4);
+			  String temp=orderNum+"~"+orderType+"~"+orderTime+"~"+isApproved;
+			  myOrders.add(temp);		 	
+	  	  }
+	  
+		  sendToClient(myOrders,client);
+			rs.close();
+			stmt.close();
+		  }
+		  catch (Exception e) {
+			System.out.println(e);
+		}
+	  }
+	  
 	  protected void addDishInOrder(String[]res,ConnectionToClient  client)
 	  {
 		  Statement stmt;
@@ -581,6 +669,84 @@ public class BiteMeServer extends AbstractServer
 			
 		}
 	  }
-}
+	  protected void orderArrived(String[]res,ConnectionToClient  client)
+	  {
+		  Statement stmt;
+		  int flag;
+		  try {
+		  stmt = myCon.createStatement();
+		  flag =stmt.executeUpdate(String.format("UPDATE biteme.order SET IsArrived = %d WHERE OrderID = %d;",Integer.parseInt(res[1]) ,Integer.parseInt(res[2])));
+		  sendToClient("Order_arrived~Updatet Successfully",client);
+			stmt.close();
+		  }
+		  catch (Exception e) {
+			
+		}
+	  }
+	  protected void loadOrderDishes(String[]res,ConnectionToClient  client)
+	  {
+		  Statement stmt;
+		  ResultSet rs;
+		
+		  try {
+		  stmt = myCon.createStatement();
+		  rs =stmt.executeQuery("SELECT x.DishID,x.OrderNumber,x.Size,x.CookingLevel,x.Extras,dishes.DishName,dishes.Price\r\n"
+		  		+ "FROM (SELECT DishID,OrderNumber,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="+res[1]+") as x\r\n"
+		  		+ "INNER JOIN dishes ON x.DishID=dishes.DishID;");
+		  ArrayList<DishInOrder> myOrders=new ArrayList<>();
+		  
+		  while(rs.next())
+	  	  {			  
+			  int dishNum=rs.getInt(1);  
+			  int orderNum=rs.getInt(2);  
+			  String size=rs.getString(3);
+			  String cookinglvl=rs.getString(4);
+			  String extras=rs.getString(5);
+			  String dishName=rs.getString(6);
+			  double dishPrice=rs.getDouble(7);
+			  DishInOrder temp=new DishInOrder(size, cookinglvl, extras, dishName, dishNum, orderNum, dishPrice);
+			  myOrders.add(temp);		 	
+	  	  }
+	  
+		  sendToClient(myOrders,client);
+			rs.close();
+			stmt.close();
+		  }
+		  catch (Exception e) {
+			System.out.println(e);
+		}
+	  }
+	  
+	  protected void loadComponentsOfOrder(String[] res, ConnectionToClient client) {
+			// testprint
+			if (res == null)
+				System.out.println("res value is null!");
+			List<String> new_res = Arrays.asList(res);
+			System.out.println(new_res);
+
+			// end of testprint
+			Statement stmt;
+			ResultSet rs;
+			String result;
+			try {
+				stmt = myCon.createStatement();
+
+				rs = stmt.executeQuery("SELECT * FROM biteme.orderbytype WHERE BranchID=" + Integer.parseInt(res[1]));
+				if (rs.next()) {
+					System.out.println("reportOfComponents found");
+					result = "Components_load~" + rs.getInt(2) + "" + rs.getInt(3) + "" + rs.getInt(4) + "~"
+							+ rs.getInt(5) + "~" + rs.getInt(6);
+					sendToClient(result, client);
+				} else
+					sendToClient("Components_load~Components were not found", client);
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	  
+
 
 

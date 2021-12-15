@@ -1,30 +1,25 @@
 package controllers;
 
 
-
-
 import java.io.IOException;
-
-
 import clients.OrderClient;
 import common.Globals;
 import entity.Dish;
 import entity.DishInOrder;
-
+import javafx.beans.property.ListProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.RadioButton;
-
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +30,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class BranchMenuController {
-
 
 	    @FXML
 	    private Button back_btn;
@@ -71,12 +65,28 @@ public class BranchMenuController {
 	    private Label total_price_label;
 	    @FXML
 	    private AnchorPane cart_pane;
+	    @FXML
+	    private Button appetizer_btn;
+
+	    @FXML
+	    private Button salad_btn;
+
+	    @FXML
+	    private Button main_dish_btn;
+
+	    @FXML
+	    private Button dessert_btn;
+
+	    @FXML
+	    private Button drinks_btn;
 	    
 	    private MyListener menuListener;
 	    private String currentSize,currentLvl,extras;
 	    private ToggleGroup sizes=new ToggleGroup(),cooklevels=new ToggleGroup();
 	    private TextField extra_input=new TextField();
 	    private Dish selected_dish;
+	   // private ObservableList<DishInOrder>all_dishes=FXCollections.observableList(Globals.newOrder.getDishes());
+	    
 	    private int i=0;
 	    private Boolean firstClick=true;
 	    @FXML
@@ -106,6 +116,7 @@ public class BranchMenuController {
 	    
 	    public void initialize()
 	    {
+	    	
 	    	add_btn.setDisable(true);
 	    	menuListener = new MyListener() {
 	    		   @Override
@@ -114,16 +125,16 @@ public class BranchMenuController {
 	                }  
 			};
 
-	    	display_table();
-	    	Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
+			showAppetizers(null);
+			
+			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
 	    		@Override
 		    	 public void onChanged(ListChangeListener.Change<? extends DishInOrder> c) {
-	    			if(c.next())
-	    			{
+	    		
+	    	
 	    				int item_cnt=Globals.newOrder.getDishes().size();
 	    				if(item_cnt==0) cart_pane.getChildren().clear();
 	    				cart_count.setText(Integer.toString(item_cnt));
-	    			}
 	    				
 	             }
 	         });
@@ -210,7 +221,9 @@ public class BranchMenuController {
 	    	if(selected_dish.getChooseExtras()==1)
 	    		extras=extra_input.getText();
 	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice());    	
+	    	
 	    	Globals.newOrder.addDish(dish);
+	    	
 	    }
 
 	   
@@ -220,17 +233,18 @@ public class BranchMenuController {
 	    	Globals.loadInsideFXML( Globals.ChooseBranchFXML);
 	    }
 
-	    void display_table(){  
-	    	setChosenDish(OrderClient.branch_menu.get(0));
+	    void display_table(String type){  
+	    	items_grid.getChildren().clear();
+	    	setChosenDish(OrderClient.branch_menu.get(type).get(0));
 	    	int row=1,col=0;
-	    	for(int i=0;i<OrderClient.branch_menu.size();i++)
+	    	for(int i=0;i<OrderClient.branch_menu.get(type).size();i++)
 	    	{
 	    		try {
 	    		if(col==3) {
 	    			row+=1;
 	    			col=0;
 	    		}
-	    		Dish current=OrderClient.branch_menu.get(i);
+	    		Dish current=OrderClient.branch_menu.get(type).get(i);
 	    		FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/order/Dish.fxml"));
                 AnchorPane anchorPane;
@@ -258,7 +272,30 @@ public class BranchMenuController {
 	    	}
 	    }
 	        
+	    @FXML
+	    void showAppetizers(ActionEvent event) {
+	    	display_table("Appetizer");
+	    }
 
+	    @FXML
+	    void showDessert(ActionEvent event) {
+	    	display_table("Dessert");
+	    }
+
+	    @FXML
+	    void showDrinks(ActionEvent event) {
+	    	display_table("Drink");
+	    }
+
+	    @FXML
+	    void showMains(ActionEvent event) {
+	    	display_table("Main Dish");
+	    }
+
+	    @FXML
+	    void showSalads(ActionEvent event) {
+	    	display_table("Salad");
+	    }
 	                   
 
 

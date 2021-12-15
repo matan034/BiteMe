@@ -30,6 +30,12 @@
     -fx-touch-action: manipulation;
     -fx-width: auto;
   }
+  #minus_btn
+  {
+  	-fx-background-radius: 100;
+  	-fx-background-color: #ff0000;
+  	 -fx-font-color: #ffffff;
+  }
  .dish-item{
     -fx-background-color: #FFFFFF;
         -fx-background-radius: 30;
