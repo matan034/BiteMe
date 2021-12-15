@@ -27,8 +27,9 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<User> all_users=new ArrayList<>();
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
+	public static Map<Integer,ArrayList<Order>> OrdersInBranch=new HashMap<>();
+	public static Map<Integer,Integer> IsOrderApproved=new HashMap<>();
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
-	
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Dish> branch_menu=new ArrayList<>();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
@@ -60,11 +61,37 @@ public class OrderClient extends AbstractClient {
 				branch_menu = ((ArrayList<Dish>)msg);
 			if(arr[0] instanceof Branch)
 				Globals.branches=FXCollections.observableArrayList((ArrayList<Branch>)msg);
-			if(arr[0] instanceof Order)
-				ordersInBranch= ((ArrayList<Order>)msg);
-					
+			if(arr[0] instanceof String)
+			{
+				for(Object b:arr) {
+					String [] res = ((String)b).split("~");
+					switch(res[0]) {
+					case "Order":
+						Order new_order=new Order();
+						new_order.setDish_name(res[1]);
+						new_order.setRecieving_name(res[2]+res[3]);
+						 new_order.setOrder_type(res[4]);
+						 new_order.setOrder_time(res[5]);
+						 new_order.setOrder_num(Integer.parseInt(res[6]));
+						 ordersInBranch.add(new_order);
+						 //OrdersInBranch.put(new_order.getOrder_num(),new_order);
+						
+					}
+				}
+			}
+				/*String [] res = ((String)msg).split("~");
+				switch(res[0]) {
+				case "Order":
+					Order new_order=new Order();
+					new_order.setDish_name(res[1]);
+					new_order.setRecieving_name(res[2]+res[3]);
+					 new_order.setOrder_type(res[4]);
+					 new_order.setOrder_time(res[5]);
+					 new_order.setOrder_num(Integer.parseInt(res[6]));
+					 BranchOrders.add(new_order);
+				}*/
+			}
 				
-		}
 		
 		else {
 			String [] res = ((String)msg).split("~");
@@ -158,8 +185,13 @@ public class OrderClient extends AbstractClient {
 				break;
 			case "W4C_load_list":
 				w4cList(res);break;
+				
+			case "Check Approved Order":
+				IsOrderApproved.put(Integer.parseInt(res[1]), Integer.parseInt(res[2]));
 
 			}
+		
+				
 		
 		}	
 	}
