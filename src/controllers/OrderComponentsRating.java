@@ -3,6 +3,7 @@ package controllers;
 import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
+import entity.ComponentsRating;
 import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,27 +25,25 @@ public class OrderComponentsRating {
 	private Label monthNum_lbl;
 
 	@FXML
-	private TableView<Integer> ratingTable;
-
-	ObservableList<Integer> components;
+	private TableView<ComponentsRating> ratingTable;
 
 	@FXML
 	private TableColumn<String, String> restaurantName;
 
 	@FXML
-	private TableColumn<Integer, Integer> startersColumn;
+	private TableColumn<String, String> startersColumn;
 
 	@FXML
-	private TableColumn<Integer, Integer> mainsColumn;
+	private TableColumn<String, String> mainsColumn;
 
 	@FXML
-	private TableColumn<Integer, Integer> saladsColumn;
+	private TableColumn<String, String> saladsColumn;
 
 	@FXML
-	private TableColumn<Integer, Integer> dessertsColumn;
+	private TableColumn<String, String> dessertsColumn;
 
 	@FXML
-	private TableColumn<Integer, Integer> drinksColumn;
+	private TableColumn<String, String> drinksColumn;
 
 	@FXML
 	private Button backToViewReports;
@@ -64,26 +63,25 @@ public class OrderComponentsRating {
 			BranchID = 3;
 		String str = "Load_components~" + BranchID;
 		StartClient.order.accept(str);
-
 		display_table();
 	}
 
 	void display_table() {
 
-		//components = FXCollections.observableArrayList(OrderClient.componentsOfDishes);
-		startersColumn.setCellValueFactory(new PropertyValueFactory<Integer, Integer>("starters"));
-		mainsColumn.setCellValueFactory(new PropertyValueFactory<Integer, Integer>("mains"));
-		saladsColumn.setCellValueFactory(new PropertyValueFactory<Integer, Integer>("salads"));
-		dessertsColumn.setCellValueFactory(new PropertyValueFactory<Integer, Integer>("desserts"));
-		drinksColumn.setCellValueFactory(new PropertyValueFactory<Integer, Integer>("drinks"));
+		restaurantName.setCellValueFactory(new PropertyValueFactory<String, String>("restaurant"));
+		startersColumn.setCellValueFactory(new PropertyValueFactory<String, String>("starters"));
+		mainsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("mains"));
+		saladsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("salads"));
+		dessertsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("desserts"));
+		drinksColumn.setCellValueFactory(new PropertyValueFactory<String, String>("drinks"));
 
-		ratingTable.setItems(components);
+		ratingTable.setItems(OrderClient.componentsOfDishes);
 	}
 
 	@FXML
 	void back_to_view_reports(ActionEvent event) {
 
-		Globals.loadInsideFXML( Globals.view_reportsFXML);
+		Globals.loadInsideFXML(Globals.view_reportsFXML);
 	}
 
 }
