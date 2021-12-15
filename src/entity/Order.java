@@ -22,6 +22,7 @@ public class Order implements Serializable{
 		this.dish_name = dish_name;
 	}
 
+	private Supplier supplier;
 	private Branch branch;
 	private Customer customer;
 	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;

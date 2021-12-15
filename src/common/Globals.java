@@ -45,7 +45,7 @@ public class Globals {
 	
 	public static IndexControllerD index_controller;
 	
-	public static String currency="�";
+	public static String currency="₪";
 	public static String insertFXML="/order/InsertScreen.fxml",
 			searchFXML="/order/SearchScreen.fxml",
 			updateFxml="/order/UpdateScreen.fxml",

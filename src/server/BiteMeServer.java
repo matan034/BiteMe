@@ -93,6 +93,7 @@ public class BiteMeServer extends AbstractServer {
 				case "Import_users":importUsers(res,client);break;
 
 				case "Load_orders": loadOrders(res,client); break;
+				case"Load_MyOrders":loadMyOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
 				case "W4C_load_list": w4cLoadList(res,client);break;
 				case "Load_dishes": loadDishes(res,client);break;
@@ -281,30 +282,6 @@ public class BiteMeServer extends AbstractServer {
 		  stmt.close();
 	  }
 	  
-	  protected void updateUser(String []res,ConnectionToClient client) throws SQLException{
-		  Statement stmt;
-		  int flag;
-			try {
-				if ((ConnectionToClient) clientThreadList[i] == client)
-					((ConnectionToClient) clientThreadList[i]).sendToClient(msg);
-			} catch (Exception ex) {
-				System.out.println(ex);
-			}
-		}
-
-	protected void importUsers(String[] res, ConnectionToClient client) throws SQLException {
-		Statement stmt;
-		stmt = myCon.createStatement();
-		int flag;
-		flag = stmt.executeUpdate(String.format(
-				"INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s');",
-				res[1], res[2], res[3], res[4], res[5], res[6], res[7], res[8], Integer.parseInt(res[9]), res[10]));
-		if (flag > 0)
-			sendToClient("User import~Users Imported", client);
-		else
-			sendToClient("User import ~Error importing users", client);
-		stmt.close();
-	}
 
 	protected void updateUser(String[] res, ConnectionToClient client) throws SQLException {
 		Statement stmt;
@@ -769,7 +746,7 @@ public class BiteMeServer extends AbstractServer {
 		}
 	}
 
-	protected void loadOrders(String[] res, ConnectionToClient client) {
+	protected void loadMyOrders(String[] res, ConnectionToClient client) {
 		Statement stmt;
 		ResultSet rs;
 

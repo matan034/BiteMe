@@ -100,13 +100,16 @@ public class OrderClient extends AbstractClient {
 					wellServedOrDelaySupply((ArrayList<String>) msg);
 				}
 				if (((String) arr[0]).equals("Order")){
-					Order new_order=new Order();
+					for(Object b:arr) {
+						String [] res = ((String)b).split("~");
+						Order new_order=new Order();
 						new_order.setDish_name(res[1]);
 						new_order.setRecieving_name(res[2]+res[3]);
 						 new_order.setOrder_type(res[4]);
 						 new_order.setOrder_time(res[5]);
 						 new_order.setOrder_num(Integer.parseInt(res[6]));
 						 ordersInBranch.add(new_order);
+					}
 				} 
 
 			}
