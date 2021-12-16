@@ -299,7 +299,7 @@ public class OrderClient extends AbstractClient {
 	  {
 		  branch_menu.put("Appetizer",new ArrayList<Dish>());
 		  branch_menu.put("Salad",new ArrayList<Dish>());
-		  branch_menu.put("Main Dish",new ArrayList<Dish>());
+		  branch_menu.put("Main",new ArrayList<Dish>());
 		  branch_menu.put("Dessert",new ArrayList<Dish>());
 		  branch_menu.put("Drink",new ArrayList<Dish>());
 		 for(Dish dish:all_dishes)
@@ -370,8 +370,8 @@ public class OrderClient extends AbstractClient {
 			String[] temp = restaurant.split("~");
 			String restaurantName = temp[0];
 		}
-		}
 	}
+}
 
 
 

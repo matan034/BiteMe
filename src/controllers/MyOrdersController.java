@@ -31,7 +31,7 @@ public class MyOrdersController {
     {
     	
     	int customerid=OrderClient.customer.getCustomerNumber();
-    	String load_orders="Load_orders~"+customerid;
+    	String load_orders="Load_Myorders~"+customerid;
     	StartClient.order.accept(load_orders);
     	approveArrival=new MyListener() {
 			

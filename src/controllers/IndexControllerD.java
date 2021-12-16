@@ -1,6 +1,7 @@
 package controllers;
 
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -36,11 +37,11 @@ public class IndexControllerD {
 
         
         String typeUser=OrderClient.user.getType();
+        hello_label.setText("Hello "+OrderClient.user.getFirstName());
         switch(typeUser) {
         
         case "CEO":
             
-            hello_label.setText("Hello CEO");
             
             
             Button CEOOption1= new Button ("View Reports");
@@ -128,8 +129,7 @@ public class IndexControllerD {
             
        case "Branch Manager":
            
-           hello_label.setText("Hello Brench Manager");
-           
+          
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
             Button BranchManagerOption3= new Button ("View And Update Menu");
@@ -169,7 +169,13 @@ public class IndexControllerD {
             ///3--> update menu Muhamad
             ///4--> send reports Yeela
             //5--> we need to crate screen 
-           
+            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.view_employersFXML);
+                }});
+            
+            
             BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -189,8 +195,8 @@ public class IndexControllerD {
             break;  
             
        case "Customer":
-           
-           hello_label.setText("Hello Customer");
+    	   StartClient.order.accept("Load_customer~"+OrderClient.user.getID());
+    	   
            
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
@@ -214,12 +220,12 @@ public class IndexControllerD {
                 }});
            
           
-           //I need to pull from gitub (Matan)
-//         CustomerOption2.setOnAction(new EventHandler<ActionEvent>() {
-//              @Override
-//              public void handle(ActionEvent e) {
-//                  Globals.loadInsideFXML(Globals.);
-//              }});
+       
+         CustomerOption2.setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent e) {
+                  Globals.loadInsideFXML(Globals.myOrdersFXML);
+              }});
            
            CustomerOption3.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -231,8 +237,7 @@ public class IndexControllerD {
             break;      
             
        case "HR":
-           hello_label.setText("Hello HR");
-           
+       
            Button HROption1= new Button ("Register Employer");
            Button HROption2= new Button ("Approve Account");
            Button HROption3= new Button ("Log out");
@@ -266,8 +271,7 @@ public class IndexControllerD {
                 break;
 
        case "Certified Employee":
-           hello_label.setText("Hello Certified Employee");
-            
+         
            Button CEOption1= new Button ("View and Update Menu");
            Button CEOption2= new Button ("Log out");
            
@@ -287,7 +291,7 @@ public class IndexControllerD {
             
        case "Supplier":
            
-           hello_label.setText("Hello Supplier");
+         
            
            Button SupplierOption1= new Button ("Orders");
            Button SupplierOption2= new Button ("view and Update Menu");

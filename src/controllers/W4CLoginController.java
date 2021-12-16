@@ -45,8 +45,8 @@ public class W4CLoginController {
     	
     	if(OrderClient.account.getW4cNum()==Integer.parseInt(qr_alternative_input.getText()))
     	{
-    		//msg="Load_customer~"+OrderClient.account.getAccountNum();
-    		//StartClient.order.accept(msg);
+    		msg="Load_customer~"+OrderClient.account.getID();
+    		StartClient.order.accept(msg);
     		Globals.loadInsideFXML( Globals.supply_wayFXML);
     	}
     }

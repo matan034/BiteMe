@@ -154,6 +154,9 @@ public class PaymentController {
     	}
     	
     	StartClient.order.accept(insertAmount);
+    	
+    	String updateRestaurantData="updateRestaurantData~"+Globals.newOrder.getPrice()+"~"+Globals.newOrder.getSupplier().getSupplierNum();
+    	StartClient.order.accept(updateRestaurantData);
     	for(DishInOrder o:Globals.newOrder.getDishes()) {
     		o.setOrderNum(Globals.newOrder.getOrder_num());//give the order number to each dish in our current order
     		

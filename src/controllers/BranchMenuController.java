@@ -289,7 +289,7 @@ public class BranchMenuController {
 
 	    @FXML
 	    void showMains(ActionEvent event) {
-	    	display_table("Main Dish");
+	    	display_table("Main");
 	    }
 
 	    @FXML

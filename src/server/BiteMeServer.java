@@ -92,7 +92,8 @@ public class BiteMeServer extends AbstractServer {
 				case "Update_user":updateUser(res,client);break;
 				case "Import_users":importUsers(res,client);break;
 
-				case "Load_orders": loadOrders(res,client); break;
+				case "Load_orders": loadOrders(res,client); break;//daniel
+				case "Load_Myorders": loadMyOrders(res,client); break;//matan
 				case"Load_MyOrders":loadMyOrders(res,client); break;
 				case "W4C_verify": w4cVerify(res,client);break;
 				case "W4C_load_list": w4cLoadList(res,client);break;
@@ -112,6 +113,7 @@ public class BiteMeServer extends AbstractServer {
 				case "Check_approved":CheckApproved(res,client);break;
 				case "Approve_order":ApproveOrder(res,client);break;
 				case "Load_business_account":LoadBusinessAccount(res,client);break;
+				case "updateRestaurantData": updateRestaurantData(res,client);break;
 				}
 				}catch (Exception e) {
 					// TODO: handle exception
@@ -882,6 +884,23 @@ protected void insertItemsAmount(String[] res, ConnectionToClient client) {
 		
 	}
 }
+protected void updateRestaurantData(String[] res, ConnectionToClient client) {
+
+	  Statement stmt;
+	  int flag;
+	  try {
+	  stmt = myCon.createStatement();
+	  flag =stmt.executeUpdate(String.format("UPDATE biteme.data\r\n"
+	  		+ "SET Income =Income+ '%f',  OrderCount =OrderCount+ 1\r\n"
+	  		+ "WHERE RestaurantNum = '%d'",Double.parseDouble(res[1]) ,Integer.parseInt(res[2])));
+	  sendToClient("update data~Updated Successfully",client);
+		stmt.close();
+	  }
+	  catch (Exception e) {
+		
+	}
+}
+
 protected void loadMyEmployers(String[]res,ConnectionToClient  client)
 {
 	  Statement stmt;

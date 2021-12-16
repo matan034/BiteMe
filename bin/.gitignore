@@ -1,6 +1,11 @@
 /clients/
-/entity/
-/server/
-/controllers/
 /common/
-/general/
+/controllers/
+/entity/
+/ocsf/
+/report/
+/server/
+/takeaway.png
+/utility/
+/img/
+/order/
