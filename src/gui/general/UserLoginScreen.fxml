@@ -13,12 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.UserLoginController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #fff;" stylesheets="@GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.UserLoginController">
    <children>
-      <BorderPane id="borderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="borderpane" stylesheets="@GeneralStyleSheet.css" VBox.vgrow="ALWAYS">
+      <BorderPane id="borderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="borderpane" VBox.vgrow="ALWAYS">
          <left>
-            <VBox styleClass="bitemelogo" BorderPane.alignment="CENTER" />
+            <VBox prefHeight="800.0" prefWidth="410.0" styleClass="bitemelogo" BorderPane.alignment="CENTER" />
          </left>
          <center>
             <Group BorderPane.alignment="CENTER">

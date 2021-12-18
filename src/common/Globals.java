@@ -44,10 +44,10 @@ public class Globals {
 			indexFXML="/general/index2Screen.fxml",
 			serverFXML="/server/serverFXML.fxml",
 			userloginFXML="/general/UserLoginScreen.fxml",
-			regnewaccountp1FXML="/general/RegNewAccountP1Screen.fxml",
-			regnewaccountp2FXML="/general/RegNewAccountP2Screen.fxml",
-			regnewemployerFXML="/general/RegNewEmployerScreen.fxml",
-			changeuserstatusFXML="/general/ChangeUserStatusScreen.fxml",
+			regnewaccountp1FXML="/branch_manager/RegNewAccountP1Screen.fxml",
+			regnewaccountp2FXML="/branch_manager/RegNewAccountP2Screen.fxml",
+			regnewemployerFXML="/hr/RegNewEmployerScreen.fxml",
+			changeuserstatusFXML="/branch_manager/ChangeUserStatusScreen.fxml",
 			clientStartFXML="/general/ClientStartScreen.fxml",
 			W4CLoginFXML="/order/W4CLoginScreen.fxml",
 			ChooseSupplierFXML="/order/ChooseSupplierScreen.fxml",
@@ -61,7 +61,8 @@ public class Globals {
 			order_confirmedFXML="/order/OrderConfirmedScreen.fxml",
 			myOrdersFXML="/customer/MyOrdersScreen.fxml",
 			reports_screenFXML = "/report/ReportsScreen.fxml",
-			create_reportsFXML = "/report/CreateReport.fxml", view_reportsFXML = "/report/ViewReports.fxml",
+			create_reportsFXML = "/report/CreateReport.fxml", 
+			view_reportsFXML = "/report/ViewReports.fxml",
 			order_components_rating_reportFXML = "/report/OrderComponentsRating.fxml",
 			performance_reportFXML = "/report/PerformanceReport.fxml",
 			purchase_reportFXML = "/report/PurchaseReport.fxml",
@@ -69,7 +70,8 @@ public class Globals {
 			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml",
 			view_employersFXML="/branch_manager/MyEmployersScreen.fxml",
 			reportFXML="/report/reportsScreen.fxml",
-			NewOrdersFXML="/general/NewOrdersScreen.fxml";
+			NewOrdersFXML="/resturant/NewOrdersScreen.fxml",
+			approveUserFXML="/hr/ApproveUserScreen.fxml";
 
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
@@ -81,8 +83,8 @@ public class Globals {
 	 public static ArrayList<DishInOrder> order_dishes;
 	 public static Dish selected_dish;
 	 public static Order newOrder;
-	 private static Image takeaway=new Image("takeaway.png");
-	 private static Image delivery=new Image("delivery.jpg");
+	 private static Image takeaway=new Image("/img/takeaway.png");
+	 private static Image delivery=new Image("/img/delivery.jpg");
 	 protected static BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
 		
 	 protected static BackgroundImage scaledImageTakeaway = new BackgroundImage(takeaway, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);	

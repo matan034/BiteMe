@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientStartController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="general.ClientStartController">
    <children>
       <BorderPane prefHeight="296.0" prefWidth="332.0">
          <center>
