@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class ServerStart extends Application {
 	
-	public static BiteMeServer sv;
+	public static DBController sv;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -36,7 +36,7 @@ public class ServerStart extends Application {
 	        	System.out.println("ERROR - Could not connect!");
 	        }
 	    	
-	         sv = new BiteMeServer(port);
+	         sv = new DBController(port);
 	        
 	        try 
 	        {

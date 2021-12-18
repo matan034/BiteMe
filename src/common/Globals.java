@@ -1,27 +1,20 @@
 package common;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import clients.StartClient;
-import controllers.RegNewAccountP1Controller;
-import controllers.ClientStartController;
-import controllers.IndexControllerD;
-import controllers.MyListener;
-import controllers.OrderClientController;
+import general.IndexControllerD;
+import general.OrderClientController;
 import entity.Branch;
 import entity.Dish;
 import entity.DishInOrder;
 import entity.Order;
 import entity.Supplier;
-import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +27,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import server.ServerStart;
@@ -58,7 +50,7 @@ public class Globals {
 			changeuserstatusFXML="/general/ChangeUserStatusScreen.fxml",
 			clientStartFXML="/general/ClientStartScreen.fxml",
 			W4CLoginFXML="/order/W4CLoginScreen.fxml",
-			ChooseBranchFXML="/order/ChooseBranchScreen.fxml",
+			ChooseSupplierFXML="/order/ChooseSupplierScreen.fxml",
 			branch_menuFXML="/order/BranchMenuScreen.fxml",
 			dish_selectionFXML="/order/DishSelectionScreen.fxml",
 			supply_wayFXML="/order/chooseSupplyWayScreen.fxml",
@@ -125,7 +117,7 @@ public class Globals {
 	public static void loadFXML(Stage stage,String fxml_name,Event event)
 	{
 		String window_name=fxml_name.split("/")[2].split("\\.")[0];
-		AnchorPane pane;
+		VBox pane;
 		try {
 		((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		}

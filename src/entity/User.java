@@ -8,8 +8,8 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status;
-	private int IsLoggedIn=0;
+	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status,StringHomeBranch;
+	private int IsLoggedIn=0,homeBranch;
 	public User(String iD, String firstName, String lastName, String email, String phone, String type, String userName,
 			String password,String status) {
 		ID = iD;
@@ -23,13 +23,34 @@ public class User implements Serializable {
 		FullName=FirstName+" "+LastName;
 		Status=status;
 	}
-	public User(String id,String firstName, String lastName,String type) {
+	public User(String id,String firstName, String lastName,String mail, String phone,String type,String userName,
+			String password,int IsLoggedIn,String status,int homeBranch,String HomeBranch) {
 		this.ID=id;
-		FirstName = firstName;
-		LastName = lastName;
-		Type = type;
+		this.FirstName = firstName;
+		this.LastName = lastName;
+		this.Email=mail;
+		this.Phone=phone;
+		this.Type = type;
+		this.IsLoggedIn=IsLoggedIn;
+		this.Status=status;
+		this.homeBranch=homeBranch;
+		this.StringHomeBranch=HomeBranch;
+		
 	}
 	
+	public String getStringHomeBranch() {
+		return StringHomeBranch;
+	}
+	public void setStringHomeBranch(String homeBranch) {
+		StringHomeBranch = homeBranch;
+	}
+	
+	public int getHomeBranch() {
+		return homeBranch;
+	}
+	public void setHomeBranch(int homeBranch) {
+		this.homeBranch = homeBranch;
+	}
 	public String getStatus() {
 		return Status;
 	}

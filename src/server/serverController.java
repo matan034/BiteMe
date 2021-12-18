@@ -85,7 +85,7 @@ public class serverController {
 			ServerStart.runServer(p);
 		}
     	String res;
-    	res=BiteMeServer.connectToDB(ip_input.getText(), port_input.getText(), db_name_input.getText(), db_user_input.getText(), db_pass_input.getText());
+    	res=DBController.connectToDB(ip_input.getText(), port_input.getText(), db_name_input.getText(), db_user_input.getText(), db_pass_input.getText());
     	System.out.println(res);
     	connect_status.setText(res);
     }

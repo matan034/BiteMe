@@ -7,6 +7,11 @@ public class PrivateAccount extends Account {
 	public PrivateAccount(Account account) {
 		super(account);
 	}
+	public PrivateAccount(String FirstName,String LastName,String ID,String Telephone,String Email,int accountNum,String creditCard)
+	{
+		super(FirstName,LastName,ID,Telephone,Email,accountNum);
+		this.CreditCardNumber=creditCard;
+	}
 	
 	public String getCreditCardNumber() {
 		return CreditCardNumber;

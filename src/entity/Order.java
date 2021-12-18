@@ -15,15 +15,12 @@ public class Order implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time,dish_name;
-	public String getDish_name() {
-		return dish_name;
-	}
-	public void setDish_name(String dish_name) {
-		this.dish_name = dish_name;
-	}
-
+	
+	private W4C w4c;
 	private Supplier supplier;
 	private Branch branch;
+	private PrivateAccount pAccount;
+	private BusinessAccount bAccount;
 	private Customer customer;
 	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;
 	private Double price=0.0;
@@ -37,9 +34,9 @@ public class Order implements Serializable{
 	}};
 	private ObservableList<DishInOrder> dishes=FXCollections.observableArrayList();
 	
-	public Order( String order_type,Customer customer) {
+	public Order( String order_type,W4C w4c) {
 		this.order_type = order_type;
-		this.customer=customer;
+		this.w4c=w4c;
 	}
 
 	public Order(int order_num,String order_type,String order_time,int is_arrived)
@@ -55,12 +52,51 @@ public class Order implements Serializable{
 	@Override
 	public String toString() {
 		if(supplier!=null)
-		return supplier.getSupplierNum()+"~"+customer.getCustomerNumber()+"~"+order_type+"~"+is_early_order+"~"+order_time+"~"+
+		return supplier.getSupplierNum()+"~"+customer.getCustomerNumber()+"~"+order_type+"~"+price+"~"+is_early_order+"~"+order_time+"~"+
 				delivery_method+"~"+recieving_name+"~"+buisness_name+"~"+phone+"~"+street+"~"+city+"~"+zip;
 		else
 			return order_num+"~"+order_type+"~"+order_time+"~"+is_arrived;
 	}
 	
+	
+	public PrivateAccount getpAccount() {
+		return pAccount;
+	}
+
+	public void setpAccount(PrivateAccount pAccount) {
+		this.pAccount = pAccount;
+	}
+
+	public BusinessAccount getbAccount() {
+		return bAccount;
+	}
+
+	public void setbAccount(BusinessAccount bAccount) {
+		this.bAccount = bAccount;
+	}
+
+	public W4C getW4c() {
+		return w4c;
+	}
+
+	public void setW4c(W4C w4c) {
+		this.w4c = w4c;
+	}
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	public String getDish_name() {
+		return dish_name;
+	}
+	public void setDish_name(String dish_name) {
+		this.dish_name = dish_name;
+	}
 	public int getIs_arrived() {
 		return is_arrived;
 	}

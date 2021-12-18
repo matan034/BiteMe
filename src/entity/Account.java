@@ -5,7 +5,15 @@ public class Account {
 	private String FirstName,LastName,ID,Telephone,Email;
 	private Double Balance=0.0;
 	int w4cNum,accountNum;
-
+	
+	public Account(String FirstName,String LastName,String ID,String Telephone,String Email,int accountNum) {
+		this.FirstName=FirstName;
+		this.LastName=LastName;
+		this.ID=ID;
+		this.Telephone=Telephone;
+		this.Email=Email;
+		this.accountNum=accountNum;
+	}
 	public Account(String FirstName,String LastName,String ID,String Telephone,String Email) {
 		this.FirstName=FirstName;
 		this.LastName=LastName;
@@ -21,6 +29,7 @@ public class Account {
 		this.Email=account.getEmail();
 	}
 
+	
 	
 	public int getAccountNum() {
 		return accountNum;

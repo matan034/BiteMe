@@ -10,17 +10,20 @@ import java.util.Observable;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import common.Globals;
-import controllers.IndexController;
+
 import entity.Account;
 import entity.Branch;
+import entity.BusinessAccount;
 import entity.ComponentsRating;
 import entity.Customer;
 import entity.Dish;
 import entity.DishInOrder;
 import entity.Employer;
 import entity.Order;
+import entity.PrivateAccount;
 import entity.Supplier;
 import entity.User;
+import entity.W4C;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ocsf.client.AbstractClient;
@@ -29,7 +32,7 @@ public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;
 
-
+	public static int orderLateFlag=0;
 	public static Map<String, ArrayList<Dish>> branch_menu = new HashMap<String, ArrayList<Dish>>();
 
 	public static String connection_ip="",connection_host="",connection_status="",employer_reg_msg="";
@@ -42,7 +45,9 @@ public class OrderClient extends AbstractClient {
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null);
-	public static Account account =new Account(null,null,null,null,null);
+	
+	public static W4C w4c_card;
+	
 	public static Customer customer=new Customer(0, 0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
@@ -152,7 +157,7 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(2, res[3]);
 				break;
 			case "User login":
-				user = new User(res[1], res[2], res[3], res[4]);
+				user = new User(res[1], res[2], res[3], res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11]),res[12]);
 				break;
 			case "New Account":
 				account_reg_msg = res[1];
@@ -207,17 +212,22 @@ public class OrderClient extends AbstractClient {
 				user_import_msg = res[1];
 
 			case "W4C verify":// change according to type
-				account.setAccountNum(Integer.parseInt(res[1]));
-				account.setBalance(Integer.parseInt(res[2]));
-				account.setFirstName(res[3]);
-				account.setLastName(res[4]);
-				account.setID(res[5]);
-				account.setTelephone(res[6]);
-				account.setEmail(res[7]);
-				account.setW4cNum(Integer.parseInt(res[8]));
+				if(res.length==4)
+					w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
+				else
+					w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), 0);
+
 
 				break;
-			case "Customer load":
+			case "private account load":
+				PrivateAccount paccount =new PrivateAccount(res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[1]),res[7]) ;
+				Globals.newOrder.setpAccount(paccount);
+				break;
+			case "business account load":
+				BusinessAccount baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Integer.parseInt(res[8]),Integer.parseInt(res[9]),res[10]) ;
+				Globals.newOrder.setbAccount(baccount);
+				break;
+			case "Customer load"://maybe delete
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
 				customer.setId(res[2]);
 				customer.setAccount_num(Integer.parseInt(res[3]));
@@ -230,7 +240,7 @@ public class OrderClient extends AbstractClient {
 			case "Check Approved Order":
 				IsOrderApproved.put(Integer.parseInt(res[1]), Integer.parseInt(res[2]));
 				break;
-
+			case "Order_customer recieved time": checkIfWasLate(res);
 			}
 
 		}
@@ -240,7 +250,18 @@ public class OrderClient extends AbstractClient {
 	}
 		
 				
-
+	private void checkIfWasLate(String[]res)
+	{
+		try {
+			if(Integer.parseInt(res[1])==1)
+			{
+				orderLateFlag=1;
+			}
+		}
+		catch (Exception e) {
+			
+		}
+	}
 
 	private void w4cList(String[] res) {
 		if (res.length > 1) {

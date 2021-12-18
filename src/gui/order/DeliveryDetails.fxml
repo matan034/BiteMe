@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="357.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DeliveryDetailsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="357.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.DeliveryDetailsController">
    <children>
       <Label layoutX="22.0" layoutY="14.0" text="Delivery Type" />
       <RadioButton fx:id="private_btn" layoutX="31.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Private">

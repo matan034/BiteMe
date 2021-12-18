@@ -5,24 +5,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="pane" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.serverController">
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.serverController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="IP_label" text="IP">
+                        <Label fx:id="IP_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="IP">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="ip_input" text="localhost" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="ip_input" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" text="localhost" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -30,65 +31,74 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="Port_label" text="Port">
+                        <Label fx:id="Port_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Port">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="port_input" text="5555">
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="port_input" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" text="5555">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></TextField>
+                           </HBox.margin>
+                        </TextField>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../general/GeneralStyleSheet.css">
                      <children>
                         <Label fx:id="db_name_label" text="DB Name">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="db_name_input" text="biteme" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="db_name_input" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" text="biteme" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="db_user_label" text="DB User">
+                        <Label fx:id="db_user_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="DB User">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="db_user_input" text="root" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="db_user_input" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" text="root" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../general/GeneralStyleSheet.css">
+                     <children>
+                        <Label fx:id="db_password_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="DB Password">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <PasswordField fx:id="db_pass_input" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" text="Aa123456" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="db_password_label" text="DB Password">
+                        <Button fx:id="connect_btn" mnemonicParsing="false" onAction="#connectToDB" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Connect">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
-                        <PasswordField fx:id="db_pass_input" text="Aa123456" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="connect_btn" mnemonicParsing="false" onAction="#connectToDB" styleClass="btn" text="Connect">
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="disconnect_btn" mnemonicParsing="false" onAction="#disconnectFromDB" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Disconnect">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Button>
-                        <Button fx:id="disconnect_btn" mnemonicParsing="false" onAction="#disconnectFromDB" styleClass="btn" text="Disconnect">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Button>
+                           </HBox.margin>
+                        </Button>
                         <Label fx:id="connect_status" text="    ">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Label>
+                           </HBox.margin>
+                        </Label>
                      </children>
                   </HBox>
                   <HBox alignment="BASELINE_CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="close_btn" mnemonicParsing="false" onAction="#close_window" styleClass="btn" text="Close">
+                        <Button fx:id="close_btn" mnemonicParsing="false" onAction="#close_window" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Close">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin></Button>
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
                </children>
@@ -96,4 +106,4 @@
          </center>
       </BorderPane>
    </children>
-</AnchorPane>
+</VBox>
