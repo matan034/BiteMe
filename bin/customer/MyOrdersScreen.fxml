@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.MyOrdersController">
    <children>
       <BorderPane layoutX="200.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -35,21 +36,6 @@
                            </children>
                         </HBox>
                         <Accordion fx:id="new_orders_accordion" />
-                     </children>
-                  </VBox>
-                  <Separator prefWidth="200.0" />
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <HBox fillHeight="false" minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                              <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Wainting For Supplier Apperoval">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <Accordion fx:id="wating_supplier_approval_accordion" />
                      </children>
                   </VBox>
                   <Separator prefWidth="200.0" />

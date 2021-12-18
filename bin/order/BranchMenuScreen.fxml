@@ -65,7 +65,7 @@
                         </HBox>
                         <ImageView fx:id="selected_dish_img" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../pizaa.jpg" />
+                              <Image url="@../img/pizaa.jpg" />
                            </image>
                         </ImageView>
                         <VBox fx:id="dish_options_vbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">

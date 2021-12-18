@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,56 +12,56 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewAccountP2Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewAccountP2Controller">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@BackgroundImage.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="cc_lbl" layoutX="548.0" layoutY="260.0" promptText="Credit Card Number" />
-            <TextField fx:id="employer_name_lbl" layoutX="548.0" layoutY="353.0" promptText="Employer Name" />
-            <Button fx:id="back_btn" layoutX="36.0" layoutY="726.0" mnemonicParsing="false" onAction="#BackPage" styleClass="btn" text="Back" />
-            <Button fx:id="reg_btn" layoutX="579.0" layoutY="480.0" mnemonicParsing="false" onAction="#RegisterAccount" styleClass="btn" text="Register" />
+            <TextField fx:id="cc_lbl" layoutX="419.0" layoutY="179.0" promptText="Credit Card Number" />
+            <TextField fx:id="employer_name_lbl" layoutX="417.0" layoutY="313.0" promptText="Employer Name" />
+            <Button fx:id="back_btn" layoutX="40.0" layoutY="590.0" mnemonicParsing="false" onAction="#BackPage" styleClass="btn" text="Back" />
+            <Button fx:id="reg_btn" layoutX="457.0" layoutY="433.0" mnemonicParsing="false" onAction="#RegisterAccount" styleClass="btn" text="Register" />
             <Label fx:id="res_lbl" layoutX="491.0" layoutY="450.0" prefHeight="17.0" prefWidth="260.0" textFill="RED" />
             <Label fx:id="cc_error_lbl" layoutX="716.0" layoutY="264.0" prefHeight="17.0" prefWidth="227.0" textFill="RED" />
             <Label fx:id="employer_name_error_lbl" layoutX="714.0" layoutY="357.0" prefHeight="17.0" prefWidth="200.0" textFill="RED" />
-            <TextField fx:id="budget_lbl" layoutX="548.0" layoutY="407.0" promptText="Monthly Budget " />
-            <CheckBox fx:id="BusinessCheckBox" layoutX="548.0" layoutY="319.0" mnemonicParsing="false" text="Business Account" />
-            <CheckBox fx:id="PrivateCheckBox" layoutX="548.0" layoutY="220.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Private Account" />
-            <Label layoutX="458.0" layoutY="115.0" text="Account Type">
+            <TextField fx:id="budget_lbl" layoutX="419.0" layoutY="365.0" promptText="Monthly Budget " />
+            <CheckBox fx:id="BusinessCheckBox" layoutX="437.0" layoutY="264.0" mnemonicParsing="false" text="Business Account" />
+            <CheckBox fx:id="PrivateCheckBox" layoutX="429.0" layoutY="135.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Private Account" />
+            <Label layoutX="342.0" layoutY="39.0" text="Account Type">
                <font>
                   <Font name="Levenim MT Bold" size="48.0" />
                </font>
             </Label>
-            <ImageView fitHeight="255.0" fitWidth="260.0" layoutX="592.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="255.0" fitWidth="260.0" layoutX="505.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@MaleRegister.png" />
+                  <Image url="@../img/MaleRegister.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="255.0" fitWidth="260.0" layoutX="406.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="255.0" fitWidth="260.0" layoutX="234.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@WomenRegister.png" />
+                  <Image url="@../img/WomenRegister.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="516.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="393.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@CreditCardIcon.png" />
+                  <Image url="@../img/CreditCardIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="516.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="393.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@EmployerIcon.png" />
+                  <Image url="@../img/EmployerIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="515.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="390.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@BudgetIcon.png" />
+                  <Image url="@../img/BudgetIcon.png" />
                </image>
             </ImageView>
+            <Separator layoutX="393.0" layoutY="230.0" prefWidth="200.0" />
          </children>
       </Pane>
    </children>
+   <stylesheets>
+      <URL value="@GeneralStyleSheet.css" />
+      <URL value="@../general/GeneralStyleSheet.css" />
+   </stylesheets>
 </AnchorPane>
