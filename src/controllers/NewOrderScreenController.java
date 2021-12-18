@@ -20,7 +20,10 @@ public class NewOrderScreenController {
 	
 	
     @FXML
-    private Accordion accordion;
+    private Accordion neworders_accordion;
+
+    @FXML
+    private Accordion historyaccordion;
 
     
     public void initialize() {
@@ -29,28 +32,44 @@ public class NewOrderScreenController {
     	//if(OrderClient.ordersInBranch.size()==0)
     	
     	
-    	for(Order o:OrderClient.ordersInBranch)
+    	for(Order o:OrderClient.OrdersInBranch.values())
     	{
     		StartClient.order.accept("Check_approved~"+o.getOrder_num());
-    		HBox hbox = new HBox(new Label(o.getDish_name()+" By: "+ o.getRecieving_name()+" "+o.getOrder_time()+" "+o.getOrder_type()));
+    		VBox vbox = new VBox(new Label(o.getRecieving_name()+" Ordered:"));
+    		for(String dish:o.getDishesInOrder()) {
+    			vbox.getChildren().add(new Label(dish));
+    		}
+    		vbox.getChildren().add(new Label("Time: "+o.getOrder_time()));
+    		vbox.getChildren().add(new Label("By: "+o.getOrder_type()));
     		if(OrderClient.IsOrderApproved.get(o.getOrder_num())==0) {
     			Button button = new Button("Approve");
     			button.setOnAction((new EventHandler<ActionEvent>() {
     				@Override
     				 public void handle(ActionEvent e) {
     					StartClient.order.accept("Approve_order~"+o.getOrder_num());
-    					button.setText("Approved");
+    					button.setVisible(false);
+    					TitledPane pane1 = new TitledPane("Order #"+""+o.getOrder_num(),vbox);
+    	    			historyaccordion.getPanes().add(pane1);
+    	    			
+    					
     				}
     			}));
-    			hbox.getChildren().add(button);
-    			
+    			vbox.getChildren().add(button);
+    			TitledPane pane1 = new TitledPane("Order #"+""+o.getOrder_num(),vbox);
+    			pane1.getStyleClass().add("titled-pane");
+    			neworders_accordion.getPanes().add(pane1);
 
     		}
-    		TitledPane pane1 = new TitledPane("Order #"+""+o.getOrder_num(),hbox);
-    		accordion.getPanes().add(pane1);
+    		else {
+    			TitledPane pane1 = new TitledPane("Order #"+""+o.getOrder_num(),vbox);
+    			historyaccordion.getPanes().add(pane1);
+    		}
+    		
+    		
     		
     	}
     		
     }
+
 
 }

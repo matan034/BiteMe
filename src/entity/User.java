@@ -3,15 +3,18 @@ package entity;
 import java.io.Serializable;
 
 public class User implements Serializable {
+	
+
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status;
+	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status,HomeBranch;
 	private int IsLoggedIn=0;
+
 	public User(String iD, String firstName, String lastName, String email, String phone, String type, String userName,
-			String password,String status) {
+			String password,String status,String homebranch) {
 		ID = iD;
 		FirstName = firstName;
 		LastName = lastName;
@@ -22,6 +25,13 @@ public class User implements Serializable {
 		Password = password;
 		FullName=FirstName+" "+LastName;
 		Status=status;
+		HomeBranch=homebranch;
+	}
+	public String getHomeBranch() {
+		return HomeBranch;
+	}
+	public void setHomeBranch(String homeBranch) {
+		HomeBranch = homeBranch;
 	}
 	public User(String id,String firstName, String lastName,String type) {
 		this.ID=id;
@@ -91,7 +101,7 @@ public class User implements Serializable {
 	public String toString() {
 		return ID + "~" + FirstName + "~" + LastName + "~" + Email
 				+ "~" + Phone + "~" + Type + "~" + UserName + "~" + Password
-				+ "~"+ IsLoggedIn+"~"+ Status;
+				+ "~"+ IsLoggedIn+"~"+ Status+"~"+HomeBranch;
 	}
 	public void setPassword(String password) {
 		Password = password;

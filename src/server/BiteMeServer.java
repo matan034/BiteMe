@@ -231,7 +231,8 @@ public class BiteMeServer extends AbstractServer {
 		  		+ "	FROM biteme.dishinorder\r\n"
 		  		+ "		INNER JOIN (SELECT biteme.order.OrderID, biteme.order.CustomerNumber\r\n"
 		  		+ "					FROM biteme.order\r\n"
-		  		+ "					WHERE biteme.order.ResturantNumber=1)AS OrderByRestaurant\r\n"
+		  		+ "                    INNER JOIN biteme.restaurant\r\n"
+		  		+ "					ON restaurant.Number=biteme.order.ResturantNumber)AS OrderByRestaurant\r\n"
 		  		+ "	ON OrderNumber=OrderID)AS DishesByOrderNumber\r\n"
 		  		+ "	WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;");
 		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders \r\n"
@@ -250,15 +251,11 @@ public class BiteMeServer extends AbstractServer {
 		  		+ "INNER JOIN biteme.CustomersInOrders\r\n"
 		  		+ "ON CustomersInOrders.OrderID=DishesInOrders.OrderNumber;\r\n"
 		  		+ "");
+		  orders.add("Order");
 		  while(rs.next())
 		  {
-			  /*Order new_order=new Order();
-			  new_order.setDish_name(rs.getString(1));
-			  new_order.setRecieving_name(rs.getString(2)+" "+ rs.getString(3));
-			  new_order.setOrder_type(rs.getString(4));
-			  new_order.setOrder_time(rs.getString(5));
-			  orders.add(new_order);*/
-			  String new_order="Order~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
+			  
+			  String new_order=rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
 			  orders.add(new_order);
 		  }
 		  flag=stmt.executeUpdate("DROP TABLE biteme.CustomersInOrders;");
@@ -511,22 +508,28 @@ public class BiteMeServer extends AbstractServer {
 
 	protected void userLogin(String[] res, ConnectionToClient client) throws SQLException {
 		String result;
-		Statement stmt = myCon.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		// Statement stmt = myCon.createStatement();
-		ResultSet rs;
-		rs = stmt.executeQuery(
-				String.format("SELECT * FROM biteme.users WHERE UserName='%s' AND Password='%s'", res[1], res[2]));
-		if (rs.next()) {
+		//Statement stmt = myCon.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		Statement stmtJoin= myCon.createStatement();
+		ResultSet rs,rsJoin;
+		int flag;
+		rsJoin = stmtJoin.executeQuery(
+				String.format("SELECT * FROM biteme.users\r\n"
+						+ "INNER JOIN biteme.branch\r\n"
+						+ "	ON branch.BranchID=users.HomeBranch\r\n"
+						+ "WHERE UserName='%s' AND Password='%s';", res[1], res[2]));
+		if (rsJoin.next()) {
+			result = "User login~" + rsJoin.getString(1) + "~" + rsJoin.getString(2) + "~" + rsJoin.getString(3) + "~"
+					+ rsJoin.getString(4)+"~"+rsJoin.getString(5)+"~"+rsJoin.getString(6) + "~" + rsJoin.getString(7) + "~" + rsJoin.getString(8) + "~" + rsJoin.getString(10) + "~" + rsJoin.getString(11);
 			System.out.println("User found:logging in");
-			rs.updateInt("IsLoggedIn", 1);
-			rs.updateRow();
-			result = "User login~" + rs.getString(1) + "~" + rs.getString(2) + "~" + rs.getString(3) + "~"
-					+ rs.getString(6);
+
+			flag =stmtJoin.executeUpdate(String.format("UPDATE biteme.users SET IsLoggedIn = '1' WHERE UserName='%s' AND Password='%s'",res[1],res[2]));
+	
+			
 			sendToClient(result, client);
 		} else
 			sendToClient("User login~User not Found", client);
-		rs.close();
-		stmt.close();
+		rsJoin.close();
+		stmtJoin.close();
 	}
 
 	
@@ -562,12 +565,14 @@ public class BiteMeServer extends AbstractServer {
 		Statement stmt;
 		stmt = myCon.createStatement();
 		ResultSet rs;
-		rs = stmt.executeQuery("SELECT * FROM biteme.users");
+		rs = stmt.executeQuery("SELECT * FROM biteme.users\r\n"
+				+ "INNER JOIN biteme.branch\r\n"
+				+ "ON branch.BranchID=users.HomeBranch;");
 		ArrayList<User> all_users = new ArrayList<>();
 		while (rs.next()) {
 
 			all_users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-					rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(10)));
+					rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(10),rs.getString(13)));
 
 		}
 		sendToClient(all_users, client);

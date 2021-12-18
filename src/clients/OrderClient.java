@@ -36,11 +36,11 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<User> all_users=new ArrayList<>();
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
-	public static Map<Integer,ArrayList<Order>> OrdersInBranch=new HashMap<>();
+	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
 	public static Map<Integer,Integer> IsOrderApproved=new HashMap<>();
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
-	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
+	//public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null);
 	public static Account account =new Account(null,null,null,null,null);
 	public static Customer customer=new Customer(0, 0, null, null);
@@ -65,6 +65,7 @@ public class OrderClient extends AbstractClient {
 	 *             according to ~ to enter correct switch case to update the correct
 	 *             variable with our message
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		System.out.println("Msg: " + msg + " recieved");
@@ -100,15 +101,20 @@ public class OrderClient extends AbstractClient {
 					wellServedOrDelaySupply((ArrayList<String>) msg);
 				}
 				if (((String) arr[0]).equals("Order")){
-					for(Object b:arr) {
-						String [] res = ((String)b).split("~");
-						Order new_order=new Order();
-						new_order.setDish_name(res[1]);
-						new_order.setRecieving_name(res[2]+res[3]);
-						 new_order.setOrder_type(res[4]);
-						 new_order.setOrder_time(res[5]);
-						 new_order.setOrder_num(Integer.parseInt(res[6]));
-						 ordersInBranch.add(new_order);
+					for(int i=1;i<arr.length;i++) {
+						String [] res = ((String)arr[i]).split("~");
+						if(OrdersInBranch.containsKey(Integer.parseInt(res[5]))) {
+							OrdersInBranch.get(Integer.parseInt(res[5])).setDishesInOrder(res[0]);
+						}
+						else {
+							Order new_order=new Order();
+							new_order.setDishesInOrder(res[0]);
+							new_order.setRecieving_name(res[1]+" "+res[2]);
+							 new_order.setOrder_type(res[3]);
+							 new_order.setOrder_time(res[4]);
+							 new_order.setOrder_num(Integer.parseInt(res[5]));
+							 OrdersInBranch.put(Integer.parseInt(res[5]), new_order);
+						}
 					}
 				} 
 
@@ -152,7 +158,7 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(2, res[3]);
 				break;
 			case "User login":
-				user = new User(res[1], res[2], res[3], res[4]);
+				user = new User(res[1], res[2], res[3], res[4],res[5],res[6],res[7],res[8],res[9],res[10]);
 				break;
 			case "New Account":
 				account_reg_msg = res[1];

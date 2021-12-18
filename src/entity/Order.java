@@ -15,6 +15,13 @@ public class Order implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time,dish_name;
+	private ArrayList<String> dishesInOrder= new ArrayList<>();
+	public ArrayList<String> getDishesInOrder() {
+		return dishesInOrder;
+	}
+	public void setDishesInOrder(String dish) {
+		dishesInOrder.add(dish);
+	}
 	public String getDish_name() {
 		return dish_name;
 	}

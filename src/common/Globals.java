@@ -34,8 +34,11 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import server.ServerStart;
@@ -125,7 +128,7 @@ public class Globals {
 	public static void loadFXML(Stage stage,String fxml_name,Event event)
 	{
 		String window_name=fxml_name.split("/")[2].split("\\.")[0];
-		AnchorPane pane;
+		VBox pane;
 		try {
 		((Node) event.getSource()).getScene().getWindow().hide(); //hiding primary window
 		}
@@ -140,10 +143,9 @@ public class Globals {
 		    if(fxml_name.equals(Globals.indexFXML)) {
 		    	index_controller=loader.getController();
 		    }
-		    pane.setPrefSize(800, 600);
 			Scene scene=new Scene(pane);
 			stage.setTitle(window_name);
-			//stage.setMaximized(true);
+			
 			stage.setScene(scene);	
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		     public void handle(WindowEvent we) {
@@ -162,10 +164,30 @@ public class Globals {
 		    return;
 		}
 	}
+	
+	
+	
 	public void setMainController(IndexControllerD controller)
 	{
 		this.index_controller=controller;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 

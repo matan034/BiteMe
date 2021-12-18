@@ -36,7 +36,7 @@ public class UserLoginController {
         	else {
         		//login_res_lbl.setText(OrderClient.user_login_msg);
         		
-        		Globals.loadFXML(null,Globals.indexFXML, event);
+        		Globals.loadFXML(null,Globals.NewOrdersFXML, event);
         	}
         		
     	}
