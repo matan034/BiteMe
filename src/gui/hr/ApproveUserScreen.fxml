@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ApproveAcountController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ApproveAcountController">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1280.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@BackgroundImage.png" />
-         </image>
-      </ImageView>
-      <Accordion fx:id="accordion" layoutX="434.0" layoutY="116.0" prefHeight="453.0" prefWidth="412.0" />
+      <BorderPane prefHeight="650.0" prefWidth="1010.0">
+         <center>
+            <VBox prefHeight="560.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="58.0" prefWidth="1010.0">
+                     <children>
+                        <Label text="Approve">
+                           <font>
+                              <Font name="Levenim MT Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="597.0" prefWidth="1010.0">
+                     <children>
+                        <Accordion fx:id="user_accordion" prefHeight="606.0" prefWidth="1010.0" styleClass="accordion" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
-</AnchorPane>
+</VBox>

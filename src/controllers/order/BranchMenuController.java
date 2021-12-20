@@ -7,14 +7,16 @@ import common.Globals;
 import entity.Dish;
 import entity.DishInOrder;
 import general.MyListener;
-
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -85,12 +87,12 @@ public class BranchMenuController {
 	    private TextField extra_input=new TextField();
 	    private Dish selected_dish;
 	   // private ObservableList<DishInOrder>all_dishes=FXCollections.observableList(Globals.newOrder.getDishes());
-	    
+	    ComboBox<String> r=new ComboBox<>();
 	    private int i=0;
 	    private Boolean firstClick=true;
 	    @FXML
 	    void goCart(MouseEvent event) {
-	    	AnchorPane newLoadedPane;
+	    	VBox newLoadedPane;
 	    	if(Integer.parseInt(cart_count.getText())!=0)
 	    	{
 		    	if(firstClick)
@@ -150,9 +152,8 @@ public class BranchMenuController {
 	        if(dish.getChooseSize()==1)
 	    	{
 	        	i++;
-	    		Label size_lbl=new Label("Choose Size:");
-	    		RadioButton small=new RadioButton("Small");
-	    		RadioButton medium=new RadioButton("Medium");
+	    		RadioButton small=new RadioButton("Small ");
+	    		RadioButton medium=new RadioButton("Medium ");
 	    		RadioButton large=new RadioButton("Large");
 	    		small.setToggleGroup(sizes);
 	    		small.setSelected(true);
@@ -162,43 +163,36 @@ public class BranchMenuController {
 	    		large.setToggleGroup(sizes);
 	    		large.setUserData("Large");
 	    		HBox size=new HBox();
-	    		size.getChildren().addAll(size_lbl,small,medium,large);
+	    		HBox.setMargin(size, new Insets(10));
+	    		size.setAlignment(Pos.CENTER);
+	    		size.getChildren().addAll(small,medium,large);
 	    		dish_options_vbox.getChildren().add(size);
 	    		
 	    	}
 	    	if(dish.getChooseCookingLvl()==1)
 	    	{
 	    		i++;
-	    		Label cook_level=new Label("Choose Coooking Level:");
-	    		RadioButton r=new RadioButton("Rare");
-	    		RadioButton mr=new RadioButton("Medium-Rare");
-	    		RadioButton m=new RadioButton("Medium");
-	    		RadioButton mw=new RadioButton("Medium-Well");
-	    		RadioButton wd=new RadioButton("Well-Done");
-	    		r.setUserData("Rare");
-	    		mr.setUserData("Medium-Rare");
-	    		m.setUserData("Medium");
-	    		mw.setUserData("Medium-Well");
-	    		wd.setUserData("Well-Done");
-	    		r.setToggleGroup(cooklevels);
-	    		r.setSelected(true);
-	    		mr.setToggleGroup(cooklevels);
-	    		m.setToggleGroup(cooklevels);
-	    		mw.setToggleGroup(cooklevels);
-	    		wd.setToggleGroup(cooklevels);
+	    		ObservableList<String> options=FXCollections.observableArrayList("Rare","Medium-Rare","Medium","Medium-Well","Well-Done");
+	    		
+	    		r.setItems(options);
+	    		r.setPromptText("Cooking level");
+	    		r.getStyleClass().add("comboBox");
 	    		HBox cookingLevels=new HBox();
-	    		VBox vbox=new VBox();
-	    		cookingLevels.getChildren().addAll(r,mr,m,mw,wd);
-	    		vbox.getChildren().addAll(cook_level, cookingLevels);
-	    		dish_options_vbox.getChildren().add(vbox);
+	    		HBox.setMargin(cookingLevels, new Insets(10));
+	    		cookingLevels.setAlignment(Pos.CENTER);
+	    		cookingLevels.getChildren().add(r);
+	    		dish_options_vbox.getChildren().add(cookingLevels);
 
 	    	}
 	    	if(dish.getChooseExtras()==1)
 	    	{
 	    		i++;
-	    		Label extras_lbl=new Label("Extras:");
 	    		HBox extras=new HBox();
-	    		extras.getChildren().addAll(extras_lbl,extra_input);
+	    		HBox.setMargin(extras, new Insets(10));
+	    		extra_input.setPromptText("Extras.Ex: No onions");
+	    		extra_input.getStyleClass().add("text-box");
+	    		extras.getChildren().addAll(extra_input);
+	    		extras.setAlignment(Pos.CENTER);
 	    		dish_options_vbox.getChildren().add(extras);
 	
 	    	}
@@ -216,7 +210,7 @@ public class BranchMenuController {
 		    if(selected_dish.getChooseSize()==1)
 	    		currentSize=sizes.getSelectedToggle().getUserData().toString();
 	    	if(selected_dish.getChooseCookingLvl()==1)
-	    		currentLvl=cooklevels.getSelectedToggle().getUserData().toString();
+	    		currentLvl=r.getSelectionModel().selectedItemProperty().get();
 	    	if(selected_dish.getChooseExtras()==1)
 	    		extras=extra_input.getText();
 	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice());    	
@@ -246,7 +240,7 @@ public class BranchMenuController {
 	    		Dish current=OrderClient.branch_menu.get(type).get(i);
 	    		FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/order/Dish.fxml"));
-                AnchorPane anchorPane;
+                VBox anchorPane;
                 anchorPane = fxmlLoader.load();
 
                 DishController DishController = fxmlLoader.getController();

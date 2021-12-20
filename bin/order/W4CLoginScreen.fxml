@@ -12,46 +12,51 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.W4CLoginController">
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.W4CLoginController">
    <children>
-      <BorderPane minHeight="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <VBox alignment="CENTER" prefHeight="465.0" prefWidth="1010.0" BorderPane.alignment="TOP_LEFT">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <AnchorPane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
+         <children>
+            <BorderPane minHeight="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <VBox alignment="CENTER" prefHeight="465.0" prefWidth="1010.0" BorderPane.alignment="TOP_LEFT">
                      <children>
-                        <Label id="title_lbl" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="W4C Login" textAlignment="CENTER">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label id="title_lbl" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="W4C Login" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#qrScanSimulation" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/qrlogo.JPG" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="qr_alternative_input" promptText="QR alternative" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="login_btn" mnemonicParsing="false" onAction="#verifyW4C" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Login" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#qrScanSimulation" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/qrlogo.JPG" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="qr_alternative_input" promptText="QR alternative" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="login_btn" mnemonicParsing="false" onAction="#verifyW4C" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Login" />
-                     </children>
-                  </HBox>
-               </children>
-               <BorderPane.margin>
-                  <Insets top="30.0" />
-               </BorderPane.margin>
-            </VBox>
-         </top>
-      </BorderPane>
+                     <BorderPane.margin>
+                        <Insets top="30.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </top>
+            </BorderPane>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</VBox>

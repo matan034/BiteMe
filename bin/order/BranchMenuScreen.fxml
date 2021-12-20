@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,122 +15,119 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BranchMenuController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.BranchMenuController">
    <children>
-      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="cart_count" stylesheets="@../general/GeneralStyleSheet.css" text="0">
-                           <styleClass>
-                              <String fx:value="lbl" />
-                              <String fx:value="span" />
-                           </styleClass>
-                        </Label>
-                        <ImageView fx:id="cart_img" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goCart" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../cart.jpg" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <AnchorPane fx:id="cart_pane" minHeight="-Infinity" minWidth="-Infinity" />
-               </children>
-            </VBox>
-         </right>
-         <center>
-            <VBox minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label stylesheets="@../general/GeneralStyleSheet.css" text="Chosen Dish">
-                           <styleClass>
-                              <String fx:value="lbl" />
-                              <String fx:value="shadow" />
-                           </styleClass>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <VBox alignment="CENTER" prefHeight="629.0" prefWidth="94.0" styleClass="chosen-dish-card" stylesheets="@../general/GeneralStyleSheet.css">
+      <Group VBox.vgrow="ALWAYS">
+         <children>
+            <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
+               <right>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="118.0" style="-fx-background-color: #DCDCDC;" BorderPane.alignment="CENTER">
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="selected_dish_name" prefHeight="53.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish name" />
-                              <Label fx:id="selected_dish_price" prefHeight="53.0" prefWidth="64.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish price" />
+                              <Label fx:id="cart_count" stylesheets="@../general/GeneralStyleSheet.css" text="0">
+                                 <styleClass>
+                                    <String fx:value="lbl" />
+                                    <String fx:value="span" />
+                                 </styleClass>
+                              </Label>
+                              <ImageView fx:id="cart_img" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goCart" pickOnBounds="true" preserveRatio="true" styleClass="cart-img">
+                                 <image>
+                                    <Image url="@../img/cart.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ImageView>
                            </children>
                         </HBox>
-                        <ImageView fx:id="selected_dish_img" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/pizaa.jpg" />
-                           </image>
-                        </ImageView>
-                        <VBox fx:id="dish_options_vbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </VBox>
-                        <Button fx:id="add_btn" mnemonicParsing="false" onAction="#addToOrder" prefHeight="22.0" prefWidth="149.0" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Order" textAlignment="CENTER">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="add-btn" />
-                           </styleClass>
-                        </Button>
+                        <AnchorPane fx:id="cart_pane" minHeight="-Infinity" minWidth="-Infinity" />
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               </right>
+               <center>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="351.0" style="-fx-background-color: #DCDCDC;" styleClass="chosen-dish-vbox" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back_to_branch_selection" text="Back">
-                           <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </HBox.margin></Button>
+                        <VBox alignment="CENTER" prefHeight="332.0" prefWidth="358.0" styleClass="chosen-dish-card" stylesheets="@../general/GeneralStyleSheet.css">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="105.0" prefWidth="395.0">
+                                 <children>
+                                    <Label fx:id="selected_dish_name" prefHeight="53.0" prefWidth="104.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish name" />
+                                    <Label fx:id="selected_dish_price" prefHeight="53.0" prefWidth="64.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="dish price" />
+                                 </children>
+                              </HBox>
+                              <ImageView fx:id="selected_dish_img" fitHeight="114.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pizaa.jpg" />
+                                 </image>
+                              </ImageView>
+                              <VBox fx:id="dish_options_vbox" alignment="CENTER" prefHeight="179.0" prefWidth="375.0" spacing="15.0" styleClass="vbox-dish-options">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Button fx:id="add_btn" mnemonicParsing="false" onAction="#addToOrder" prefHeight="22.0" prefWidth="149.0" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Order" textAlignment="CENTER">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <styleClass>
+                                    <String fx:value="btn" />
+                                    <String fx:value="add-btn" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="25.0" right="25.0" top="100.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="221.0" prefWidth="395.0">
+                           <children>
+                              <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back_to_branch_selection" styleClass="add-btn" text="Back">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </center>
-         <left>
-            <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="845.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" minHeight="-Infinity" prefWidth="200.0">
+                  </VBox>
+               </center>
+               <left>
+                  <VBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="536.0">
                      <children>
-                        <Button fx:id="appetizer_btn" mnemonicParsing="false" onAction="#showAppetizers" text="Appetizer">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="salad_btn" mnemonicParsing="false" onAction="#showSalads" text="Salad">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="main_dish_btn" mnemonicParsing="false" onAction="#showMains" text="Main">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="dessert_btn" mnemonicParsing="false" onAction="#showDessert" text="Dessert">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="drinks_btn" mnemonicParsing="false" onAction="#showDrinks" text="Drinks">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" fillHeight="false" prefHeight="697.0" prefWidth="697.0">
-                     <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="654.0" prefWidth="792.0" styleClass="transparent" stylesheets="@../general/GeneralStyleSheet.css">
+                        <HBox alignment="CENTER" minHeight="-Infinity" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="appetizer_btn" mnemonicParsing="false" onAction="#showAppetizers" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Appetizer">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="salad_btn" mnemonicParsing="false" onAction="#showSalads" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Salad">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="main_dish_btn" mnemonicParsing="false" onAction="#showMains" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Main">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="dessert_btn" mnemonicParsing="false" onAction="#showDessert" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Dessert">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="drinks_btn" mnemonicParsing="false" onAction="#showDrinks" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Drinks">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="605.0" prefWidth="520.0" styleClass="transparent" stylesheets="@../general/GeneralStyleSheet.css">
                           <content>
                               <GridPane fx:id="items_grid" alignment="CENTER" hgap="10.0" prefHeight="0.0" prefWidth="0.0" vgap="10.0">
                                  <rowConstraints>
@@ -137,15 +135,12 @@
                                  </rowConstraints>
                               </GridPane>
                           </content>
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin>
                         </ScrollPane>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </left>
-      </BorderPane>
+                  </VBox>
+               </left>
+            </BorderPane>
+         </children>
+      </Group>
    </children>
-</AnchorPane>
+</VBox>

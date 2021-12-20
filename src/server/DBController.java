@@ -103,6 +103,7 @@ public class DBController extends AbstractServer {
 				case "Employer_approved": dbUser.approveEmployer(res,client,myCon,this);break;
 				case "Check_approved":dbUser.CheckApproved(res,client,myCon,this);break;		
 				case "Load_business_account":dbUser.LoadBusinessAccount(res,client,myCon,this);break;
+				case "Approve_account":dbUser.ApproveAccount(res,client,myCon,this);break;
 				
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;

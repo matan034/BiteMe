@@ -29,7 +29,11 @@ public class Account {
 		this.Email=account.getEmail();
 	}
 
-	
+	public Account(String FirstName,String LastName,String ID) {
+		this.FirstName=FirstName;
+		this.LastName=LastName;
+		this.ID=ID;
+	}
 	
 	public int getAccountNum() {
 		return accountNum;

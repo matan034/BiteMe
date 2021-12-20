@@ -47,7 +47,7 @@ public class CartItemController {
     	dish_price_label.setText(d.getPrice()+Globals.currency);
     	if(!d.getCooking_lvl().equals(" "))
     	{
-    		Label cook_level=new Label("Chosen Coooking Level:");
+    		Label cook_level=new Label("Coooking Level:");
     		Label chosen_cook_level=new Label(d.getCooking_lvl());
     		HBox cookingLevels=new HBox();
     		cookingLevels.getChildren().addAll(cook_level,chosen_cook_level);
@@ -55,7 +55,7 @@ public class CartItemController {
     	}
     	if(!d.getSize().equals(" "))
     	{
-    		Label size_lbl=new Label("Chosen Size:");
+    		Label size_lbl=new Label("Size:");
     		Label chosen_size=new Label(d.getSize());
     		HBox size=new HBox();
     		size.getChildren().addAll(size_lbl,chosen_size);

@@ -51,7 +51,7 @@ public class SupplyWayController {
 	    }
 	    @FXML
 	    void backFunc(ActionEvent event) {
-	    	Globals.loadFXML(null, Globals.W4CLoginFXML, event);
+	    	Globals.loadInsideFXML(Globals.W4CLoginFXML);
 	    }
 
 	    @FXML

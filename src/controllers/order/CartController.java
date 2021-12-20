@@ -67,7 +67,7 @@ public class CartController {
 	    		 try {
 	    		    	FXMLLoader fxmlLoader = new FXMLLoader();
 	    	            fxmlLoader.setLocation(getClass().getResource("/order/CartItem.fxml"));
-	    	            AnchorPane anchorPane;
+	    	            VBox anchorPane;
 	    	            anchorPane = fxmlLoader.load();
 	    	            CartItemController cartItemController = fxmlLoader.getController();
 	    	            cartItemController.setData(d,cartItemListener);

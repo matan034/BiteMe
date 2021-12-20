@@ -9,41 +9,44 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane fx:id="dish" onMouseClicked="#click" prefHeight="215.0" prefWidth="225.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.DishController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.DishController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../general/GeneralStyleSheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="dish" onMouseClicked="#click" prefHeight="215.0" prefWidth="225.0" style="-fx-background-color: #DEB887;" stylesheets="@../general/GeneralStyleSheet.css">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../general/GeneralStyleSheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="dish_name_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Fries">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="dish_price_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="10">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Label>
+                  <HBox alignment="TOP_CENTER" prefHeight="41.0" prefWidth="165.0">
+                     <children>
+                        <Label fx:id="dish_name_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Fries">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="dish_price_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="10">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ImageView fx:id="img" fitHeight="123.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/fries.jpg" />
+                     </image>
+                  </ImageView>
                </children>
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <ImageView fx:id="img" fitHeight="115.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../fries.jpg" />
-               </image>
-            </ImageView>
+            </VBox>
          </children>
-      </VBox>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="dish-item" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
    </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-   <styleClass>
-      <String fx:value="dish-item" />
-      <String fx:value="shadow" />
-   </styleClass>
-</AnchorPane>
+</VBox>

@@ -4,12 +4,14 @@
     -fx-padding: 2px 5px;
     -fx-outline: 0;
 }
-
+.vbox-dish-options{
+	overflow:scroll;
+}
 
 .btn{
     -fx-align-items: center;
     -fx-background-clip: padding-box;
-    -fx-background-color: #fa904a;
+    -fx-background-color: #FFF8DC;
     -fx-border: 1px;
     -fx-border-radius: 5px;
     -fx-box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -41,7 +43,8 @@
 }
 
 .transparent{
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color:#fff;
+    -fx-background: #FFFFFF;
 }
 .shadow{
     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
@@ -57,6 +60,9 @@
 	-fx-font-family:'sans-sarif'
 }
 
+.cart-img:hover{
+	-fx-cursor:pointer;
+}
 #title_lbl{
     -fx-color: #333333;
     -fx-font-weight: bold;
@@ -65,7 +71,7 @@
 }
 
 .chosen-dish-card{
-    -fx-background-color: #F16C31;
+    -fx-background-color: #DEB887;
     -fx-background-radius: 30;
 }
 

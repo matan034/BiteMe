@@ -83,17 +83,7 @@ public class Globals {
 	 public static ArrayList<DishInOrder> order_dishes;
 	 public static Dish selected_dish;
 	 public static Order newOrder;
-	 private static Image takeaway=new Image("/img/takeaway.png");
-	 private static Image delivery=new Image("/img/delivery.jpg");
-	 protected static BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-		
-	 protected static BackgroundImage scaledImageTakeaway = new BackgroundImage(takeaway, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);	
-	 protected static BackgroundImage scaledImageDelivery = new BackgroundImage(delivery, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);	
 
-		
-	 public static Background bTakeaway = new Background(scaledImageTakeaway);
-	 public static Background bDelivery =new Background(scaledImageDelivery);
-	 
 	 public static int regular_delivery_fee=25,robot_delivery_fee=0;
 	 public static Map<String,Integer> delivery_fee=new HashMap<>() {{
 		 put(regularDelivery,regular_delivery_fee);
@@ -107,7 +97,7 @@ public class Globals {
 			 Globals.index_controller.getPaneInPane().getChildren().clear();
 			 	FXMLLoader loader = new FXMLLoader();
 			    loader.setLocation(Globals.class.getResource(fxml_name));
-	    		AnchorPane newLoadedPane =loader.load();
+	    		VBox newLoadedPane =loader.load();
 	    		newLoadedPane.autosize();
 	  
 			   Globals.index_controller.getPaneInPane().getChildren().add(newLoadedPane);

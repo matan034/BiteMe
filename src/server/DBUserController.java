@@ -344,7 +344,7 @@ public class DBUserController {
 		  stmt = myCon.createStatement();
 		  ResultSet rs;
 		  ArrayList<String> usersToApprove=new ArrayList<>();
-		  rs =stmt.executeQuery("SELECT employer.Name ,employer.IsApproved,AccountWithBusiness.ID,AccountWithBusiness.FirstName,AccountWithBusiness.LastName,AccountWithBusiness.IsApproved\r\n"
+		  rs =stmt.executeQuery("SELECT employer.Name,AccountWithBusiness.ID,AccountWithBusiness.FirstName,AccountWithBusiness.LastName,AccountWithBusiness.IsApproved,AccountWithBusiness.AccountNum\r\n"
 		  		+ "FROM biteme.employer\r\n"
 		  		+ "INNER JOIN (SELECT account.ID,account.AccountNum, account.FirstName,account.LastName,businessaccount.EmployerNum,businessaccount.IsApproved\r\n"
 		  		+ "	FROM biteme.account\r\n"
@@ -353,10 +353,11 @@ public class DBUserController {
 		  		+ ")As AccountWithBusiness\r\n"
 		  		+ "ON employer.EmployerNum=AccountWithBusiness.EmployerNum\r\n"
 		  		+ "WHERE AccountWithBusiness.IsApproved=0 AND employer.IsApproved=1");
+		  usersToApprove.add("Approve Business");
 			while(rs.next())
 			{
 				System.out.println("Business User to approve found Found");
-				usersToApprove.add("Approve Business~"+rs.getString(1)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5));
+				usersToApprove.add(rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(6));
 				db.sendToClient(usersToApprove,client);
 			}
 			rs.close();
@@ -476,6 +477,28 @@ public class DBUserController {
 				stmt.close();
 		  }catch(Exception e) {};
 		 }
+		 
+		 /**
+			Func for approving a business account
+			* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Approve_account res[1]=AccountNum
+			 * @param client The connection from which the message originated.
+			 * @param myCon the connection to mySql DB
+			 * @param db the main database controller used in order to send message back to client */
+			 protected void ApproveAccount(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
+				 Statement stmt;
+		  		  int flag;
+		  		  try {
+		  		  stmt = myCon.createStatement();
+		  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET IsApproved = '%d' WHERE AccountNum = '%d';",1 ,Integer.parseInt(res[1])));
+		  		  System.out.println("Account approved");
+		  		  //db.sendToClient("Order_arrived~Updatet Successfully",client);
+		  			stmt.close();
+		  		  }
+		  		  catch (Exception e) {
+		  			
+		  		}
+
+			 }
 	  
 		
 		

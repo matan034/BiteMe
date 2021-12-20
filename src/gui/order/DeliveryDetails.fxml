@@ -6,25 +6,31 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="357.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.DeliveryDetailsController">
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.DeliveryDetailsController">
    <children>
-      <Label layoutX="22.0" layoutY="14.0" text="Delivery Type" />
-      <RadioButton fx:id="private_btn" layoutX="31.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Private">
-         <toggleGroup>
-            <ToggleGroup fx:id="delivery_type" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="shared_btn" layoutX="141.0" layoutY="52.0" mnemonicParsing="false" text="Shared" toggleGroup="$delivery_type" />
-      <RadioButton fx:id="robot_btn" layoutX="236.0" layoutY="52.0" mnemonicParsing="false" text="Robot - TBD" toggleGroup="$delivery_type" />
-      <Separator layoutX="22.0" layoutY="83.0" prefHeight="5.0" prefWidth="346.0" />
-      <Label layoutX="22.0" layoutY="96.0" text="Delivery Address" />
-      <TextField fx:id="first_name_input" layoutX="21.0" layoutY="129.0" promptText="First Name" />
-      <TextField fx:id="last_name_input" layoutX="214.0" layoutY="131.0" promptText="Last Name" />
-      <TextField fx:id="company_input" layoutX="15.0" layoutY="222.0" prefHeight="31.0" prefWidth="392.0" promptText="Company(Optional)" />
-      <TextField fx:id="street_input" layoutX="15.0" layoutY="260.0" prefHeight="31.0" prefWidth="392.0" promptText="Street" />
-      <TextField fx:id="city_input" layoutX="18.0" layoutY="301.0" promptText="City" />
-      <TextField fx:id="zip_input" layoutX="222.0" layoutY="301.0" promptText="Zip" />
-      <TextField fx:id="phone_input" layoutX="18.0" layoutY="179.0" promptText="Phone Number" />
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="357.0" prefWidth="430.0">
+         <children>
+            <Label layoutX="22.0" layoutY="14.0" text="Delivery Type" />
+            <RadioButton fx:id="private_btn" layoutX="31.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Private">
+               <toggleGroup>
+                  <ToggleGroup fx:id="delivery_type" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="shared_btn" layoutX="141.0" layoutY="52.0" mnemonicParsing="false" text="Shared" toggleGroup="$delivery_type" />
+            <RadioButton fx:id="robot_btn" layoutX="236.0" layoutY="52.0" mnemonicParsing="false" text="Robot - TBD" toggleGroup="$delivery_type" />
+            <Separator layoutX="22.0" layoutY="83.0" prefHeight="5.0" prefWidth="346.0" />
+            <Label layoutX="22.0" layoutY="96.0" text="Delivery Address" />
+            <TextField fx:id="first_name_input" layoutX="21.0" layoutY="129.0" promptText="First Name" />
+            <TextField fx:id="last_name_input" layoutX="214.0" layoutY="131.0" promptText="Last Name" />
+            <TextField fx:id="company_input" layoutX="15.0" layoutY="222.0" prefHeight="31.0" prefWidth="392.0" promptText="Company(Optional)" />
+            <TextField fx:id="street_input" layoutX="15.0" layoutY="260.0" prefHeight="31.0" prefWidth="392.0" promptText="Street" />
+            <TextField fx:id="city_input" layoutX="18.0" layoutY="301.0" promptText="City" />
+            <TextField fx:id="zip_input" layoutX="222.0" layoutY="301.0" promptText="Zip" />
+            <TextField fx:id="phone_input" layoutX="18.0" layoutY="179.0" promptText="Phone Number" />
+         </children>
+      </Pane>
    </children>
-</Pane>
+</VBox>

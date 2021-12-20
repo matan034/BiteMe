@@ -46,6 +46,8 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null);
 	
+	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
+	
 	public static W4C w4c_card;
 	
 	public static Customer customer=new Customer(0, 0, null, null);
@@ -121,6 +123,17 @@ public class OrderClient extends AbstractClient {
 						}
 					}
 				}
+				if(((String) arr[0]).equals("Approve Business")){
+					for(int i=1;i<arr.length;i++) {
+						String [] res = ((String)arr[i]).split("~");
+						BusinessAccount approveaccount=new BusinessAccount(new Account(res[2],res[3],res[1]));
+						approveaccount.setEmployerName(res[0]);
+						approveaccount.setAccountNum(Integer.parseInt(res[4]));
+						usersToApprove.add(approveaccount);
+						
+					}
+				}
+				
 
 			}
 			if (arr[0] instanceof DishInOrder)

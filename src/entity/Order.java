@@ -37,7 +37,7 @@ public class Order implements Serializable{
 	private Map<String,Integer> items_by_type=new HashMap<String,Integer>()
 	{{
 		 put("Appetizer",0);
-		 put("Main Dish",0);
+		 put("Main",0);
 		 put("Dessert",0);
 		 put("Drink",0);
 		 put("Salad",0);

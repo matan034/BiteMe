@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -41,10 +42,8 @@ public class W4CLoginController {
     	String msg="W4C_verify~"+qr_alternative_input.getText();
     	StartClient.order.accept(msg);
     	
-    	if(OrderClient.w4c_card.getCardNum()==Integer.parseInt(qr_alternative_input.getText()))
-    	{
-    		//msg="Load_customer~"+OrderClient.account.getID();    
-    		//StartClient.order.accept(msg);
+    	if(OrderClient.w4c_card.getCardNum()==Integer.parseInt(qr_alternative_input.getText())) {
+    	
     		Globals.loadInsideFXML( Globals.supply_wayFXML);
     	}
     }
@@ -59,7 +58,7 @@ public class W4CLoginController {
 
     	FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/order/QRSimulationScreen.fxml"));
-        AnchorPane anchorPane;
+        VBox anchorPane;
         anchorPane = fxmlLoader.load();
         QRSimulationController qrController = fxmlLoader.getController();
         qrController.setListener(qrListener);
