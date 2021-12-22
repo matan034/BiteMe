@@ -2,13 +2,15 @@ package entity;
 
 public class Customer {
 
-	private int customerNumber,account_num;
+	private int customerNumber,pAccount,bAccount;
 	private String id,status;
-	public Customer(int customerNumber, int account_num,String id,  String status) {
+	public Customer(int customerNumber, int pAccount,int bAccount,String id,  String status) {
 		super();
 		this.customerNumber = customerNumber;
 		this.id = id;
-		this.account_num = account_num;
+		this.pAccount = pAccount;
+		this.bAccount = bAccount;
+		
 		this.status = status;
 	}
 	public int getCustomerNumber() {
@@ -23,17 +25,26 @@ public class Customer {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getAccount_num() {
-		return account_num;
-	}
-	public void setAccount_num(int account_num) {
-		this.account_num = account_num;
-	}
+
+	
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getpAccount() {
+		return pAccount;
+	}
+	public void setpAccount(int pAccount) {
+		this.pAccount = pAccount;
+	}
+	public int getbAccount() {
+		return bAccount;
+	}
+	public void setbAccount(int bAccount) {
+		this.bAccount = bAccount;
+	}
+	
 	
 }

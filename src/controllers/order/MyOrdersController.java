@@ -48,7 +48,7 @@ public class MyOrdersController {
 				StartClient.order.accept(update_recieve_time);
 				if(OrderClient.orderLateFlag==1)
 				{
-					StartClient.order.accept("Refund Account~"+order.getCustomer().getAccount_num()+"~"+order.getPrice()*0.5);
+					StartClient.order.accept("Refund Account~"+order.getCustomer().getpAccount()+"~"+order.getPrice()*0.5);
 					StartClient.order.accept("Update Supplier Late Cnt~"+order.getSupplier().getSupplierNum());
 				}
 				

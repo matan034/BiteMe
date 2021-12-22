@@ -4,6 +4,8 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import entity.Dish;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -14,6 +16,7 @@ public class DBController extends AbstractServer {
 	private DBUserController dbUser=new DBUserController();
 	private DBOrderController dbOrder=new DBOrderController();
 	private DBReportController dbReport=new DBReportController();
+	private DBMenuController dbMenu=new DBMenuController();
 	
 	public DBController(int port) {
 		super(port);
@@ -59,6 +62,12 @@ public class DBController extends AbstractServer {
 	  public void handleMessageFromClient  (Object msg, ConnectionToClient client)
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
+		    if(msg instanceof Dish)
+			{
+				Dish newDish=((Dish)msg);
+				dbMenu.insertNewDish(newDish,client,myCon,this);
+			}
+		    else {
 		    String [] res = ((String)msg).split("~");
 		    String result="";
 			try {
@@ -112,11 +121,13 @@ public class DBController extends AbstractServer {
 				case "updateRestaurantData": dbReport.updateRestaurantData(res,client,myCon,this);break;			
 				case "Update Supplier Late Cnt": dbReport.updateSupplierLateCnt(res,client,myCon,this);break;
 	
+				
+				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
 				}
 				}catch (Exception e) {
 					// TODO: handle exception
 				
-				
+				}
 				}
 	
 			}

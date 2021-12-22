@@ -111,12 +111,12 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
-//          /////4->>>update menu Muhamad
-//              CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
-//                  @Override
-//                  public void handle(ActionEvent e) {
-//                      Globals.loadInsideFXML(Globals.);
-//                  }});
+          /////4->>>update menu Muhamad
+              CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
+                  @Override
+                  public void handle(ActionEvent e) {
+                      Globals.loadInsideFXML(Globals.viewMenu);
+                  }});
               
                 
                 CEOOption5.setOnAction(new EventHandler<ActionEvent>() {
@@ -337,6 +337,7 @@ public class IndexControllerD {
             break;
             
        case "Restaurant Manager":
+
            
     	   comboBoxBranch.setVisible(false);
     	   
@@ -364,7 +365,12 @@ public class IndexControllerD {
                }});
        
            //2-->update menu Muhamad
-           
+           SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.menuFXML);
+                
+               }});
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {

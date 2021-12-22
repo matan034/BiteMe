@@ -53,11 +53,15 @@ public class OrderClient extends AbstractClient {
 	
 	public static W4C w4c_card;
 	
-	public static Customer customer=new Customer(0, 0, null, null);
+	public static Customer customer=new Customer(0, 0,0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
+	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg;
+	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
+	public static Account account =new Account(null,null,null,null,null);
+	public int branchID;
 	
 
 	// for reports
@@ -158,6 +162,9 @@ public class OrderClient extends AbstractClient {
 		else {
 			String[] res = ((String) msg).split("~");
 			switch (res[0]) {
+			case "insert_New_Dish_msg":insert_New_Dish_msg=res[1];break;
+			case "Insert_Menu":Insert_Menu=res[1];break;
+			case "load_Dishes_msg": load_Dishes_msg=res[1];break;
 			case "Server Offline":
 				serverOffline(res);
 				break;
@@ -262,8 +269,9 @@ public class OrderClient extends AbstractClient {
 			case "Customer load"://maybe delete
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
 				customer.setId(res[2]);
-				customer.setAccount_num(Integer.parseInt(res[3]));
-				customer.setStatus(res[4]);
+				customer.setbAccount(Integer.parseInt(res[4]));
+				customer.setpAccount(Integer.parseInt(res[5]));
+				customer.setStatus(res[3]);
 				break;
 			case "W4C_load_list":
 				w4cList(res);
@@ -320,11 +328,11 @@ public class OrderClient extends AbstractClient {
 	 * @param message The message from the UI.
 	 */
 
-	public void handleMessageFromClientUI(String message) {
+	public void handleMessageFromClientUI(Object msg) {
 		try {
 			openConnection();// in order to send more than one message
 			awaitResponse = true;
-			sendToServer(message);
+			sendToServer(msg);
 			// wait for response
 			while (awaitResponse) {
 				try {
