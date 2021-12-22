@@ -4,30 +4,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrderComponentsRating">
+
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrdersByComponentsController">
    <children>
-      <Pane layoutX="-88.0" layoutY="-142.0" prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="113.0" layoutY="184.0" text="Branch:" />
-            <Label layoutX="113.0" layoutY="210.0" text="Month:" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="145.0" prefHeight="39.0" prefWidth="143.0" text="Order components rating" textAlignment="CENTER" />
-            <TableView fx:id="ratingTable" layoutX="210.0" layoutY="201.0" prefHeight="137.0" prefWidth="376.0">
+            <Label layoutX="22.0" layoutY="103.0" text="Branch:" />
+            <Label layoutX="22.0" layoutY="144.0" text="Month:" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="398.0" layoutY="37.0" prefHeight="39.0" prefWidth="222.0" text="Order components rating" textAlignment="CENTER" />
+            <TableView fx:id="ratingTable" layoutX="215.0" layoutY="132.0" prefHeight="421.0" prefWidth="752.0">
               <columns>
-                  <TableColumn fx:id="restaurantName" prefWidth="75.0" text="restaurant" />
-                <TableColumn fx:id="startersColumn" prefWidth="60.0" text="starters" />
-                  <TableColumn fx:id="drinksColumn" prefWidth="60.0" text="drinks" />
-                  <TableColumn fx:id="dessertsColumn" prefWidth="60.0" text="desserts" />
-                  <TableColumn fx:id="saladsColumn" prefWidth="60.0" text="salads" />
-                <TableColumn fx:id="mainsColumn" prefWidth="60.0" text="mains" />
+                  <TableColumn fx:id="restaurantName" prefWidth="115.0" text="restaurant" />
+                <TableColumn fx:id="startersColumn" prefWidth="84.0" text="starters" />
+                  <TableColumn fx:id="drinksColumn" prefWidth="72.0" text="drinks" />
+                  <TableColumn fx:id="dessertsColumn" prefWidth="87.0" text="desserts" />
+                  <TableColumn fx:id="saladsColumn" prefWidth="70.0" text="salads" />
+                <TableColumn fx:id="mainsColumn" prefWidth="128.0" text="mains" />
               </columns>
             </TableView>
-            <Button fx:id="backToViewReports" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#back_to_view_reports" text="back" />
-            <Label fx:id="branchName_lbl" layoutX="159.0" layoutY="184.0" />
-            <Label fx:id="monthNum_lbl" layoutX="159.0" layoutY="210.0" />
+            <Button fx:id="backToViewReports" layoutX="38.0" layoutY="581.0" mnemonicParsing="false" onAction="#back_to_view_reports" text="back" />
+            <Label fx:id="branchName_lbl" layoutX="81.0" layoutY="103.0" prefHeight="21.0" prefWidth="78.0" />
+            <Label fx:id="monthNum_lbl" layoutX="81.0" layoutY="145.0" prefHeight="13.0" prefWidth="78.0" />
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</VBox>

@@ -4,32 +4,33 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
+
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="performanceTable" layoutX="187.0" layoutY="100.0" prefHeight="200.0" prefWidth="274.0">
+            <TableView fx:id="performanceTable" layoutX="187.0" layoutY="100.0" prefHeight="400.0" prefWidth="715.0">
               <columns>
-                <TableColumn fx:id="restaurantCol" prefWidth="75.20001220703125" text="restaurant" />
-                <TableColumn fx:id="servedWellCol" prefWidth="108.0" text="served well" />
-                  <TableColumn fx:id="delaySupplyCol" prefWidth="89.20001220703125" text="delay supply" />
+                <TableColumn fx:id="restaurantCol" prefWidth="125.0" text="restaurant" />
+                <TableColumn fx:id="servedWellCol" prefWidth="134.0" text="served well" />
+                  <TableColumn fx:id="delaySupplyCol" prefWidth="136.0" text="delay supply" />
               </columns>
             </TableView>
-            <Button fx:id="backButton" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#goBack" text="back" />
-            <Label alignment="CENTER" layoutX="226.0" layoutY="24.0" text="Performance Report">
+            <Button fx:id="backButton" layoutX="51.0" layoutY="582.0" mnemonicParsing="false" onAction="#goBack" text="back" />
+            <Label alignment="CENTER" layoutX="425.0" layoutY="14.0" text="Performance Report">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="19.0" layoutY="43.0" text="Branch:" />
-            <Label layoutX="19.0" layoutY="73.0" text="Month:" />
-            <Label fx:id="whichBranch" layoutX="87.0" layoutY="43.0" />
-            <Label fx:id="whichMonth" layoutX="87.0" layoutY="73.0" />
+            <Label layoutX="18.0" layoutY="100.0" text="Branch:" />
+            <Label layoutX="19.0" layoutY="146.0" text="Month:" />
+            <Label fx:id="whichBranch" layoutX="87.0" layoutY="100.0" prefHeight="21.0" prefWidth="79.0" />
+            <Label fx:id="whichMonth" layoutX="87.0" layoutY="146.0" prefHeight="21.0" prefWidth="57.0" />
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</VBox>

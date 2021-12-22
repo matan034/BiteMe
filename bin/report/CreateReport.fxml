@@ -3,28 +3,29 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.CreateReportsController">
+
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.CreateReportsController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="650.0" prefWidth="1010.0">
          <children>
-            <Label alignment="CENTER" layoutX="199.0" layoutY="40.0" text="Create Report">
+            <Label alignment="CENTER" layoutX="371.0" layoutY="32.0" text="Create Report">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button fx:id="backButton" layoutX="513.0" layoutY="353.0" mnemonicParsing="false" onAction="#backToReportScreen" text="back" />
-            <Button fx:id="create" layoutX="87.0" layoutY="353.0" mnemonicParsing="false" onAction="#goToSpecificQuarterReport" text="create" />
+            <Button fx:id="backButton" layoutX="50.0" layoutY="569.0" mnemonicParsing="false" onAction="#backToReportScreen" text="back" />
+            <Button fx:id="create" layoutX="511.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToSpecificQuarterReport" text="create" />
             <Label layoutX="73.0" layoutY="115.0" text="Choose branch:" />
-            <Label layoutX="70.0" layoutY="167.0" text="Choose quarter:" />
-            <Label layoutX="70.0" layoutY="220.0" text="Choose type of report:" />
+            <Label layoutX="62.0" layoutY="216.0" text="Choose quarter:" />
+            <Label layoutX="50.0" layoutY="296.0" text="Choose type of report:" />
             <ComboBox fx:id="branchCombox" layoutX="255.0" layoutY="111.0" prefWidth="150.0" promptText="branch" visibleRowCount="3" />
-            <ComboBox fx:id="quarterCombox" layoutX="255.0" layoutY="163.0" prefWidth="150.0" promptText="months" visibleRowCount="4" />
-            <ComboBox fx:id="typeCombox" layoutX="255.0" layoutY="216.0" prefWidth="150.0" promptText="type" visibleRowCount="3" />
+            <ComboBox fx:id="quarterCombox" layoutX="255.0" layoutY="211.0" prefWidth="150.0" promptText="months" visibleRowCount="4" />
+            <ComboBox fx:id="typeCombox" layoutX="255.0" layoutY="291.0" prefWidth="150.0" promptText="type" visibleRowCount="3" />
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</VBox>

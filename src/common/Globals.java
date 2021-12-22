@@ -65,15 +65,19 @@ public class Globals {
 			view_reportsFXML = "/report/ViewReports.fxml",
 			order_components_rating_reportFXML = "/report/OrderComponentsRating.fxml",
 			performance_reportFXML = "/report/PerformanceReport.fxml",
-			purchase_reportFXML = "/report/PurchaseReport.fxml",
 			quarter_delay_reportFXML = "/report/QuarterlyDelaySupplyReport.fxml",
 			quarter_income_reportFXML = "/report/QuarterlyIncomeReport.fxml",
 			view_employersFXML="/branch_manager/MyEmployersScreen.fxml",
 			reportFXML="/report/reportsScreen.fxml",
 			NewOrdersFXML="/resturant/NewOrdersScreen.fxml",
 			approveUserFXML="/hr/ApproveUserScreen.fxml",
-			paymentStatusFXML="/order/PaymentStatusScreen.fxml";
+			paymentStatusFXML="/order/PaymentStatusScreen.fxml",
 
+	//new
+			ceo_chooses_quarter_and_monthFXML="/report/CeoChooses.fxml",
+			ceo_view_the_report_she_chose="/report/ceoQuarterReportOfOrdersNumAndIncomes.fxml",
+		    income_reportFXML = "/report/IncomeReport.fxml";
+	
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");

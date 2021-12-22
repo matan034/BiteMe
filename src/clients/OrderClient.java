@@ -19,9 +19,12 @@ import entity.Customer;
 import entity.Dish;
 import entity.DishInOrder;
 import entity.Employer;
+import entity.MonthlyPerformance;
 import entity.Order;
+import entity.OrdersByComponents;
 import entity.PrivateAccount;
 import entity.Supplier;
+import entity.TotalIncomesOfRestaurants;
 import entity.User;
 import entity.W4C;
 import javafx.collections.FXCollections;
@@ -56,9 +59,13 @@ public class OrderClient extends AbstractClient {
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	
-	
+
 	// for reports
-	public static ObservableList<ComponentsRating> componentsOfDishes = FXCollections.observableArrayList();
+	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
+	public static ObservableList<TotalIncomesOfRestaurants> totalIncomesOfRestaurant = FXCollections.observableArrayList();
+	public static ObservableList<MonthlyPerformance> monthlyPerformance = FXCollections.observableArrayList();
+	
+	
 
 	public OrderClient(String host, int port) throws IOException {
 		super(host, port);
@@ -99,13 +106,20 @@ public class OrderClient extends AbstractClient {
 				// order components rating report
 				if (((String) arr[0]).equals("Components_load")) {
 					((ArrayList<String>) msg).remove(0);
-					percentageOfComponents((ArrayList<String>) msg);
+					ordersByComponents((ArrayList<String>) msg);
 				}
 				// monthly performance report
 				if (((String) arr[0]).equals("Monthly_performance_load")) {
 					((ArrayList<String>) msg).remove(0);
 					wellServedOrDelaySupply((ArrayList<String>) msg);
 				}
+				
+				if (((String) arr[0]).equals("Incomes_load")) {
+					((ArrayList<String>) msg).remove(0);
+					monthlyIncomesOfSuppliers((ArrayList<String>) msg);
+				}
+	
+				
 				if (((String) arr[0]).equals("Order")){
 					for(int i=1;i<arr.length;i++) {
 						String [] res = ((String)arr[i]).split("~");
@@ -370,34 +384,29 @@ public class OrderClient extends AbstractClient {
 		  }
 	  }
 
-	  
+	
 
-	private void percentageOfComponents(ArrayList<String> res) {
+	
+	private void ordersByComponents(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
 			String restaurantName = temp[0];
 
-			double starters = Double.parseDouble(temp[1]);
-			double drinks = Double.parseDouble(temp[2]);
-			double desserts = Double.parseDouble(temp[3]);
-			double salads = Double.parseDouble(temp[4]);
-			double mains = Double.parseDouble(temp[5]);
+			int starters = Integer.parseInt(temp[1]);
+			int drinks = Integer.parseInt(temp[2]);
+			int desserts = Integer.parseInt(temp[3]);
+			int salads = Integer.parseInt(temp[4]);
+			int mains = Integer.parseInt(temp[5]);
 
-			double total = starters + drinks + desserts + salads + mains;
+	
 
-			double startersPer = (starters / total) * 100;
-			double drinksPer = (drinks / total) * 100;
-			double dessertsPer = (desserts / total) * 100;
-			double saladsPer = (salads / total) * 100;
-			double mainsPer = (mains / total) * 100;
+			String startersPerString = String.format("%d", starters);
+			String drinksPerString = String.format("%d", drinks);
+			String dessertsPerString = String.format("%d", desserts);
+			String saladsPerString = String.format("%d", salads);
+			String mainsPerString = String.format("%d", mains);
 
-			String startersPerString = String.format("%,.2f", startersPer) + "%";
-			String drinksPerString = String.format("%,.2f", drinksPer) + "%";
-			String dessertsPerString = String.format("%,.2f", dessertsPer) + "%";
-			String saladsPerString = String.format("%,.2f", saladsPer) + "%";
-			String mainsPerString = String.format("%,.2f", mainsPer) + "%";
-
-			ComponentsRating temp1 = new ComponentsRating(restaurantName, startersPerString, drinksPerString,
+			OrdersByComponents temp1 = new OrdersByComponents(restaurantName, startersPerString, drinksPerString,
 					dessertsPerString, saladsPerString, mainsPerString);
 			OrderClient.componentsOfDishes.add(temp1);
 
@@ -408,9 +417,29 @@ public class OrderClient extends AbstractClient {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
 			String restaurantName = temp[0];
+			int isLate = Integer.parseInt(temp[1]);
+			int totalAmount = Integer.parseInt(temp[2]);
+			int onTime= totalAmount-isLate;
+			MonthlyPerformance tempRes = new MonthlyPerformance(restaurantName,totalAmount,isLate,onTime);
+			OrderClient.monthlyPerformance.add(tempRes);
+		}
+	}
+	
+	
+	private void monthlyIncomesOfSuppliers(ArrayList<String> res) {
+		for (String restaurant : res) {
+			String[] temp = restaurant.split("~");
+			String restaurantName = temp[0];
+			double total = Double.parseDouble(temp[1]);
+	
+			
+			TotalIncomesOfRestaurants tempIncome = new TotalIncomesOfRestaurants(restaurantName, total);
+			OrderClient.totalIncomesOfRestaurant.add(tempIncome);
+
 		}
 	}
 }
+
 
 
 

@@ -12,6 +12,14 @@ public class ReportController {
 
     @FXML
     private Button createReportButton;
+    
+    @FXML
+    private Button viewQuarterIncome;
+
+    @FXML
+    void goToChooseQuarterAndBranch(ActionEvent event) {
+    	Globals.loadInsideFXML( Globals.ceo_chooses_quarter_and_monthFXML);
+    }
 
     @FXML
     void goToCreateReports(ActionEvent event) {

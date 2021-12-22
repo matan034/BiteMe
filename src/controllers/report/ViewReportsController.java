@@ -11,8 +11,8 @@ import javafx.scene.control.ComboBox;
 public class ViewReportsController {
 	ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
 	ObservableList<String> monthList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-	ObservableList<String> typeList = FXCollections.observableArrayList("Order components rating", "Performance report",
-			"Purchase Report by Suppliers");
+	ObservableList<String> typeList = FXCollections.observableArrayList("Order report by components", "Performance report",
+			"Income Report by restaurants");
 
 	public static String branchName;
 	public static String monthNumber;
@@ -38,14 +38,14 @@ public class ViewReportsController {
 		branchName = branchCombox.getSelectionModel().getSelectedItem();
 		monthNumber = monthCombox.getSelectionModel().getSelectedItem();
 
-		if (typeCombox.getSelectionModel().getSelectedItem().equals("Order components rating"))
+		if (typeCombox.getSelectionModel().getSelectedItem().equals("Order report by components"))
 			Globals.loadInsideFXML( Globals.order_components_rating_reportFXML);
 
 		if (typeCombox.getSelectionModel().getSelectedItem().equals("Performance report"))
 			Globals.loadInsideFXML(Globals.performance_reportFXML);
 		
-		if (typeCombox.getSelectionModel().getSelectedItem().equals("Purchase Report by Suppliers"))
-			Globals.loadInsideFXML(Globals.purchase_reportFXML);
+		if (typeCombox.getSelectionModel().getSelectedItem().equals("Income Report by restaurants"))
+			Globals.loadInsideFXML(Globals.income_reportFXML);
 
 	}
 

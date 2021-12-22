@@ -39,9 +39,7 @@ public class IndexControllerD {
     
     ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
     
-    
-    
-    
+
     /*@param Function initializes the menu depending on the user entering the application 
 	/*@param*/ 
     
@@ -51,11 +49,12 @@ public class IndexControllerD {
         String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
         comboBoxBranch.setItems(branchList);
+        
         switch(typeUser) {
 
         case "CEO":
             
-           
+    
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
@@ -95,7 +94,7 @@ public class IndexControllerD {
                     public void handle(ActionEvent e) {
                     	welcome_label.setVisible(false);
        
-                        Globals.loadInsideFXML(Globals.view_reportsFXML);
+                        Globals.loadInsideFXML(Globals.reportFXML);
                     }});
                 
                 
@@ -146,6 +145,7 @@ public class IndexControllerD {
        case "Branch Manager":
            
            
+    	   comboBoxBranch.setVisible(false);
     	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
@@ -186,7 +186,7 @@ public class IndexControllerD {
             BranchManagerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.view_reportsFXML);
+                    Globals.loadInsideFXML(Globals.reportFXML);
                 }});
             
             BranchManagerOption2.setOnAction(new EventHandler<ActionEvent>() {
@@ -227,7 +227,7 @@ public class IndexControllerD {
             
        case "Customer":
            
-           
+    	   
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
            Button CustomerOption3= new Button ("Log out");
@@ -270,6 +270,7 @@ public class IndexControllerD {
             
        case "HR":
            
+    	   comboBoxBranch.setVisible(false);
            Button HROption1= new Button ("Register Employer");
            Button HROption2= new Button ("Approve Account");
            Button HROption3= new Button ("Log out");
@@ -310,7 +311,8 @@ public class IndexControllerD {
                 break;
 
        case "Certified Employee":
-            
+    	   
+    	   comboBoxBranch.setVisible(false);
            Button CEOption1= new Button ("View and Update Menu");
            Button CEOption2= new Button ("Log out");
            
@@ -336,7 +338,8 @@ public class IndexControllerD {
             
        case "Restaurant Manager":
            
-           
+    	   comboBoxBranch.setVisible(false);
+    	   
            Button SupplierOption1= new Button ("Orders");
            Button SupplierOption2= new Button ("view and Update Menu");
            Button SupplierOption3= new Button ("Log out");

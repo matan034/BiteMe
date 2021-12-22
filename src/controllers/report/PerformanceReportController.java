@@ -1,27 +1,34 @@
 package report;
 
+import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
+import entity.TotalIncomesOfRestaurants;
+import entity.MonthlyPerformance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PerformanceReportController {
 
-	@FXML
-	private TableView<?> performanceTable;
+	  @FXML
+	    private TableView<MonthlyPerformance> performanceTable;
 
-	@FXML
-	private TableColumn<?, ?> restaurantCol;
+	    @FXML
+	    private TableColumn<MonthlyPerformance, String> restaurantCol;
 
-	@FXML
-	private TableColumn<?, ?> servedWellCol;
+	    @FXML
+	    private TableColumn<MonthlyPerformance, Integer> amtOfOrdersCol;
 
-	@FXML
-	private TableColumn<?, ?> delaySupplyCol;
+	    @FXML
+	    private TableColumn<MonthlyPerformance, Integer> delaySupplyCol;
+
+	    @FXML
+	    private TableColumn<MonthlyPerformance, Integer> servedOnTimeCol;
 
 	@FXML
 	private Button backButton;
@@ -34,6 +41,7 @@ public class PerformanceReportController {
 
 	@FXML
 	void goBack(ActionEvent event) {
+		OrderClient.monthlyPerformance.clear();
 		Globals.loadInsideFXML(Globals.view_reportsFXML);
 	}
 
@@ -53,15 +61,16 @@ public class PerformanceReportController {
 
 	}
 
-	void display_table() {
 
-//		restaurantName.setCellValueFactory(new PropertyValueFactory<String, String>("restaurant"));
-//		startersColumn.setCellValueFactory(new PropertyValueFactory<String, String>("starters"));
-//		mainsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("mains"));
-//		saladsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("salads"));
-//		dessertsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("desserts"));
-//		drinksColumn.setCellValueFactory(new PropertyValueFactory<String, String>("drinks"));
-//
-//		ratingTable.setItems(OrderClient.componentsOfDishes);
-	}
+
+
+		void display_table() {
+			
+			restaurantCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, String>("restaurant"));
+			amtOfOrdersCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("amount_of_orders"));
+			delaySupplyCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("delay_supply"));
+			servedOnTimeCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("served_on_time"));
+			performanceTable.setItems(OrderClient.monthlyPerformance);
+		}
+	
 }

@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
+<VBox stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <children>
-            <TableView fx:id="table" layoutX="180.0" layoutY="80.0" prefHeight="540.0" prefWidth="934.0">
+            <TableView fx:id="table" layoutX="180.0" layoutY="80.0" prefHeight="378.0" prefWidth="804.0">
               <columns>
                 <TableColumn fx:id="name_col" prefWidth="251.0" text="Name" />
                 <TableColumn fx:id="id_col" minWidth="0.0" prefWidth="125.0" text="ID" />
@@ -22,13 +21,13 @@
                   <TableColumn fx:id="status_col" prefWidth="242.0" text="Status" />
               </columns>
             </TableView>
-            <TextField fx:id="search_txt" layoutX="566.0" layoutY="38.0" promptText="Enter ID" />
-            <Button fx:id="search_btn" layoutX="738.0" layoutY="38.0" mnemonicParsing="false" text="Search" />
-            <ComboBox fx:id="status_cmb" layoutX="565.0" layoutY="683.0" prefWidth="150.0" />
+            <TextField fx:id="search_txt" layoutX="453.0" layoutY="29.0" promptText="Enter ID" />
+            <Button fx:id="search_btn" layoutX="658.0" layoutY="29.0" mnemonicParsing="false" text="Search" />
+            <ComboBox fx:id="status_cmb" layoutX="245.0" layoutY="475.0" prefWidth="150.0" />
             <Label fx:id="selected_lbl" layoutX="275.0" layoutY="644.0" prefHeight="17.0" prefWidth="730.0" />
-            <Label layoutX="489.0" layoutY="687.0" text="Status" />
-            <Button fx:id="update_btn" layoutX="614.0" layoutY="733.0" mnemonicParsing="false" onAction="#update" text="Update" />
-            <Button fx:id="back_btn" layoutX="61.0" layoutY="733.0" mnemonicParsing="false" text="Back" />
+            <Label layoutX="180.0" layoutY="480.0" text="Status" />
+            <Button fx:id="update_btn" layoutX="395.0" layoutY="518.0" mnemonicParsing="false" onAction="#update" text="Update" />
+            <Button fx:id="back_btn" layoutX="33.0" layoutY="589.0" mnemonicParsing="false" text="Back" />
          </children>
       </Pane>
    </children>
