@@ -100,16 +100,20 @@ public class Globals {
 		 put(myOrdersFXML,"My Orders");
 	 }};
 	 
+	 
+	    /*@param Func for load Vbox inside Vbox  
+		/*@param  input: name of the fxml file we want to load into the main fxml file*/
+	 
 	 public static void loadInsideFXML(String fxml_name)
 	 {
 		 try {
 			 Globals.index_controller.getPane_in_vbox().getChildren().clear();
 			 	FXMLLoader loader = new FXMLLoader();
-			 	VBox newPane;
+			 	VBox newVbox;
 			    loader.setLocation(Globals.class.getResource(fxml_name));
-			    newPane=loader.load();  
-			    VBox.setVgrow( newPane, Priority.ALWAYS);
-			    index_controller.getPane_in_vbox().getChildren().add(newPane);
+			    newVbox=loader.load();  
+			    VBox.setVgrow( newVbox, Priority.ALWAYS);
+			    index_controller.getPane_in_vbox().getChildren().add(newVbox);
 			    index_controller.setWelcome_label(titles.get(fxml_name));
 			   
 
@@ -117,6 +121,7 @@ public class Globals {
 	    	catch(Exception e1) {}
 	 }
 
+	 
 	public static void loadFXML(Stage stage,String fxml_name,Event event)
 	{
 		String window_name=fxml_name.split("/")[2].split("\\.")[0];

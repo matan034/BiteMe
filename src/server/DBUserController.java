@@ -491,7 +491,7 @@ public class DBUserController {
 		  		  stmt = myCon.createStatement();
 		  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET IsApproved = '%d' WHERE AccountNum = '%d';",1 ,Integer.parseInt(res[1])));
 		  		  System.out.println("Account approved");
-		  		  //db.sendToClient("Order_arrived~Updatet Successfully",client);
+		  		  db.sendToClient("AccountApproved~Updatet Successfully",client);
 		  			stmt.close();
 		  		  }
 		  		  catch (Exception e) {

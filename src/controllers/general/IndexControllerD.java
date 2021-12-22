@@ -40,18 +40,19 @@ public class IndexControllerD {
     ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
     
     
+    
+    
+    /*@param Function initializes the menu depending on the user entering the application 
+	/*@param*/ 
+    
     public void initialize()
     {
 
-        
         String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
         comboBoxBranch.setItems(branchList);
-        
-        
-        
         switch(typeUser) {
-        
+
         case "CEO":
             
            
@@ -94,7 +95,7 @@ public class IndexControllerD {
                     public void handle(ActionEvent e) {
                     	welcome_label.setVisible(false);
        
-                        Globals.loadInsideFXML(Globals.reportFXML);
+                        Globals.loadInsideFXML(Globals.view_reportsFXML);
                     }});
                 
                 
@@ -145,6 +146,7 @@ public class IndexControllerD {
        case "Branch Manager":
            
            
+    	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
             Button BranchManagerOption3= new Button ("View And Update Menu");
@@ -184,7 +186,7 @@ public class IndexControllerD {
             BranchManagerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.reportFXML);
+                    Globals.loadInsideFXML(Globals.view_reportsFXML);
                 }});
             
             BranchManagerOption2.setOnAction(new EventHandler<ActionEvent>() {
@@ -332,7 +334,7 @@ public class IndexControllerD {
             
             break;
             
-       case "Supplier":
+       case "Restaurant Manager":
            
            
            Button SupplierOption1= new Button ("Orders");
