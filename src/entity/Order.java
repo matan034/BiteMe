@@ -44,9 +44,10 @@ public class Order implements Serializable{
 	}};
 	private ObservableList<DishInOrder> dishes=FXCollections.observableArrayList();
 	
-	public Order( String order_type,W4C w4c) {
+	public Order( String order_type,W4C w4c,Customer customer) {
 		this.order_type = order_type;
 		this.w4c=w4c;
+		this.customer=customer;
 	}
 
 	public Order(int order_num,String order_type,String order_time,int is_arrived)
@@ -60,7 +61,7 @@ public class Order implements Serializable{
 	public Order() {}
 
 	@Override
-	public String toString() {
+	public String toString() {//check for customer
 		if(supplier!=null)
 		return supplier.getSupplierNum()+"~"+customer.getCustomerNumber()+"~"+order_type+"~"+price+"~"+is_early_order+"~"+order_time+"~"+
 				delivery_method+"~"+recieving_name+"~"+buisness_name+"~"+phone+"~"+street+"~"+city+"~"+zip;

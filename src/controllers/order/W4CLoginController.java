@@ -44,7 +44,7 @@ public class W4CLoginController {
     	
     	if(OrderClient.w4c_card.getCardNum()==Integer.parseInt(qr_alternative_input.getText())) {
     	
-    		Globals.loadInsideFXML( Globals.supply_wayFXML);
+    		Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
     	}
     }
     public void setW4CInput(String w4c_code)

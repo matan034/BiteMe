@@ -44,7 +44,7 @@ public class OrderClient extends AbstractClient {
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
-	public static Order found_order = new Order(null,null);
+	public static Order found_order = new Order(null,null,null);
 	
 	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
 	

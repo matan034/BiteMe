@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -64,8 +65,10 @@ public class BranchMenuController {
 	    private VBox cart_items_vbox;
 	    @FXML
 	    private Label total_price_label;
+	 
+	    
 	    @FXML
-	    private AnchorPane cart_pane;
+	    private VBox cart_vbox;
 	    @FXML
 	    private Button appetizer_btn;
 
@@ -95,12 +98,14 @@ public class BranchMenuController {
 	    	VBox newLoadedPane;
 	    	if(Integer.parseInt(cart_count.getText())!=0)
 	    	{
+	    		
 		    	if(firstClick)
 		    	{
 		    		try {
 		    		firstClick=false;
+		    		cart_vbox.setVisible(true);
 					newLoadedPane = FXMLLoader.load(getClass().getResource("/order/CartScreen.fxml"));
-					cart_pane.getChildren().add(newLoadedPane); 
+					cart_vbox.getChildren().add(newLoadedPane); 
 		    		} catch (IOException e) {
 					// TODO Auto-generated catch block
 		    			e.printStackTrace();
@@ -109,7 +114,8 @@ public class BranchMenuController {
 		    	else
 		    	{
 		    		firstClick=true;
-		    		cart_pane.getChildren().clear();
+		    		cart_vbox.setVisible(false);
+		    		cart_vbox.getChildren().clear();
 		    	}
 	    	}
 	    	
@@ -132,9 +138,13 @@ public class BranchMenuController {
 	    		@Override
 		    	 public void onChanged(ListChangeListener.Change<? extends DishInOrder> c) {
 	    		
-	    	
 	    				int item_cnt=Globals.newOrder.getDishes().size();
-	    				if(item_cnt==0) cart_pane.getChildren().clear();
+	    				if(item_cnt==0) 
+	    				{
+	    					cart_vbox.getChildren().clear();
+	    					cart_img.setCursor(Cursor.DEFAULT);
+	    				}
+	    				else cart_img.setCursor(Cursor.HAND);
 	    				cart_count.setText(Integer.toString(item_cnt));
 	    				
 	             }

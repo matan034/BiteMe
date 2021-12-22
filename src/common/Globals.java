@@ -27,6 +27,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -53,7 +54,6 @@ public class Globals {
 			ChooseSupplierFXML="/order/ChooseSupplierScreen.fxml",
 			branch_menuFXML="/order/BranchMenuScreen.fxml",
 			dish_selectionFXML="/order/DishSelectionScreen.fxml",
-			supply_wayFXML="/order/chooseSupplyWayScreen.fxml",
 			cartFXML="/order/CartScreen.fxml",
 			delivery_detailsFXML="/order/DeliveryDetails.fxml",
 			order_informationFXML="/order/OrderInformationScreen.fxml",
@@ -71,7 +71,8 @@ public class Globals {
 			view_employersFXML="/branch_manager/MyEmployersScreen.fxml",
 			reportFXML="/report/reportsScreen.fxml",
 			NewOrdersFXML="/resturant/NewOrdersScreen.fxml",
-			approveUserFXML="/hr/ApproveUserScreen.fxml";
+			approveUserFXML="/hr/ApproveUserScreen.fxml",
+			paymentStatusFXML="/order/PaymentStatusScreen.fxml";
 
 			
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
@@ -89,19 +90,29 @@ public class Globals {
 		 put(regularDelivery,regular_delivery_fee);
 		 put(robotDelivery,robot_delivery_fee);
 	 }};
-	 
+	 public static Map<String,String> titles=new HashMap<>() {{
+		 put(W4CLoginFXML,"W4C Login");
+		 put(ChooseSupplierFXML,"Restaurant");
+		 put(branch_menuFXML,"Menu");
+		 put(order_informationFXML,"Order Details");
+		 put(paymentFXML,"Payment Method");
+		 put(order_confirmedFXML,"Order Confirmation");
+		 put(myOrdersFXML,"My Orders");
+	 }};
 	 
 	 public static void loadInsideFXML(String fxml_name)
 	 {
 		 try {
-			 Globals.index_controller.getPaneInPane().getChildren().clear();
+			 Globals.index_controller.getPane_in_vbox().getChildren().clear();
 			 	FXMLLoader loader = new FXMLLoader();
+			 	VBox newPane;
 			    loader.setLocation(Globals.class.getResource(fxml_name));
-	    		VBox newLoadedPane =loader.load();
-	    		newLoadedPane.autosize();
-	  
-			   Globals.index_controller.getPaneInPane().getChildren().add(newLoadedPane);
-			    
+			    newPane=loader.load();  
+			    VBox.setVgrow( newPane, Priority.ALWAYS);
+			    index_controller.getPane_in_vbox().getChildren().add(newPane);
+			    index_controller.setWelcome_label(titles.get(fxml_name));
+			   
+
 	            }
 	    	catch(Exception e1) {}
 	 }
@@ -124,10 +135,8 @@ public class Globals {
 		    if(fxml_name.equals(Globals.indexFXML)) {
 		    	index_controller=loader.getController();
 		    }
-		    pane.setPrefSize(800, 600);
 			Scene scene=new Scene(pane);
 			stage.setTitle(window_name);
-			//stage.setMaximized(true);
 			stage.setScene(scene);	
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		     public void handle(WindowEvent we) {
@@ -146,10 +155,7 @@ public class Globals {
 		    return;
 		}
 	}
-	public void setMainController(IndexControllerD controller)
-	{
-		this.index_controller=controller;
-	}
+
 }
 
 

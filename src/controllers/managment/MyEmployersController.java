@@ -53,7 +53,7 @@ public class MyEmployersController {
     		try {
 	    		FXMLLoader fxmlLoader = new FXMLLoader();
 	            fxmlLoader.setLocation(getClass().getResource("/branch_manager/EmployerRecordScreen.fxml"));
-	            AnchorPane anchorPane;
+	            VBox anchorPane;
 	            anchorPane = fxmlLoader.load();       
 	            EmployerRecordController employerRecordController = fxmlLoader.getController();
 	            employerRecordController.setData(emp,approveEmployer);

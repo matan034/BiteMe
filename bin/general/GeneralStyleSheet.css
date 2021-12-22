@@ -63,6 +63,11 @@
 .cart-img:hover{
 	-fx-cursor:pointer;
 }
+
+.minus-btn{
+	-fx-background-color:#DC143C;
+    -fx-background-radius: 85;
+}
 #title_lbl{
     -fx-color: #333333;
     -fx-font-weight: bold;
@@ -196,7 +201,30 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 
 
 
+.accordion {
+ 
+   -fx-color: #444;
+   -fx-cursor: pointer;
+   -fx-padding: 18px;
+   -fx-width: 100%;
+   -fx-text-align: left;
+   -fx-border: none;
+   -fx-outline: none;
+   -fx-transition: 0.4s;
+}
 
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active {
+   -fx-background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.accordion_panel {
+   -fx-padding: 0 18px;
+   -fx-background-color: white;
+   -fx-display: none;
+   -fx-overflow: hidden;
+}
 
 
 

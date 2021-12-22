@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.CartItemController">
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.CartItemController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
@@ -26,7 +25,7 @@
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Button id="minus_btn" fx:id="remove_btn" mnemonicParsing="false" onAction="#removeItem" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="-" textFill="WHITE">
+                        <Button fx:id="remove_btn" mnemonicParsing="false" onAction="#removeItem" styleClass="minus-btn" stylesheets="@../general/GeneralStyleSheet.css" text="-" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>

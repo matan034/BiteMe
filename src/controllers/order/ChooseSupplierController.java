@@ -3,6 +3,7 @@ package order;
 import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
+import entity.Order;
 import entity.Supplier;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,30 +16,57 @@ public class ChooseSupplierController {
 	    private ComboBox<Supplier> choose_branch_combo_box;
 	    @FXML
 	    private Button back_btn;
+
+	    
 	    @FXML
-	    private Button view_menu_btn;
+	    private Button take_away_btn;
+
+	    @FXML
+	    private Button delivery_btn;
+	    
+	    
 	    @FXML
 	    public void initialize() {
 	    	StartClient.order.accept("Load_suppliers~"+OrderClient.user.getHomeBranch());
 	    	choose_branch_combo_box.setItems(Globals.suppliers);
-	    	view_menu_btn.setDisable(true);
+	    	take_away_btn.setDisable(true);
+	    	delivery_btn.setDisable(true);
 	    	choose_branch_combo_box.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
 	    	    if(newValue!=null)
 	    	    {
-	    	    	view_menu_btn.setDisable(false);
+	    	    	take_away_btn.setDisable(false);
+	    	    	delivery_btn.setDisable(false);
 	    	    }
 	    	});
 	    }
 	    @FXML
 	    void viewMenu(ActionEvent event) {
-	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
-	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    
 	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
 	    }
 	    @FXML
 	    void back(ActionEvent event)
 	    {
-	    	Globals.loadInsideFXML( Globals.supply_wayFXML);
+	    	Globals.loadInsideFXML( Globals.W4CLoginFXML);
+	    }
+	    
+	    @FXML
+	    void delivery(ActionEvent event) {
+	    	Globals.newOrder=new Order("Delivery",OrderClient.w4c_card,OrderClient.customer);
+	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    	
+	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
+	    }
+
+	    @FXML
+	    void takeAway(ActionEvent event) {
+	    	Globals.newOrder=new Order("Take-Away",OrderClient.w4c_card,OrderClient.customer);//sent cutomer before
+	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
+	    	
+	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
+
 	    }
 
 	}

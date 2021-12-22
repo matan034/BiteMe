@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
 
 public class IndexControllerD {
@@ -29,8 +31,8 @@ public class IndexControllerD {
     private Label welcome_label;
 
     @FXML
-    private AnchorPane paneInPane;
-    
+    private VBox pane_in_vbox;
+  
     
     public void initialize()
     {
@@ -316,15 +318,33 @@ public class IndexControllerD {
                 
          }
     }
+
+
+
+	public VBox getPane_in_vbox() {
+		return pane_in_vbox;
+	}
+
+
+
+	public void setPane_in_vbox(VBox pane_in_vbox) {
+		this.pane_in_vbox = pane_in_vbox;
+	}
+
+
+
+	public Label getWelcome_label() {
+		return welcome_label;
+	}
+
+	public void setWelcome_label(String label) {
+		this.welcome_label.setText(label);
+	}
+
+
     
 
-    public AnchorPane getPaneInPane() {
-        return paneInPane;
-    }
 
-    public void setPaneInPane(AnchorPane paneInPane) {
-        this.paneInPane = paneInPane;
-    }
    
 }
 

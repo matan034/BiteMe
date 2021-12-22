@@ -2,16 +2,20 @@ package order;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Scanner;
 
 import clients.StartClient;
 import common.Globals;
 import entity.DishInOrder;
+import general.MyListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -22,6 +26,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class PaymentController {
 
@@ -56,6 +62,8 @@ public class PaymentController {
 
     private int delivery_pay;
     private double early_discount;
+    private MyListener approveListener;
+    private boolean approve;
     public void initialize()
     {
     	StartClient.order.accept("Load private Account~"+Globals.newOrder.getW4c().getPrivateAccount());
@@ -134,6 +142,14 @@ public class PaymentController {
     	}
     	
     	total_price_label.setText(Globals.newOrder.getPrice()+Globals.currency);
+    	
+    	
+    	approveListener=new MyListener(){
+			@Override
+			public void onClickListener(Object object) {			
+				approve=(boolean)object;	
+			}		
+    	};
     }
     
     
@@ -151,28 +167,79 @@ public class PaymentController {
 
     @FXML
     void payAndCompleteOrder(ActionEvent event) {
+    	verifyPayment(event);
+    	
 
-    	String createOrder="Insert_order~"+Globals.newOrder.toString();
-    	StartClient.order.accept(createOrder);
-    	String insertAmount="Insert_quantity~"+Globals.newOrder.getSupplier().getSupplierNum();
-    	Map <String,Integer> items_by_types=Globals.newOrder.getItems_by_type();
-    	for (Map.Entry<String, Integer> pair : items_by_types.entrySet()) {
-    	    insertAmount+="~"+pair.getValue();
-    	}
-    	
-    	StartClient.order.accept(insertAmount);
-    	
-    	String updateRestaurantData="updateRestaurantData~"+Globals.newOrder.getPrice()+"~"+Globals.newOrder.getSupplier().getSupplierNum();
-    	StartClient.order.accept(updateRestaurantData);
-    	for(DishInOrder o:Globals.newOrder.getDishes()) {
-    		o.setOrderNum(Globals.newOrder.getOrder_num());//give the order number to each dish in our current order
+				if(approve)
+	    		{
+	    			String createOrder="Insert_order~"+Globals.newOrder.toString();
+	            	StartClient.order.accept(createOrder);
+	            	String insertAmount="Insert_quantity~"+Globals.newOrder.getSupplier().getSupplierNum();
+	            	Map <String,Integer> items_by_types=Globals.newOrder.getItems_by_type();
+	            	for (Map.Entry<String, Integer> pair : items_by_types.entrySet()) {
+	            	    insertAmount+="~"+pair.getValue();
+	            	}
+	            	
+	            	StartClient.order.accept(insertAmount);
+	            	
+	            	String updateRestaurantData="updateRestaurantData~"+Globals.newOrder.getPrice()+"~"+Globals.newOrder.getSupplier().getSupplierNum();
+	            	StartClient.order.accept(updateRestaurantData);
+	            	for(DishInOrder o:Globals.newOrder.getDishes()) {
+	            		o.setOrderNum(Globals.newOrder.getOrder_num());//give the order number to each dish in our current order
+	            		
+	            		StartClient.order.accept("Add_dishInOrder~"+o.toString());
+	            	}  	 
+	            	Globals.loadInsideFXML(Globals.order_confirmedFXML);
+	    		}
+	}	
+		
     		
-    		StartClient.order.accept("Add_dishInOrder~"+o.toString());
-    	}
-    	
-    	
-    	Globals.loadInsideFXML(Globals.order_confirmedFXML);
-    }
+    			   	
+
+
+	private void verifyPayment(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+	        fxmlLoader.setLocation(getClass().getResource(Globals.paymentStatusFXML));
+	        VBox popUp;
+	        popUp = fxmlLoader.load();
+	        PaymentStatusController cont = fxmlLoader.getController();
+	        double orderPrice=Globals.newOrder.getPrice();
+			 if (payment_type.getSelectedToggle().equals(private_btn))
+			 {
+				 cont.setData("Your credit card Number: "+Globals.newOrder.getpAccount().getCreditCardNumber()+",\n Will be Charged by "+orderPrice+Globals.currency,approveListener);
+				
+			 }
+			 if (payment_type.getSelectedToggle().equals(buisness_btn))
+			 {
+				 double account_balance=Globals.newOrder.getbAccount().getBalance();
+				 if(orderPrice<=account_balance)
+				 {
+					 Globals.newOrder.getbAccount().setBalance(account_balance-orderPrice);
+					 //need to sent to DB
+					 cont.setData("Your business account will charged by: "+orderPrice+Globals.currency+",\n You updated balance will be: "+(account_balance-orderPrice)+Globals.currency,approveListener);
+				
+				 }
+				 else {
+					 cont.setData("You dont have sufficient balance.\n Your balance: " +account_balance+Globals.currency+
+							 "\n You can proceed with your order by charging your remainder with your private account by:  "+(orderPrice-account_balance)+Globals.currency,approveListener);
+				 } 
+			 }
+			
+	        
+	        final Stage dialog = new Stage();
+	        dialog.initOwner((Stage)((Node) event.getSource()).getScene().getWindow());
+	        dialog.initModality(Modality.APPLICATION_MODAL);    
+	        Scene dialogScene = new Scene(popUp);
+	        dialog.setScene(dialogScene);
+	        dialog.showAndWait();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		
+	}
     private void addDeliveryPrice(String delivery_method)
 	{
     	
