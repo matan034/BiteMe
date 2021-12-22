@@ -72,9 +72,18 @@ public class Globals {
 			reportFXML="/report/reportsScreen.fxml",
 			NewOrdersFXML="/resturant/NewOrdersScreen.fxml",
 			approveUserFXML="/hr/ApproveUserScreen.fxml",
-			paymentStatusFXML="/order/PaymentStatusScreen.fxml";
+			paymentStatusFXML="/order/PaymentStatusScreen.fxml",
+			menuFXML="/menu/menu.fxml",
+			dishFXML="/menu/Dishes.fxml",
+			AddNewDishFxml="/menu/AddNewDish.fxml",
+			createMenu="/menu/createMenu.fxml",
+			viewMenu="/menu/ViewMyMenus.fxml",
+			viewDishes="/menu/ViewMyDishes.fxml";
+	
 
-			
+	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
+	public static String dishType;
+	public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);

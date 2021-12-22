@@ -8,19 +8,15 @@
 */
 
 package general;
-import java.net.ConnectException;
 
 import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+
 
 public class ClientStartController {
 	public static String ip;

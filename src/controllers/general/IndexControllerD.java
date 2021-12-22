@@ -107,12 +107,12 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
-//          /////4->>>update menu Muhamad
-//              CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
-//                  @Override
-//                  public void handle(ActionEvent e) {
-//                      Globals.loadInsideFXML(Globals.);
-//                  }});
+          /////4->>>update menu Muhamad
+              CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
+                  @Override
+                  public void handle(ActionEvent e) {
+                      Globals.loadInsideFXML(Globals.viewMenu);
+                  }});
               
                 
                 CEOOption5.setOnAction(new EventHandler<ActionEvent>() {
@@ -324,7 +324,7 @@ public class IndexControllerD {
             
             break;
             
-       case "Supplier":
+       case "Restaurant Manager":
            
            
            Button SupplierOption1= new Button ("Orders");
@@ -345,7 +345,12 @@ public class IndexControllerD {
            
            //1->>view orders Daniel
            //2-->update menu Muhamad
-           
+           SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.menuFXML);
+                
+               }});
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {

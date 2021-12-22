@@ -43,7 +43,7 @@ public class W4CLoginController {
     	StartClient.order.accept(msg);
     	
     	if(OrderClient.w4c_card.getCardNum()==Integer.parseInt(qr_alternative_input.getText())) {
-    	
+    		StartClient.order.accept("Load_customer~"+OrderClient.w4c_card.getPrivateAccount());
     		Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
     	}
     }

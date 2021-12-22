@@ -254,11 +254,11 @@ public class DBUserController {
 		String result;
 		try {
 			stmt = myCon.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM biteme.customers WHERE ID=" + Integer.parseInt(res[1]));
+			rs = stmt.executeQuery("SELECT * FROM biteme.customers WHERE PrivateAccount=" + Integer.parseInt(res[1]));
 			if (rs.next()) {
 				System.out.println("customer found");
 				result = "Customer load~" + rs.getString(1) + "~" + rs.getString(2) + "~" + rs.getString(3) + "~"
-						+ rs.getString(4);
+						+ rs.getString(4)+"~"+rs.getString(5);
 				db.sendToClient(result, client);
 			} else
 				db.sendToClient("Customer load~Customer Wasnt found", client);
