@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,15 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #fff;" stylesheets="@GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="general.IndexControllerD">
+<VBox style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="general.IndexControllerD">
    <children>
-      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
          <left>
             <VBox prefHeight="663.0" prefWidth="270.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="655.0" prefWidth="211.0" style="-fx-background-color: #F7C665;" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" style="-fx-background-color: #F7C665;">
                      <children>
-                        <GridPane fx:id="options_grid1" alignment="TOP_CENTER" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="661.0" prefWidth="150.0" style="-fx-background-color: #F7C665;">
+                        <GridPane fx:id="options_grid1" alignment="TOP_CENTER" focusTraversable="true" maxWidth="-Infinity" prefHeight="661.0" prefWidth="150.0" style="-fx-background-color: #F7C665;">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
@@ -42,34 +44,40 @@
             </VBox>
          </left>
          <top>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <VBox BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="145.0" prefWidth="270.0" style="-fx-background-color: #F9E3B4;">
+                  <HBox prefHeight="150.0" prefWidth="1280.0">
                      <children>
-                        <ImageView fitHeight="103.0" fitWidth="85.0" layoutX="-3.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true" translateX="90.0" translateY="70.0">
-                           <image>
-                              <Image url="@../img/MaleIcon.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="hello_label" prefHeight="25.0" prefWidth="183.0" text="Label" textAlignment="CENTER" translateX="80.0" translateY="40.0">
+                        <AnchorPane prefHeight="142.0" prefWidth="270.0" style="-fx-background-color: #F9E3B4;">
+                           <children>
+                              <ImageView fitHeight="103.0" fitWidth="85.0" layoutX="-81.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true" translateX="90.0" translateY="70.0">
+                                 <image>
+                                    <Image url="@../img/MaleIcon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="hello_label" layoutX="-52.0" layoutY="-23.0" prefHeight="25.0" prefWidth="183.0" text="Label" textAlignment="CENTER" translateX="80.0" translateY="40.0">
+                                 <font>
+                                    <Font name="Levenim MT" size="15.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="comboBoxBranch" editable="true" layoutX="120.0" layoutY="91.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="131.0" promptText="Change branch" style="-fx-background-color: #F7C665;" />
+                           </children>
+                        </AnchorPane>
+                        <Label fx:id="welcome_label" text="Welcome to BiteMe" translateX="220.0" translateY="20.0">
                            <font>
-                              <Font name="Levenim MT" size="15.0" />
+                              <Font name="Levenim MT Bold" size="64.0" />
                            </font>
                         </Label>
                      </children>
-                  </AnchorPane>
-                  <Label fx:id="welcome_label" alignment="CENTER" layoutX="261.0" layoutY="26.0" text="Welcome to BiteMe" textAlignment="CENTER" translateX="220.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="462.0" AnchorPane.topAnchor="26.0">
-                     <font>
-                        <Font name="Levenim MT Bold" size="64.0" />
-                     </font>
-                  </Label>
+                  </HBox>
+                  <Separator prefHeight="8.0" prefWidth="1299.0" style="-fx-background-color: #F7C665;" />
                </children>
-            </AnchorPane>
+            </VBox>
          </top>
          <center>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
+            <AnchorPane prefHeight="650.0" prefWidth="1010.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="pane_in_vbox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox fx:id="pane_in_vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </center>

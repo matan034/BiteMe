@@ -1,15 +1,16 @@
 package general;
 
 import clients.OrderClient;
-import clients.StartClient;
 import common.Globals;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
 
@@ -32,7 +33,12 @@ public class IndexControllerD {
 
     @FXML
     private VBox pane_in_vbox;
-  
+    
+    @FXML
+    private ComboBox <String> comboBoxBranch;
+    
+    ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
+    
     
     public void initialize()
     {
@@ -40,11 +46,15 @@ public class IndexControllerD {
         
         String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
+        comboBoxBranch.setItems(branchList);
+        
+        
+        
         switch(typeUser) {
         
         case "CEO":
             
-            
+           
             
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
@@ -124,14 +134,15 @@ public class IndexControllerD {
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.userloginFXML);
+                    	Globals.loadFXML(null, Globals.userloginFXML, e);
+                     
                     }});
           
             break;
             
        case "Branch Manager":
            
-          
+           
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
             Button BranchManagerOption3= new Button ("View And Update Menu");
@@ -141,10 +152,23 @@ public class IndexControllerD {
             Button BranchManagerOption7= new Button ("Approve suppliers");
             Button BranchManagerOption8= new Button ("Log out");
             
-           
+            BranchManagerOption1.getStyleClass().add("ViewBtn");
+            BranchManagerOption1.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption2.getStyleClass().add("ViewBtn");
+            BranchManagerOption2.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption3.getStyleClass().add("ViewBtn");
+            BranchManagerOption3.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption4.getStyleClass().add("ViewBtn");
+            BranchManagerOption4.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption5.getStyleClass().add("ViewBtn");
+            BranchManagerOption5.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption6.getStyleClass().add("ViewBtn");
+            BranchManagerOption6.setMaxWidth(Double.MAX_VALUE);
+            BranchManagerOption7.getStyleClass().add("ViewBtn");
+            BranchManagerOption7.setMaxWidth(Double.MAX_VALUE);
             
             
-            
+  
             options_grid1.add(BranchManagerOption1,0,0);
             options_grid1.add(BranchManagerOption2,0,1);
             options_grid1.add(BranchManagerOption3,0,2);
@@ -171,13 +195,7 @@ public class IndexControllerD {
             ///3--> update menu Muhamad
             ///4--> send reports Yeela
             //5--> we need to crate screen 
-            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.view_employersFXML);
-                }});
-            
-            
+           
             BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -188,28 +206,29 @@ public class IndexControllerD {
             ///7-->we need to crate screen  
             
             BranchManagerOption8.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.userloginFXML);
-                    }});
+            	  @Override
+                  public void handle(ActionEvent e) {
+                  	Globals.loadFXML(null, Globals.userloginFXML, e);
+                   
+                  }});
           
             
             break;  
             
        case "Customer":
-    	   StartClient.order.accept("Load_customer~"+OrderClient.user.getID());
-    	   
+           
            
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
            Button CustomerOption3= new Button ("Log out");
            
-           
-           CustomerOption1.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML( Globals.W4CLoginFXML);
-                }});
+           CustomerOption1.getStyleClass().add("ViewBtn");
+           CustomerOption1.setMaxWidth(Double.MAX_VALUE);
+           CustomerOption2.getStyleClass().add("ViewBtn");
+           CustomerOption2.setMaxWidth(Double.MAX_VALUE);
+           CustomerOption3.getStyleClass().add("ViewBtn");
+           CustomerOption3.setMaxWidth(Double.MAX_VALUE);
+        
            
            options_grid1.add(CustomerOption1,0,0);
            options_grid1.add(CustomerOption2,0,1);
@@ -222,28 +241,35 @@ public class IndexControllerD {
                 }});
            
           
-       
+           // (Matan)
          CustomerOption2.setOnAction(new EventHandler<ActionEvent>() {
               @Override
-              public void handle(ActionEvent e) {
-                  Globals.loadInsideFXML(Globals.myOrdersFXML);
+             public void handle(ActionEvent e) {
+           Globals.loadInsideFXML(Globals.myOrdersFXML);
               }});
            
            CustomerOption3.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.userloginFXML);
-                }});
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadFXML(null, Globals.userloginFXML, e);
+                
+               }});
            
        
             break;      
             
        case "HR":
-       
+           
            Button HROption1= new Button ("Register Employer");
            Button HROption2= new Button ("Approve Account");
            Button HROption3= new Button ("Log out");
             
+           HROption1.getStyleClass().add("ViewBtn");
+           HROption1.setMaxWidth(Double.MAX_VALUE);
+           HROption2.getStyleClass().add("ViewBtn");
+           HROption2.setMaxWidth(Double.MAX_VALUE);
+           HROption3.getStyleClass().add("ViewBtn");
+           HROption3.setMaxWidth(Double.MAX_VALUE);
            
            options_grid1.add(HROption1,0,0);
            options_grid1.add(HROption2,0,1);
@@ -265,17 +291,23 @@ public class IndexControllerD {
 //              }});
            
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.userloginFXML);
-                }});   
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadFXML(null, Globals.userloginFXML, e);
+                
+               }});  
            
                 break;
 
        case "Certified Employee":
-         
+            
            Button CEOption1= new Button ("View and Update Menu");
            Button CEOption2= new Button ("Log out");
+           
+           CEOption1.getStyleClass().add("ViewBtn");
+           CEOption1.setMaxWidth(Double.MAX_VALUE);
+           CEOption2.getStyleClass().add("ViewBtn");
+           CEOption2.setMaxWidth(Double.MAX_VALUE);
            
            options_grid1.add(CEOption1,0,0);
            options_grid1.add(CEOption2,0,8);
@@ -283,21 +315,29 @@ public class IndexControllerD {
          ///1--> update menu Muhamad
            
            CEOption2.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.userloginFXML);
-                }});   
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadFXML(null, Globals.userloginFXML, e);
+                
+               }});  
            
             
             break;
             
        case "Supplier":
            
-         
            
            Button SupplierOption1= new Button ("Orders");
            Button SupplierOption2= new Button ("view and Update Menu");
            Button SupplierOption3= new Button ("Log out");
+           
+           SupplierOption1.getStyleClass().add("ViewBtn");
+           SupplierOption1.setMaxWidth(Double.MAX_VALUE);
+           SupplierOption2.getStyleClass().add("ViewBtn");
+           SupplierOption2.setMaxWidth(Double.MAX_VALUE);
+           SupplierOption3.getStyleClass().add("ViewBtn");
+           SupplierOption3.setMaxWidth(Double.MAX_VALUE);
+        
            
            options_grid1.add(SupplierOption1,0,0);
            options_grid1.add(SupplierOption2,0,1);
@@ -307,10 +347,11 @@ public class IndexControllerD {
            //2-->update menu Muhamad
            
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.userloginFXML);
-                }});
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadFXML(null, Globals.userloginFXML, e);
+                
+               }});
             
             break;  
             
@@ -318,7 +359,7 @@ public class IndexControllerD {
                 
          }
     }
-
+    
 
 
 	public VBox getPane_in_vbox() {
@@ -337,15 +378,10 @@ public class IndexControllerD {
 		return welcome_label;
 	}
 
-	public void setWelcome_label(String label) {
-		this.welcome_label.setText(label);
+
+	public void setWelcome_label(String str) {
+		this.welcome_label.setText(str);
 	}
-
-
     
-
-
    
 }
-
-
