@@ -33,7 +33,7 @@
                               </Label>
                               <TextField id="test" fx:id="username_lbl" alignment="CENTER" layoutX="310.0" layoutY="369.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="220.0" promptText="Username" />
                               <PasswordField fx:id="password_lbl" alignment="CENTER" layoutX="312.0" layoutY="454.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="219.0" promptText="Password" />
-                              <Button fx:id="login_btn" layoutX="388.0" layoutY="522.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login_action" prefHeight="35.0" prefWidth="64.0" styleClass="btn" text="Login" />
+                              <Button fx:id="login_btn" layoutX="388.0" layoutY="522.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#login_action" prefHeight="35.0" prefWidth="64.0" styleClass="ViewBtn" stylesheets="@GeneralStyleSheet.css" text="Login" />
                               <ImageView fitHeight="120.0" fitWidth="135.0" layoutX="277.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/FemaleIcon.png" />

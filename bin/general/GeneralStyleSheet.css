@@ -129,9 +129,7 @@
   -fx-touch-action: manipulation;
   -fx-background-radius:50;
   -fx-border-radius:50;
-
 }
-
 .ViewBtn:hover {
   -fx-background-color: #fff;
 }
@@ -198,9 +196,6 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 	-fx-background-repeat: repeat;
 	
 }
-
-
-
 .accordion {
  
    -fx-color: #444;
@@ -225,7 +220,6 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
    -fx-display: none;
    -fx-overflow: hidden;
 }
-
 
 
 

@@ -55,7 +55,6 @@ public class IndexControllerD {
         case "CEO":
             
            
-            
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
@@ -98,8 +97,13 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.reportFXML);
                     }});
                 
-                ///insert 2,4 option /////////////////////////////////////////
-                ///2--> we need to crate screen 
+                
+                CEOOption2.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        Globals.loadInsideFXML(Globals.view_employersFXML);
+                    }});
+      
                 
                 CEOOption3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -122,15 +126,13 @@ public class IndexControllerD {
                     }});
                 
                 
-          //6-->approve account Daniel
-//              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
-//                  @Override
-//                  public void handle(ActionEvent e) {
-//                      Globals.loadInsideFXML(Globals.);
-//                  }});
-        
-                
-               
+
+              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
+                 @Override
+                  public void handle(ActionEvent e) {
+                      Globals.loadInsideFXML(Globals.approveUserFXML);
+                  }});
+      
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
@@ -191,11 +193,17 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            ///insert 3,4,5 option /////////////////////////////////////////
+            ///insert 3,4
             ///3--> update menu Muhamad
             ///4--> send reports Yeela
-            //5--> we need to crate screen 
            
+            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.view_employersFXML);
+                }});
+            
+            
             BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -284,11 +292,11 @@ public class IndexControllerD {
            
            
          //2-->approve account Daniel
-//         HROption2.setOnAction(new EventHandler<ActionEvent>() {
-//              @Override
-//              public void handle(ActionEvent e) {
-//                  Globals.loadInsideFXML(Globals.);
-//              }});
+         HROption2.setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent e) {
+                  Globals.loadInsideFXML(Globals.approveUserFXML);
+              }});
            
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
@@ -343,7 +351,13 @@ public class IndexControllerD {
            options_grid1.add(SupplierOption2,0,1);
            options_grid1.add(SupplierOption3,0,8);
            
-           //1->>view orders Daniel
+           
+           SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
+               @Override
+               public void handle(ActionEvent e) {
+                   Globals.loadInsideFXML(Globals.NewOrdersFXML);
+               }});
+       
            //2-->update menu Muhamad
            
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
