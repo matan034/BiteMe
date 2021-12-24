@@ -2,6 +2,7 @@ package order;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import common.Globals;
 import javafx.beans.value.ChangeListener;
@@ -88,10 +89,38 @@ public class OrderInformationController {
 
     @FXML
     private HBox shared_options;
+    
+    @FXML
+    private Label time_error;
+    @FXML
+    private Label phone_error;
 
+    @FXML
+    private Label company_error;
+
+    @FXML
+    private Label street_error;
+
+    @FXML
+    private Label last_name_error;
+
+    @FXML
+    private Label first_name_error;
+
+    @FXML
+    private Label city_error;
+
+    @FXML
+    private Label zip_error;
+    
+    private Pattern time=Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+    private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+    private Pattern phone=Pattern.compile("^\\d{10}$");
+    private Pattern address=Pattern.compile("{2,40}$");
+    private Pattern zip=Pattern.compile("^\\d{7}$");
     public void initialize()
     {
-    	
+        
     	continue_btn.setDisable(true);
     	class peopleCounter implements EventHandler<ActionEvent>{
 
@@ -126,15 +155,34 @@ public class OrderInformationController {
     	date_input.valueProperty().addListener((obs,oldValue, newValue)-> {
     	    if(newValue!=null)
     	    {
-    	    	validate_input();
+    	    	
+    	    	check_input_not_empty();
     	    }
     	});
-    	hour_input.textProperty().addListener((obs,oldValue, newValue)-> {
-    	    if(newValue!=null)
-    	    {
-    	    	validate_input();
-    	    }
-    	});
+    	
+    	createListener(hour_input,time_error);
+    	createListener(first_name_input,first_name_error);
+    	createListener(last_name_input,last_name_error);
+    	createListener(phone_input,phone_error);
+    	createListener(company_input,company_error);
+    	createListener(street_input,street_error);
+    	createListener(city_input,city_error);
+    	createListener(zip_input,zip_error);
+    	
+//    	hour_input.textProperty().addListener((obs,oldValue, newValue)-> {
+//    	    if(newValue!=null)
+//    	    {
+//    	    	time_error.setText("");
+//    	    	check_input_not_empty();
+//    	    }
+//    	});
+//    	first_name_input.textProperty().addListener((obs,oldValue, newValue)-> {
+//    	    if(newValue!=null)
+//    	    {
+//    	    	first_name_error.setText("");
+//    	    	check_input_not_empty();
+//    	    }
+//    	});
     	
     	delivery_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -153,40 +201,149 @@ public class OrderInformationController {
     	Globals.loadInsideFXML( Globals.branch_menuFXML);
     }
 
-    private void validate_input()
+    private void createListener(TextField textfield,Label label)
+    {
+
+    	textfield.textProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	if(label!=null)
+    	    		label.setText("");
+    	    	check_input_not_empty();
+    	    }
+    	});
+    }
+    
+    private void check_input_not_empty()
     {
     	int i=0;
     	if(!hour_input.getText().equals("")) i++;
     	if(date_input.getValue()!=null) i++;
-    	if(i==2) continue_btn.setDisable(false);
-    	else continue_btn.setDisable(true);
+    	if(Globals.newOrder.getOrder_type().equals("Delivery"))
+    	{
+    		if(!first_name_input.getText().equals("")) i++;
+    		if(!last_name_input.getText().equals("")) i++;
+    		if(!phone_input.getText().equals("")) i++;
+    		if(!company_input.getText().equals("")) i++;
+    		if(!street_input.getText().equals("")) i++;
+    		if(!city_input.getText().equals("")) i++;
+    		if(!zip_input.getText().equals("")) i++;
+        	if(i==9) continue_btn.setDisable(false);
+        	else if(i==8) {
+        		if(company_input.getText().equals("")) {
+        			continue_btn.setDisable(false);
+        		}
+        	}else continue_btn.setDisable(true);
+        		
+    	}
+    	else
+    	{
+        	if(i==2) continue_btn.setDisable(false);
+        	else continue_btn.setDisable(true);
+    	}
     	
+    	
+    	
+    	
+    }
+    public boolean validate_input()
+    {
+    	int flag=0;
+    	if(!time.matcher(hour_input.getText()).matches())
+    	{
+    		time_error.setText("Hour must be in hh:mm format");
+    		flag++;
+    	}
+    	if(first_name_input.getText().length()<2)
+    	{
+    		if(!namePattern.matcher(first_name_input.getText()).matches())
+    		{
+    			first_name_error.setText("First name must contain only abc chars");
+    			flag++;
+    		}
+    	}
+    	else {
+    		first_name_error.setText("First name must be at least 2 chars long");
+    		flag++;
+    	}
+    	if(last_name_input.getText().length()<2)
+    	{
+    		if(!namePattern.matcher(last_name_input.getText()).matches())
+    		{
+    			last_name_error.setText("Last name must contain only abc chars");
+    			flag++;
+    		}
+    	}
+    	else {
+    		last_name_error.setText("Last name must be at least 2 chars long");
+    		flag++;
+    	}
+  
+    	if(!phone.matcher(phone_input.getText()).matches())
+    	{
+    		last_name_error.setText("Phone must contain only 10 numbers");
+    		flag++;
+    	}
+    	
+    	if(!company_input.getText().isEmpty())
+    	{
+    		if(company_input.getText().length()<2)
+    		{
+	    		if(!namePattern.matcher(company_input.getText()).matches())
+	    		{
+	    			company_error.setText("Company name must contain only abc chars");
+	    			flag++;
+	    		}
+    		}
+    		else {
+    			company_error.setText("Company name must be at least 2 chars long");
+    			flag++;
+        	}
+    	}
+    	if(!address.matcher(street_input.getText()).matches())
+		{
+			street_error.setText("Street name must contain at least 2 chars and less than 40");
+			flag++;
+		}
+    	if(!address.matcher(city_input.getText()).matches())
+		{
+			city_error.setText("City name must contain at least 2 chars and less than 40");
+			flag++;
+		}
+    	if(!zip.matcher(zip_input.getText()).matches())
+		{
+			zip_error.setText("Zip must contain 7 numbers");
+			flag++;
+		}
+    	if(flag==0)	return true;
+    	return false;
     }
     @FXML
     void continueCheckout(ActionEvent event) {//validation!!!!!
-    	
-    	if(Globals.newOrder.getOrder_type().equals("Delivery"))
+    	if(validate_input())
     	{
-    		String delivery_method=delivery_type.getSelectedToggle().getUserData().toString();	
-    		Globals.newOrder.setRecieving_name(first_name_input.getText()+" "+last_name_input.getText());
-    		Globals.newOrder.setDelivery_method(delivery_method);
-    		Globals.newOrder.setCity(city_input.getText());
-    		Globals.newOrder.setStreet(street_input.getText());
-    		Globals.newOrder.setPhone(phone_input.getText());
-    		Globals.newOrder.setZip(zip_input.getText());
-        	Globals.newOrder.setBuisness_name(company_input.getText());
-        	if(delivery_method.equals("Shared"))
-        	{
-        		Globals.newOrder.setPeople_in_delivery(Integer.parseInt(people_cnt.getText()));
-        	}
-    		
+	    	if(Globals.newOrder.getOrder_type().equals("Delivery"))
+	    	{
+	    		String delivery_method=delivery_type.getSelectedToggle().getUserData().toString();	
+	    		Globals.newOrder.setRecieving_name(first_name_input.getText()+" "+last_name_input.getText());
+	    		Globals.newOrder.setDelivery_method(delivery_method);
+	    		Globals.newOrder.setCity(city_input.getText());
+	    		Globals.newOrder.setStreet(street_input.getText());
+	    		Globals.newOrder.setPhone(phone_input.getText());
+	    		Globals.newOrder.setZip(zip_input.getText());
+	        	Globals.newOrder.setBuisness_name(company_input.getText());
+	        	if(delivery_method.equals("Shared"))
+	        	{
+	        		Globals.newOrder.setPeople_in_delivery(Integer.parseInt(people_cnt.getText()));
+	        	}
+	    		
+	    	}
+	    	String time=hour_input.getText();
+	    	LocalDate date = date_input.getValue();
+	    	Globals.newOrder.setOrder_time(time+" "+date);
+	    	checkIfEarlyOrder(time,date);
+	    	Globals.loadInsideFXML( Globals.paymentFXML);
     	}
-    	String time=hour_input.getText();
-    	LocalDate date = date_input.getValue();
-    	Globals.newOrder.setOrder_time(time+" "+date);
-    	checkIfEarlyOrder(time,date);
-    	Globals.loadInsideFXML( Globals.paymentFXML);
-    
     }
     
   

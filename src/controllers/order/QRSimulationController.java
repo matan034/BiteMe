@@ -23,6 +23,13 @@ public class QRSimulationController {
     	String msg="W4C_load_list";
     	StartClient.order.accept(msg);
     	w4c_cards.setItems(OrderClient.w4cList);
+    	insert_btn.setDisable(true);
+    	w4c_cards.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+    	    if(newValue!=null)
+    	    {
+    	    	insert_btn.setDisable(false);
+    	    }
+    	});
     }
     public void setListener(MyListener l)
     {

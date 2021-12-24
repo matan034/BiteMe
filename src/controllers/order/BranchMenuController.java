@@ -2,6 +2,9 @@ package order;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+
 import clients.OrderClient;
 import common.Globals;
 import entity.Dish;
@@ -11,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -25,7 +29,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -69,27 +72,18 @@ public class BranchMenuController {
 	    
 	    @FXML
 	    private VBox cart_vbox;
-	    @FXML
-	    private Button appetizer_btn;
+
 
 	    @FXML
-	    private Button salad_btn;
-
-	    @FXML
-	    private Button main_dish_btn;
-
-	    @FXML
-	    private Button dessert_btn;
-
-	    @FXML
-	    private Button drinks_btn;
+	    private HBox menu_categories;
 	    
 	    private MyListener menuListener;
 	    private String currentSize,currentLvl,extras;
-	    private ToggleGroup sizes=new ToggleGroup(),cooklevels=new ToggleGroup();
+	    private ToggleGroup sizes=new ToggleGroup();
 	    private TextField extra_input=new TextField();
 	    private Dish selected_dish;
-	   // private ObservableList<DishInOrder>all_dishes=FXCollections.observableList(Globals.newOrder.getDishes());
+	    private Button appetizer_btn,salad_btn,main_dish_btn,dessert_btn,drinks_btn;
+
 	    ComboBox<String> r=new ComboBox<>();
 	    private int i=0;
 	    private Boolean firstClick=true;
@@ -123,7 +117,11 @@ public class BranchMenuController {
 	    
 	    public void initialize()
 	    {
-	    	
+	    	appetizer_btn=defineButton("Appetizer");
+	    	salad_btn=defineButton("Salad");
+	    	main_dish_btn=defineButton("Main");
+	    	dessert_btn=defineButton("Dessert");
+	    	drinks_btn=defineButton("Drink");
 	    	add_btn.setDisable(true);
 	    	menuListener = new MyListener() {
 	    		   @Override
@@ -131,8 +129,7 @@ public class BranchMenuController {
 	                    setChosenDish((Dish)dish);
 	                }  
 			};
-
-			showAppetizers(null);
+			checkDishes();
 			
 			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
 	    		@Override
@@ -300,7 +297,48 @@ public class BranchMenuController {
 	    	display_table("Salad");
 	    }
 	                   
+		void checkDishes()
+		{
+			String first="";
+			 for (Map.Entry<String,ArrayList<Dish>> entry : OrderClient.branch_menu.entrySet())
+			 {
+		           if(!entry.getValue().isEmpty())
+		           {
+		        	   if(first.isEmpty()) first=entry.getKey();
+		        	   switch(entry.getKey())
+		        	   {
+		        	   case "Appetizer":  menu_categories.getChildren().add(appetizer_btn); break;
+		        	   case "Salad":menu_categories.getChildren().add(salad_btn);break;
+		        	   case "Main":menu_categories.getChildren().add(main_dish_btn);break;
+		        	   case "Dessert":menu_categories.getChildren().add(dessert_btn);break;
+		        	   case "Drink":menu_categories.getChildren().add(drinks_btn);break;
+		        	   }
+		           }
+			 }
+			 display_table(first);
+			 
+		}
+		
+		public Button defineButton(String str)
+		{
+			Button temp=new Button(str);
+			temp.getStyleClass().add("ViewBtn");
+			temp.setMaxWidth(Double.MAX_VALUE);
+			temp.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                	switch(str)
+                	{
+                	 	case "Appetizer":showAppetizers(e); break;
+                	 	case "Salad":showSalads(e);break;
+                	 	case "Main":showMains(e);break;
+                	 	case "Dessert":showDessert(e); break;
+                	 	case "Drink":showDrinks(e);break;
+                	}
 
+                }});
+			return temp;
+		}
 
 }
 

@@ -60,7 +60,7 @@
                                     <Font name="Levenim MT" size="15.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="comboBoxBranch" editable="true" layoutX="120.0" layoutY="91.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="131.0" promptText="Change branch" style="-fx-background-color: #F7C665;" />
+                              <ComboBox fx:id="comboBoxBranch" layoutX="120.0" layoutY="91.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="131.0" promptText="Change branch" style="-fx-background-color: #F7C665;" />
                            </children>
                         </AnchorPane>
                         <Label fx:id="welcome_label" text="Welcome to BiteMe" translateX="220.0" translateY="20.0">

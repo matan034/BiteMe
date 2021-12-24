@@ -41,7 +41,10 @@
     -fx-background-color:#FFFFFF;
     -fx-background-radius: 100;
 }
-
+.text-box:error {
+  -fx-text-box-border: red ;
+  -fx-focus-color: red ;
+}
 .transparent{
     -fx-background-color:#fff;
     -fx-background: #FFFFFF;

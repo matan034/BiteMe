@@ -1,7 +1,9 @@
 package general;
 
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
+import entity.Branch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,18 +37,18 @@ public class IndexControllerD {
     private VBox pane_in_vbox;
     
     @FXML
-    private ComboBox <String> comboBoxBranch;
-    
-    ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
-    
+    private ComboBox <Branch> comboBoxBranch;
+        
     
     public void initialize()
     {
 
-        
+        StartClient.order.accept("Load_branches");
         String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
-        comboBoxBranch.setItems(branchList);
+        comboBoxBranch.setItems(Globals.branches);
+        Branch homeBranch= new Branch(OrderClient.user.getHomeBranch(),OrderClient.user.getStringHomeBranch());
+        comboBoxBranch.getSelectionModel().select(homeBranch);
         
         
         
@@ -386,6 +388,18 @@ public class IndexControllerD {
 
 	public void setWelcome_label(String str) {
 		this.welcome_label.setText(str);
+	}
+
+
+
+	public ComboBox<Branch> getComboBoxBranch() {
+		return comboBoxBranch;
+	}
+
+
+
+	public void setComboBoxBranch(ComboBox<Branch> comboBoxBranch) {
+		this.comboBoxBranch = comboBoxBranch;
 	}
     
    

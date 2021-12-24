@@ -37,35 +37,7 @@
          <top>
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_RIGHT">
                <children>
-                  <HBox alignment="CENTER" layoutY="-4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="-4.0">
-                     <children>
-                        <Button fx:id="appetizer_btn" mnemonicParsing="false" onAction="#showAppetizers" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Appetizer">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="salad_btn" mnemonicParsing="false" onAction="#showSalads" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Salad">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="main_dish_btn" mnemonicParsing="false" onAction="#showMains" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Main">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="dessert_btn" mnemonicParsing="false" onAction="#showDessert" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Dessert">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="drinks_btn" mnemonicParsing="false" onAction="#showDrinks" style="-fx-background-color: #DCDCDC;" styleClass="add-btn" text="Drinks">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <HBox fx:id="menu_categories" alignment="CENTER" layoutY="-4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="-4.0" />
                   <HBox alignment="TOP_RIGHT" layoutX="939.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="939.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label fx:id="cart_count" stylesheets="@../general/GeneralStyleSheet.css" text="0">

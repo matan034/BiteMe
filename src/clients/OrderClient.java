@@ -50,12 +50,12 @@ public class OrderClient extends AbstractClient {
 	
 	public static W4C w4c_card;
 	
-	public static Customer customer=new Customer(0, 0,0, null, null);
+	public static Customer customer=new Customer(0,0,0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
-	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg;
+	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg;
 	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
 	public static Account account =new Account(null,null,null,null,null);
 	public int branchID;
@@ -237,12 +237,7 @@ public class OrderClient extends AbstractClient {
 				user_import_msg = res[1];
 
 			case "W4C verify":// change according to type
-				if(res.length==4)
-					w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
-				else
-					w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), 0);
-
-
+				w4cVerify(res);
 				break;
 			case "private account load":
 				PrivateAccount paccount =new PrivateAccount(res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[1]),res[7]) ;
@@ -273,6 +268,13 @@ public class OrderClient extends AbstractClient {
 				
 			
 
+	}
+
+	private void w4cVerify(String[] res) {
+		if(res.length==4)
+			w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
+		else
+			w4c_msg=res[1];
 	}
 		
 				
