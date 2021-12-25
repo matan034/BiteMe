@@ -158,11 +158,13 @@ public class RegNewAccountP1Controller {
            	{
            		flag=false;
            		if(OrderClient.account_reg_errors.get("ID")==true)
-           			id_error_lbl.setText("User with this ID already exists");
+           			id_error_lbl.setText("Account with this ID already exists");
            		if(OrderClient.account_reg_errors.get("Telephone")==true)
-           			phone_error_lbl.setText("User with this Telephone already exists");
+           			phone_error_lbl.setText("Account with this Telephone already exists");
            		if(OrderClient.account_reg_errors.get("Email")==true)
-           			email_error_lbl.setText("User with this Email already exists");
+           			email_error_lbl.setText("Account with this Email already exists");
+           		if(OrderClient.account_reg_errors.get("UserID")==true)
+           			id_error_lbl.setText("No User with this ID ");
            		return flag;
            	}
            	

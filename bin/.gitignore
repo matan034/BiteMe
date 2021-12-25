@@ -1,12 +1,13 @@
 /hr/
-/managment/
-/resturant/
+/menu/
 /clients/
 /common/
+/entity/
 /general/
+/managment/
+/ocsf/
 /order/
 /report/
-/utility/
 /server/
-/entity/
+/utility/
 /branch_manager/

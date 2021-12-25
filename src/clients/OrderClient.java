@@ -56,6 +56,7 @@ public class OrderClient extends AbstractClient {
 	public static Customer customer=new Customer(0, 0,0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
+	public static ObservableList<String> myRestaurants=FXCollections.observableArrayList();
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
 	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg;
@@ -151,6 +152,11 @@ public class OrderClient extends AbstractClient {
 						
 					}
 				}
+				if(((String) arr[0]).equals("LoadRestaurants")){
+					for(int i=1;i<arr.length;i++) {
+						myRestaurants.add((String) arr[i]);
+					}
+				}
 				
 
 			}
@@ -220,6 +226,12 @@ public class OrderClient extends AbstractClient {
 					flag = true;
 				} else
 					account_reg_errors.put("Email", false);
+				if(res[4].equals("UserID")) {
+					account_reg_errors.put("UserID", true);
+					flag = true;
+				}
+				else
+					account_reg_errors.put("UserID", false);
 				if (flag == true)
 					account_reg_errors.put("Errors", true);
 				else
@@ -273,6 +285,7 @@ public class OrderClient extends AbstractClient {
 				customer.setpAccount(Integer.parseInt(res[5]));
 				customer.setStatus(res[3]);
 				break;
+				
 			case "W4C_load_list":
 				w4cList(res);
 				break;

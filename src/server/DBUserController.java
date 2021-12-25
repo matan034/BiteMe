@@ -85,10 +85,22 @@ public class DBUserController {
 				flagReg = stmt.executeUpdate(String.format(
 						"INSERT INTO biteme.privateaccount (AccountNum, CreditCardNumber) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),'%s');",
 						res[3], res[6]));
-			} else// business_account
+				if(flagReg>0)//create a customer 
+				{
+					//CRASHES HERE FIX PLEASE
+					flagReg = stmt.executeUpdate(String.format(
+							"INSERT INTO biteme.customer (ID,PrivateAccount) VALUES ('%s',(SELECT AccountNum from biteme.account WHERE ID='%s'));",
+							res[3], res[3]));
+					//TODO:update USER TO BE A CUSTOMEMR IN USER TABLE
+				}
+			} else{// business_account
 				flagReg = stmt.executeUpdate(String.format(
 						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');",
 						res[3], res[6], Integer.parseInt(res[7])));
+				//TODO:add a customer to customer table 
+				
+				//TODO:update USER TO BE A CUSTOMEMR IN USER TABLE
+			}
 
 			if (flagReg > 0) {
 				db.sendToClient("New Account~Created Succesfully", client);
@@ -143,9 +155,15 @@ public class DBUserController {
 			result += "NoTelephoneError~";
 		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE Email='%s'", res[5]));
 		if (rs.isBeforeFirst()) {// check if we got a result
-			result += "Email";
+			result += "Email~";
 		} else
-			result += "NoEmailError";
+			result += "NoEmailError~";
+		
+		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.users WHERE ID='%s'", res[3]));
+		if (!rs.isBeforeFirst()) {// check if we got a result
+			result += "UserID";
+		} else
+			result += "NoUserIDError";
 		db.sendToClient(result, client);
 		rs.close();
 		stmt.close();
@@ -237,9 +255,12 @@ public class DBUserController {
 
 	  protected void importUsers(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
 		  Statement stmt;
+		  ResultSet rs;
 		  stmt = myCon.createStatement();
-		  int flag;
-		  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s');",res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10]));
+		  int flag=0;
+		  rs = stmt.executeQuery("SELECT * FROM biteme.users WHERE ID=" + res[1]);
+		  if(!rs.isBeforeFirst())
+			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status,HomeBranch) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s','%d');",res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11])));
 			if(flag>0) db.sendToClient("User import~Users Imported", client);
 			else db.sendToClient("User import ~Error importing users", client);
 		  stmt.close();
@@ -354,9 +375,13 @@ public class DBUserController {
 		  		+ "ON employer.EmployerNum=AccountWithBusiness.EmployerNum\r\n"
 		  		+ "WHERE AccountWithBusiness.IsApproved=0 AND employer.IsApproved=1");
 		  usersToApprove.add("Approve Business");
+		  if(!rs.next()) {
+			  System.out.println("NO Business Users to approve ");
+			  db.sendToClient("NO Business Users to approve",client);
+		  }
 			while(rs.next())
 			{
-				System.out.println("Business User to approve found Found");
+				System.out.println("Business User to approve Found");
 				usersToApprove.add(rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(6));
 				db.sendToClient(usersToApprove,client);
 			}
@@ -499,7 +524,50 @@ public class DBUserController {
 		  		}
 
 			 }
-	  
+			 
+			 protected void GetRestaurants(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
+				  Statement stmt;
+				  stmt = myCon.createStatement();
+				  ResultSet rs;
+				  ArrayList<String> restaurants=new ArrayList<>();
+				  rs=stmt.executeQuery(String.format("SELECT FirstName FROM biteme.users WHERE LastName='Company' AND HomeBranch='%d'",Integer.parseInt(res[1])));
+				  try {
+					  restaurants.add("LoadRestaurants");
+					  while(rs.next())
+						{
+							System.out.println("Restaurant found"); 
+							restaurants.add(rs.getString(1));
+							db.sendToClient(restaurants,client);
+						} 
+					  if(!rs.next()) {
+						  System.out.println("No resturants found"); 
+						  db.sendToClient("No Restaurants", client);
+					  }
+						rs.close();
+						stmt.close();
+						
+				  }catch(Exception e) {};
+				 }
+			 
+			 
+			 protected void ApproveRestaurant(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
+				 Statement stmt;
+		  		  int flag;
+		  		  try {
+		  		  stmt = myCon.createStatement();
+		  		flag = stmt.executeUpdate(
+						String.format("INSERT INTO biteme.restaurant (BranchNum, IsApproved, Name, Address, City,Type,Manager) VALUES ('%d', 1, '%s','%s','%s','%s','%s');",
+								Integer.parseInt(res[1]), res[2], res[3],res[4],res[5],res[6]));
+		  		flag =stmt.executeUpdate(String.format("UPDATE biteme.users SET Type = 'Restaurant' WHERE FirstName = '%s';",res[2]));
+		  		  System.out.println("Resturant approved");
+		  		  db.sendToClient("Restaurant~Updated Successfully",client);
+		  			stmt.close();
+		  		  }
+		  		  catch (Exception e) {
+		  			
+		  		}
+
+			 }
 		
 		
 }

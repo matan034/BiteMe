@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import utility.UserImportUtility;
 
 public class UserLoginController {
 
@@ -23,6 +24,15 @@ public class UserLoginController {
     
     @FXML
     private Label login_res_lbl;
+    
+    @FXML
+    private Button import_btn;
+
+    @FXML
+    void import_users(ActionEvent event) {
+    	UserImportUtility importUsers=new UserImportUtility();
+    	importUsers.ImportUsers();
+    }
     
     @FXML
     void login_action(ActionEvent event) {

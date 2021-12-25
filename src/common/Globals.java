@@ -80,7 +80,8 @@ public class Globals {
 			AddNewDishFxml="/menu/AddNewDish.fxml",
 			createMenu="/menu/createMenu.fxml",
 			viewMenu="/menu/ViewMyMenus.fxml",
-			viewDishes="/menu/ViewMyDishes.fxml";
+			viewDishes="/menu/ViewMyDishes.fxml",
+			regRestaurant="/branch_manager/RegisterRestaurant.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};

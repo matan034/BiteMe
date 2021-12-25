@@ -35,6 +35,8 @@ public class User implements Serializable {
 		this.Status=status;
 		this.homeBranch=homeBranch;
 		this.StringHomeBranch=HomeBranch;
+		this.UserName=userName;
+		this.Password=password;
 		
 	}
 	
@@ -113,6 +115,12 @@ public class User implements Serializable {
 		return ID + "~" + FirstName + "~" + LastName + "~" + Email
 				+ "~" + Phone + "~" + Type + "~" + UserName + "~" + Password
 				+ "~"+ IsLoggedIn+"~"+ Status;
+	}
+	
+	public String toString2() {
+		return ID + "~" + FirstName + "~" + LastName + "~" + Email
+				+ "~" + Phone + "~" + Type + "~" + UserName + "~" + Password
+				+ "~"+ IsLoggedIn+"~"+ Status + "~" + homeBranch ;
 	}
 	public void setPassword(String password) {
 		Password = password;

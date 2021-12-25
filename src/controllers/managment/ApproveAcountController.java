@@ -18,8 +18,16 @@ public class ApproveAcountController {
     @FXML
     private Accordion user_accordion;
     
+    @FXML
+    private Label msglbl;
+    
     public void initialize() {
     	StartClient.order.accept("Load_business_account");
+    	
+    	if(OrderClient.usersToApprove.size()==0)
+    	{
+    		msglbl.setText("No Business accounts to approve");
+    	}
     	    	
     	for(BusinessAccount account:OrderClient.usersToApprove)
     	{
