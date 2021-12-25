@@ -95,6 +95,7 @@ public class DBController extends AbstractServer {
 				case "Get_connection": getClientInfo(client); break;
 
 				//cases for DB user control
+				case "Load_branch_customers": dbUser.loadBranchCustomers(res,client,myCon,this); break;
 				case "Load_users": dbUser.loadUsers(res,client,myCon,this); break;
 				case "User_login":dbUser.userLogin(res,client,myCon,this);break;
 				case "Business_account":dbUser.privateOrBusinessAccountReg(res,client,myCon,this);break;
@@ -102,7 +103,7 @@ public class DBController extends AbstractServer {
 				case "Check_account_input":dbUser.checkAccountInput(res,client,myCon,this);break;
 				case "Check_employer":dbUser.checkEmployer(res,client,myCon,this);break;
 				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;
-				case "Update_user":dbUser.updateUser(res,client,myCon,this);break;
+				case "Update_customer":dbUser.updateCustomer(res,client,myCon,this);break;
 				case "Import_users":dbUser.importUsers(res,client,myCon,this);break;
 				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;//maybe delete
 				case "Load private Account": dbUser.loadPrivateAccount(res,client,myCon,this);break;

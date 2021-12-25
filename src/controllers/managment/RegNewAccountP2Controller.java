@@ -92,7 +92,7 @@ public class RegNewAccountP2Controller {
 	    }
 	    @FXML
 	    void BackPage(ActionEvent event) {
-	    	Globals.loadFXML(null, Globals.regnewaccountp1FXML, event);
+	    	Globals.loadInsideFXML(Globals.regnewaccountp1FXML);
 	    }
 	
 	
@@ -104,7 +104,7 @@ public class RegNewAccountP2Controller {
 	    	PrivateAccount pAccount=null;
 	    	BusinessAccount bAccount=null;
 	    	if(!cc_lbl.getText().trim().isEmpty()) {//check cc text field is not empty
-	    		if(Integer.parseInt(cc_lbl.getText())<16)//atleast 16 digits in credit card
+	    		if(cc_lbl.getText().length()<16)//atleast 16 digits in credit card
 	    			cc_error_lbl.setText("Must input atleast 16 digits");
 	    		else {//if its valid create a private account entity
 		    		pAccount=new PrivateAccount(RegNewAccountP1Controller.new_account);

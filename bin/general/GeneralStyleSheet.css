@@ -8,6 +8,8 @@
 	overflow:scroll;
 }
 
+
+
 .btn{
     -fx-align-items: center;
     -fx-background-clip: padding-box;
@@ -63,7 +65,7 @@
 	-fx-font-family:'sans-sarif'
 }
 
-.cart-img:hover{
+.cart-img{
 	-fx-cursor:pointer;
 }
 

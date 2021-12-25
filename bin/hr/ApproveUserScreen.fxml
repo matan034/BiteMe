@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ApproveAcountController">
+   <children>
+      <BorderPane prefHeight="650.0" prefWidth="1010.0">
+         <center>
+            <VBox prefHeight="560.0" prefWidth="771.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="58.0" prefWidth="1010.0">
+                     <children>
+                        <Label text="Approve">
+                           <font>
+                              <Font name="Levenim MT Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="597.0" prefWidth="1010.0">
+                     <children>
+                        <Accordion fx:id="user_accordion" prefHeight="606.0" prefWidth="1010.0" styleClass="accordion" />
+                        <Label fx:id="msglbl" alignment="CENTER" prefHeight="17.0" prefWidth="1020.0">
+                           <VBox.margin>
+                              <Insets bottom="500.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</VBox>

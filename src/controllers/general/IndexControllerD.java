@@ -39,6 +39,8 @@ public class IndexControllerD {
     @FXML
     private ComboBox <Branch> comboBoxBranch;
         
+    @FXML
+    private Label msg_label;
     
     public void initialize()
     {
@@ -193,6 +195,11 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
+            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.view_employersFXML);
+                }});
             ///insert 3,4,5 option /////////////////////////////////////////
             ///3--> update menu Muhamad
             ///4--> send reports Yeela
@@ -206,6 +213,11 @@ public class IndexControllerD {
             
             
             ///7-->we need to crate screen  
+            BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.regRestaurant);
+                }});
             
             BranchManagerOption8.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override
@@ -218,8 +230,8 @@ public class IndexControllerD {
             break;  
             
        case "Customer":
-           
-           
+    	   StartClient.order.accept("Load_customer~"+OrderClient.user.getID());
+          
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
            Button CustomerOption3= new Button ("Log out");
@@ -236,6 +248,11 @@ public class IndexControllerD {
            options_grid1.add(CustomerOption2,0,1);
            options_grid1.add(CustomerOption3,0,8);
         
+           if(OrderClient.customer.getStatus().equals("Frozen"))
+           {
+        	   CustomerOption1.setDisable(true);
+        	   msg_label.setText("Customer frozen");
+           }
            CustomerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -286,11 +303,11 @@ public class IndexControllerD {
            
            
          //2-->approve account Daniel
-//         HROption2.setOnAction(new EventHandler<ActionEvent>() {
-//              @Override
-//              public void handle(ActionEvent e) {
-//                  Globals.loadInsideFXML(Globals.);
-//              }});
+         HROption2.setOnAction(new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent e) {
+                  Globals.loadInsideFXML(Globals.approveUserFXML);
+              }});
            
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
@@ -346,6 +363,12 @@ public class IndexControllerD {
            options_grid1.add(SupplierOption3,0,8);
            
            //1->>view orders Daniel
+           SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.NewOrdersFXML);
+                
+               }});
            //2-->update menu Muhamad
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override

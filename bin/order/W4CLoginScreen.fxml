@@ -28,7 +28,11 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <TextField fx:id="qr_alternative_input" promptText="QR alternative" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" />
-                        <Label fx:id="error_msg">
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="error_msg" textFill="RED">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

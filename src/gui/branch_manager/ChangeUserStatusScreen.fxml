@@ -13,12 +13,13 @@
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <children>
-            <TableView fx:id="table" layoutX="180.0" layoutY="80.0" prefHeight="378.0" prefWidth="804.0">
+            <TableView fx:id="table" layoutX="32.0" layoutY="80.0" prefHeight="378.0" prefWidth="952.0">
               <columns>
                 <TableColumn fx:id="name_col" prefWidth="251.0" text="Name" />
                 <TableColumn fx:id="id_col" minWidth="0.0" prefWidth="125.0" text="ID" />
-                  <TableColumn fx:id="type_col" prefWidth="167.0" text="Type" />
-                  <TableColumn fx:id="status_col" prefWidth="242.0" text="Status" />
+                  <TableColumn fx:id="pAccount_col" prefWidth="167.0" text="Private Account" />
+                  <TableColumn fx:id="bAccount_col" prefWidth="242.0" text="Business Account" />
+                  <TableColumn fx:id="status_col" prefWidth="167.0" text="Status" />
               </columns>
             </TableView>
             <TextField fx:id="search_txt" layoutX="453.0" layoutY="29.0" promptText="Enter ID" />

@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
+import entity.Customer;
 import entity.Supplier;
 import entity.User;
 import ocsf.server.ConnectionToClient;
@@ -63,6 +65,7 @@ public class DBUserController {
 		stmt.close();
 		rs.close();
 	}
+		
 	/**
 	Func for registering either a private account or business account
 	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Business_account" res[1..]=Business account toString  OR res[0]="Private_account res[1...]=Private account toString "
@@ -72,34 +75,47 @@ public class DBUserController {
 	protected void privateOrBusinessAccountReg(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 		Statement stmt;
 		stmt = myCon.createStatement();
-		int flagAccountReg = 1, flagReg = 0;
-		ResultSet rs;
-		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE ID='%s'", res[3]));
-		if (!rs.isBeforeFirst()) {// check if we need to create an account first
-			flagAccountReg = accountReg(res, client,myCon,db);
-		}
+		int newAccountNum = 0, flagReg = 0;
+	
+		newAccountNum = accountReg(res, client,myCon,db);
 
-		if (flagAccountReg == 1)// account created successfully
+
+		if (newAccountNum != 0)// account created successfully
 		{
 			if (res[0].equals("Private_account")) {
 				flagReg = stmt.executeUpdate(String.format(
-						"INSERT INTO biteme.privateaccount (AccountNum, CreditCardNumber) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),'%s');",
-						res[3], res[6]));
+						"INSERT INTO biteme.privateaccount (AccountNum, CreditCardNumber) VALUES ('%d','%s');",
+						newAccountNum, res[6]));
+				
 				if(flagReg>0)//create a customer 
 				{
-					//CRASHES HERE FIX PLEASE
+			
 					flagReg = stmt.executeUpdate(String.format(
-							"INSERT INTO biteme.customer (ID,PrivateAccount) VALUES ('%s',(SELECT AccountNum from biteme.account WHERE ID='%s'));",
-							res[3], res[3]));
-					//TODO:update USER TO BE A CUSTOMEMR IN USER TABLE
+							"INSERT INTO biteme.customers (ID,PrivateAccount) VALUES ('%s','%d');",
+							res[3], newAccountNum));
+	
+					flagReg = stmt.executeUpdate(String.format(
+							"UPDATE biteme.users SET Type = 'Customer' WHERE ID='%s';",
+							res[3]));
+					flagReg = stmt.executeUpdate(String.format(
+							"UPDATE biteme.w4c_cards SET PrivateAccount = '%d' WHERE CardNum=(SELECT W4C FROM biteme.account WHERE AccountNum='%d');",
+							newAccountNum,newAccountNum));
 				}
 			} else{// business_account
 				flagReg = stmt.executeUpdate(String.format(
-						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ((SELECT AccountNum from biteme.account WHERE ID='%s'),(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');",
-						res[3], res[6], Integer.parseInt(res[7])));
-				//TODO:add a customer to customer table 
-				
-				//TODO:update USER TO BE A CUSTOMEMR IN USER TABLE
+						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ('%d',(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');",
+						newAccountNum, res[6], Integer.parseInt(res[7])));
+		
+				flagReg = stmt.executeUpdate(String.format(
+						"INSERT INTO biteme.customers (ID,BusinessAccount) VALUES ('%s','%d');",
+						res[3], newAccountNum));
+		
+				flagReg = stmt.executeUpdate(String.format(
+						"UPDATE biteme.users SET Type = 'Customer' WHERE ID='%s';",
+						res[3]));
+				flagReg = stmt.executeUpdate(String.format(
+						"UPDATE biteme.w4c_cards SET BuisinessAccount = '%d' WHERE CardNum=(SELECT W4C FROM biteme.account WHERE AccountNum='%d');",
+						newAccountNum,newAccountNum));
 			}
 
 			if (flagReg > 0) {
@@ -108,7 +124,6 @@ public class DBUserController {
 				db.sendToClient("New Account~Failed business account creation", client);
 		} else
 			db.sendToClient("New Account~Failed new account creation", client);
-		rs.close();
 		stmt.close();
 	}
 	/**
@@ -120,13 +135,30 @@ public class DBUserController {
 		protected int accountReg(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 		Statement stmt;
 		stmt = myCon.createStatement();
+		Random rand = new Random();
+		String w4c_num;
+		ResultSet rs;
+		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE ID='%s'", res[3]));
+		if (rs.isBeforeFirst()) {// check if we got a result
+			rs.next();
+			w4c_num=rs.getString(8);
+		} else
+		{
+			w4c_num=String.format("%04d", rand.nextInt(10000));
+			stmt.executeUpdate(String.format(
+				"INSERT INTO biteme.w4c_cards (CardNum) VALUES ('%d');",
+				Integer.parseInt(w4c_num)));
+		}
 		int flag;
 		flag = stmt.executeUpdate(String.format(
-				"INSERT INTO biteme.account (FirstName, LastName,ID, Telephone,Email) VALUES ('%s', '%s', '%s', '%s', '%s');",
-				res[1], res[2], res[3], res[4], res[5]));
+				"INSERT INTO biteme.account (FirstName, LastName,ID, Telephone,Email,W4C) VALUES ('%s', '%s', '%s', '%s', '%s','%d');",
+				res[1], res[2], res[3], res[4], res[5],Integer.parseInt(w4c_num)));
+		 rs=stmt.executeQuery("SELECT last_insert_id()");//get new account Num
 		if (flag > 0) {
-			stmt.close();
-			return 1;
+		
+			rs.next();
+			return rs.getInt(1);	
+			
 		} else {
 			stmt.close();
 			return 0;
@@ -159,7 +191,7 @@ public class DBUserController {
 		} else
 			result += "NoEmailError~";
 		
-		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.users WHERE ID='%s'", res[3]));
+		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.users WHERE ID='%s' AND Type = 'Base User'", res[3]));
 		if (!rs.isBeforeFirst()) {// check if we got a result
 			result += "UserID";
 		} else
@@ -220,18 +252,18 @@ public class DBUserController {
 	}
 	
 	/**
-	Func for updating user Status
+	Func for updating customer Status
 	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_user",res[1]=Status to update, res[2]=User ID
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
-	protected void updateUser(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+	protected void updateCustomer(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 		Statement stmt;
 		int flag;
 		try {
 			stmt = myCon.createStatement();
 			flag = stmt.executeUpdate(
-					String.format("UPDATE biteme.users SET Status = '%s' WHERE ID = %s;", res[1], res[2]));
+					String.format("UPDATE biteme.customers SET Status = '%s' WHERE ID = %s;", res[1], res[2]));
 			if (flag > 0)
 				db.sendToClient("Update~Updated Successfuly", client);
 			else
@@ -267,15 +299,14 @@ public class DBUserController {
 	  }
 	  
 	  
-	  
-	  //maybe delete
+
 	  	protected void loadCustomer(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
 		Statement stmt;
 		ResultSet rs;
 		String result;
 		try {
 			stmt = myCon.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM biteme.customers WHERE PrivateAccount=" + Integer.parseInt(res[1]));
+			rs = stmt.executeQuery("SELECT * FROM biteme.customers WHERE ID=" + res[1]);
 			if (rs.next()) {
 				System.out.println("customer found");
 				result = "Customer load~" + rs.getString(1) + "~" + rs.getString(2) + "~" + rs.getString(3) + "~"
@@ -568,6 +599,32 @@ public class DBUserController {
 		  		}
 
 			 }
+			 
+				/**
+				Func 
+				* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]=""Load_users"";
+				 * @param client The connection from which the message originated.
+				 * @param myCon the connection to mySql DB
+				 * @param db the main database controller used in order to send message back to client */
+					protected void loadBranchCustomers(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+					Statement stmt;
+					stmt = myCon.createStatement();
+					ResultSet rs;
+					rs = stmt.executeQuery("SELECT customerAccounts.*,account.Balance,account.AccountNum\r\n"
+							+ "FROM (SELECT customers.*,users.FirstName,users.LastName \r\n"
+							+ "FROM customers\r\n"
+							+ "INNER JOIN users ON customers.ID=users.ID WHERE HomeBranch="+res[1]+") As customerAccounts\r\n"
+							+ "INNER JOIN account ON account.ID=customerAccounts.ID GROUP BY customerAccounts.ID");
+					ArrayList<Customer> branch_customers = new ArrayList<>();
+					while (rs.next()) {
+
+						branch_customers.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6)+" "+rs.getString(7)));
+
+					}
+					db.sendToClient(branch_customers, client);
+					stmt.close();
+					rs.close();
+				}
 		
 		
 }

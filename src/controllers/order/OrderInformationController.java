@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -249,6 +250,17 @@ public class OrderInformationController {
     public boolean validate_input()
     {
     	int flag=0;
+
+    	LocalDate today = LocalDate.now();
+    	if( date_input.getValue().compareTo(today) < 0 )
+    	{
+    		time_error.setText("Cant select past date");
+    		flag++;
+    	}
+
+    	
+    	
+    	
     	if(!time.matcher(hour_input.getText()).matches())
     	{
     		time_error.setText("Hour must be in hh:mm format");

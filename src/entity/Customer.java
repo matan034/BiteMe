@@ -1,18 +1,87 @@
 package entity;
 
-public class Customer {
+import java.io.Serializable;
 
-	private int customerNumber,pAccount,bAccount;
-	private String id,status;
+public class Customer implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer customerNumber,pAccount,bAccount;
+	private String id,status,name,stringPaccount,stringBaccount;
 	public Customer(int customerNumber, int pAccount,int bAccount,String id,  String status) {
 		super();
 		this.customerNumber = customerNumber;
 		this.id = id;
 		this.pAccount = pAccount;
 		this.bAccount = bAccount;
-		
 		this.status = status;
 	}
+	
+	
+	public Customer(int customerNumber,String id, String status,int pAccount, int bAccount, String name) {
+		super();
+		this.customerNumber = customerNumber;
+		this.pAccount = pAccount;
+		this.bAccount = bAccount;
+		this.id = id;
+		this.status = status;
+		this.name = name;
+		
+	}
+	public Customer(int customerNumber,String id, String status,String stringPaccount,String stringBaccount, String name) {
+		super();
+		this.customerNumber = customerNumber;
+		this.stringPaccount = stringPaccount;
+		this.stringBaccount = stringBaccount;
+		this.id = id;
+		this.status = status;
+		this.name = name;
+		
+	}
+
+
+	public String getStringPaccount() {
+		return stringPaccount;
+	}
+
+
+	public void setStringPaccount(String stringPaccount) {
+		this.stringPaccount = stringPaccount;
+	}
+
+
+	public String getStringBaccount() {
+		return stringBaccount;
+	}
+
+
+	public void setStringBaccount(String stringBaccount) {
+		this.stringBaccount = stringBaccount;
+	}
+
+
+	public void setpAccount(Integer pAccount) {
+		this.pAccount = pAccount;
+	}
+
+
+	public void setbAccount(Integer bAccount) {
+		this.bAccount = bAccount;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public int getCustomerNumber() {
 		return customerNumber;
 	}

@@ -2,6 +2,7 @@ package managment;
 
 import clients.OrderClient;
 import clients.StartClient;
+import entity.Customer;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,20 +19,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ChangeUserStatusController {
 
     @FXML
-    private TableView<User> table;
+    private TableView<Customer> table;
     
 
     @FXML
-    private TableColumn<User, String> name_col;
+    private TableColumn<Customer, String> name_col;
 
     @FXML
-    private TableColumn<User, String> id_col;
+    private TableColumn<Customer, String> id_col;
 
     @FXML
-    private TableColumn<User, String> type_col;
+    private TableColumn<Customer, String> pAccount_col;
+    @FXML
+    private TableColumn<Customer, String> bAccount_col;
 
     @FXML
-    private TableColumn<User, String> status_col;
+    private TableColumn<Customer, String> status_col;
 
     @FXML
     private TextField search_txt;
@@ -51,16 +54,16 @@ public class ChangeUserStatusController {
     @FXML
     private Button back_btn;
     
-    private ObservableList<User> all_users;
+    private ObservableList<Customer> branch_customer;
     public void initialize()
     {
-    	StartClient.order.accept("Load_users");
+    	StartClient.order.accept("Load_branch_customers~"+OrderClient.user.getHomeBranch());
     	display_table();
     	status_cmb.setItems(FXCollections.observableArrayList("Frozen","Active"));
     	table.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
     		if(newSelection!=null) {
     			try {
-    				selected_lbl.setText("User selected: "+table.getSelectionModel().getSelectedItem().getFullName());
+    				selected_lbl.setText("User selected: "+table.getSelectionModel().getSelectedItem().getName());
     				status_cmb.getSelectionModel().select(table.getSelectionModel().getSelectedItem().getStatus());
     			}catch(Exception e) {e.printStackTrace();}
     		}
@@ -69,23 +72,24 @@ public class ChangeUserStatusController {
     }
     
     void display_table(){  
-    	all_users = FXCollections.observableArrayList(OrderClient.all_users);
-		name_col.setCellValueFactory(new PropertyValueFactory<User,String>("FullName"));
-		id_col.setCellValueFactory(new PropertyValueFactory<User,String>("ID"));
-		type_col.setCellValueFactory(new PropertyValueFactory<User,String>("Type"));
-		status_col.setCellValueFactory(new PropertyValueFactory<User,String>("Status"));
-		table.setItems(all_users);
+    	branch_customer = FXCollections.observableArrayList(OrderClient.branch_customers);
+		name_col.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
+		id_col.setCellValueFactory(new PropertyValueFactory<Customer,String>("id"));
+		pAccount_col.setCellValueFactory(new PropertyValueFactory<Customer,String>("stringPaccount"));
+		bAccount_col.setCellValueFactory(new PropertyValueFactory<Customer,String>("stringBaccount"));
+		status_col.setCellValueFactory(new PropertyValueFactory<Customer,String>("status"));
+		table.setItems(branch_customer);
 
     }
     @FXML
     void update(ActionEvent event) {
-    	StartClient.order.accept("Update_user~"+status_cmb.getSelectionModel().getSelectedItem()+"~"+table.getSelectionModel().getSelectedItem().getID());
+    	StartClient.order.accept("Update_customer~"+status_cmb.getSelectionModel().getSelectedItem()+"~"+table.getSelectionModel().getSelectedItem().getId());
     	selected_lbl.setText(OrderClient.update_msg);
-    	for(User u: all_users)
+    	for(Customer c: branch_customer)
 		{
-			if(u.getID()==table.getSelectionModel().getSelectedItem().getID())
+			if(c.getId()==table.getSelectionModel().getSelectedItem().getId())
 			{
-				u.setStatus(status_cmb.getSelectionModel().getSelectedItem());
+				c.setStatus(status_cmb.getSelectionModel().getSelectedItem());
 			}
 		}
     	table.refresh();

@@ -56,7 +56,7 @@ public class W4CLoginController {
     	StartClient.order.accept(msg);
     	if(OrderClient.w4c_card!=null)
     	{
-    		StartClient.order.accept("Load_customer~"+OrderClient.w4c_card.getPrivateAccount());
+    		
     		Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
     	}
     	else error_msg.setText(OrderClient.w4c_msg);

@@ -110,6 +110,9 @@ public class Globals {
 		 put(paymentFXML,"Payment Method");
 		 put(order_confirmedFXML,"Order Confirmation");
 		 put(myOrdersFXML,"My Orders");
+		 put(changeuserstatusFXML,"Users");
+		 put(regnewaccountp1FXML,"Register New Account");
+		 put(regnewaccountp2FXML,"Register New Account");
 	 }};
 	 
 	 

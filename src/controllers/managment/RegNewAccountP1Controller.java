@@ -77,7 +77,7 @@ public class RegNewAccountP1Controller {
     void NextPage(ActionEvent event) {
     	new_account= new Account(first_name_lbl.getText(),last_name_lbl.getText(),id_lbl.getText(),telephone_lbl.getText(),email_lbl.getText());
     	if(CheckInput()){//if input is valid for this page we can move to the next page
-    		Globals.loadFXML(null, Globals.regnewaccountp2FXML, event);
+    		Globals.loadInsideFXML( Globals.regnewaccountp2FXML);
     	}
     		
 

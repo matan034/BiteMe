@@ -50,7 +50,7 @@ public class OrderClient extends AbstractClient {
 	public static Order found_order = new Order(null,null,null);
 	
 	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
-	
+	public static ArrayList<Customer> branch_customers=new ArrayList<>();
 	public static W4C w4c_card;
 	
 	public static Customer customer=new Customer(0,0,0, null, null);
@@ -92,6 +92,8 @@ public class OrderClient extends AbstractClient {
 			Object[] arr = ((ArrayList) msg).toArray();
 			if (arr[0] instanceof User)
 				all_users = ((ArrayList<User>) msg);
+			if (arr[0] instanceof Customer)
+				branch_customers = ((ArrayList<Customer>) msg);
 			if (arr[0] instanceof Dish)
 				loadBranchMenu((ArrayList<Dish>) msg);
 			if (arr[0] instanceof Branch)
@@ -202,7 +204,12 @@ public class OrderClient extends AbstractClient {
 				connection_info.set(2, res[3]);
 				break;
 			case "User login":
-				user = new User(res[1], res[2], res[3], res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11]),res[12]);
+				if(!res[1].equals("User not Found"))
+				{
+					user_login_msg="";
+					user = new User(res[1], res[2], res[3], res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11]),res[12]);
+				}
+				else user_login_msg=res[1];
 				break;
 			case "New Account":
 				account_reg_msg = res[1];
@@ -298,6 +305,7 @@ public class OrderClient extends AbstractClient {
 	}
 
 	private void w4cVerify(String[] res) {
+		w4c_card=null;
 		if(res.length==4)
 			w4c_card=new W4C(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]));
 		else

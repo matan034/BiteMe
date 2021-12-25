@@ -41,7 +41,7 @@ public class UserLoginController {
     	if(!username_lbl.getText().trim().isEmpty() && !password_lbl.getText().trim().isEmpty()) {
     		String msg="User_login~"+username_lbl.getText()+"~"+password_lbl.getText();
         	StartClient.order.accept(msg);
-        	if(OrderClient.user_login_msg=="User not Found")
+        	if(OrderClient.user_login_msg.equals("User not Found"))
         		login_res_lbl.setText(OrderClient.user_login_msg);
         	else {
         		//login_res_lbl.setText(OrderClient.user_login_msg);

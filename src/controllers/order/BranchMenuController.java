@@ -2,6 +2,7 @@ package order;
 
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import common.Globals;
 import entity.Dish;
 import entity.DishInOrder;
 import general.MyListener;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -33,6 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class BranchMenuController {
 
@@ -69,7 +72,9 @@ public class BranchMenuController {
 	    @FXML
 	    private Label total_price_label;
 	 
-	    
+
+	    @FXML
+	    private ImageView green_v_img;
 	    @FXML
 	    private VBox cart_vbox;
 
@@ -122,7 +127,7 @@ public class BranchMenuController {
 	    	main_dish_btn=defineButton("Main");
 	    	dessert_btn=defineButton("Dessert");
 	    	drinks_btn=defineButton("Drink");
-	    	add_btn.setDisable(true);
+	    	//add_btn.setDisable(true);
 	    	menuListener = new MyListener() {
 	    		   @Override
 	                public void onClickListener(Object dish) {
@@ -139,9 +144,9 @@ public class BranchMenuController {
 	    				if(item_cnt==0) 
 	    				{
 	    					cart_vbox.getChildren().clear();
-	    					cart_img.setCursor(Cursor.DEFAULT);
+	    					
 	    				}
-	    				else cart_img.setCursor(Cursor.HAND);
+	    				
 	    				cart_count.setText(Integer.toString(item_cnt));
 	    				
 	             }
@@ -178,6 +183,7 @@ public class BranchMenuController {
 	    	}
 	    	if(dish.getChooseCookingLvl()==1)
 	    	{
+	    		add_btn.setDisable(true);
 	    		i++;
 	    		ObservableList<String> options=FXCollections.observableArrayList("Rare","Medium-Rare","Medium","Medium-Well","Well-Done");
 	    		
@@ -189,7 +195,13 @@ public class BranchMenuController {
 	    		cookingLevels.setAlignment(Pos.CENTER);
 	    		cookingLevels.getChildren().add(r);
 	    		dish_options_vbox.getChildren().add(cookingLevels);
-
+	    		r.getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+	        	    if(newValue!=null)
+	        	    {
+	        	    	add_btn.setDisable(false);
+	        	    }
+	        	});
+	    		
 	    	}
 	    	if(dish.getChooseExtras()==1)
 	    	{
@@ -203,9 +215,12 @@ public class BranchMenuController {
 	    		dish_options_vbox.getChildren().add(extras);
 	
 	    	}
+	    	
+	
+	    	
 	        //chosenFruitCard.setStyle("-fx-background-color: #" + fruit.getColor() + ";\n" +
 	            //    "    -fx-background-radius: 30;");
-	        
+	    	
 	    }
 	    
 	    @FXML
@@ -223,6 +238,10 @@ public class BranchMenuController {
 	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice());    	
 	    	Globals.newOrder.addQuantity(selected_dish.getType());
 	    	Globals.newOrder.addDish(dish);
+	    	green_v_img.setVisible(true);
+	    	PauseTransition pause = new PauseTransition(Duration.seconds(1));
+	    	pause.setOnFinished(e -> green_v_img.setVisible(false));
+	    	pause.play();
 	    	
 	    }
 
@@ -315,6 +334,7 @@ public class BranchMenuController {
 		        	   }
 		           }
 			 }
+			 menu_categories.setSpacing(5);
 			 display_table(first);
 			 
 		}
@@ -324,6 +344,7 @@ public class BranchMenuController {
 			Button temp=new Button(str);
 			temp.getStyleClass().add("ViewBtn");
 			temp.setMaxWidth(Double.MAX_VALUE);
+			
 			temp.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
