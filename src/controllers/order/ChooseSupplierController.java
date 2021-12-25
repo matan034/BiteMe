@@ -38,12 +38,19 @@ public class ChooseSupplierController {
 	    	    	delivery_btn.setDisable(false);
 	    	    }
 	    	});
+	    	
+	    	Globals.index_controller.getComboBoxBranch().getSelectionModel().selectedItemProperty().addListener((obs,oldValue, newValue)-> {
+	    	    if(newValue!=null)
+	    	    {
+	    	    	StartClient.order.accept("Load_suppliers~"+newValue.getBranchID());
+	    	    	choose_branch_combo_box.getSelectionModel().clearSelection();// need to make prompt text appear!!
+	    	    	choose_branch_combo_box.setItems(Globals.suppliers);
+	    	    	
+	    	    }
+	    	    
+	    	});
 	    }
-	    @FXML
-	    void viewMenu(ActionEvent event) {
-	    
-	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
-	    }
+
 	    @FXML
 	    void back(ActionEvent event)
 	    {

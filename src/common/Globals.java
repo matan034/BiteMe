@@ -151,6 +151,7 @@ public class Globals {
 		    pane = loader.load();
 		    if(fxml_name.equals(Globals.indexFXML)) {
 		    	index_controller=loader.getController();
+		    	stage.getIcons().add(new Image("/img/app_logo.png"));
 		    }
 			Scene scene=new Scene(pane);
 			stage.setTitle(window_name);

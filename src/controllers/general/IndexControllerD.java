@@ -1,7 +1,9 @@
 package general;
 
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
+import entity.Branch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,26 +37,27 @@ public class IndexControllerD {
     private VBox pane_in_vbox;
     
     @FXML
-    private ComboBox <String> comboBoxBranch;
-    
-    ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
-    
-
-    /*@param Function initializes the menu depending on the user entering the application 
-	/*@param*/ 
+    private ComboBox <Branch> comboBoxBranch;
+        
     
     public void initialize()
     {
 
+        StartClient.order.accept("Load_branches");
         String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
-        comboBoxBranch.setItems(branchList);
+        comboBoxBranch.setItems(Globals.branches);
+        Branch homeBranch= new Branch(OrderClient.user.getHomeBranch(),OrderClient.user.getStringHomeBranch());
+        comboBoxBranch.getSelectionModel().select(homeBranch);
+        
+        
         
         switch(typeUser) {
-
+        
         case "CEO":
             
-    
+           
+            
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
@@ -97,13 +100,8 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.reportFXML);
                     }});
                 
-                
-                CEOOption2.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.view_employersFXML);
-                    }});
-      
+                ///insert 2,4 option /////////////////////////////////////////
+                ///2--> we need to crate screen 
                 
                 CEOOption3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -126,13 +124,15 @@ public class IndexControllerD {
                     }});
                 
                 
-
-              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
-                 @Override
-                  public void handle(ActionEvent e) {
-                      Globals.loadInsideFXML(Globals.approveUserFXML);
-                  }});
-      
+          //6-->approve account Daniel
+//              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
+//                  @Override
+//                  public void handle(ActionEvent e) {
+//                      Globals.loadInsideFXML(Globals.);
+//                  }});
+        
+                
+               
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
@@ -145,8 +145,6 @@ public class IndexControllerD {
        case "Branch Manager":
            
            
-    	   comboBoxBranch.setVisible(false);
-    	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
             Button BranchManagerOption3= new Button ("View And Update Menu");
@@ -195,17 +193,11 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            ///insert 3,4
+            ///insert 3,4,5 option /////////////////////////////////////////
             ///3--> update menu Muhamad
             ///4--> send reports Yeela
+            //5--> we need to crate screen 
            
-            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.view_employersFXML);
-                }});
-            
-            
             BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -227,7 +219,7 @@ public class IndexControllerD {
             
        case "Customer":
            
-    	   
+           
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
            Button CustomerOption3= new Button ("Log out");
@@ -270,7 +262,6 @@ public class IndexControllerD {
             
        case "HR":
            
-    	   comboBoxBranch.setVisible(false);
            Button HROption1= new Button ("Register Employer");
            Button HROption2= new Button ("Approve Account");
            Button HROption3= new Button ("Log out");
@@ -295,11 +286,11 @@ public class IndexControllerD {
            
            
          //2-->approve account Daniel
-         HROption2.setOnAction(new EventHandler<ActionEvent>() {
-              @Override
-              public void handle(ActionEvent e) {
-                  Globals.loadInsideFXML(Globals.approveUserFXML);
-              }});
+//         HROption2.setOnAction(new EventHandler<ActionEvent>() {
+//              @Override
+//              public void handle(ActionEvent e) {
+//                  Globals.loadInsideFXML(Globals.);
+//              }});
            
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
@@ -311,8 +302,7 @@ public class IndexControllerD {
                 break;
 
        case "Certified Employee":
-    	   
-    	   comboBoxBranch.setVisible(false);
+            
            Button CEOption1= new Button ("View and Update Menu");
            Button CEOption2= new Button ("Log out");
            
@@ -337,10 +327,8 @@ public class IndexControllerD {
             break;
             
        case "Restaurant Manager":
-
            
-    	   comboBoxBranch.setVisible(false);
-    	   
+           
            Button SupplierOption1= new Button ("Orders");
            Button SupplierOption2= new Button ("view and Update Menu");
            Button SupplierOption3= new Button ("Log out");
@@ -357,13 +345,7 @@ public class IndexControllerD {
            options_grid1.add(SupplierOption2,0,1);
            options_grid1.add(SupplierOption3,0,8);
            
-           
-           SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
-               @Override
-               public void handle(ActionEvent e) {
-                   Globals.loadInsideFXML(Globals.NewOrdersFXML);
-               }});
-       
+           //1->>view orders Daniel
            //2-->update menu Muhamad
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
@@ -406,6 +388,18 @@ public class IndexControllerD {
 
 	public void setWelcome_label(String str) {
 		this.welcome_label.setText(str);
+	}
+
+
+
+	public ComboBox<Branch> getComboBoxBranch() {
+		return comboBoxBranch;
+	}
+
+
+
+	public void setComboBoxBranch(ComboBox<Branch> comboBoxBranch) {
+		this.comboBoxBranch = comboBoxBranch;
 	}
     
    
