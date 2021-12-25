@@ -116,7 +116,7 @@ public class OrderInformationController {
     private Pattern time=Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
     private Pattern phone=Pattern.compile("^\\d{10}$");
-    private Pattern address=Pattern.compile("{2,40}$");
+    private Pattern address=Pattern.compile("^.{2,40}$");
     private Pattern zip=Pattern.compile("^\\d{7}$");
     public void initialize()
     {
@@ -254,67 +254,60 @@ public class OrderInformationController {
     		time_error.setText("Hour must be in hh:mm format");
     		flag++;
     	}
-    	if(first_name_input.getText().length()<2)
+    	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
-    		if(!namePattern.matcher(first_name_input.getText()).matches())
-    		{
-    			first_name_error.setText("First name must contain only abc chars");
-    			flag++;
-    		}
-    	}
-    	else {
-    		first_name_error.setText("First name must be at least 2 chars long");
-    		flag++;
-    	}
-    	if(last_name_input.getText().length()<2)
-    	{
-    		if(!namePattern.matcher(last_name_input.getText()).matches())
-    		{
-    			last_name_error.setText("Last name must contain only abc chars");
-    			flag++;
-    		}
-    	}
-    	else {
-    		last_name_error.setText("Last name must be at least 2 chars long");
-    		flag++;
-    	}
-  
-    	if(!phone.matcher(phone_input.getText()).matches())
-    	{
-    		last_name_error.setText("Phone must contain only 10 numbers");
-    		flag++;
-    	}
-    	
-    	if(!company_input.getText().isEmpty())
-    	{
-    		if(company_input.getText().length()<2)
-    		{
-	    		if(!namePattern.matcher(company_input.getText()).matches())
+
+	    	if(!namePattern.matcher(first_name_input.getText()).matches())
+	    	{
+	    		first_name_error.setText("First name must contain only abc chars");
+	    		flag++;
+	    	}
+	    	
+	    	
+	    	if(!namePattern.matcher(last_name_input.getText()).matches())
+	    	{
+	    		last_name_error.setText("Last name must contain only abc chars");
+	    		flag++;
+	    	}
+	    	
+	  
+	    	if(!phone.matcher(phone_input.getText()).matches())
+	    	{
+	    		last_name_error.setText("Phone must contain only 10 numbers");
+	    		flag++;
+	    	}
+	    	
+	    	if(!company_input.getText().isEmpty())
+	    	{
+	    		if(company_input.getText().length()>=2)
 	    		{
-	    			company_error.setText("Company name must contain only abc chars");
-	    			flag++;
+		    		if(!namePattern.matcher(company_input.getText()).matches())
+		    		{
+		    			company_error.setText("Company name must contain only abc chars");
+		    			flag++;
+		    		}
 	    		}
-    		}
-    		else {
-    			company_error.setText("Company name must be at least 2 chars long");
-    			flag++;
-        	}
+	    		else {
+	    			company_error.setText("Company name must be at least 2 chars long");
+	    			flag++;
+	        	}
+	    	}
+	    	if(!address.matcher(street_input.getText()).matches())
+			{
+				street_error.setText("Street name must contain at least 2 chars and less than 40");
+				flag++;
+			}
+	    	if(!address.matcher(city_input.getText()).matches())
+			{
+				city_error.setText("City name must contain at least 2 chars and less than 40");
+				flag++;
+			}
+	    	if(!zip.matcher(zip_input.getText()).matches())
+			{
+				zip_error.setText("Zip must contain 7 numbers");
+				flag++;
+			}
     	}
-    	if(!address.matcher(street_input.getText()).matches())
-		{
-			street_error.setText("Street name must contain at least 2 chars and less than 40");
-			flag++;
-		}
-    	if(!address.matcher(city_input.getText()).matches())
-		{
-			city_error.setText("City name must contain at least 2 chars and less than 40");
-			flag++;
-		}
-    	if(!zip.matcher(zip_input.getText()).matches())
-		{
-			zip_error.setText("Zip must contain 7 numbers");
-			flag++;
-		}
     	if(flag==0)	return true;
     	return false;
     }
