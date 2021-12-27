@@ -31,7 +31,7 @@ public class IncomeReportController {
 	private TableColumn<TotalIncomesOfRestaurants, String> restaurantCol;
 
 	@FXML
-	private TableColumn<TotalIncomesOfRestaurants, Double> sumOfIncomeCol;
+	private TableColumn<TotalIncomesOfRestaurants, String> sumOfIncomeCol;
 
 	@FXML
 	private Button backBtn;
@@ -44,29 +44,40 @@ public class IncomeReportController {
 	}
 
 	public void initialize() {
-		whichBranch.setText(ViewReportsController.branchName);
+
+		int BranchID;
+		if(OrderClient.user.equals("CEO")) {
+			whichBranch.setText(ViewReportsController.branchName);
+			// the parameter that will be passed to server for access the relevant data in
+			// the DB
+			 BranchID = 0;
+			if (ViewReportsController.branchName.equals("North"))
+				BranchID = 1;
+			else if (ViewReportsController.branchName.equals("Center"))
+				BranchID = 2;
+			else
+				BranchID = 3;
+			
+		}
+		else {
+			BranchID=OrderClient.user.getHomeBranch();
+			whichBranch.setText(OrderClient.user.getStringHomeBranch());
+			}
 		whichMonth.setText(ViewReportsController.monthNumber);
 		
-		int BranchID = 0;
-		if (ViewReportsController.branchName.equals("North"))
-			BranchID = 1;
-		else if (ViewReportsController.branchName.equals("Center"))
-			BranchID = 2;
-		else
-			BranchID = 3;
-		String str = "Load_income_by_suppliers~" + BranchID;
+		String str = "Load_monthly_performance~income~" + BranchID+"~"+ViewReportsController.monthNumber+"~"+ViewReportsController.YearNumber;
 		StartClient.order.accept(str);
 		display_table();
 	}
-	
-	
+		
+		
 	
 	
 	
 	void display_table() {
 		System.out.println(OrderClient.totalIncomesOfRestaurant.toString());
 		restaurantCol.setCellValueFactory(new PropertyValueFactory<TotalIncomesOfRestaurants, String>("restaurant"));
-		sumOfIncomeCol.setCellValueFactory(new PropertyValueFactory<TotalIncomesOfRestaurants, Double>("total_income"));
+		sumOfIncomeCol.setCellValueFactory(new PropertyValueFactory<TotalIncomesOfRestaurants, String>("total_income"));
 		IncomeTable.setItems(OrderClient.totalIncomesOfRestaurant);
 	}
 

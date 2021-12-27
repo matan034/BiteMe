@@ -48,19 +48,28 @@ public class OrdersByComponentsController {
 	private Button backToViewReports;
 
 	public void initialize() {
-		branchName_lbl.setText(ViewReportsController.branchName);
+		int BranchID;
+		if(OrderClient.user.equals("CEO")) {
+			branchName_lbl.setText(ViewReportsController.branchName);
+			// the parameter that will be passed to server for access the relevant data in
+			// the DB
+			 BranchID = 0;
+			if (ViewReportsController.branchName.equals("North"))
+				BranchID = 1;
+			else if (ViewReportsController.branchName.equals("Center"))
+				BranchID = 2;
+			else
+				BranchID = 3;
+			
+		}
+		else {
+			BranchID=OrderClient.user.getHomeBranch();
+			branchName_lbl.setText(OrderClient.user.getStringHomeBranch());
+			}
 		monthNum_lbl.setText(ViewReportsController.monthNumber);
 
-		// the parameter that will be passed to server for access the relevant data in
-		// the DB
-		int BranchID = 0;
-		if (ViewReportsController.branchName.equals("North"))
-			BranchID = 1;
-		else if (ViewReportsController.branchName.equals("Center"))
-			BranchID = 2;
-		else
-			BranchID = 3;
-		String str = "Load_components~" + BranchID;
+		
+		String str = "Load_components~" + BranchID+"~"+ViewReportsController.monthNumber+"~"+ViewReportsController.YearNumber;
 		StartClient.order.accept(str);
 		display_table();
 	}

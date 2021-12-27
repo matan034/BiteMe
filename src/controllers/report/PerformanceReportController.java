@@ -22,13 +22,11 @@ public class PerformanceReportController {
 	    private TableColumn<MonthlyPerformance, String> restaurantCol;
 
 	    @FXML
-	    private TableColumn<MonthlyPerformance, Integer> amtOfOrdersCol;
+	    private TableColumn<MonthlyPerformance, String> amtOfOrdersCol;
 
 	    @FXML
-	    private TableColumn<MonthlyPerformance, Integer> delaySupplyCol;
+	    private TableColumn<MonthlyPerformance, String> delaySupplyCol;
 
-	    @FXML
-	    private TableColumn<MonthlyPerformance, Integer> servedOnTimeCol;
 
 	@FXML
 	private Button backButton;
@@ -38,6 +36,9 @@ public class PerformanceReportController {
 
 	@FXML
 	private Label whichMonth;
+	
+	@FXML
+	private Label whichYear;
 
 	@FXML
 	void goBack(ActionEvent event) {
@@ -46,30 +47,35 @@ public class PerformanceReportController {
 	}
 
 	public void initialize() {
-		whichBranch.setText(ViewReportsController.branchName);
+		int BranchID;
+		if(OrderClient.user.getType().equals("CEO")) {
+			whichBranch.setText(ViewReportsController.branchName);
+			 BranchID = 0;
+			if (ViewReportsController.branchName.equals("North"))
+				BranchID = 1;
+			else if (ViewReportsController.branchName.equals("Center"))
+				BranchID = 2;
+			else
+				BranchID = 3;
+		}
+		else {
+			whichBranch.setText(OrderClient.user.getStringHomeBranch());
+			BranchID=OrderClient.user.getHomeBranch();
+			}
 		whichMonth.setText(ViewReportsController.monthNumber);
-		int BranchID = 0;
-		if (ViewReportsController.branchName.equals("North"))
-			BranchID = 1;
-		else if (ViewReportsController.branchName.equals("Center"))
-			BranchID = 2;
-		else
-			BranchID = 3;
-		String str = "Load_monthly_performance~" + BranchID;
+		
+		String str = "Load_monthly_performance~performance~" + BranchID +"~"+ViewReportsController.monthNumber+"~"+ViewReportsController.YearNumber;
 		StartClient.order.accept(str);
 		display_table();
 
 	}
 
 
-
-
 		void display_table() {
 			
 			restaurantCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, String>("restaurant"));
-			amtOfOrdersCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("amount_of_orders"));
-			delaySupplyCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("delay_supply"));
-			servedOnTimeCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, Integer>("served_on_time"));
+			amtOfOrdersCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, String>("amount_of_orders"));
+			delaySupplyCol.setCellValueFactory(new PropertyValueFactory<MonthlyPerformance, String>("delay_supply"));
 			performanceTable.setItems(OrderClient.monthlyPerformance);
 		}
 	

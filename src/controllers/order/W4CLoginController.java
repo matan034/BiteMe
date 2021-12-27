@@ -52,7 +52,7 @@ public class W4CLoginController {
     }
     @FXML
     void verifyW4C(ActionEvent event) {
-    	String msg="W4C_verify~"+qr_alternative_input.getText();
+    	String msg="W4C_verify~"+qr_alternative_input.getText()+"~"+OrderClient.customer.getpAccount()+"~"+OrderClient.customer.getbAccount();
     	StartClient.order.accept(msg);
     	if(OrderClient.w4c_card!=null)
     	{

@@ -20,15 +20,20 @@ public class DBUserController {
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
 	protected void userLogin(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
-		String result;
+		String result,errormsg;
 		Statement stmtJoin= myCon.createStatement();
 		ResultSet rsJoin;
 		int flag;//flag for answer after execute update
+		
+		
+		
 		rsJoin = stmtJoin.executeQuery(
 				String.format("SELECT * FROM biteme.users\r\n"
 						+ "INNER JOIN biteme.branch\r\n"
 						+ "	ON branch.BranchID=users.HomeBranch\r\n"
-						+ "WHERE UserName='%s' AND Password='%s';", res[1], res[2]));
+						+ "WHERE UserName='%s' AND Password='%s' AND IsLoggedIn = 0;", res[1], res[2]));
+
+		
 		if (rsJoin.next()) {
 			result = "User login~" + rsJoin.getString(1) + "~" + rsJoin.getString(2) + "~" + rsJoin.getString(3) + "~"
 					+ rsJoin.getString(4)+"~"+rsJoin.getString(5)+"~"+rsJoin.getString(6) + "~" + rsJoin.getString(7) + "~" + rsJoin.getString(8) + "~" + rsJoin.getString(9)+ "~" + rsJoin.getString(10) + "~" + rsJoin.getString(11)+"~"+rsJoin.getString(13);
@@ -38,8 +43,17 @@ public class DBUserController {
 	
 			
 			db.sendToClient(result, client);
-		} else
-			db.sendToClient("User login~User not Found", client);
+		} else {
+			rsJoin = stmtJoin.executeQuery(
+					String.format("SELECT IsLoggedIn FROM biteme.users WHERE UserName='%s' AND Password='%s';",res[1],res[2]));
+			if(rsJoin.next()) {
+				errormsg="User not Found~User already logged in";
+			}
+			else
+				errormsg="User not Found~Incorrect username or password";
+			db.sendToClient("User login~"+errormsg, client);
+		}
+			
 		rsJoin.close();
 		stmtJoin.close();
 	}

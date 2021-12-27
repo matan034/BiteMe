@@ -8,16 +8,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
    <children>
       <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
             <TableView fx:id="performanceTable" layoutX="187.0" layoutY="100.0" prefHeight="400.0" prefWidth="715.0">
               <columns>
-                <TableColumn fx:id="restaurantCol" prefWidth="125.0" text="restaurant" />
-                <TableColumn fx:id="servedWellCol" prefWidth="134.0" text="served well" />
-                  <TableColumn fx:id="delaySupplyCol" prefWidth="136.0" text="delay supply" />
+                <TableColumn fx:id="restaurantCol" prefWidth="209.0" text="Restaurant" />
+                <TableColumn fx:id="amtOfOrdersCol" prefWidth="236.0" text="Total Orders" />
+                  <TableColumn fx:id="delaySupplyCol" prefWidth="269.0" text="Late Orders" />
               </columns>
             </TableView>
             <Button fx:id="backButton" layoutX="51.0" layoutY="582.0" mnemonicParsing="false" onAction="#goBack" text="back" />

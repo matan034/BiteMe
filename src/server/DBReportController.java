@@ -2,8 +2,11 @@ package server;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import ocsf.server.ConnectionToClient;
 
@@ -29,10 +32,11 @@ public class DBReportController {
 		try {
 			stmt = myCon.createStatement();
 			restaurants.add("Components_load");
-			rs = stmt.executeQuery(
-					"SELECT restaurant.Name, x.Starter,x.Drink,x.Dessert,x.Salad,x.Main\r\n" + "FROM (SELECT * \r\n"
-							+ "		FROM biteme.orderbytype\r\n" + "		WHERE BranchID=" + Integer.parseInt(res[1])
-							+ ") as x\r\n" + "INNER JOIN restaurant ON x.Restaurant=restaurant.Number;");
+			rs = stmt.executeQuery(String.format(
+					"SELECT restaurant.Name, x.Starter,x.Drink,x.Dessert,x.Salad,x.Main\r\n"
+					+ " FROM (SELECT * \r\n"
+					+ "		FROM biteme.orderbytype WHERE BranchID = '%d' AND Month='%d' AND Year='%d') as x \r\n"
+					+ "INNER JOIN restaurant ON x.Restaurant=restaurant.Number;",Integer.parseInt(res[1]),Integer.parseInt(res[2]),Integer.parseInt(res[3])));
 			while (rs.next()) {
 
 				restaurants.add(rs.getString(1) + "~" + rs.getInt(2) + "~" + rs.getInt(3) + "~" + rs.getInt(4) + "~"
@@ -48,6 +52,48 @@ public class DBReportController {
 
 		}
 	}
+	
+	
+
+	protected void CheckMonthYear(int RestaurantNum,Connection myCon,String Type) throws SQLException {
+		Statement stmt;
+		  int flag=0;
+		  int CreateFlag=1;
+		  stmt = myCon.createStatement();
+		  Calendar c = Calendar.getInstance();
+		  int year = c.get(Calendar.YEAR);
+		  int month = c.get(Calendar.MONTH)+1;
+		  ResultSet rs;
+		  if(Type.equals("orderbytype")) {
+			  rs = stmt.executeQuery(String.format("SELECT Year,Month FROM biteme.orderbytype WHERE Restaurant='%d';",RestaurantNum));
+			  while(rs.next()) {
+				  if((rs.getInt(1)==year && rs.getInt(2)==month))
+				  		CreateFlag=0;  
+			  }
+			  if(CreateFlag==1) {
+				  flag = stmt.executeUpdate(String.format(
+							"INSERT INTO biteme.orderbytype (BranchID, Restaurant,Month,Year) VALUES ((SELECT BranchNum FROM biteme.restaurant WHERE Number='%d'),'%d','%d','%d');",
+							RestaurantNum, RestaurantNum,month,year));
+			  }
+		  }
+		  else
+		  {
+			  rs = stmt.executeQuery(String.format("SELECT Year,Month FROM biteme.data WHERE RestaurantNum='%d';",RestaurantNum));
+			  while(rs.next()) {
+				  if((rs.getInt(1)==year && rs.getInt(2)==month))
+				  		CreateFlag=0;  
+			  }
+			  if(CreateFlag==1) {
+				  flag = stmt.executeUpdate(String.format(
+							"INSERT INTO biteme.data (RestaurantNum,Month,Year) VALUES('%d','%d','%d');",
+							RestaurantNum,month,year));
+			  }
+		  }
+	}
+	
+	
+	
+	
  	/*
    * This method 
    *
@@ -62,9 +108,13 @@ public class DBReportController {
 		  int flag;
 		  try {
 		  stmt = myCon.createStatement();
+		  CheckMonthYear(Integer.parseInt(res[1]),myCon,"orderbytype");
+		  Calendar c = Calendar.getInstance();
+		  int year = c.get(Calendar.YEAR);
+		  int month = c.get(Calendar.MONTH)+1;
 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.orderbytype\r\n"
 		  		+ "SET Starter =Starter+ '%d', Main =Main+ '%d', Salad =Salad+ '%d',Dessert = Dessert+'%d',Drink =Drink+ '%d'\r\n"
-		  		+ "WHERE Restaurant = '%d'",Integer.parseInt(res[1]) ,Integer.parseInt(res[2]),Integer.parseInt(res[3]),Integer.parseInt(res[4]),Integer.parseInt(res[5]),Integer.parseInt(res[6])));
+		  		+ "WHERE Restaurant = '%d' AND Month='%d' AND Year='%d'",Integer.parseInt(res[2]) ,Integer.parseInt(res[3]),Integer.parseInt(res[4]),Integer.parseInt(res[5]),Integer.parseInt(res[6]),Integer.parseInt(res[1]),month,year));
 		  db.sendToClient("update amount~Updated Successfully",client);
 			stmt.close();
 		  }
@@ -87,21 +137,27 @@ public class DBReportController {
 		ArrayList<String> restaurants = new ArrayList<>();
 		try {
 			stmt = myCon.createStatement();
-			restaurants.add("Monthly_performance_load");
-			//need to change
+			if(res[1].equals("performance"))
+				restaurants.add("Monthly_performance_load");
+			else
+				restaurants.add("Incomes_load");
 			rs = stmt.executeQuery(String.format(
-					"SELECT x.Name, biteme.order.RequestOrderTime, biteme.order.CustomerReciveTime,biteme.order.IsEarlyOrder\r\n"
-							+ "							FROM (SELECT * FROM biteme.restaurant		WHERE restaurant.BranchNum='%d'\r\n"
-							+ "							) as x\r\n"
-							+ "							INNER JOIN biteme.order ON x.Number=biteme.order.resturantNumber;",
-					Integer.parseInt(res[1])));
+					"SELECT RestaurantInBranch.Name,data.*\r\n"
+					+ "FROM data\r\n"
+					+ "INNER JOIN (SELECT restaurant.Number,restaurant.Name\r\n"
+					+ "FROM restaurant\r\n"
+					+ "WHERE BranchNum='%d')AS RestaurantInBranch\r\n"
+					+ "ON RestaurantInBranch.Number=data.RestaurantNum\r\n"
+					+ "WHERE Month='%d' AND Year='%d'",
+					Integer.parseInt(res[2]),Integer.parseInt(res[3]),Integer.parseInt(res[4])));
 
 			while (rs.next()) {
 
-				restaurants.add(rs.getString(1) + "~" + rs.getString(2) + "~" + rs.getString(3) + "~" + rs.getInt(4));
+				restaurants.add(rs.getString(1) + "~" + rs.getString(2) + "~" + rs.getDouble(3) + "~" + rs.getInt(4)+"~"+rs.getInt(5));
 				System.out.println(restaurants);
 			}
-
+			
+			
 			db.sendToClient(restaurants, client);
 
 			rs.close();
@@ -124,11 +180,15 @@ public class DBReportController {
 
 		  Statement stmt;
 		  int flag;
+		  Calendar c = Calendar.getInstance();
+		  int year = c.get(Calendar.YEAR);
+		  int month = c.get(Calendar.MONTH)+1;
 		  try {
+			CheckMonthYear(Integer.parseInt(res[2]), myCon, "data");
 		  stmt = myCon.createStatement();
 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.data\r\n"
 		  		+ "SET Income =Income+ '%f',  OrderCount =OrderCount+ 1\r\n"
-		  		+ "WHERE RestaurantNum = '%d'",Double.parseDouble(res[1]) ,Integer.parseInt(res[2])));
+		  		+ "WHERE RestaurantNum = '%d' AND Month='%d' AND Year='%d'",Double.parseDouble(res[1]) ,Integer.parseInt(res[2]),month,year));
 		  db.sendToClient("update data~Updated Successfully",client);
 			stmt.close();
 		  }

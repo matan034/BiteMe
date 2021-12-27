@@ -198,7 +198,7 @@ public class OrderClient extends AbstractClient {
 				}
 				break;
 			case "IP":// update connection info, we use this variable in our controller to set our
-						// label
+						// label	
 				connection_info.set(0, res[1]);
 				connection_info.set(1, res[2]);
 				connection_info.set(2, res[3]);
@@ -209,7 +209,7 @@ public class OrderClient extends AbstractClient {
 					user_login_msg="";
 					user = new User(res[1], res[2], res[3], res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11]),res[12]);
 				}
-				else user_login_msg=res[1];
+				else user_login_msg=res[2];
 				break;
 			case "New Account":
 				account_reg_msg = res[1];
@@ -283,8 +283,10 @@ public class OrderClient extends AbstractClient {
 			case "Customer load"://maybe delete
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
 				customer.setId(res[2]);
-				customer.setbAccount(Integer.parseInt(res[4]));
-				customer.setpAccount(Integer.parseInt(res[5]));
+				if(!res[4].equals("null")) 
+					customer.setpAccount(Integer.parseInt(res[4]));
+				if(!res[5].equals("null")) 
+					customer.setbAccount(Integer.parseInt(res[5]));
 				customer.setStatus(res[3]);
 				break;
 				
@@ -447,11 +449,7 @@ public class OrderClient extends AbstractClient {
 	private void wellServedOrDelaySupply(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
-			String restaurantName = temp[0];
-			int isLate = Integer.parseInt(temp[1]);
-			int totalAmount = Integer.parseInt(temp[2]);
-			int onTime= totalAmount-isLate;
-			MonthlyPerformance tempRes = new MonthlyPerformance(restaurantName,totalAmount,isLate,onTime);
+			MonthlyPerformance tempRes = new MonthlyPerformance(temp[0],temp[4],temp[3]);
 			OrderClient.monthlyPerformance.add(tempRes);
 		}
 	}
@@ -460,11 +458,7 @@ public class OrderClient extends AbstractClient {
 	private void monthlyIncomesOfSuppliers(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
-			String restaurantName = temp[0];
-			double total = Double.parseDouble(temp[1]);
-	
-			
-			TotalIncomesOfRestaurants tempIncome = new TotalIncomesOfRestaurants(restaurantName, total);
+			TotalIncomesOfRestaurants tempIncome = new TotalIncomesOfRestaurants(temp[0], temp[2]);
 			OrderClient.totalIncomesOfRestaurant.add(tempIncome);
 
 		}

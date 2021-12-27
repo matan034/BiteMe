@@ -200,12 +200,18 @@ public class DBOrderController {
 			try {
 				stmt = myCon.createStatement();
 
-				rs = stmt.executeQuery("SELECT * FROM biteme.w4c_cards WHERE CardNum=" + res[1]);
+				rs = stmt.executeQuery("SELECT * FROM biteme.w4c_cards WHERE CardNum=" + res[1]+" AND (PrivateAccount="+res[2]+" OR BuisinessAccount="+res[3]+")");
 				if (rs.next()) {
 					System.out.println("card found");
-					result = "W4C verify~" + rs.getString(1) + "~" + rs.getString(2);
-					if(rs.getString(3)!=null)
+					result = "W4C verify~" + rs.getString(1);
+					if(rs.getString(2)!=null)//private
+						result+= "~" + rs.getString(2);
+					else
+						result+="~0";
+					if(rs.getString(3)!=null)//business
 						result+= "~" + rs.getString(3);
+					else
+						result+="~0";
 					db.sendToClient(result, client);
 				} else
 					db.sendToClient("W4C verify~W4C Wasnt found", client);
