@@ -7,22 +7,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrdersByComponentsController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrdersByComponentsController">
    <children>
-      <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
             <Label layoutX="22.0" layoutY="103.0" text="Branch:" />
             <Label layoutX="22.0" layoutY="144.0" text="Month:" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="398.0" layoutY="37.0" prefHeight="39.0" prefWidth="222.0" text="Order components rating" textAlignment="CENTER" />
             <TableView fx:id="ratingTable" layoutX="215.0" layoutY="132.0" prefHeight="421.0" prefWidth="752.0">
               <columns>
-                  <TableColumn fx:id="restaurantName" prefWidth="115.0" text="restaurant" />
-                <TableColumn fx:id="startersColumn" prefWidth="84.0" text="starters" />
-                  <TableColumn fx:id="drinksColumn" prefWidth="72.0" text="drinks" />
-                  <TableColumn fx:id="dessertsColumn" prefWidth="87.0" text="desserts" />
-                  <TableColumn fx:id="saladsColumn" prefWidth="70.0" text="salads" />
-                <TableColumn fx:id="mainsColumn" prefWidth="128.0" text="mains" />
+                  <TableColumn fx:id="restaurantName" editable="false" prefWidth="227.0" text="restaurant" />
+                <TableColumn fx:id="startersColumn" editable="false" prefWidth="97.0" text="starters" />
+                  <TableColumn fx:id="drinksColumn" editable="false" prefWidth="94.0" text="drinks" />
+                  <TableColumn fx:id="dessertsColumn" editable="false" prefWidth="106.0" text="desserts" />
+                  <TableColumn fx:id="saladsColumn" editable="false" prefWidth="104.0" text="salads" />
+                <TableColumn fx:id="mainsColumn" editable="false" prefWidth="123.0" text="mains" />
               </columns>
             </TableView>
             <Button fx:id="backToViewReports" layoutX="38.0" layoutY="581.0" mnemonicParsing="false" onAction="#back_to_view_reports" text="back" />

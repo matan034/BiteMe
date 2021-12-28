@@ -218,6 +218,41 @@ public class DBReportController {
 		  catch (Exception e) {
 			
 		}
+	}
+		  
+		  /*
+		   * This method 
+		   *
+		   * @param res   
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
+		protected void getSupplierQuarterData(String[]res,ConnectionToClient  client,Connection myCon,DBController db)
+		{
+			  Statement stmt;
+			  int flag;
+			  ResultSet rs;
+			  try {
+			  stmt = myCon.createStatement();
+			  rs = stmt.executeQuery(String.format(
+						"SELECT Name,x.* FROM biteme.restaurant \r\n"
+						+ "INNER JOIN (SELECT SUM(OrderCount),SUM(Income),RestaurantNum FROM biteme.data WHERE  Month>='%d' AND Month<='%d' AND Year='%d' AND RestaurantNum='%d') as x\r\n"
+						+ "ON x.RestaurantNum=Restaurant.Number",
+						Integer.parseInt(res[1]),Integer.parseInt(res[2]),Integer.parseInt(res[3]),Integer.parseInt(res[4])));
+			  if(rs.next())
+				  db.sendToClient("Supplier Quarter Data~"+rs.getString(2)+"~"+rs.getString(3),client);
+			  else db.sendToClient("Supplier Quarter Data~0~0", client);
+				stmt.close();
+				rs.close();
+			  }
+			  catch (Exception e) {
+				
+			}
+			  
+		  
+		  
+		  
 	
 }
 }

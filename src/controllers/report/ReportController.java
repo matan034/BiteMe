@@ -1,5 +1,6 @@
 package report;
 
+import clients.OrderClient;
 import common.Globals;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,9 +17,17 @@ public class ReportController {
     @FXML
     private Button viewQuarterIncome;
 
+    public void initialize()
+    {
+    	if(!OrderClient.user.getType().equals("CEO"))
+    	{
+    		viewQuarterIncome.setVisible(false);
+    	}
+    }
+    
     @FXML
     void goToChooseQuarterAndBranch(ActionEvent event) {
-    	Globals.loadInsideFXML( Globals.ceo_chooses_quarter_and_monthFXML);
+    	Globals.loadInsideFXML( Globals.quarterlyHistogram);
     }
 
     @FXML

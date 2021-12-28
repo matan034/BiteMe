@@ -570,6 +570,28 @@ public class DBUserController {
 
 			 }
 			 
+			 /**
+				Func 
+				* @param res  
+				 * @param client The connection from which the message originated.
+				 * @param myCon the connection to mySql DB
+				 * @param db the main database controller used in order to send message back to client */
+				 protected void logout(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
+					 Statement stmt;
+			  		  int flag;
+			  		  try {
+			  		  stmt = myCon.createStatement();
+			  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.users SET IsLoggedIn = 0 WHERE ID = '%s';" ,res[1]));
+			  		  System.out.println("Loged Out");
+			  		  db.sendToClient("loged out~",client);
+			  			stmt.close();
+			  		  }
+			  		  catch (Exception e) {
+			  			
+			  		}
+
+				 }
+			 
 			 protected void GetRestaurants(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
 				  Statement stmt;
 				  stmt = myCon.createStatement();

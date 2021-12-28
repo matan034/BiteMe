@@ -44,7 +44,8 @@ public class OrderClient extends AbstractClient {
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
 	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
 	public static Map<Integer,Integer> IsOrderApproved=new HashMap<>();
-	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg;
+
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null,null);
@@ -59,7 +60,7 @@ public class OrderClient extends AbstractClient {
 	public static ObservableList<String> myRestaurants=FXCollections.observableArrayList();
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
-	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg;
+	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg,orderAmount;
 	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
 	public static Account account =new Account(null,null,null,null,null);
 	public int branchID;
@@ -298,6 +299,7 @@ public class OrderClient extends AbstractClient {
 				IsOrderApproved.put(Integer.parseInt(res[1]), Integer.parseInt(res[2]));
 				break;
 			case "Order_customer recieved time": checkIfWasLate(res);
+			case "Supplier Quarter Data": orderAmount=res[1]; income=res[2];
 			}
 
 		}

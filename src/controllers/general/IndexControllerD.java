@@ -4,8 +4,7 @@ import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import entity.Branch;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -58,8 +57,7 @@ public class IndexControllerD {
         
         case "CEO":
             
-           
-            
+  
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
@@ -97,7 +95,7 @@ public class IndexControllerD {
                 CEOOption1.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
-                    	welcome_label.setVisible(false);
+                    	
        
                         Globals.loadInsideFXML(Globals.reportFXML);
                     }});
@@ -222,6 +220,7 @@ public class IndexControllerD {
             BranchManagerOption8.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override
                   public void handle(ActionEvent e) {
+            		StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
                   	Globals.loadFXML(null, Globals.userloginFXML, e);
                    
                   }});

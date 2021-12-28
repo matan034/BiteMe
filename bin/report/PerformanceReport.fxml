@@ -6,9 +6,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
    <children>
       <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
@@ -20,11 +19,6 @@
               </columns>
             </TableView>
             <Button fx:id="backButton" layoutX="51.0" layoutY="582.0" mnemonicParsing="false" onAction="#goBack" text="back" />
-            <Label alignment="CENTER" layoutX="425.0" layoutY="14.0" text="Performance Report">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
             <Label layoutX="18.0" layoutY="100.0" text="Branch:" />
             <Label layoutX="19.0" layoutY="146.0" text="Month:" />
             <Label fx:id="whichBranch" layoutX="87.0" layoutY="100.0" prefHeight="21.0" prefWidth="79.0" />

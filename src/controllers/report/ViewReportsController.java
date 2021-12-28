@@ -2,6 +2,8 @@ package report;
 
 import clients.OrderClient;
 import common.Globals;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,8 +38,50 @@ public class ViewReportsController {
 	
 	 @FXML
 	    private Button backButton;
+	 
+		@FXML
+		private void initialize() {
+			if(OrderClient.user.getType().equals("Branch Manager"))
+				branchCombox.setVisible(false);
+			branchCombox.setItems(branchList);
+			monthCombox.setItems(monthList);
+			typeCombox.setItems(typeList);
+			YearComboBox.setItems(yearList);
 
+			viewBtn.setDisable(true);
+			YearComboBox.getSelectionModel().selectedItemProperty().addListener(defineListener());
+			typeCombox.getSelectionModel().selectedItemProperty().addListener(defineListener());
+			monthCombox.getSelectionModel().selectedItemProperty().addListener(defineListener());
+			branchCombox.getSelectionModel().selectedItemProperty().addListener(defineListener());
+		}
+	    private ChangeListener<String> defineListener()
+	    {
+	    	return new ChangeListener() {   	 
+				@Override
+				public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+					 if(arg2!=null)
+	    	    	    {
+	    	    	    	validate_input();
+	    	    	    }
+				}
+	    	    };  
+	    }
 	    
+	 private void validate_input()
+	 {
+		 int i=0;
+		 
+		 if(YearComboBox.getSelectionModel().getSelectedItem()!=null) i++;
+		 if(monthCombox.getSelectionModel().getSelectedItem()!=null) i++;
+		 if(typeCombox.getSelectionModel().getSelectedItem()!=null) i++;
+		 if(branchCombox.getSelectionModel().getSelectedItem()!=null) i++;
+		  
+		 if(OrderClient.user.getType().equals("Branch Manager"))
+		 {
+			 if(i==3) viewBtn.setDisable(false);
+		 }
+		 else if(i==4) viewBtn.setDisable(false);
+	 }
 	@FXML
 	void goToRep(ActionEvent event) {
 		if(OrderClient.user.getType().equals("CEO")) {
@@ -58,17 +102,7 @@ public class ViewReportsController {
 
 	}
 
-	@FXML
-	private void initialize() {
-		if(OrderClient.user.getType().equals("Branch Manager"))
-			branchCombox.setVisible(false);
-		branchCombox.setItems(branchList);
-		monthCombox.setItems(monthList);
-		typeCombox.setItems(typeList);
-		YearComboBox.setItems(yearList);
-		viewBtn.setDisable(false);
 
-	}
 	
 	   @FXML
 	    void goToReportScreen(ActionEvent event) {

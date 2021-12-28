@@ -116,14 +116,14 @@ public class DBController extends AbstractServer {
 				case "Approve_account":dbUser.ApproveAccount(res,client,myCon,this);break;
 				case "Get_restaurants":dbUser.GetRestaurants(res, client, myCon, this);break;
 				case "Approve_restaurant":dbUser.ApproveRestaurant(res, client, myCon, this);break;
-				
+				case "Logout" :dbUser.logout(res, client, myCon, this);break;
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;
 				case "Insert_quantity": dbReport.insertItemsAmount(res,client,myCon,this);break;
 				case "Load_monthly_performance":dbReport.loadMonthlyPerformance(res, client,myCon,this);break;	
 				case "updateRestaurantData": dbReport.updateRestaurantData(res,client,myCon,this);break;			
 				case "Update Supplier Late Cnt": dbReport.updateSupplierLateCnt(res,client,myCon,this);break;
-	
+				case "Load_quarter_data":dbReport.getSupplierQuarterData(res, client, myCon, this);break;
 				
 				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
 				}

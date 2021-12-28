@@ -4,11 +4,13 @@ import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import utility.UserImportUtility;
 
 public class UserLoginController {
@@ -34,8 +36,22 @@ public class UserLoginController {
     	importUsers.ImportUsers();
     }
     
+    public void initialize()
+    {
+    	username_lbl.setOnKeyPressed( event -> {
+    		  if( event.getCode() == KeyCode.ENTER ) {
+    		    login_action(event);
+    		  }
+    		} );
+    	password_lbl.setOnKeyPressed( event -> {
+  		  if( event.getCode() == KeyCode.ENTER ) {
+  			login_action(event);
+  		  }
+  		} );
+    }
+    
     @FXML
-    void login_action(ActionEvent event) {
+    void login_action(Event event) {
     	if(username_lbl.getText().trim().isEmpty())login_res_lbl.setText("Please Input User Name");
     	if(password_lbl.getText().trim().isEmpty())login_res_lbl.setText("Please Input Password");
     	if(!username_lbl.getText().trim().isEmpty() && !password_lbl.getText().trim().isEmpty()) {

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import clients.OrderClient;
+import clients.StartClient;
 import general.IndexControllerD;
 import general.OrderClientController;
 import entity.Branch;
@@ -81,7 +83,8 @@ public class Globals {
 			createMenu="/menu/createMenu.fxml",
 			viewMenu="/menu/ViewMyMenus.fxml",
 			viewDishes="/menu/ViewMyDishes.fxml",
-			regRestaurant="/branch_manager/RegisterRestaurant.fxml";
+			regRestaurant="/branch_manager/RegisterRestaurant.fxml",
+			quarterlyHistogram="/report/QuarterlyHistogramScreen.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
@@ -113,6 +116,12 @@ public class Globals {
 		 put(changeuserstatusFXML,"Users");
 		 put(regnewaccountp1FXML,"Register New Account");
 		 put(regnewaccountp2FXML,"Register New Account");
+		 put(quarterlyHistogram,"Quarter Report");
+		 put(reportFXML,"Reports");
+		 put(view_reportsFXML,"Monthly Report");
+		 put(income_reportFXML,"Income Report");
+		 put(performance_reportFXML,"Performance Report");
+		 put(order_components_rating_reportFXML,"Dishes Type Report");
 	 }};
 	 
 	 
@@ -162,8 +171,12 @@ public class Globals {
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		     public void handle(WindowEvent we) {
 		    	 try {
+		    	
 		    	 if(fxml_name.equals(serverFXML)) ServerStart.closeServer();
-		    	 else OrderClientController.order_client.quit();
+		    	 else {
+		    		 StartClient.order.accept("Logout~"+OrderClient.user.getID());
+		    		 OrderClientController.order_client.quit();
+		    	 }
 		    	 
 		    	 System.out.println("Stage is closing");}
 		    	 catch(Exception e) {}
