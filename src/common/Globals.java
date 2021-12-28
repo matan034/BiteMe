@@ -84,7 +84,8 @@ public class Globals {
 			viewMenu="/menu/ViewMyMenus.fxml",
 			viewDishes="/menu/ViewMyDishes.fxml",
 			regRestaurant="/branch_manager/RegisterRestaurant.fxml",
-			quarterlyHistogram="/report/QuarterlyHistogramScreen.fxml";
+			quarterlyHistogram="/report/QuarterlyHistogramScreen.fxml",
+			viewPdf="/report/ViewPdfScreen.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};

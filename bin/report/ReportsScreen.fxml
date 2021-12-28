@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.ReportController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.ReportController">
    <children>
       <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="viewReportButton" layoutX="70.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToViewReports" styleClass="ViewBtn" text="Monthly Reports" />
-            <Button fx:id="createReportButton" layoutX="712.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToCreateReports" styleClass="ViewBtn" text="Create Quarter Report" />
-            <Button fx:id="viewQuarterIncome" layoutX="392.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToChooseQuarterAndBranch" styleClass="ViewBtn" text="Quarter Reports" />
+            <Button fx:id="viewReportButton" layoutX="345.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToViewReports" styleClass="ViewBtn" text="Monthly Reports" />
+            <Button fx:id="UploadReportsBtn" layoutX="512.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToCreateReports" styleClass="ViewBtn" text="Upload Quarter Report" />
+            <Button fx:id="viewQuarterIncome" layoutX="530.0" layoutY="310.0" mnemonicParsing="false" onAction="#goToChooseQuarterAndBranch" styleClass="ViewBtn" text="Quarter Reports" />
          </children>
       </Pane>
    </children>

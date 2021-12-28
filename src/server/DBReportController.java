@@ -1,5 +1,8 @@
 package server;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import clients.OrderClient;
+import entity.MyFile;
 import ocsf.server.ConnectionToClient;
 
 public class DBReportController {
@@ -249,10 +254,74 @@ public class DBReportController {
 			  catch (Exception e) {
 				
 			}
+		}
 			  
-		  
-		  
-		  
-	
+		protected void UploadReport(Object msg,ConnectionToClient  client,Connection myCon,DBController db)
+		{
+			int test=0;
+			int fileSize=((MyFile)msg).getSize(); 
+			MyFile msgfile =((MyFile)msg); 
+			  int flag;
+			  Statement stmt;
+			  try {
+			  stmt = myCon.createStatement();
+			  Calendar c = Calendar.getInstance();
+			  int year = c.get(Calendar.YEAR);
+			  int month = c.get(Calendar.MONTH)+1;
+			  int quater=0;
+			  if(month>=1 && month<=3)quater=1;
+			  if(month>=4 && month<=6)quater=2;
+			  if(month>=7 && month<=9)quater=3;
+			  if(month>=10 && month<=12)quater=4;
+			  MyFile in = (MyFile)msg;
+			  in.setFileName(in.getFileName().replace("\\", "/"));
+			  String[] splittedFileName = in.getFileName().split("/");
+			  String simpleFileName = splittedFileName[splittedFileName.length-1];
+			  File out = new File("..\\BiteMe\\src\\gui\\quartelyreports\\"+simpleFileName);//set output file location
+			 
+				FileOutputStream fos = new FileOutputStream(out);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				bos.write(in.getMybytearray(),0 , fileSize);
+				bos.close();
+				fos.close();
+				String res="\\\\BiteMe\\\\src\\\\gui\\\\quartelyreports\\\\"+simpleFileName;
+				flag = stmt.executeUpdate(String.format(
+						"INSERT INTO biteme.reports (ReportPath,Quater,Year,BranchID) VALUES('%s','%d','%d','%d');",
+						res,quater,year,msgfile.getBranchID()));
+				db.sendToClient("Uploaded sucescully~", client);
+			  }catch(Exception e) {}
+			  
+		}  
+		
+		
+		
+
+		protected void getPdfFile(String []res,ConnectionToClient  client,Connection myCon,DBController db) {
+			Statement stmt;
+			  int flag;
+			  ResultSet rs;
+			  try {
+			  stmt = myCon.createStatement();
+			  rs = stmt.executeQuery(String.format("SELECT ReportPath FROM biteme.reports WHERE Quater='%d' AND Year='%d' AND BranchID='%d'",Integer.parseInt(res[1]),Integer.parseInt(res[2]),Integer.parseInt(res[3])));	
+			  if(rs.next())
+			  {
+				  db.sendToClient("PdfPath~"+rs.getString(1),client);
+			  }
+				  
+			  else db.sendToClient("PdfPath~0", client);
+				stmt.close();
+				rs.close();
+			  }
+			  catch (Exception e) {
+				
+			}
+		}
+
+		
+		 	 
 }
-}
+
+
+
+
+

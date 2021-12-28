@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Dish;
+import entity.MyFile;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -62,6 +63,10 @@ public class DBController extends AbstractServer {
 	  public void handleMessageFromClient  (Object msg, ConnectionToClient client)
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
+		    
+		    if(msg instanceof MyFile) {
+		    	dbReport.UploadReport(msg, client, myCon, this);
+		    }
 		    if(msg instanceof Dish)
 			{
 				Dish newDish=((Dish)msg);
@@ -89,6 +94,7 @@ public class DBController extends AbstractServer {
 				case "Approve_order":dbOrder.ApproveOrder(res,client,myCon,this);break;
 				case "Refund Account" : dbOrder.refundAccount(res,client,myCon,this);break;
 				case "Update_recieve_time": dbOrder.updateRecieveTime(res,client,myCon,this);break;
+				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
 				//case "Update_order": updateOrder(res, client); break; from prototype
 				//case "Search_order": searchOrder(res, client); break;from prototype
 				
@@ -124,8 +130,8 @@ public class DBController extends AbstractServer {
 				case "updateRestaurantData": dbReport.updateRestaurantData(res,client,myCon,this);break;			
 				case "Update Supplier Late Cnt": dbReport.updateSupplierLateCnt(res,client,myCon,this);break;
 				case "Load_quarter_data":dbReport.getSupplierQuarterData(res, client, myCon, this);break;
+				case "Open_pdf":dbReport.getPdfFile(res, client, myCon, this);break;
 				
-				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
 				}
 				}catch (Exception e) {
 					// TODO: handle exception
