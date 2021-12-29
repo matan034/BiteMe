@@ -1,6 +1,10 @@
 package clients;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import entity.Dish;
 import entity.DishInOrder;
 import entity.Employer;
 import entity.MonthlyPerformance;
+import entity.MyFile;
 import entity.Order;
 import entity.OrdersByComponents;
 import entity.PrivateAccount;
@@ -45,7 +50,7 @@ public class OrderClient extends AbstractClient {
 	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
 	public static Map<Integer,Integer> IsOrderApproved=new HashMap<>();
 
-	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income,pdfpath;
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null,null);
@@ -64,7 +69,7 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
 	public static Account account =new Account(null,null,null,null,null);
 	public int branchID;
-	
+	public static File loaded_file;
 
 	// for reports
 	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
@@ -89,6 +94,12 @@ public class OrderClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		System.out.println("Msg: " + msg + " recieved");
 		awaitResponse = false;
+		if(msg instanceof MyFile)
+		{
+			MyFile out=(MyFile)msg;
+			 loaded_file=out.getFile();
+		}
+
 		if (msg instanceof ArrayList) {
 			Object[] arr = ((ArrayList) msg).toArray();
 			if (arr[0] instanceof User)
@@ -300,7 +311,6 @@ public class OrderClient extends AbstractClient {
 				break;
 			case "Order_customer recieved time": checkIfWasLate(res);
 			case "Supplier Quarter Data": orderAmount=res[1]; income=res[2];
-			case "PdfPath":pdfpath=res[1];
 			}
 
 		}

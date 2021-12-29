@@ -62,7 +62,7 @@ public class SearchOrderController {
     @FXML
     void back_to_index(ActionEvent event) {
 
-    	Globals.loadFXML(null, Globals.indexFXML, event);
+    	//Globals.loadFXML(null, Globals.indexFXML, event);
     }
 	 /**
     *searchOrder func activates on search button press event and loads the order if it is found else displays order not found

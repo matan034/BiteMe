@@ -33,7 +33,7 @@ public class OrderConfirmedController {
     }
     @FXML
     void goHome(ActionEvent event) {
-    	Globals.loadFXML(null, Globals.indexFXML, event);
+    	//Globals.loadFXML(null, Globals.indexFXML, event);
     }
 
 }

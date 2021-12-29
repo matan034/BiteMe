@@ -2,8 +2,12 @@ package server;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import clients.OrderClient;
+import common.Globals;
 import entity.MyFile;
 import ocsf.server.ConnectionToClient;
 
@@ -257,14 +262,9 @@ public class DBReportController {
 		}
 			  
 		protected void UploadReport(Object msg,ConnectionToClient  client,Connection myCon,DBController db)
-		{
-			int test=0;
-			int fileSize=((MyFile)msg).getSize(); 
+		{ 
 			MyFile msgfile =((MyFile)msg); 
-			  int flag;
-			  Statement stmt;
 			  try {
-			  stmt = myCon.createStatement();
 			  Calendar c = Calendar.getInstance();
 			  int year = c.get(Calendar.YEAR);
 			  int month = c.get(Calendar.MONTH)+1;
@@ -273,53 +273,64 @@ public class DBReportController {
 			  if(month>=4 && month<=6)quater=2;
 			  if(month>=7 && month<=9)quater=3;
 			  if(month>=10 && month<=12)quater=4;
-			  MyFile in = (MyFile)msg;
-			  in.setFileName(in.getFileName().replace("\\", "/"));
-			  String[] splittedFileName = in.getFileName().split("/");
-			  String simpleFileName = splittedFileName[splittedFileName.length-1];
-			  File out = new File("..\\BiteMe\\src\\gui\\quartelyreports\\"+simpleFileName);//set output file location
-			 
-				FileOutputStream fos = new FileOutputStream(out);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				bos.write(in.getMybytearray(),0 , fileSize);
-				bos.close();
-				fos.close();
-				String res="\\\\BiteMe\\\\src\\\\gui\\\\quartelyreports\\\\"+simpleFileName;
-				flag = stmt.executeUpdate(String.format(
-						"INSERT INTO biteme.reports (ReportPath,Quater,Year,BranchID) VALUES('%s','%d','%d','%d');",
-						res,quater,year,msgfile.getBranchID()));
+			  MyFile in = (MyFile)msg;		
+				 PreparedStatement preparedStmt;
+				 String query="INSERT INTO biteme.reports (Quarter,Year,BranchID,ReportBlob) VALUES(?,?,?,?);";
+			     preparedStmt = myCon.prepareStatement(query);
+			     preparedStmt.setInt (1,quater);
+			     preparedStmt.setInt (2,year);
+			     preparedStmt.setInt (3,msgfile.getBranchID());
+			     FileInputStream input = new FileInputStream(in.getFile());
+			     preparedStmt.setBinaryStream(4,input ) ;
+			      preparedStmt.execute();	
 				db.sendToClient("Uploaded sucescully~", client);
-			  }catch(Exception e) {}
+				preparedStmt.close();
+			  }catch(Exception e) {db.sendToClient(e, client);}
 			  
 		}  
 		
 		
 		
-
-		protected void getPdfFile(String []res,ConnectionToClient  client,Connection myCon,DBController db) {
-			Statement stmt;
-			  int flag;
+		protected void getBlob(String[] res,ConnectionToClient  client,Connection myCon,DBController db) {
 			  ResultSet rs;
+			  PreparedStatement preparedStmt;
 			  try {
-			  stmt = myCon.createStatement();
-			  rs = stmt.executeQuery(String.format("SELECT ReportPath FROM biteme.reports WHERE Quater='%d' AND Year='%d' AND BranchID='%d'",Integer.parseInt(res[1]),Integer.parseInt(res[2]),Integer.parseInt(res[3])));	
+				 String query="SELECT ReportBlob FROM biteme.reports WHERE Quarter=? AND Year=? AND BranchID=?";
+			     preparedStmt = myCon.prepareStatement(query);
+			     preparedStmt.setInt (1,Integer.parseInt(res[1]));
+			     preparedStmt.setInt (2,Integer.parseInt(res[2]));
+			     preparedStmt.setInt (3,Integer.parseInt(res[3]));
+			     rs= preparedStmt.executeQuery();	
 			  if(rs.next())
 			  {
-				  db.sendToClient("PdfPath~"+rs.getString(1),client);
+				  
+				String name="..\\BiteMe\\src\\gui\\quartelyreports\\Branch"+res[3]+"_Quarter"+res[1]+"_Year"+res[2]+".pdf";
+				  InputStream input = rs.getBinaryStream(1);
+				  MyFile out=new MyFile(name);
+				  File temp=new File(out.getFileName());
+					 FileOutputStream output = new FileOutputStream(temp);
+					 byte[] buffer = new byte[1024];
+					 while (input.read(buffer) > 0) {
+					        output.write(buffer);		        
+					  }
+					 out.setFile(temp);
+				 db.sendToClient(out,client);
+
 			  }
+		
 				  
 			  else db.sendToClient("PdfPath~0", client);
-				stmt.close();
+				preparedStmt.close();
 				rs.close();
 			  }
 			  catch (Exception e) {
-				
+				  db.sendToClient("PdfPath~"+e, client);
 			}
-		}
-
+			  }
 		
+		}
 		 	 
-}
+
 
 
 

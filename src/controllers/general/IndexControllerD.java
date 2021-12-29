@@ -4,7 +4,7 @@ import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import entity.Branch;
-
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -41,7 +41,10 @@ public class IndexControllerD {
     @FXML
     private Label msg_label;
     
-    public void initialize()
+
+
+
+	public void initialize()
     {
 
         StartClient.order.accept("Load_branches");
@@ -136,7 +139,7 @@ public class IndexControllerD {
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
-                    	Globals.loadFXML(null, Globals.userloginFXML, e);
+                    	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                      
                     }});
           
@@ -221,7 +224,7 @@ public class IndexControllerD {
             	  @Override
                   public void handle(ActionEvent e) {
             		StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
-                  	Globals.loadFXML(null, Globals.userloginFXML, e);
+                  	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                    
                   }});
           
@@ -269,7 +272,7 @@ public class IndexControllerD {
            CustomerOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e);
+               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});
            
@@ -311,7 +314,7 @@ public class IndexControllerD {
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e);
+               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});  
            
@@ -335,7 +338,7 @@ public class IndexControllerD {
            CEOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e);
+               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});  
            
@@ -378,7 +381,7 @@ public class IndexControllerD {
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e);
+               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});
             
@@ -423,6 +426,10 @@ public class IndexControllerD {
 	public void setComboBoxBranch(ComboBox<Branch> comboBoxBranch) {
 		this.comboBoxBranch = comboBoxBranch;
 	}
+
+
+
+
     
    
 }

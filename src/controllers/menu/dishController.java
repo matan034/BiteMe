@@ -61,7 +61,7 @@ public class dishController {
 
 	    @FXML
 	    void goToCart(ActionEvent event) {
-	    	Globals.loadFXML(null, Globals.cartFXML, event);
+	    	Globals.loadFXML(null, Globals.cartFXML, event,null);
 	    }
 	    
 	    
@@ -86,7 +86,7 @@ public class dishController {
 	    @FXML
 	    void addToOrder(ActionEvent event) {
 	    	Globals.selected_dish=menu_table.getSelectionModel().getSelectedItem();
-	    	Globals.loadFXML(null, Globals.dish_selectionFXML, event);
+	    	Globals.loadFXML(null, Globals.dish_selectionFXML, event,null);
 	    }
 
 	    @FXML

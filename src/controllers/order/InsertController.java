@@ -97,7 +97,7 @@ public class InsertController {
 	    @FXML
 	    void back_to_index(ActionEvent event) {
 
-	    	Globals.loadFXML(null, Globals.indexFXML, event);
+	    	//Globals.loadFXML(null, Globals.indexFXML, event);
 	    }
 
 	    void set_address_bar()

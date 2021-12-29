@@ -96,41 +96,7 @@ public class IndexController
 	       delivery_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
 	    }*/
 	    
-	    @FXML
-	    void importUsers(ActionEvent event) {
-	    	UserImportUtility user_import_utility = new UserImportUtility();
-	    	user_import_utility.ImportUsers();
-	    }
-	    
-	    @FXML
-	    void changeUserStatus(ActionEvent event) {
-	    	Globals.loadFXML(null,Globals.changeuserstatusFXML, event);
-	    }
 
-
-		/**
-		* this func enters the insert screen,displaying its UI and closes the index screen
-		*@param event recognises insert button is pressed and prompts func to activate
-		*/
-	    @FXML
-	    void createOrder(ActionEvent event) {
-	    	Globals.loadFXML(null, Globals.W4CLoginFXML, event);
-	    }
-
-	    @FXML
-	    void login(ActionEvent event) {
-	    	Globals.loadFXML(null,Globals.userloginFXML, event);
-	    }
-
-	    @FXML
-	    void registerNewAccount(ActionEvent event) {
-	    	Globals.loadFXML(null,Globals.regnewaccountp1FXML, event);
-	    }
-
-	    @FXML
-	    void registerNewEmployer(ActionEvent event) {
-	    	Globals.loadFXML(null,Globals.regnewemployerFXML, event);
-	    }
     
 
 

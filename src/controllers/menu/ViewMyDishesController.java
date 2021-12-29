@@ -25,6 +25,6 @@ public class ViewMyDishesController {
     void viewDishes(ActionEvent event) {
     	Globals.dishType= choose_Dish_type_combo_box.getSelectionModel().getSelectedItem();
     	StartClient.order.accept("Load_menu~"+choose_Dish_type_combo_box.getSelectionModel().getSelectedItem()+"~"+My_Branch_id.getText());
-    	Globals.loadFXML(null, Globals.dishFXML, event);
+    	Globals.loadFXML(null, Globals.dishFXML, event,null);
     }
 }

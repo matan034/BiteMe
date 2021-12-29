@@ -27,7 +27,7 @@ public class ViewMyMenuController {
 	    void viewMenu(ActionEvent event) {
 	    	Globals.dishType= choose_menu_type_combo_box.getSelectionModel().getSelectedItem();
 	    	StartClient.order.accept("Load_menu~"+choose_menu_type_combo_box.getSelectionModel().getSelectedItem()+"~"+My_Branch_id.getText());
-	    	Globals.loadFXML(null, Globals.menuFXML, event);
+	    	Globals.loadFXML(null, Globals.menuFXML, event,null);
 	    }
 	    
 	    

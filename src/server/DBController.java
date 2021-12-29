@@ -64,8 +64,8 @@ public class DBController extends AbstractServer {
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
 		    
-		    if(msg instanceof MyFile) {
-		    	dbReport.UploadReport(msg, client, myCon, this);
+		    if(msg instanceof MyFile) {		    	
+		    		dbReport.UploadReport(msg, client, myCon, this);
 		    }
 		    if(msg instanceof Dish)
 			{
@@ -130,7 +130,7 @@ public class DBController extends AbstractServer {
 				case "updateRestaurantData": dbReport.updateRestaurantData(res,client,myCon,this);break;			
 				case "Update Supplier Late Cnt": dbReport.updateSupplierLateCnt(res,client,myCon,this);break;
 				case "Load_quarter_data":dbReport.getSupplierQuarterData(res, client, myCon, this);break;
-				case "Open_pdf":dbReport.getPdfFile(res, client, myCon, this);break;
+				case "Open_pdf":dbReport.getBlob(res, client, myCon, this);break;
 				
 				}
 				}catch (Exception e) {

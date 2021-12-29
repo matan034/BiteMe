@@ -62,7 +62,7 @@ public class serverController {
 
 	public void start(Stage primaryStage) throws Exception {	
 	
-		Globals.loadFXML(primaryStage, Globals.serverFXML, null);
+		Globals.loadFXML(primaryStage, Globals.serverFXML, null,null);
 	}
     @FXML
     void close_window(ActionEvent event) {

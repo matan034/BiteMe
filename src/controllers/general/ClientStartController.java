@@ -48,6 +48,6 @@ public class ClientStartController {
     	ip=ip_address.getText();
     	StartClient.order= new OrderClientController(ip, 5555);
 
-    	Globals.loadFXML(null, Globals.userloginFXML, event);
+    	Globals.loadFXML(null, Globals.userloginFXML, event,null);
     }
 }

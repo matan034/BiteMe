@@ -9,7 +9,7 @@ import common.Globals;
 
 import general.OrderClientController;
 import javafx.application.Application;
-
+import javafx.application.HostServices;
 import javafx.stage.Stage;
 
 public class StartClient extends Application{
@@ -24,7 +24,7 @@ public class StartClient extends Application{
 	*start func loads our fxml onto a stage and displays it
 	*@param stage is our stage where we set our screen to display*/
 	public void start(Stage stage) {
-
-		Globals.loadFXML(stage,Globals.clientStartFXML , null);
+		HostServices hostServices = getHostServices();
+		Globals.loadFXML(stage,Globals.clientStartFXML , null,hostServices);
 	}
 }

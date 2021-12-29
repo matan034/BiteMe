@@ -14,6 +14,7 @@ import entity.Dish;
 import entity.DishInOrder;
 import entity.Order;
 import entity.Supplier;
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -123,7 +124,10 @@ public class Globals {
 		 put(income_reportFXML,"Income Report");
 		 put(performance_reportFXML,"Performance Report");
 		 put(order_components_rating_reportFXML,"Dishes Type Report");
+		 put(viewPdf,"Inclusive Quarter Report");
 	 }};
+	 
+	 public static HostServices host_service;
 	 
 	 
 	    /*@param Func for load Vbox inside Vbox  
@@ -147,7 +151,7 @@ public class Globals {
 	 }
 
 	 
-	public static void loadFXML(Stage stage,String fxml_name,Event event)
+	public static void loadFXML(Stage stage,String fxml_name,Event event,HostServices hostServices)
 	{
 		String window_name=fxml_name.split("/")[2].split("\\.")[0];
 		VBox pane;
@@ -164,7 +168,11 @@ public class Globals {
 		    pane = loader.load();
 		    if(fxml_name.equals(Globals.indexFXML)) {
 		    	index_controller=loader.getController();
+		    	
 		    	stage.getIcons().add(new Image("/img/app_logo.png"));
+		    }
+		    if(fxml_name.equals(Globals.clientStartFXML)) {
+		    	host_service= hostServices;
 		    }
 			Scene scene=new Scene(pane);
 			stage.setTitle(window_name);

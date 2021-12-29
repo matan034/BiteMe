@@ -35,10 +35,12 @@ public class ReportController {
     	{
     		viewQuarterIncome.setVisible(false);
     		UploadReportsBtn.setVisible(true);
+    		viewBranchPdfReport.setVisible(false);
     	}
     	else {//CEO
     		viewQuarterIncome.setVisible(true);
     		UploadReportsBtn.setVisible(false);
+    		viewBranchPdfReport.setVisible(true);
     	}
     		
     	
@@ -63,10 +65,11 @@ public class ReportController {
     void goToCreateReports(ActionEvent event) {
     	Stage stage=(Stage)((Node) event.getSource()).getScene().getWindow();
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Open Resource File");
-    	File file = fileChooser.showSaveDialog(stage);
+    	fileChooser.setTitle("Select File");
+    	File file = fileChooser.showOpenDialog(stage);
   
     	MyFile filePath= new MyFile(file.getPath());
+    	filePath.setFile(file);
 
     	if (file != null) {
     		  try{
