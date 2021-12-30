@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewAccountP2Controller">
    <children>
       <AnchorPane>
@@ -60,6 +59,11 @@
                      </image>
                   </ImageView>
                   <Separator layoutX="393.0" layoutY="230.0" prefWidth="200.0" />
+                  <ImageView fx:id="green_v_img" fitHeight="35.0" fitWidth="43.0" layoutX="543.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../img/greenv.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>

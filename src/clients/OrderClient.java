@@ -303,6 +303,7 @@ public class OrderClient extends AbstractClient {
 				break;
 				
 			case "W4C_load_list":
+				w4cList.clear();
 				w4cList(res);
 				break;
 

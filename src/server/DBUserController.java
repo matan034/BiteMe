@@ -152,6 +152,8 @@ public class DBUserController {
 		Random rand = new Random();
 		String w4c_num;
 		ResultSet rs;
+		
+
 		rs = stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE ID='%s'", res[3]));
 		if (rs.isBeforeFirst()) {// check if we got a result
 			rs.next();

@@ -345,7 +345,7 @@ public class IndexControllerD {
             
             break;
             
-       case "Restaurant Manager":
+       case "Supplier":
            
            
            Button SupplierOption1= new Button ("Orders");

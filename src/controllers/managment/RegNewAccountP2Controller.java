@@ -6,12 +6,15 @@ import clients.StartClient;
 import common.Globals;
 import entity.BusinessAccount;
 import entity.PrivateAccount;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class RegNewAccountP2Controller {
 
@@ -44,6 +47,9 @@ public class RegNewAccountP2Controller {
 
 	    @FXML
 	    private CheckBox PrivateCheckBox;
+	    
+	    @FXML
+	    private ImageView green_v_img;
 	    
 	    public void initialize() {
 	    	cc_lbl.setDisable(true);
@@ -122,9 +128,17 @@ public class RegNewAccountP2Controller {
 	    	}
 	    	if(pAccount!=null) {
 	    		StartClient.order.accept(pAccount.toString());
+	    		green_v_img.setVisible(true);
+		    	PauseTransition pause = new PauseTransition(Duration.seconds(1));
+		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
+		    	pause.play();
+		    	
 	    	}
 	    	if(bAccount!=null) {
 	    		StartClient.order.accept(bAccount.toString());
+	    		PauseTransition pause = new PauseTransition(Duration.seconds(1));
+		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
+		    	pause.play();
 	    	}
 	    	if(employer_name_lbl.getText().trim().isEmpty() && cc_lbl.getText().trim().isEmpty())//user didn't input anything in textfields
 	    	{
