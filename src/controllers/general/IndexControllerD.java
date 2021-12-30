@@ -103,8 +103,16 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.reportFXML);
                     }});
                 
-                ///insert 2,4 option /////////////////////////////////////////
-                ///2--> we need to crate screen 
+            
+                
+                CEOOption2.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                    	
+       
+                        Globals.loadInsideFXML(Globals.view_employersFXML);
+                    }});
+                
                 
                 CEOOption3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -112,7 +120,7 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
-          /////4->>>update menu Muhamad
+ 
               CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
                   @Override
                   public void handle(ActionEvent e) {
@@ -127,18 +135,18 @@ public class IndexControllerD {
                     }});
                 
                 
-          //6-->approve account Daniel
-//              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
-//                  @Override
-//                  public void handle(ActionEvent e) {
-//                      Globals.loadInsideFXML(Globals.);
-//                  }});
-        
-                
+
+              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
+                  @Override
+                 public void handle(ActionEvent e) {
+                      Globals.loadInsideFXML(Globals.approveUserFXML);
+                  }});
+ 
                
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
+                    	StartClient.order.accept("Logout~"+OrderClient.user.getID());
                     	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                      
                     }});
@@ -151,11 +159,10 @@ public class IndexControllerD {
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
             Button BranchManagerOption3= new Button ("View And Update Menu");
-            Button BranchManagerOption4= new Button ("send Report");
-            Button BranchManagerOption5= new Button ("View Employers");
-            Button BranchManagerOption6= new Button ("Register Account");
-            Button BranchManagerOption7= new Button ("Approve suppliers");
-            Button BranchManagerOption8= new Button ("Log out");
+            Button BranchManagerOption4= new Button ("View Employers");
+            Button BranchManagerOption5= new Button ("Register Account");
+            Button BranchManagerOption6= new Button ("Approve suppliers");
+            Button BranchManagerOption7= new Button ("Log out");
             
             BranchManagerOption1.getStyleClass().add("ViewBtn");
             BranchManagerOption1.setMaxWidth(Double.MAX_VALUE);
@@ -180,8 +187,8 @@ public class IndexControllerD {
             options_grid1.add(BranchManagerOption4,0,3);
             options_grid1.add(BranchManagerOption5,0,4);
             options_grid1.add(BranchManagerOption6,0,6);
-            options_grid1.add(BranchManagerOption7,0,7);
-            options_grid1.add(BranchManagerOption8,0,8);
+            options_grid1.add(BranchManagerOption7,0,8);
+            
             
             
             BranchManagerOption1.setOnAction(new EventHandler<ActionEvent>() {
@@ -196,31 +203,29 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+            
+            ///3--> update menu Muhamad
+            
+            BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.view_employersFXML);
                 }});
-            ///insert 3,4,5 option /////////////////////////////////////////
-            ///3--> update menu Muhamad
-            ///4--> send reports Yeela
-            //5--> we need to crate screen 
            
-            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.regnewaccountp1FXML);
                 }});
             
             
-            ///7-->we need to crate screen  
-            BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.regRestaurant);
                 }});
             
-            BranchManagerOption8.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override
                   public void handle(ActionEvent e) {
             		StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
@@ -261,8 +266,6 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.W4CLoginFXML);
                 }});
            
-          
-           // (Matan)
          CustomerOption2.setOnAction(new EventHandler<ActionEvent>() {
               @Override
              public void handle(ActionEvent e) {
@@ -272,7 +275,8 @@ public class IndexControllerD {
            CustomerOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
+        		   StartClient.order.accept("Logout~"+OrderClient.user.getID());
+               	   Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});
            
@@ -314,7 +318,8 @@ public class IndexControllerD {
            HROption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
+        		   StartClient.order.accept("Logout~"+OrderClient.user.getID());
+               	   Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});  
            
@@ -338,7 +343,8 @@ public class IndexControllerD {
            CEOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
+        		   StartClient.order.accept("Logout~"+OrderClient.user.getID());
+               	   Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});  
            
@@ -364,14 +370,14 @@ public class IndexControllerD {
            options_grid1.add(SupplierOption2,0,1);
            options_grid1.add(SupplierOption3,0,8);
            
-           //1->>view orders Daniel
            SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
                	Globals.loadInsideFXML(Globals.NewOrdersFXML);
                 
                }});
-           //2-->update menu Muhamad
+ 
+           
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
@@ -381,7 +387,8 @@ public class IndexControllerD {
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadFXML(null, Globals.userloginFXML, e,null);
+        		   StartClient.order.accept("Logout~"+OrderClient.user.getID());
+               	   Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});
             
