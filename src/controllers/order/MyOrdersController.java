@@ -63,7 +63,7 @@ public class MyOrdersController {
 	            anchorPane = fxmlLoader.load();       
 	            OrderRecordController orderRecordController = fxmlLoader.getController();
 	            orderRecordController.setData(o,approveArrival);
-	            TitledPane pane = new TitledPane("Order #"+o.getOrder_num(), anchorPane);
+	            TitledPane pane = new TitledPane("Order #"+o.getOrder_num()+" From "+o.getSupplierName(), anchorPane);
 	            pane.getStyleClass().add("accordion_panel");
 	           
 	    		if(o.getIs_arrived()==1)

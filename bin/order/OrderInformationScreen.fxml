@@ -7,182 +7,141 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.OrderInformationController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.OrderInformationController">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" VBox.vgrow="ALWAYS">
          <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="168.0" prefWidth="1010.0">
+               <children>
+                  <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Supply Time:">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="hour_input" prefHeight="31.0" prefWidth="106.0" promptText="Supply Hour" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip fx:id="hour_tooltip" text="Time format: HH:MM" />
+                     </tooltip>
+                  </TextField>
+                  <DatePicker fx:id="date_input" editable="false" prefHeight="31.0" prefWidth="136.0" promptText="Supply Date" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip fx:id="date_tooltip" text="Choose valid date" />
+                     </tooltip>
+                  </DatePicker>
+               </children>
+            </HBox>
+            <GridPane fx:id="delivery_details" hgap="10.0" layoutX="137.0" layoutY="116.0" prefHeight="375.0" prefWidth="846.0" vgap="10.0" visible="false">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="498.0" minWidth="10.0" prefWidth="387.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="429.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="429.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="first_name_input" prefHeight="25.0" prefWidth="274.0" promptText="First Name" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.rowIndex="3">
+                     <tooltip>
+                        <Tooltip fx:id="first_tooltip" text="Enter first name, at least 2 chars" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="last_name_input" prefHeight="25.0" prefWidth="273.0" promptText="Last Name" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <tooltip>
+                        <Tooltip fx:id="last_tooltip" text="Enter last name, at least 2 chars" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="phone_input" prefHeight="25.0" prefWidth="275.0" promptText="Phone Number" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.rowIndex="4">
+                     <tooltip>
+                        <Tooltip fx:id="phone_tooltip" text="Enter phone number, Only digits" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="company_input" prefHeight="25.0" prefWidth="784.0" promptText="Company(Optional)" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                     <tooltip>
+                        <Tooltip fx:id="company_tooltip" text="Enter company name, at least 2 chars" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="street_input" prefHeight="25.0" prefWidth="591.0" promptText="Street" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                     <tooltip>
+                        <Tooltip fx:id="street_tooltip" text="Enter street name, at least 2 chars" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="city_input" prefHeight="25.0" prefWidth="289.0" promptText="City" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.rowIndex="7">
+                     <tooltip>
+                        <Tooltip fx:id="city_tooltip" text="Enter city name, at least 2 chars" />
+                     </tooltip>
+                  </TextField>
+                  <TextField fx:id="zip_input" promptText="Zip" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <tooltip>
+                        <Tooltip fx:id="zip_tooltip" text="Enter Zip code, Only digits" />
+                     </tooltip>
+                  </TextField>
+                  <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Delivery Address" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="private_btn" mnemonicParsing="false" selected="true" text="Private" GridPane.rowIndex="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="delivery_type" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Delivery Type" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <RadioButton fx:id="shared_btn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Shared" toggleGroup="$delivery_type" />
+                        <HBox fx:id="shared_options" alignment="TOP_RIGHT" disable="true" prefHeight="31.0" prefWidth="110.0">
                            <children>
-                              <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Supply Time:">
+                              <Button fx:id="minus_btn" mnemonicParsing="false" text="-">
                                  <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Label fx:id="people_cnt" text="1">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="hour_input" prefHeight="31.0" prefWidth="106.0" promptText="Supply Hour" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css">
+                              <Button fx:id="plus_btn" mnemonicParsing="false" text="+">
                                  <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <DatePicker fx:id="date_input" prefHeight="31.0" prefWidth="136.0" promptText="Supply Date" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </DatePicker>
-                              <Label fx:id="time_error" textFill="#ff0404" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="287.0" prefWidth="800.0">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <GridPane fx:id="delivery_details" hgap="10.0" prefHeight="295.0" prefWidth="344.0" vgap="10.0" visible="false">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <TextField fx:id="first_name_input" promptText="First Name" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.rowIndex="3">
-                                             <GridPane.margin>
-                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="last_name_input" promptText="Last Name" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="phone_input" promptText="Phone Number" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                                             <GridPane.margin>
-                                                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="company_input" prefHeight="31.0" prefWidth="392.0" promptText="Company(Optional)" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="street_input" prefHeight="31.0" prefWidth="392.0" promptText="Street" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="city_input" promptText="City" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.rowIndex="7">
-                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <TextField fx:id="zip_input" promptText="Zip" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </GridPane.margin>
-                                          </TextField>
-                                          <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Delivery Address" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                                          <RadioButton fx:id="private_btn" mnemonicParsing="false" selected="true" text="Private" GridPane.rowIndex="1">
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="delivery_type" />
-                                             </toggleGroup>
-                                          </RadioButton>
-                                          <RadioButton fx:id="robot_btn" mnemonicParsing="false" prefHeight="21.0" text="Robot - TBD" toggleGroup="$delivery_type" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                          <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Delivery Type" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <children>
-                                                <RadioButton fx:id="shared_btn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Shared" toggleGroup="$delivery_type" />
-                                                <HBox fx:id="shared_options" alignment="TOP_RIGHT" disable="true" prefHeight="31.0" prefWidth="110.0">
-                                                   <children>
-                                                      <Button fx:id="minus_btn" mnemonicParsing="false" text="-">
-                                                         <HBox.margin>
-                                                            <Insets right="5.0" />
-                                                         </HBox.margin>
-                                                      </Button>
-                                                      <Label fx:id="people_cnt" text="1">
-                                                         <HBox.margin>
-                                                            <Insets left="5.0" right="5.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <Button fx:id="plus_btn" mnemonicParsing="false" text="+">
-                                                         <HBox.margin>
-                                                            <Insets left="5.0" right="5.0" />
-                                                         </HBox.margin>
-                                                      </Button>
-                                                   </children>
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </HBox>
-                                             </children>
-                                             <GridPane.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </GridPane.margin>
-                                          </HBox>
-                                          <Label fx:id="phone_error" textFill="#f50000" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                                          <Label fx:id="company_error" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                                          <Label fx:id="street_error" textFill="#ff0202" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                             <children>
-                                                <Label fx:id="last_name_error" textFill="#f50202" />
-                                                <Label fx:id="first_name_error" textFill="#f80000" />
-                                             </children>
-                                          </HBox>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
-                                             <children>
-                                                <Label fx:id="city_error" textFill="RED" />
-                                                <Label fx:id="zip_error" textFill="RED" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </GridPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Back">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="continue_btn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#continueCheckout" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Continue With Checkout">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </HBox>
                      </children>
-                  </VBox>
-               </center>
-            </BorderPane>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </HBox>
+                  <RadioButton fx:id="robot_btn" disable="true" mnemonicParsing="false" text="Robot - TBD" toggleGroup="$delivery_type" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <Button fx:id="back_btn" layoutX="30.0" layoutY="593.0" mnemonicParsing="false" onAction="#back" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Back" />
+            <Button fx:id="continue_btn" layoutX="407.0" layoutY="512.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#continueCheckout" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Continue With Checkout" />
          </children>
-      </AnchorPane>
+      </Pane>
    </children>
 </VBox>

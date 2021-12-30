@@ -314,6 +314,8 @@ public class DBReportController {
 					        output.write(buffer);		        
 					  }
 					 out.setFile(temp);
+					 output.close();
+					 input.close();
 				 db.sendToClient(out,client);
 				 output.close();
 				 input.close();

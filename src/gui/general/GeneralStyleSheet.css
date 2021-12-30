@@ -4,6 +4,7 @@
     -fx-padding: 2px 5px;
     -fx-outline: 0;
 }
+
 .vbox-dish-options{
 	overflow:scroll;
 }
@@ -43,9 +44,16 @@
     -fx-background-color:#FFFFFF;
     -fx-background-radius: 100;
 }
-.text-box:error {
-  -fx-text-box-border: red ;
-  -fx-focus-color: red ;
+
+.error {
+  -fx-border-radius:100;
+  -fx-border-color:red;
+  -fx-border-width:2px;
+}
+.success {
+  -fx-border-radius:100;
+  -fx-border-color:green;
+  -fx-border-width:2px;
 }
 .transparent{
     -fx-background-color:#fff;
