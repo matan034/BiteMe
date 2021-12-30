@@ -183,36 +183,14 @@ public class OrderInformationController {
     	private_btn.setUserData("Private");
     	shared_btn.setUserData("Shared");
     	robot_btn.setUserData("Robot");
-//    	date_input.valueProperty().addListener((obs,oldValue, newValue)-> {
-//    	    if(newValue!=null)
-//    	    {
-//    	    	if(verifyDate())
-//    	    	{
-//    	    		if ( date_input.getStyleClass().contains("error")) {
-//   	    			 	date_input.getStyleClass().removeAll(Collections.singleton("error"));
-//    	    		}
-//    	    		 if (!  date_input.getEditor().getStyleClass().contains("success")) {
-//    	    			 date_input.getEditor().getStyleClass().add("success");
-//    	    		 }
-//    	    	}
-//    	    	else {
-//    	    		if (  date_input.getEditor().getStyleClass().contains("success")) {
-//    	    			 date_input.getEditor().getStyleClass().removeAll(Collections.singleton("success"));
-//    	    		}
-//    	    		if (!  date_input.getEditor().getStyleClass().contains("error")) {
-//   	    			 date_input.getEditor().getStyleClass().add("error");
-//   	    		 }
-//    	    	}
-//    	    }
-// 
-//    	});
+
     	createListener(date_input.getEditor(), new VerifyListener() {		
 			@Override
 			public boolean verify() {
 				return verifyDate();
 			}
 		});
-    	
+   	
     	createListener(hour_input,new VerifyListener() {
 			@Override
 			public boolean verify() {
@@ -282,9 +260,8 @@ public class OrderInformationController {
 
     private void createListener(TextField textfield,VerifyListener verify)
     {
-    
     	textfield.focusedProperty().addListener((obs,oldValue, newValue)-> {
-    		if(newValue)
+    		if(newValue)//here we get focus in textfield
     		{
     			if ( textfield.getStyleClass().contains("error")) {
 	    			textfield.getStyleClass().removeAll(Collections.singleton("error"));
@@ -293,7 +270,7 @@ public class OrderInformationController {
 	    			textfield.getStyleClass().removeAll(Collections.singleton("success"));
 	    		}
     		}
-    	    if(!newValue)
+    	    if(!newValue)//here we focused out
     	    {
     	    	if(verify.verify())
     	    	{
@@ -317,7 +294,6 @@ public class OrderInformationController {
     	});
     }
     
-   
     public boolean validate_input()
     {
     	int flag=0;
@@ -332,8 +308,7 @@ public class OrderInformationController {
         	if(!verifyCompany()) flag++;
         	if(!verifyStreet()) flag++;
         	if(!verifyCity()) flag++;
-        	if(!verifyZip()) flag++;
-    		
+        	if(!verifyZip()) flag++;	
     	}
     	if(flag==0)	return true;
     	return false;
@@ -365,7 +340,6 @@ public class OrderInformationController {
 	    	Globals.loadInsideFXML( Globals.paymentFXML);
     	}
     }
-    
   
 	@SuppressWarnings("deprecation")
 	private boolean checkIfEarlyOrder(String time,LocalDate date)
