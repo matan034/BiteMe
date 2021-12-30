@@ -59,7 +59,7 @@ public class ChooseSupplierController {
 	    
 	    @FXML
 	    void delivery(ActionEvent event) {
-	    	Globals.newOrder=new Order("Delivery",OrderClient.w4c_card,OrderClient.customer);
+	    	Globals.newOrder=new Order("Delivery",OrderClient.w4c_card,OrderClient.customer,OrderClient.paccount,OrderClient.baccount);
 	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	
@@ -68,7 +68,7 @@ public class ChooseSupplierController {
 
 	    @FXML
 	    void takeAway(ActionEvent event) {
-	    	Globals.newOrder=new Order("Take-Away",OrderClient.w4c_card,OrderClient.customer);//sent cutomer before
+	    	Globals.newOrder=new Order("Take-Away",OrderClient.w4c_card,OrderClient.customer,OrderClient.paccount,OrderClient.baccount);
 	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem());
 	    	

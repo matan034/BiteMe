@@ -18,6 +18,7 @@ public class Order implements Serializable{
 
 	
 	private W4C w4c;
+	
 
 	private ArrayList<String> dishesInOrder= new ArrayList<>();
 	public ArrayList<String> getDishesInOrder() {
@@ -34,6 +35,7 @@ public class Order implements Serializable{
 	private Customer customer;
 	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;
 	private Double price=0.0;
+	private String supplierName;
 	private Map<String,Integer> items_by_type=new HashMap<String,Integer>()
 	{{
 		 put("Appetizer",0);
@@ -44,22 +46,34 @@ public class Order implements Serializable{
 	}};
 	private ObservableList<DishInOrder> dishes=FXCollections.observableArrayList();
 	
-	public Order( String order_type,W4C w4c,Customer customer) {
+	public Order( String order_type,W4C w4c,Customer customer,PrivateAccount paccount,BusinessAccount baccount) {
 		this.order_type = order_type;
 		this.w4c=w4c;
 		this.customer=customer;
+		this.bAccount=baccount;
+		this.pAccount=paccount;
 	}
 
-	public Order(int order_num,String order_type,String order_time,int is_arrived)
+	public Order(int order_num,String order_type,String order_time,int isApproved,int is_arrived,String supplierName)
 	{
 		this.order_num = order_num;
 		this.order_type = order_type;
 		this.order_time = order_time;
 		this.is_arrived=is_arrived;
+		this.is_approved=isApproved;
+		this.supplierName=supplierName;
 		
 	}
 	public Order() {}
+	
+	
 
+	public String getSupplierName() {
+		return supplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
 	@Override
 	public String toString() {//check for customer
 		if(supplier!=null)

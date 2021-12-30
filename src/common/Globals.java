@@ -103,11 +103,11 @@ public class Globals {
 	 public static Order newOrder;
 
 	 public static int regular_delivery_fee=25,robot_delivery_fee=0;
-	 public static Map<String,Integer> delivery_fee=new HashMap<>() {{
+	 public static Map<String,Integer> delivery_fee=new HashMap<String,Integer>() {{
 		 put(regularDelivery,regular_delivery_fee);
 		 put(robotDelivery,robot_delivery_fee);
 	 }};
-	 public static Map<String,String> titles=new HashMap<>() {{
+	 public static Map<String,String> titles=new HashMap<String,String>() {{
 		 put(W4CLoginFXML,"W4C Login");
 		 put(ChooseSupplierFXML,"Restaurant");
 		 put(branch_menuFXML,"Menu");

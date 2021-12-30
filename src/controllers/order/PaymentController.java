@@ -66,8 +66,7 @@ public class PaymentController {
     private boolean approve;
     public void initialize()
     {
-    	StartClient.order.accept("Load private Account~"+Globals.newOrder.getW4c().getPrivateAccount());
-    	if(Globals.newOrder.getW4c().getBusinessAccount()!=0) StartClient.order.accept("Load business Account~"+Globals.newOrder.getW4c().getBusinessAccount());
+    	if(Globals.newOrder.getbAccount()==null) buisness_btn.setDisable(true);
     	payment_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     		
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -207,7 +206,10 @@ public class PaymentController {
 	        double orderPrice=Globals.newOrder.getPrice();
 			 if (payment_type.getSelectedToggle().equals(private_btn))
 			 {
-				 cont.setData("Your credit card Number: "+Globals.newOrder.getpAccount().getCreditCardNumber()+",\n Will be Charged by "+orderPrice+Globals.currency,approveListener);
+				 String number =Globals.newOrder.getpAccount().getCreditCardNumber();
+				 String mask = number.replaceAll("\\w(?=\\w{4})", "*");
+
+				 cont.setData("Your credit card Number: "+mask+",\n Will be Charged by "+orderPrice+Globals.currency,approveListener);
 				
 			 }
 			 if (payment_type.getSelectedToggle().equals(buisness_btn))

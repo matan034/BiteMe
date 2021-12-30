@@ -46,7 +46,7 @@ public class DBOrderController {
 	      preparedStmt.setInt (1,branch_id);
 	      preparedStmt.setInt (2,customer_num);
 	      preparedStmt.setString (3,supply_way);
-	      preparedStmt.setDouble(4,isEarlyOrder);
+	      preparedStmt.setDouble(4,price);
 	      preparedStmt.setInt (5,isEarlyOrder);
 	      preparedStmt.setString (6,requested_order_time);
 	      preparedStmt.execute();	
@@ -164,16 +164,20 @@ public class DBOrderController {
 	 		try {
 	 			stmt = myCon.createStatement();
 	 			rs = stmt.executeQuery(
-	 					"SELECT OrderID, SupplyWay,RequestOrderTime,IsArrived FROM biteme.order WHERE CustomerNumber="
-	 							+ res[1]);
+	 					"Select x.*,restaurant.Name\r\n"
+	 					+ "From (SELECT OrderID,ResturantNumber, SupplyWay,RequestOrderTime,IsApproved,IsArrived FROM biteme.order WHERE CustomerNumber="+ res[1]+") as x\r\n"
+	 					+ "Inner Join restaurant \r\n"
+	 					+ "On restaurant.Number=x.ResturantNumber");
 	 			ArrayList<String> myOrders = new ArrayList<>();
 	 			myOrders.add("load my orders");
 	 			while (rs.next()) {
 	 				int orderNum = rs.getInt(1);
-	 				String orderType = rs.getString(2);
-	 				String orderTime = rs.getString(3);
-	 				int isApproved = rs.getInt(4);
-	 				String temp = orderNum + "~" + orderType + "~" + orderTime + "~" + isApproved;
+	 				String orderType = rs.getString(3);
+	 				String orderTime = rs.getString(4);
+	 				int isApproved = rs.getInt(5);
+	 				int isArrived=rs.getInt(6);
+	 				String name=rs.getString(7);
+	 				String temp = orderNum + "~" + orderType + "~" + orderTime + "~" + isApproved + "~" + isArrived + "~"+ name;
 	 				myOrders.add(temp);
 	 			}
 
@@ -223,9 +227,9 @@ public class DBOrderController {
 		}
 	 	
 	 	/*
-		   * This method loads all w4c card numbers for simulation to the qr reader
+		   * This method loads w4c card number for a given customer for the qr simulation
 		   *
-		   * @param res  res[0]=W4C_load_list
+		   * @param res  res[0]=W4C_load_list res[1]=PrivateAccount/BusinessAccount res[2]=accountNum
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -236,8 +240,15 @@ public class DBOrderController {
 			ResultSet rs;
 			try {
 				stmt = myCon.createStatement();
-				rs = stmt.executeQuery("SELECT CardNum FROM biteme.w4c_cards");
-				while (rs.next()) {
+				if(res[1].equals("PrivateAccount"))
+				{
+					rs = stmt.executeQuery("SELECT CardNum FROM biteme.w4c_cards WHERE PrivateAccount="+res[2]);
+				}
+				else {
+					rs = stmt.executeQuery("SELECT CardNum FROM biteme.w4c_cards WHERE BuisinessAccount="+res[2]);
+				}
+				
+				if (rs.next()) {
 					result += "~" + rs.getString(1);
 
 				}
@@ -338,8 +349,8 @@ public class DBOrderController {
 			try {
 				stmt = myCon.createStatement();
 				flag = stmt.executeUpdate(String.format(
-						"INSERT INTO biteme.dishinorder (DishID, OrderNumber, Size, CookingLevel,Extras)  VALUES ('%d','%d', '%s', '%s','%s')",
-						Integer.parseInt(res[1]), Integer.parseInt(res[2]), res[3], res[4], res[5]));
+						"INSERT INTO biteme.dishinorder (OrderNumber,DishInOrder,DishID,Size, CookingLevel,Extras)  VALUES ('%d','%d','%d', '%s', '%s','%s')",
+						Integer.parseInt(res[1]), Integer.parseInt(res[2]),Integer.parseInt(res[3]), res[4], res[5], res[6]));
 				if (flag == 1)
 					db.sendToClient("Insert dishinorder~Inserted successfuly", client);
 				else
@@ -387,20 +398,22 @@ public class DBOrderController {
 			try {
 				stmt = myCon.createStatement();
 				rs = stmt.executeQuery(
-						"SELECT x.DishID,x.OrderNumber,x.Size,x.CookingLevel,x.Extras,dishes.DishName,dishes.Price\r\n"
-								+ "FROM (SELECT DishID,OrderNumber,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="
-								+ res[1] + ") as x\r\n" + "INNER JOIN dishes ON x.DishID=dishes.DishID;");
+						"SELECT x.OrderNumber,x.DishInOrder,x.DishID,x.Size,x.CookingLevel,x.Extras,dishes.DishName,dishes.Price\r\n"
+						+ "FROM (SELECT OrderNumber,DishInOrder,DishID,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="+res[1]+") as x\r\n"
+						+ "INNER JOIN dishes ON x.DishID=dishes.DishID;");
 				ArrayList<DishInOrder> myOrders = new ArrayList<>();
 
 				while (rs.next()) {
-					int dishNum = rs.getInt(1);
-					int orderNum = rs.getInt(2);
-					String size = rs.getString(3);
-					String cookinglvl = rs.getString(4);
-					String extras = rs.getString(5);
-					String dishName = rs.getString(6);
-					double dishPrice = rs.getDouble(7);
-					DishInOrder temp = new DishInOrder(size, cookinglvl, extras, dishName, dishNum, orderNum, dishPrice);
+					int orderNum = rs.getInt(1);
+					int dishinorder=rs.getInt(2);
+					int dishNum = rs.getInt(3);
+					
+					String size = rs.getString(4);
+					String cookinglvl = rs.getString(5);
+					String extras = rs.getString(6);
+					String dishName = rs.getString(7);
+					double dishPrice = rs.getDouble(8);
+					DishInOrder temp = new DishInOrder(size, cookinglvl, extras, dishName, dishNum, orderNum, dishPrice,dishinorder);
 					myOrders.add(temp);
 				}
 

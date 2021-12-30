@@ -53,7 +53,7 @@ public class OrderClient extends AbstractClient {
 	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
-	public static Order found_order = new Order(null,null,null);
+	public static Order found_order = new Order(null,null,null,null,null);
 	
 	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
 	public static ArrayList<Customer> branch_customers=new ArrayList<>();
@@ -68,6 +68,8 @@ public class OrderClient extends AbstractClient {
 	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg,orderAmount;
 	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
 	public static Account account =new Account(null,null,null,null,null);
+	public static PrivateAccount paccount;
+	public static BusinessAccount baccount;
 	public int branchID;
 	public static File loaded_file;
 
@@ -285,12 +287,12 @@ public class OrderClient extends AbstractClient {
 				w4cVerify(res);
 				break;
 			case "private account load":
-				PrivateAccount paccount =new PrivateAccount(res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[1]),res[7]) ;
-				Globals.newOrder.setpAccount(paccount);
+				paccount =new PrivateAccount(res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[1]),res[7]) ;
+				//Globals.newOrder.setpAccount(paccount);
 				break;
 			case "business account load":
-				BusinessAccount baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Integer.parseInt(res[8]),Integer.parseInt(res[9]),res[10]) ;
-				Globals.newOrder.setbAccount(baccount);
+				 baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Integer.parseInt(res[8]),Integer.parseInt(res[9]),res[10]) ;
+				//Globals.newOrder.setbAccount(baccount);
 				break;
 			case "Customer load"://maybe delete
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
@@ -303,6 +305,7 @@ public class OrderClient extends AbstractClient {
 				break;
 				
 			case "W4C_load_list":
+				w4cList.clear();
 				w4cList(res);
 				break;
 
@@ -414,7 +417,7 @@ public class OrderClient extends AbstractClient {
 		  for(String order:myOrders)
 		  {
 			  String[]temp=order.split("~");
-			  this.myOrders.add(new Order(Integer.parseInt(temp[0]),temp[1],temp[2],Integer.parseInt(temp[3])));
+			  this.myOrders.add(new Order(Integer.parseInt(temp[0]),temp[1],temp[2],Integer.parseInt(temp[3]),Integer.parseInt(temp[4]),temp[5]));
 			
 		  }
 	  }

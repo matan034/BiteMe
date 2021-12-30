@@ -151,6 +151,8 @@ public class BranchMenuController {
 	    				
 	             }
 	         });
+			
+			cart_count.setText(Integer.toString(Globals.newOrder.getDishes().size()));
 
 	    }
 	    private void setChosenDish(Dish dish) {
@@ -235,10 +237,12 @@ public class BranchMenuController {
 	    		currentLvl=r.getSelectionModel().selectedItemProperty().get();
 	    	if(selected_dish.getChooseExtras()==1)
 	    		extras=extra_input.getText();
-	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice());    	
+	    	int dishInOrderNumber=Globals.newOrder.getDishes().size()+1;
+	    	dish=new DishInOrder(currentSize, currentLvl,extras ,selected_dish.getName(), selected_dish.getDishID(), 0,selected_dish.getPrice(),dishInOrderNumber);    	
 	    	Globals.newOrder.addQuantity(selected_dish.getType());
 	    	Globals.newOrder.addDish(dish);
 	    	green_v_img.setVisible(true);
+	    	
 	    	PauseTransition pause = new PauseTransition(Duration.seconds(1));
 	    	pause.setOnFinished(e -> green_v_img.setVisible(false));
 	    	pause.play();

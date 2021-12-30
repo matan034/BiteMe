@@ -38,9 +38,9 @@
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_RIGHT">
                <children>
                   <HBox fx:id="menu_categories" alignment="CENTER" layoutY="-4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="-4.0" />
-                  <HBox alignment="TOP_RIGHT" layoutX="939.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="939.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="TOP_RIGHT" layoutX="928.0" prefHeight="50.0" prefWidth="68.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="928.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="cart_count" stylesheets="@../general/GeneralStyleSheet.css" text="0">
+                        <Label fx:id="cart_count" prefHeight="17.0" prefWidth="27.0" stylesheets="@../general/GeneralStyleSheet.css" text="0">
                            <styleClass>
                               <String fx:value="lbl" />
                               <String fx:value="span" />

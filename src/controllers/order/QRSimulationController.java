@@ -3,6 +3,7 @@ package order;
 
 import clients.OrderClient;
 import clients.StartClient;
+import common.Globals;
 import general.MyListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,9 @@ public class QRSimulationController {
     private MyListener listener;
     public void initialize()
     {
-    	String msg="W4C_load_list";
+    	String msg="W4C_load_list~";
+    	if(OrderClient.customer.getpAccount()!=0) msg+="PrivateAccount~"+OrderClient.customer.getpAccount();
+    	else msg+="BusinessAccount~"+OrderClient.customer.getbAccount();
     	StartClient.order.accept(msg);
     	w4c_cards.setItems(OrderClient.w4cList);
     	insert_btn.setDisable(true);

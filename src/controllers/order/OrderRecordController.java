@@ -39,7 +39,7 @@ public class OrderRecordController {
     	
     	for(DishInOrder dish: Globals.order_dishes)
     	{
-    		Label dish_details=new Label(dish.getDish_name()+" "+dish.getSize()+" "+dish.getCooking_lvl()+" "+dish.getExtras()+" "+dish.getPrice()+Globals.currency);
+    		Label dish_details=new Label(dish.getDishInOrderNum()+" "+dish.getDish_name()+" "+dish.getSize()+" "+dish.getCooking_lvl()+" "+dish.getExtras()+" "+dish.getPrice()+Globals.currency);
     		dishes_vbox.getChildren().add(dish_details);
     	}
     	this.approveOrder=approveOrder;
