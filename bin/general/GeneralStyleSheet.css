@@ -69,8 +69,13 @@
 
 .lbl{
 	-fx-font-weight:bold;
-	-fx-font-size:12px;
-	-fx-font-family:'sans-sarif'
+	-fx-font-size:13px;
+	-fx-font-family:'Levenim MT'
+}
+
+.lblWitoutSize{
+	-fx-font-weight:bold;
+	-fx-font-family:'Levenim MT'
 }
 
 .cart-img{
@@ -94,8 +99,12 @@
 }
 
 .comboBox{
-    -fx-background-color: #FFFAF0;
+    -fx-background-color: #FFFF;
     -fx-background-radius: 30;
+    -fx-border-radius:30;
+    -fx-border-color: #F7C665;
+    -fx-border-width:2px;
+
 }
 
 .add-btn{
@@ -144,6 +153,28 @@
   -fx-border-radius:50;
 }
 .ViewBtn:hover {
+  -fx-background-color: #fff;
+}
+
+
+
+.ViewBtnOrange {
+  -fx-background-color: #F7C665;
+  -fx-box-sizing: border-box;
+  -fx-cursor: pointer;
+  -fx-display: inline-block;
+  -fx-font-weight: 600;
+  -fx-line-height: 1;
+  -fx-text-align: center;
+  -fx-text-decoration-thickness: auto;
+  -fx-transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  -fx-user-select: none;
+  -fx-border-color:#E6E1D6;
+  -fx-touch-action: manipulation;
+  -fx-background-radius:50;
+  -fx-border-radius:50;
+}
+.ViewBtnOrange:hover {
   -fx-background-color: #fff;
 }
 

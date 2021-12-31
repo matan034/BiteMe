@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.CartController">
    <children>
@@ -20,21 +21,30 @@
                   </HBox>
                   <HBox minHeight="-Infinity" minWidth="-Infinity">
                      <children>
-                        <Label styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Total Price: ">
+                        <Label stylesheets="@../general/GeneralStyleSheet.css" text="Total Price: ">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="Levenim MT Bold" size="13.0" />
+                           </font>
                         </Label>
-                        <Label fx:id="total_price_label" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="price">
+                        <Label fx:id="total_price_label" stylesheets="@../general/GeneralStyleSheet.css" text="price">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="Levenim MT Bold" size="13.0" />
+                           </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
                      <children>
-                        <Button fx:id="checkout_btn" mnemonicParsing="false" onAction="#checkout" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Checkout" />
+                        <Button fx:id="checkout_btn" mnemonicParsing="false" onAction="#checkout" styleClass="ViewBtnOrange" stylesheets="@../general/GeneralStyleSheet.css" text="Checkout">
+                           <font>
+                              <Font name="Levenim MT" size="13.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>
