@@ -380,19 +380,23 @@ public class OrderInformationController {
     		} 
     		else 
     		{
-    			if(!date_input.getEditor().getText().equals(""))
+    			if(date_input.getEditor().getText().equals(""))
     			{
     				hour_tooltip.setText("Please select date");
-    				if(isToday() && isEarlyFromNow()) {
-    					hour_tooltip.setText("Hour can't be in the past");       		
-    				}
+        			return false;
+    			}
+    			if(isToday() && isEarlyFromNow()) {
+    				hour_tooltip.setText("Hour can't be in the past");    
     				return false;
     			}
+    				
+    			}
+    			
     		}
     		hour_tooltip.setText("");
     		return true;
     	}
-	}
+	
 	private boolean verifyFirstName()
 	{
 		if(first_name_input.getText().equals("")) {

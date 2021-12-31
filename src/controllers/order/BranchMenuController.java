@@ -5,13 +5,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-
+import javafx.concurrent.WorkerStateEvent;
 import java.util.ArrayList;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import clients.OrderClient;
+import clients.StartClient;
 import common.Globals;
 import entity.Dish;
 import entity.DishInOrder;
@@ -31,12 +32,14 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -86,8 +89,11 @@ public class BranchMenuController {
 
 
 	    @FXML
+	    private BorderPane borderPane;
+	    @FXML
 	    private HBox menu_categories;
-	    
+	    @FXML
+	    private ProgressIndicator pi;
 	    private MyListener menuListener;
 	    private String currentSize,currentLvl,extras;
 	    private ToggleGroup sizes=new ToggleGroup();
@@ -128,38 +134,61 @@ public class BranchMenuController {
 	    
 	    public void initialize()
 	    {
-	    	appetizer_btn=defineButton("Appetizer");
-	    	salad_btn=defineButton("Salad");
-	    	main_dish_btn=defineButton("Main");
-	    	dessert_btn=defineButton("Dessert");
-	    	drinks_btn=defineButton("Drink");
-	    	menuListener = new MyListener() {
-	    		   @Override
-	                public void onClickListener(Object dish) {
-	                    setChosenDish((DishInRestaurant)dish);
-	                }  
-			};
-			loadPics();
-			checkDishes();
-			
-			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
-	    		@Override
-		    	 public void onChanged(ListChangeListener.Change<? extends DishInOrder> c) {
-	    		
-	    				int item_cnt=Globals.newOrder.getDishes().size();
-	    				if(item_cnt==0) 
-	    				{
-	    					cart_vbox.getChildren().clear();
-	    					
-	    				}
-	    				
-	    				cart_count.setText(Integer.toString(item_cnt));
-	    				
-	             }
-	         });
-			
-			cart_count.setText(Integer.toString(Globals.newOrder.getDishes().size()));
+	    	borderPane.setDisable(true);
+	    	StartClient.order.accept("Load_dishes~"+Globals.newOrder.getSupplier().getSupplierNum());
+	    	final GetDishesService serviceExample = new GetDishesService();
 
+	        //Here you tell your progress indicator is visible only when the service is runing
+	        pi.visibleProperty().bind(serviceExample.runningProperty());
+	        pi.progressProperty().bind(serviceExample.progressProperty());
+	        borderPane.setStyle( "-fx-background-color: rgba(0, 0, 0, 0.4)");
+	        serviceExample.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	            @Override
+	            public void handle(WorkerStateEvent workerStateEvent) {
+	            	borderPane.setDisable(false);
+	            	 borderPane.setStyle( "-fx-background-color: white");
+	    	    	appetizer_btn=defineButton("Appetizer");
+	    	    	salad_btn=defineButton("Salad");
+	    	    	main_dish_btn=defineButton("Main");
+	    	    	dessert_btn=defineButton("Dessert");
+	    	    	drinks_btn=defineButton("Drink");
+	    	    	menuListener = new MyListener() {
+	    	    		   @Override
+	    	                public void onClickListener(Object dish) {
+	    	                    setChosenDish((DishInRestaurant)dish);
+	    	                }  
+	    			};
+	    			//loadPics();
+	    			checkDishes();
+	    			
+	    			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
+	    	    		@Override
+	    		    	 public void onChanged(ListChangeListener.Change<? extends DishInOrder> c) {
+	    	    		
+	    	    				int item_cnt=Globals.newOrder.getDishes().size();
+	    	    				if(item_cnt==0) 
+	    	    				{
+	    	    					cart_vbox.getChildren().clear();
+	    	    					
+	    	    				}
+	    	    				
+	    	    				cart_count.setText(Integer.toString(item_cnt));
+	    	    				
+	    	             }
+	    	         });
+	    			
+	    			cart_count.setText(Integer.toString(Globals.newOrder.getDishes().size()));
+	            }
+	        });
+
+	        serviceExample.setOnFailed(new EventHandler<WorkerStateEvent>() {
+	            @Override
+	            public void handle(WorkerStateEvent workerStateEvent) {
+	                //DO stuff on failed
+	            }
+	        });
+	        serviceExample.restart(); //here you start your service
+	        
 	    }
 	    private void setChosenDish(DishInRestaurant dish) {
 	    	add_btn.setDisable(false);
@@ -370,23 +399,23 @@ public class BranchMenuController {
                 }});
 			return temp;
 		}
-		public void loadPics()
-		{
-			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
-			 {
-				 for(DishInRestaurant dish:entry.getValue())
-				 {
-					 try {
-					 ByteArrayInputStream bis = new ByteArrayInputStream(dish.getMyImagebytearray());
-						BufferedImage bi = ImageIO.read(bis);
-						File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+dish.getImageName());
-						String suffix=dish.getImageName().split("\\.")[1];
-						ImageIO.write(bi, suffix, out); 
-					 } catch (Exception e) {
-						
-					}
-				 }
-			 }
-		}
+//		public void loadPics()
+//		{
+//			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
+//			 {
+//				 for(DishInRestaurant dish:entry.getValue())
+//				 {
+//					 try {
+//					 ByteArrayInputStream bis = new ByteArrayInputStream(dish.getMyImagebytearray());
+//						BufferedImage bi = ImageIO.read(bis);
+//						File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+dish.getImageName());
+//						String suffix=dish.getImageName().split("\\.")[1];
+//						ImageIO.write(bi, suffix, out); 
+//					 } catch (Exception e) {
+//						
+//					}
+//				 }
+//			 }
+//		}
 }
 
