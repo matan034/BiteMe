@@ -426,6 +426,8 @@ public class IndexControllerD {
             
        case "Base User":
     	   
+    	   comboBoxBranch.setVisible(false);
+    	   
     	   Button baseUseription1= new Button ("Log out");
     	   
     	   options_grid1.add(baseUseription1,0,8);
