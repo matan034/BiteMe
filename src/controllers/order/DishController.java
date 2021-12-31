@@ -1,7 +1,14 @@
 package order;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import common.Globals;
 import entity.Dish;
+import entity.DishInRestaurant;
 import general.MyListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,16 +36,19 @@ public class DishController {
         myListener.onClickListener(d);
     }
 
-    private Dish d;
+    private DishInRestaurant d;
     private MyListener myListener;
 
-    public void setData(Dish d,MyListener menuListener)
+    public void setData(DishInRestaurant d,MyListener menuListener)
     {
     	this.d=d;
     	this.myListener=menuListener;
     	dish_name_label.setText(d.getName());
     	dish_price_label.setText(d.getPrice()+Globals.currency);
-    	Image image = new Image(getClass().getResourceAsStream(d.getImgSrc()));
-        img.setImage(image);
+    	Image image = new Image(getClass().getResourceAsStream("/dishPics/"+d.getImageName()));
+		//Image image = new Image("..\\BiteMe\\src\\gui\\dishPics\\"+d.getImageName());
+		this.img.setImage(image);    
+		       
+    	
     }
 }

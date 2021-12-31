@@ -28,118 +28,68 @@ import javafx.scene.layout.VBox;
 
 public class OrderInformationController {
 
-	
-
     @FXML
     private TextField hour_input;
-
     @FXML
     private Tooltip hour_tooltip;
-
     @FXML
     private DatePicker date_input;
-
     @FXML
     private Tooltip date_tooltip;
-
-
-
     @FXML
     private Tooltip first_tooltip;
-
- 
     @FXML
     private Tooltip last_tooltip;
-
-    
-
     @FXML
     private Tooltip phone_tooltip;
-
-   
-
     @FXML
     private Tooltip company_tooltip;
-
-
-
     @FXML
     private Tooltip street_tooltip;
-
-
-
     @FXML
     private Tooltip city_tooltip;
-
- 
-
     @FXML
     private Tooltip zip_tooltip;
-
-
     @FXML
     private VBox order_summary;
-
     @FXML
     private Pane delivery_pane;
-
-
-
     @FXML
     private Button continue_btn;
-
     @FXML
     private Button back_btn;
-
     @FXML
     private GridPane delivery_details;
-
     @FXML
     private TextField first_name_input;
-
     @FXML
     private TextField last_name_input;
-
     @FXML
     private TextField phone_input;
-
     @FXML
     private TextField company_input;
-
     @FXML
     private TextField street_input;
-
     @FXML
     private TextField city_input;
-
     @FXML
     private TextField zip_input;
-
     @FXML
     private RadioButton private_btn;
-
     @FXML
     private ToggleGroup delivery_type;
-
     @FXML
     private RadioButton shared_btn;
-
     @FXML
     private RadioButton robot_btn;
-    
     @FXML
     private Label people_cnt;
-
     @FXML
     private Button plus_btn;
-
     @FXML
     private Button minus_btn;
-
     @FXML
     private HBox shared_options;
-    
-
     
     private Pattern time=Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
@@ -167,10 +117,8 @@ public class OrderInformationController {
 				int temp=Integer.parseInt(people_cnt.getText());
 				if((mul==-1&& temp>1)|| mul==1)
 					temp+=1*mul;
-				people_cnt.setText(Integer.toString(temp));
-				
+				people_cnt.setText(Integer.toString(temp));				
 			}
-    		
     	}
     	
     	plus_btn.setOnAction(new peopleCounter(1));
@@ -178,6 +126,32 @@ public class OrderInformationController {
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
     		delivery_details.setVisible(true);
+    		if(Globals.newOrder.getRecieving_name()!=null)
+    		{
+    			String[] split_name=Globals.newOrder.getRecieving_name().split(" ");
+    			first_name_input.setText(split_name[0]);
+    			last_name_input.setText(split_name[1]);
+    		}
+    		if(Globals.newOrder.getPhone()!=null)
+    		{
+    			phone_input.setText(Globals.newOrder.getPhone());
+    		}
+    		if(Globals.newOrder.getBuisness_name()!=null)
+    		{
+    			company_input.setText(Globals.newOrder.getBuisness_name());
+    		}
+    		if(Globals.newOrder.getStreet()!=null)
+    		{
+    			street_input.setText(Globals.newOrder.getStreet());
+    		}
+    		if(Globals.newOrder.getCity()!=null)
+    		{
+    			city_input.setText(Globals.newOrder.getCity());
+    		}
+    		if(Globals.newOrder.getZip()!=null)
+    		{
+    			zip_input.setText(Globals.newOrder.getZip());
+    		}
     	}
     	robot_btn.setDisable(true);
     	private_btn.setUserData("Private");
@@ -384,6 +358,7 @@ public class OrderInformationController {
     		date_tooltip.setText("Cant select past date");
     		return false;
     	}
+    	date_tooltip.setText("");
     	return true;
 	}
 	private boolean verifyHour()
@@ -398,6 +373,7 @@ public class OrderInformationController {
     		hour_tooltip.setText("Hour must be in hh:mm format");
     		return false;
     	}
+		hour_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyFirstName()
@@ -411,6 +387,7 @@ public class OrderInformationController {
 			first_tooltip.setText("First name must contain only abc chars");
     		return false;
     	}
+		first_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyLastName()
@@ -424,6 +401,7 @@ public class OrderInformationController {
 			last_tooltip.setText("Last name must contain only abc chars");
     		return false;
     	}
+		last_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyPhone()
@@ -437,6 +415,7 @@ public class OrderInformationController {
 			phone_tooltip.setText("Phone must contain only 10 numbers");
 	    	return false;
     	}
+		phone_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyCompany()
@@ -456,6 +435,7 @@ public class OrderInformationController {
     			return false;
         	}
     	}
+		company_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyStreet()
@@ -470,6 +450,7 @@ public class OrderInformationController {
     		street_tooltip.setText("Street name must contain at least 2 chars and less than 40");
 			return false;
 		}
+		street_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyCity()
@@ -483,6 +464,7 @@ public class OrderInformationController {
     		city_tooltip.setText("City name must contain at least 2 chars and less than 40");
 			return false;
 		}
+		city_tooltip.setText("");
 		return true;
 	}
 	private boolean verifyZip()
@@ -496,6 +478,7 @@ public class OrderInformationController {
     		zip_tooltip.setText("Zip must contain 7 numbers");
 			return false;
 		}
+		zip_tooltip.setText("");
 		return true;
 	}
 	

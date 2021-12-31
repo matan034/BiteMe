@@ -40,7 +40,7 @@ public class Globals {
 	
 	
 	public static IndexControllerD index_controller;
-	
+	public static double companyCommission=0.12;
 	public static String currency="₪";
 	public static String insertFXML="/order/InsertScreen.fxml",
 			searchFXML="/order/SearchScreen.fxml",
@@ -80,13 +80,15 @@ public class Globals {
 		    income_reportFXML = "/report/IncomeReport.fxml",
 			menuFXML="/menu/menu.fxml",
 			dishFXML="/menu/Dishes.fxml",
-			AddNewDishFxml="/menu/AddNewDish.fxml",
 			createMenu="/menu/createMenu.fxml",
 			viewMenu="/menu/ViewMyMenus.fxml",
 			viewDishes="/menu/ViewMyDishes.fxml",
 			regRestaurant="/branch_manager/RegisterRestaurant.fxml",
 			quarterlyHistogram="/report/QuarterlyHistogramScreen.fxml",
-			viewPdf="/report/ViewPdfScreen.fxml";
+			viewPdf="/report/ViewPdfScreen.fxml",
+			intakeReport="/report/IntakeReportScreen.fxml",
+			addDish="/menu/AddDishScreen.fxml",
+			addDishToRest="/menu/AddDishToRestaurant.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};

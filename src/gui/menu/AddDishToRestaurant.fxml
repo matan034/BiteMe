@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.AddDishToRestaurantController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
+         <children>
+            <TextField fx:id="priceText" layoutX="286.0" layoutY="190.0" prefHeight="26.0" prefWidth="320.0" promptText="Dish Price" />
+            <TextField fx:id="ImegeName" layoutX="286.0" layoutY="238.0" prefHeight="26.0" prefWidth="214.0" promptText="Image Name" />
+            <Button fx:id="ChooseImage" layoutX="500.0" layoutY="239.0" mnemonicParsing="false" onAction="#ChooseImage" text="Choose Image" />
+            <CheckBox fx:id="addDirectllyToMenu" layoutX="275.0" layoutY="396.0" mnemonicParsing="false" text="Add dish to menu" />
+            <CheckBox fx:id="hasMultipleSizes" layoutX="274.0" layoutY="434.0" mnemonicParsing="false" text="Dish has multiple sizes" />
+            <CheckBox fx:id="hasMultipleCockingLvls" layoutX="274.0" layoutY="469.0" mnemonicParsing="false" text="Dish has multiple cocking levels" />
+            <CheckBox fx:id="canAddExtras" layoutX="274.0" layoutY="508.0" mnemonicParsing="false" text="Customer can add extras" />
+            <Label fx:id="fileChooserMessage" layoutX="275.0" layoutY="360.0" prefHeight="18.0" prefWidth="455.0" text="Label" />
+            <Button fx:id="add_btn" layoutX="265.0" layoutY="585.0" mnemonicParsing="false" onAction="#addDishToRest" text="Save" />
+            <Button fx:id="addAnotherDishBttn" layoutX="628.0" layoutY="585.0" mnemonicParsing="false" onAction="#AddAnotherDish" text="Add Anthor Dish" />
+            <Label fx:id="message" layoutX="276.0" layoutY="554.0" prefHeight="18.0" prefWidth="455.0" text="Label" />
+            <ComboBox fx:id="dish_cmb" layoutX="286.0" layoutY="142.0" prefWidth="150.0" promptText="Dish" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

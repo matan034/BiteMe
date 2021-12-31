@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.IntakeReportController">
+   <children>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ComboBox fx:id="year_cmb" layoutX="71.0" layoutY="204.0" prefWidth="150.0" promptText="Year" styleClass="comboBox" />
+            <ComboBox fx:id="month_cmb" layoutX="71.0" layoutY="260.0" prefWidth="150.0" promptText="Month" styleClass="comboBox" />
+            <Button fx:id="view_btn" layoutX="120.0" layoutY="325.0" mnemonicParsing="false" onAction="#viewBill" styleClass="ViewBtn" text="View" />
+            <TableView fx:id="payment_tbl" layoutX="307.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+              <columns>
+                <TableColumn fx:id="orderCol" prefWidth="123.0" text="Order" />
+                <TableColumn fx:id="priceCol" prefWidth="103.0" text="Price" />
+                  <TableColumn fx:id="commissionCol" prefWidth="105.0" text="Commission" />
+                  <TableColumn fx:id="paymentCol" prefWidth="141.0" text="Payment" />
+              </columns>
+            </TableView>
+            <Label layoutX="814.0" layoutY="131.0" styleClass="lbl" text="Total Payment:" />
+            <Label layoutX="814.0" layoutY="187.0" styleClass="lbl" text="Commission Charged:" />
+            <Label fx:id="total_payment" layoutX="814.0" layoutY="158.0" />
+            <Label fx:id="total_commission" layoutX="821.0" layoutY="221.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

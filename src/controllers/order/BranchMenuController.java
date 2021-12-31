@@ -1,15 +1,21 @@
 package order;
 
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 import clients.OrderClient;
 import common.Globals;
 import entity.Dish;
 import entity.DishInOrder;
+import entity.DishInRestaurant;
 import general.MyListener;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
@@ -86,7 +92,7 @@ public class BranchMenuController {
 	    private String currentSize,currentLvl,extras;
 	    private ToggleGroup sizes=new ToggleGroup();
 	    private TextField extra_input=new TextField();
-	    private Dish selected_dish;
+	    private DishInRestaurant selected_dish;
 	    private Button appetizer_btn,salad_btn,main_dish_btn,dessert_btn,drinks_btn;
 
 	    ComboBox<String> r=new ComboBox<>();
@@ -127,13 +133,13 @@ public class BranchMenuController {
 	    	main_dish_btn=defineButton("Main");
 	    	dessert_btn=defineButton("Dessert");
 	    	drinks_btn=defineButton("Drink");
-	    	//add_btn.setDisable(true);
 	    	menuListener = new MyListener() {
 	    		   @Override
 	                public void onClickListener(Object dish) {
-	                    setChosenDish((Dish)dish);
+	                    setChosenDish((DishInRestaurant)dish);
 	                }  
 			};
+			loadPics();
 			checkDishes();
 			
 			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
@@ -155,12 +161,12 @@ public class BranchMenuController {
 			cart_count.setText(Integer.toString(Globals.newOrder.getDishes().size()));
 
 	    }
-	    private void setChosenDish(Dish dish) {
+	    private void setChosenDish(DishInRestaurant dish) {
 	    	add_btn.setDisable(false);
 	    	selected_dish=dish;
 	        selected_dish_name.setText(dish.getName());
 	        selected_dish_price.setText(dish.getPrice()+Globals.currency);
-	        Image image = new Image(getClass().getResourceAsStream(dish.getImgSrc()));
+	        Image image = new Image(getClass().getResourceAsStream("/dishPics/"+selected_dish.getImageName()));
 	        selected_dish_img.setImage(image);
 	        dish_options_vbox.getChildren().clear();
 	        if(dish.getChooseSize()==1)
@@ -267,7 +273,7 @@ public class BranchMenuController {
 	    			row+=1;
 	    			col=0;
 	    		}
-	    		Dish current=OrderClient.branch_menu.get(type).get(i);
+	    		DishInRestaurant current=OrderClient.branch_menu.get(type).get(i);
 	    		FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/order/Dish.fxml"));
                 VBox anchorPane;
@@ -323,7 +329,7 @@ public class BranchMenuController {
 		void checkDishes()
 		{
 			String first="";
-			 for (Map.Entry<String,ArrayList<Dish>> entry : OrderClient.branch_menu.entrySet())
+			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
 			 {
 		           if(!entry.getValue().isEmpty())
 		           {
@@ -364,6 +370,23 @@ public class BranchMenuController {
                 }});
 			return temp;
 		}
-
+		public void loadPics()
+		{
+			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
+			 {
+				 for(DishInRestaurant dish:entry.getValue())
+				 {
+					 try {
+					 ByteArrayInputStream bis = new ByteArrayInputStream(dish.getMyImagebytearray());
+						BufferedImage bi = ImageIO.read(bis);
+						File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+dish.getImageName());
+						String suffix=dish.getImageName().split("\\.")[1];
+						ImageIO.write(bi, suffix, out); 
+					 } catch (Exception e) {
+						
+					}
+				 }
+			 }
+		}
 }
 

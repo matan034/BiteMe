@@ -17,6 +17,7 @@ import java.util.Date;
 
 import clients.OrderClient;
 import common.Globals;
+import entity.IntakeOrder;
 import entity.MyFile;
 import ocsf.server.ConnectionToClient;
 
@@ -330,7 +331,32 @@ public class DBReportController {
 			}
 			  }
 		
+		protected void getSupplierIntake(String[] res,ConnectionToClient  client,Connection myCon,DBController db) {
+			 Statement stmt;
+			  ArrayList<IntakeOrder> orders=new ArrayList<IntakeOrder>();
+			  ResultSet rs;
+			  try {
+				  stmt = myCon.createStatement();
+				  rs = stmt.executeQuery("SELECT OrderID,Price,RequestOrderTime FROM biteme.order Where ResturantNumber="+res[1]);
+				  while(rs.next())
+				  {
+					  String [] temp=rs.getString(3).split("-");
+					  //temp[1]=month from db,res[3]=month from user
+					  //temp[0].split(" ")[1]=year from db, res[2]= year from user
+					  if(temp[1].equals(res[3])&&temp[0].split(" ")[1].equals(res[2]))
+					  {
+						  orders.add(new IntakeOrder(rs.getInt(1), rs.getDouble(2)));
+					  }	
+				  }
+				  db.sendToClient(orders, client);
+			  }
+			  catch (Exception e) {
+				  db.sendToClient(e, client);
+			}
 		}
+			
+		
+}
 		 	 
 
 

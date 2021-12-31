@@ -398,6 +398,34 @@ public class DBUserController {
 		}
 	}
 	
+	protected void loadSupplier(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
+		Statement stmt;
+		ResultSet rs;
+
+		try {
+			stmt = myCon.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM biteme.restaurant WHERE Manager = "+res[1]);
+			Supplier supplier=null;
+			while (rs.next()) {
+				int supplierNum = rs.getInt(1);
+				int branchNum = rs.getInt(2);
+				int isApproved = rs.getInt(3);
+				String name = rs.getString(4);
+				String address = rs.getString(5);
+				String city = rs.getString(6);
+				String type = rs.getString(7);
+				String manager = rs.getString(8);
+				supplier=new Supplier(supplierNum, branchNum, isApproved, name, address, city, type, manager);
+			}
+
+			db.sendToClient(supplier, client);
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			db.sendToClient(e, client);
+		}
+	}
+	
 	/**
 	Func for getting loading all business accounts that need to be approved
 	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_business_account"

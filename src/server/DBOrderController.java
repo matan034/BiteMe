@@ -1,5 +1,6 @@
 package server;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.util.Date;
 import entity.Branch;
 import entity.Dish;
 import entity.DishInOrder;
+import entity.DishInRestaurant;
 import ocsf.server.ConnectionToClient;
 
 public class DBOrderController {
@@ -272,31 +274,44 @@ public class DBOrderController {
 
 			Statement stmt;
 			ResultSet rs;
-			ArrayList<Dish> dishes = new ArrayList<>();
+			ArrayList<DishInRestaurant> dishes = new ArrayList<>();
 			try {
 				stmt = myCon.createStatement();
-				rs = stmt.executeQuery("SELECT *\r\n" + "FROM biteme.dishes\r\n" + "INNER JOIN \r\n" + "(\r\n"
-						+ "SELECT DishID FROM biteme.dishinmenu WHERE MenuID=\r\n"
-						+ "(SELECT MenuID FROM biteme.menu WHERE RestaurantNum=\r\n"
-						+ "(SELECT Number FROM biteme.restaurant WHERE Name=\"" + res[1] + "\"))\r\n" + ") as x\r\n"
-						+ " ON biteme.dishes.dishID=x.DishID");
+				rs = stmt.executeQuery("Select dishes_without_name.*,dishes.DishName,dishes.DishType\r\n"
+						+ "From\r\n"
+						+ "(Select dishinrestaurant.*\r\n"
+						+ "From\r\n"
+						+ "(Select DishID\r\n"
+						+ "From dishinmenu\r\n"
+						+ "Where MenuID=(SELECT MenuID FROM biteme.menu WHERE RestaurantNum="+res[1]+" ) ) as x\r\n"
+						+ "Inner join dishinrestaurant\r\n"
+						+ "on dishinrestaurant.DishId=x.DishID\r\n"
+						+ "Where restaurantNumber="+res[1]+")  as dishes_without_name\r\n"
+						+ "Inner Join dishes\r\n"
+						+ "On dishes.DishID=dishes_without_name.DishID");
 
 				while (rs.next()) {
-
-					int dishID = rs.getInt(1);
-					String DishName = rs.getString(2);
-					String DishType = rs.getString(3);
-					Double price = rs.getDouble(4);
-					int chooseSize = rs.getInt(5);
-					int chooseCookLvl = rs.getInt(6);
-					int chooseExtras = rs.getInt(7);
-					String imgSrc = rs.getString(8);
-					Dish newDish = new Dish(dishID, chooseSize, chooseCookLvl, chooseExtras, price, DishName, DishType,
-							imgSrc);
+					int restNum=rs.getInt(1);
+					int dishID = rs.getInt(2);
+					Double price = rs.getDouble(3);
+					int chooseSize = rs.getInt(4);
+					int chooseCookLvl = rs.getInt(5);
+					int chooseExtras = rs.getInt(6);
+					InputStream input=rs.getBinaryStream(7);
+					byte[] targetArray = new byte[input.available()];
+					input.read(targetArray);
+					String imageName=rs.getString(8);
+					String DishName = rs.getString(9);
+					String DishType = rs.getString(10);	
+					DishInRestaurant newDish = new DishInRestaurant(restNum,dishID,chooseSize,chooseCookLvl,chooseExtras,targetArray.length,price,imageName,targetArray);
+					newDish.setName(DishName);
+					newDish.setType(DishType);
 					dishes.add(newDish);
+					input.close();
 				}
 
 				db.sendToClient(dishes, client);
+				
 				stmt.close();
 				rs.close();
 
@@ -304,7 +319,26 @@ public class DBOrderController {
 				db.sendToClient("Cant Load Menu " + e, client);
 			}
 		}
-
+	 	
+	 	
+	 	
+	 	protected void loadAllDishes(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
+	 		Statement stmt;
+			ResultSet rs;
+			ArrayList<String> dishes = new ArrayList<>();
+			dishes.add("load all dishes");
+			try {
+				stmt = myCon.createStatement();
+				rs = stmt.executeQuery("Select * From biteme.dishes");
+				while(rs.next())
+				{
+					dishes.add(rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3));
+				}
+				db.sendToClient(dishes, client);						
+			}catch (Exception e) {
+				db.sendToClient("Cant Load Dishes " + e, client);
+			}
+	 	}
 	 	/*
 		   * This method loads all company branches
 		   *
@@ -398,9 +432,15 @@ public class DBOrderController {
 			try {
 				stmt = myCon.createStatement();
 				rs = stmt.executeQuery(
-						"SELECT x.OrderNumber,x.DishInOrder,x.DishID,x.Size,x.CookingLevel,x.Extras,dishes.DishName,dishes.Price\r\n"
-						+ "FROM (SELECT OrderNumber,DishInOrder,DishID,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="+res[1]+") as x\r\n"
-						+ "INNER JOIN dishes ON x.DishID=dishes.DishID;");
+						"Select *\r\n"
+						+ "From\r\n"
+						+ "(Select x.*,dishinrestaurant.Price\r\n"
+						+ "From\r\n"
+						+ "(SELECT OrderNumber,DishInOrder,DishID,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="+res[1]+") as x\r\n"
+						+ "inner join dishinrestaurant\r\n"
+						+ "On dishinrestaurant.DishID=x.DishID) as dishes_without_name\r\n"
+						+ "Inner Join dishes\r\n"
+						+ "On dishes.DishID=dishes_without_name.DishID");
 				ArrayList<DishInOrder> myOrders = new ArrayList<>();
 
 				while (rs.next()) {
@@ -411,8 +451,8 @@ public class DBOrderController {
 					String size = rs.getString(4);
 					String cookinglvl = rs.getString(5);
 					String extras = rs.getString(6);
-					String dishName = rs.getString(7);
-					double dishPrice = rs.getDouble(8);
+					String dishName = rs.getString(9);
+					double dishPrice = rs.getDouble(7);
 					DishInOrder temp = new DishInOrder(size, cookinglvl, extras, dishName, dishNum, orderNum, dishPrice,dishinorder);
 					myOrders.add(temp);
 				}

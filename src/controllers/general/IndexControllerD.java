@@ -345,12 +345,15 @@ public class IndexControllerD {
             
             break;
             
-       case "Restaurant Manager":
-           
+       case "Supplier":
+    	   StartClient.order.accept("Load_supplier~"+OrderClient.user.getID());
            
            Button SupplierOption1= new Button ("Orders");
            Button SupplierOption2= new Button ("view and Update Menu");
-           Button SupplierOption3= new Button ("Log out");
+           Button SupplierOption3= new Button ("Monthly Intake");
+           Button SupplierOption4= new Button ("Add Dish");
+           Button SupplierOption5= new Button ("Add Dish to rest");
+           Button SupplierOption8= new Button ("Log out");
            
            SupplierOption1.getStyleClass().add("ViewBtn");
            SupplierOption1.setMaxWidth(Double.MAX_VALUE);
@@ -362,7 +365,10 @@ public class IndexControllerD {
            
            options_grid1.add(SupplierOption1,0,0);
            options_grid1.add(SupplierOption2,0,1);
-           options_grid1.add(SupplierOption3,0,8);
+           options_grid1.add(SupplierOption3,0,2);
+           options_grid1.add(SupplierOption4,0,3);
+           options_grid1.add(SupplierOption5,0,4);
+           options_grid1.add(SupplierOption8,0,8);
            
            //1->>view orders Daniel
            SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
@@ -379,6 +385,24 @@ public class IndexControllerD {
                 
                }});
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.intakeReport);
+                
+               }});
+           SupplierOption4.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.addDish);
+                
+               }});
+           SupplierOption5.setOnAction(new EventHandler<ActionEvent>() {
+        	   @Override
+               public void handle(ActionEvent e) {
+               	Globals.loadInsideFXML(Globals.addDishToRest);
+                
+               }});
+           SupplierOption8.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
                	Globals.loadFXML(null, Globals.userloginFXML, e,null);

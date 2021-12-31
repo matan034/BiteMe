@@ -1,28 +1,27 @@
 package clients;
 
-import java.io.BufferedOutputStream;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.ConnectException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
+
 
 import common.Globals;
 
 import entity.Account;
 import entity.Branch;
 import entity.BusinessAccount;
-import entity.ComponentsRating;
 import entity.Customer;
 import entity.Dish;
 import entity.DishInOrder;
+import entity.DishInRestaurant;
 import entity.Employer;
+import entity.IntakeOrder;
 import entity.MonthlyPerformance;
 import entity.MyFile;
 import entity.Order;
@@ -41,7 +40,7 @@ public class OrderClient extends AbstractClient {
 	public static boolean awaitResponse = false;
 
 	public static int orderLateFlag=0;
-	public static Map<String, ArrayList<Dish>> branch_menu = new HashMap<String, ArrayList<Dish>>();
+	public static Map<String, ArrayList<DishInRestaurant>> branch_menu = new HashMap<String, ArrayList<DishInRestaurant>>();
 
 	public static String connection_ip="",connection_host="",connection_status="",employer_reg_msg="";
 	public static ArrayList<User> all_users=new ArrayList<>();
@@ -50,7 +49,7 @@ public class OrderClient extends AbstractClient {
 	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
 	public static Map<Integer,Integer> IsOrderApproved=new HashMap<>();
 
-	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income;
+	public static String update_msg,insert_msg,user_login_msg,account_reg_msg,w4c_status,user_import_msg,income,addDish;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null,null,null,null);
@@ -58,7 +57,7 @@ public class OrderClient extends AbstractClient {
 	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
 	public static ArrayList<Customer> branch_customers=new ArrayList<>();
 	public static W4C w4c_card;
-	
+	public static Supplier supplier;
 	public static Customer customer=new Customer(0,0,0, null, null);
 	public static User user;
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
@@ -77,7 +76,8 @@ public class OrderClient extends AbstractClient {
 	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
 	public static ObservableList<TotalIncomesOfRestaurants> totalIncomesOfRestaurant = FXCollections.observableArrayList();
 	public static ObservableList<MonthlyPerformance> monthlyPerformance = FXCollections.observableArrayList();
-	
+	public static ObservableList<IntakeOrder> monthIntake;
+	public static ObservableList<Dish> allDishes=FXCollections.observableArrayList();
 	
 
 	public OrderClient(String host, int port) throws IOException {
@@ -101,7 +101,10 @@ public class OrderClient extends AbstractClient {
 			MyFile out=(MyFile)msg;
 			 loaded_file=out.getFile();
 		}
-
+		if(msg instanceof Supplier)
+		{
+			supplier=(Supplier)msg;
+		}
 		if (msg instanceof ArrayList) {
 			Object[] arr = ((ArrayList) msg).toArray();
 			if (arr[0] instanceof User)
@@ -109,15 +112,21 @@ public class OrderClient extends AbstractClient {
 			if (arr[0] instanceof Customer)
 				branch_customers = ((ArrayList<Customer>) msg);
 			if (arr[0] instanceof Dish)
-				loadBranchMenu((ArrayList<Dish>) msg);
+				loadBranchMenu((ArrayList<DishInRestaurant>) msg);
 			if (arr[0] instanceof Branch)
 				Globals.branches = FXCollections.observableArrayList((ArrayList<Branch>) msg);
 			if (arr[0] instanceof Supplier)
 				Globals.suppliers = FXCollections.observableArrayList((ArrayList<Supplier>) msg);
+			if (arr[0] instanceof IntakeOrder)
+				monthIntake = FXCollections.observableArrayList((ArrayList<IntakeOrder>) msg);
 			if (arr[0] instanceof String) {
 				if (((String) arr[0]).equals("load my orders")) {
 					((ArrayList<String>) msg).remove(0);
 					getMyOrders((ArrayList<String>) msg);
+				}
+				if (((String) arr[0]).equals("load all dishes")) {
+					((ArrayList<String>) msg).remove(0);
+					loadAllDishes((ArrayList<String>) msg);
 				}
 				if(((String)arr[0]).equals("load my employer"))
 				{
@@ -173,12 +182,9 @@ public class OrderClient extends AbstractClient {
 						myRestaurants.add((String) arr[i]);
 					}
 				}
-				
-
 			}
 			if (arr[0] instanceof DishInOrder)
 				Globals.order_dishes = (ArrayList<DishInOrder>) msg;
-
 		}
 
 		else {
@@ -314,6 +320,8 @@ public class OrderClient extends AbstractClient {
 				break;
 			case "Order_customer recieved time": checkIfWasLate(res);
 			case "Supplier Quarter Data": orderAmount=res[1]; income=res[2];
+			case "Add_dish": addDish=res[1];
+			case "Add_dish_to_rest" : addDish=res[1];
 			}
 
 		}
@@ -397,16 +405,16 @@ public class OrderClient extends AbstractClient {
 		  connection_info.set(2, res[0]);
 	  }
 	  
-	  private void loadBranchMenu(ArrayList<Dish> all_dishes)
+	  private void loadBranchMenu(ArrayList<DishInRestaurant> all_dishes)
 	  {
-		  branch_menu.put("Appetizer",new ArrayList<Dish>());
-		  branch_menu.put("Salad",new ArrayList<Dish>());
-		  branch_menu.put("Main",new ArrayList<Dish>());
-		  branch_menu.put("Dessert",new ArrayList<Dish>());
-		  branch_menu.put("Drink",new ArrayList<Dish>());
-		 for(Dish dish:all_dishes)
+		  branch_menu.put("Appetizer",new ArrayList<DishInRestaurant>());
+		  branch_menu.put("Salad",new ArrayList<DishInRestaurant>());
+		  branch_menu.put("Main",new ArrayList<DishInRestaurant>());
+		  branch_menu.put("Dessert",new ArrayList<DishInRestaurant>());
+		  branch_menu.put("Drink",new ArrayList<DishInRestaurant>());
+		 for(DishInRestaurant dish:all_dishes)
 		 {
-			 ArrayList<Dish> temp=branch_menu.get(dish.getType());
+			 ArrayList<DishInRestaurant> temp=branch_menu.get(dish.getType());
 			 temp.add(dish);
 			 branch_menu.put(dish.getType(),temp );
 		 }
@@ -476,6 +484,14 @@ public class OrderClient extends AbstractClient {
 			String[] temp = restaurant.split("~");
 			TotalIncomesOfRestaurants tempIncome = new TotalIncomesOfRestaurants(temp[0], temp[2]);
 			OrderClient.totalIncomesOfRestaurant.add(tempIncome);
+
+		}
+	}
+	private void loadAllDishes(ArrayList<String> res) {
+		for (String dish : res) {
+			String[] temp = dish.split("~");
+			Dish tempDish = new Dish(Integer.parseInt(temp[0]),temp[1], temp[2]);
+			OrderClient.allDishes.add(tempDish);
 
 		}
 	}

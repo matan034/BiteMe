@@ -4,6 +4,7 @@ package menu;
 import clients.OrderClient;
 import common.Globals;
 import entity.Dish;
+import entity.DishInRestaurant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,31 +22,31 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class dishController {
 	 @FXML
-	    private TableView<Dish> menu_table;
+	    private TableView<DishInRestaurant> menu_table;
 
 	    @FXML
-	    private TableColumn<Dish, String> dish_name;
+	    private TableColumn<DishInRestaurant, String> dish_name;
 
 	    @FXML
-	    private TableColumn<Dish, Double> price;
+	    private TableColumn<DishInRestaurant, Double> price;
 	    
 	    @FXML
-	    private TableColumn<Dish, Integer> Dish_ID ;
+	    private TableColumn<DishInRestaurant, Integer> Dish_ID ;
 
 	    @FXML
-	    private TableColumn<Dish, String> Dish_Type ;
+	    private TableColumn<DishInRestaurant, String> Dish_Type ;
 	    
 	    @FXML
-	    private TableColumn<Dish, Integer> Choose_Size;
+	    private TableColumn<DishInRestaurant, Integer> Choose_Size;
 
 	    @FXML
-	    private TableColumn<Dish, Integer> Choose_CookingLevel;
+	    private TableColumn<DishInRestaurant, Integer> Choose_CookingLevel;
 	    
 	    @FXML
-	    private TableColumn<Dish, Integer> Choose_Extras;
+	    private TableColumn<DishInRestaurant, Integer> Choose_Extras;
 
 	    @FXML
-	    private TableColumn<Dish, Void> buttons;
+	    private TableColumn<DishInRestaurant, Void> buttons;
 	    @FXML
 	    private Button save_btn;
 	    @FXML
@@ -100,11 +101,11 @@ public class dishController {
 	    	Choose_CookingLevel.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 	    	Choose_Extras.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 	    	
-	    	dish_name.setOnEditCommit(new EventHandler<CellEditEvent<Dish, String>>(){
+	    	dish_name.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, String>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, String> event) {
+				public void handle(CellEditEvent<DishInRestaurant, String> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setName(event.getOldValue());
 					else
@@ -114,11 +115,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	Dish_Type.setOnEditCommit(new EventHandler<CellEditEvent<Dish, String>>(){
+	    	Dish_Type.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, String>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, String> event) {
+				public void handle(CellEditEvent<DishInRestaurant, String> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setType(event.getNewValue());
 					else
@@ -128,11 +129,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	price.setOnEditCommit(new EventHandler<CellEditEvent<Dish, Double>>(){
+	    	price.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, Double>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, Double> event) {
+				public void handle(CellEditEvent<DishInRestaurant, Double> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setPrice(event.getNewValue());
 					else
@@ -141,11 +142,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	Dish_ID.setOnEditCommit(new EventHandler<CellEditEvent<Dish, Integer>>(){
+	    	Dish_ID.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, Integer>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, Integer> event) {
+				public void handle(CellEditEvent<DishInRestaurant, Integer> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setDishID(event.getOldValue());
 					else
@@ -155,11 +156,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	Choose_Size.setOnEditCommit(new EventHandler<CellEditEvent<Dish, Integer>>(){
+	    	Choose_Size.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, Integer>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, Integer> event) {
+				public void handle(CellEditEvent<DishInRestaurant, Integer> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setChooseSize(event.getOldValue());
 					else
@@ -169,11 +170,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	Choose_CookingLevel.setOnEditCommit(new EventHandler<CellEditEvent<Dish, Integer>>(){
+	    	Choose_CookingLevel.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, Integer>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, Integer> event) {
+				public void handle(CellEditEvent<DishInRestaurant, Integer> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setChooseCookingLvl(event.getOldValue());
 					else
@@ -182,11 +183,11 @@ public class dishController {
 				}
 	    	});
 	    	
-	    	Choose_Extras.setOnEditCommit(new EventHandler<CellEditEvent<Dish, Integer>>(){
+	    	Choose_Extras.setOnEditCommit(new EventHandler<CellEditEvent<DishInRestaurant, Integer>>(){
 				@Override
-				public void handle(CellEditEvent<Dish, Integer> event) {
+				public void handle(CellEditEvent<DishInRestaurant, Integer> event) {
 				
-					Dish dish= event.getRowValue();
+					DishInRestaurant dish= event.getRowValue();
 					if(event.getNewValue()==null)
 						dish.setChooseExtras(event.getOldValue());
 					else
@@ -200,16 +201,15 @@ public class dishController {
 
 	    void display_table(){  
 	    	all_dishes = FXCollections.observableArrayList(OrderClient.dishes_by_type_list);
-			dish_name.setCellValueFactory(new PropertyValueFactory<Dish,String>("name"));
-			price.setCellValueFactory(new PropertyValueFactory<Dish,Double>("price"));
-			Dish_ID.setCellValueFactory(new PropertyValueFactory<Dish,Integer>("dishID"));
-			Dish_Type.setCellValueFactory(new PropertyValueFactory<Dish,String>("type"));
-			Choose_Size.setCellValueFactory(new PropertyValueFactory<Dish,Integer>("chooseSize"));
-			Choose_CookingLevel.setCellValueFactory(new PropertyValueFactory<Dish,Integer>("chooseCookingLvl"));
-			Choose_Extras.setCellValueFactory(new PropertyValueFactory<Dish,Integer>("chooseExtras"));
+			dish_name.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,String>("name"));
+			price.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,Double>("price"));
+			Dish_ID.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,Integer>("dishID"));
+			Dish_Type.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,String>("type"));
+			Choose_Size.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,Integer>("chooseSize"));
+			Choose_CookingLevel.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,Integer>("chooseCookingLvl"));
+			Choose_Extras.setCellValueFactory(new PropertyValueFactory<DishInRestaurant,Integer>("chooseExtras"));
 			//buttons.setCellValueFactory(new PropertyValueFactory<Dish,Void>("Action"));
 		    //buttons.setSortable(false);
-			menu_table.setItems(all_dishes);
 	    }
 	    @FXML
 	    void save(ActionEvent event) {

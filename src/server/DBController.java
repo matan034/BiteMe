@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import entity.Dish;
+import entity.DishInRestaurant;
 import entity.MyFile;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -70,7 +71,12 @@ public class DBController extends AbstractServer {
 		    if(msg instanceof Dish)
 			{
 				Dish newDish=((Dish)msg);
-				dbMenu.insertNewDish(newDish,client,myCon,this);
+				//dbMenu.insertNewDish(newDish,client,myCon,this);
+			}
+		    if(msg instanceof DishInRestaurant)
+			{
+		    	DishInRestaurant newDish=((DishInRestaurant)msg);
+				dbMenu.insertDishToRestaurant(newDish,client,myCon,this);
 			}
 		    else {
 		    String [] res = ((String)msg).split("~");
@@ -87,6 +93,7 @@ public class DBController extends AbstractServer {
 				case "W4C_verify": dbOrder.w4cVerify(res,client,myCon,this);break;
 				case "W4C_load_list": dbOrder.w4cLoadList(res,client,myCon,this);break;
 				case "Load_dishes": dbOrder.loadDishes(res,client,myCon,this);break;
+				case "Load_all_dishes":dbOrder.loadAllDishes(res,client,myCon,this);break;
 				case "Add_dishInOrder":dbOrder.addDishInOrder(res,client,myCon,this);break;
 				case "Order_arrived": dbOrder.orderArrived(res,client,myCon,this);break;
 				case "Load_orderDishes":dbOrder.loadOrderDishes(res,client,myCon,this);break;
@@ -114,6 +121,7 @@ public class DBController extends AbstractServer {
 				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;//maybe delete
 				case "Load private Account": dbUser.loadPrivateAccount(res,client,myCon,this);break;
 				case "Load business Account": dbUser.loadSpecificBusinessAccount(res,client,myCon,this);break;//matan
+				case "Load_supplier":dbUser.loadSupplier(res,client,myCon,this);break;
 				case "Load_suppliers": dbUser.loadSuppliers(res,client,myCon,this);break;
 				case "Load_myEmployers": dbUser.loadMyEmployers(res,client,myCon,this);break;
 				case "Employer_approved": dbUser.approveEmployer(res,client,myCon,this);break;
@@ -131,6 +139,11 @@ public class DBController extends AbstractServer {
 				case "Update Supplier Late Cnt": dbReport.updateSupplierLateCnt(res,client,myCon,this);break;
 				case "Load_quarter_data":dbReport.getSupplierQuarterData(res, client, myCon, this);break;
 				case "Open_pdf":dbReport.getBlob(res, client, myCon, this);break;
+				case "Load_myIntake":dbReport.getSupplierIntake(res, client, myCon, this);break;
+				
+				//cases for DB menu control
+				case "Add_Dish": dbMenu.addDish(res, client, myCon, this);break;
+				case "Add_to_rest_menu": dbMenu.addDishToRestMenu(res, client, myCon, this);break;
 				
 				}
 				}catch (Exception e) {
