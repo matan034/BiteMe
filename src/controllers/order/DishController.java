@@ -46,7 +46,6 @@ public class DishController {
     	dish_name_label.setText(d.getName());
     	dish_price_label.setText(d.getPrice()+Globals.currency);
     	Image image = new Image(getClass().getResourceAsStream("/dishPics/"+d.getImageName()));
-		//Image image = new Image("..\\BiteMe\\src\\gui\\dishPics\\"+d.getImageName());
 		this.img.setImage(image);    
 		       
     	

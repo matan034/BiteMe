@@ -1,6 +1,7 @@
 package order;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -273,6 +274,7 @@ public class OrderInformationController {
     	int flag=0;
 
     	if(!verifyDate()) flag++;
+    	if(isToday() && isEarlyFromNow()) flag++;
     	if(!verifyHour()) flag++;
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
@@ -363,18 +365,33 @@ public class OrderInformationController {
 	}
 	private boolean verifyHour()
 	{
+		
 		if(hour_input.getText().equals("")) 
     	{
     		hour_tooltip.setText("Please input supply time");
     		return false;
     	}
-    	else if(!time.matcher(hour_input.getText()).matches())
+    	else 
     	{
-    		hour_tooltip.setText("Hour must be in hh:mm format");
-    		return false;
+    		if(!time.matcher(hour_input.getText()).matches())
+    		{
+    			hour_tooltip.setText("Hour must be in hh:mm format");
+    			return false;
+    		} 
+    		else 
+    		{
+    			if(!date_input.getEditor().getText().equals(""))
+    			{
+    				hour_tooltip.setText("Please select date");
+    				if(isToday() && isEarlyFromNow()) {
+    					hour_tooltip.setText("Hour can't be in the past");       		
+    				}
+    				return false;
+    			}
+    		}
+    		hour_tooltip.setText("");
+    		return true;
     	}
-		hour_tooltip.setText("");
-		return true;
 	}
 	private boolean verifyFirstName()
 	{
@@ -481,6 +498,22 @@ public class OrderInformationController {
 		zip_tooltip.setText("");
 		return true;
 	}
-	
+	private boolean isToday()
+	{
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int month = c.get(Calendar.MONTH)+1;
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		return day==date_input.getValue().getDayOfMonth()&&month==date_input.getValue().getMonthValue()&&year==date_input.getValue().getYear();
+	}
+	private boolean isEarlyFromNow()
+	{
+		Calendar c = Calendar.getInstance();
+		String []request=hour_input.getText().split(":");
+		 
+		return c.get(Calendar.HOUR)>Integer.parseInt(request[0])||
+				(c.get(Calendar.HOUR)==Integer.parseInt(request[0])&&c.get(Calendar.MINUTE)>Integer.parseInt(request[1]));
+		
+	}
     
 }
