@@ -91,7 +91,7 @@ public class Globals {
 			viewPdf="/report/ViewPdfScreen.fxml",
 			intakeReport="/report/IntakeReportScreen.fxml",
 			addDish="/menu/AddDishScreen.fxml",
-			addDishToRest="/menu/AddDishToRestaurant.fxml";
+			addDishToRest="/menu/AddDishToRestaurant.fxml",
 			homeScreen="/general/HomeScreen.fxml";
 	
 

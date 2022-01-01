@@ -124,7 +124,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <VBox fx:id="cart_vbox" alignment="TOP_RIGHT" layoutX="200.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #fff; -fx-border-style: solid; -fx-background-radius: 15;" visible="false" />
+                        <VBox fx:id="cart_vbox" alignment="TOP_RIGHT" layoutX="150.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #fff; -fx-border-style: solid; -fx-background-radius: 15;" visible="false" />
                      </children>
                   </Pane>
                </right>

@@ -80,9 +80,11 @@
 	-fx-font-family:'sans-sarif'
 }
 
-.cart-img{
-	-fx-cursor:pointer;
+.cart-img:hover{
+	-fx-cursor:hand;
+	-fx-background-color: #DEB887;
 }
+
 
 .minus-btn{
 	-fx-background-color:#DC143C;
