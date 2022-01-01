@@ -23,15 +23,15 @@
             </Label>
             <Button fx:id="saveMenu" layoutX="457.0" layoutY="584.0" mnemonicParsing="false" onAction="#saveMenu" text="save menu" />
             <ListView fx:id="DishesList" layoutX="301.0" layoutY="142.0" onMouseClicked="#setDishFields" prefHeight="134.0" prefWidth="169.0" AnchorPane.topAnchor="142.0" />
-            <Label fx:id="createMessageLabel" layoutX="414.0" layoutY="575.0" prefHeight="18.0" prefWidth="325.0" />
+            <Label fx:id="createMessageLabel" layoutX="518.0" layoutY="548.0" prefHeight="18.0" prefWidth="325.0" />
             <ComboBox fx:id="ChooseMenuTypeComboBox" layoutX="383.0" layoutY="68.0" onAction="#chooseType" prefHeight="29.0" prefWidth="245.0" promptText="Dish Type" />
             <Label fx:id="chooseDishMessage" layoutX="309.0" layoutY="120.0" prefHeight="18.0" prefWidth="156.0" />
-            <TextField fx:id="dishPrice" layoutX="424.0" layoutY="291.0" prefHeight="26.0" prefWidth="245.0" promptText="Price" />
-            <CheckBox fx:id="hasMultipleSizes" layoutX="337.0" layoutY="428.0" mnemonicParsing="false" text="Multiple sizes" />
-            <CheckBox fx:id="hasMultipleCockingLvls" layoutX="337.0" layoutY="464.0" mnemonicParsing="false" text="Multiple cooking levels" />
-            <CheckBox fx:id="canAddExtras" layoutX="334.0" layoutY="499.0" mnemonicParsing="false" text="Extras" />
-            <TextField fx:id="ImageName" layoutX="424.0" layoutY="353.0" prefHeight="26.0" prefWidth="139.0" promptText="Image Name" />
-            <Button fx:id="ChooseImege" layoutX="562.0" layoutY="350.0" mnemonicParsing="false" onAction="#ChooseImege" text="Choose Image" />
+            <TextField fx:id="dishPrice" layoutX="311.0" layoutY="288.0" prefHeight="26.0" prefWidth="130.0" promptText="Price" />
+            <CheckBox fx:id="hasMultipleSizes" layoutX="311.0" layoutY="381.0" mnemonicParsing="false" text="Multiple sizes" />
+            <CheckBox fx:id="hasMultipleCockingLvls" layoutX="325.0" layoutY="416.0" mnemonicParsing="false" text="Multiple cooking levels" />
+            <CheckBox fx:id="canAddExtras" layoutX="325.0" layoutY="449.0" mnemonicParsing="false" text="Extras" />
+            <TextField fx:id="ImageName" editable="false" layoutX="311.0" layoutY="325.0" prefHeight="26.0" prefWidth="130.0" promptText="Image " />
+            <Button fx:id="ChooseImege" layoutX="460.0" layoutY="326.0" mnemonicParsing="false" onAction="#ChooseImege" text="Choose Image" />
             <Label fx:id="errorMessage" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="357.0" />
             <ListView fx:id="dishesToAdd" layoutX="563.0" layoutY="142.0" onMouseClicked="#displayDish" prefHeight="134.0" prefWidth="156.0" />
             <Label fx:id="dishesToAddMessage" layoutX="568.0" layoutY="120.0" prefHeight="18.0" prefWidth="146.0" />

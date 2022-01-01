@@ -401,11 +401,9 @@ public class IndexControllerD {
     	   StartClient.order.accept("Load_supplier~"+OrderClient.user.getID());
            
            Button SupplierOption1= new Button ("Orders");
-           Button SupplierOption2= new Button ("view and Update Menu");
+           Button SupplierOption2= new Button ("Edit Menu");
            Button SupplierOption3= new Button ("Monthly Intake");
-           Button SupplierOption4= new Button ("Add Dish");
-           Button SupplierOption5= new Button ("Add Dish to rest");
-           Button SupplierOption6= new Button ("Log out");
+           Button SupplierOption4= new Button ("Log out");
            
            SupplierOption1.getStyleClass().add("ViewBtn");
            SupplierOption1.getStyleClass().add("lbl");
@@ -418,14 +416,16 @@ public class IndexControllerD {
            SupplierOption3.getStyleClass().add("ViewBtn");
            SupplierOption3.getStyleClass().add("lbl");
            SupplierOption3.setMaxWidth(Double.MAX_VALUE);
+           
+           SupplierOption4.getStyleClass().add("ViewBtn");
+           SupplierOption4.getStyleClass().add("lbl");
+           SupplierOption4.setMaxWidth(Double.MAX_VALUE);
         
            
            options_grid1.add(SupplierOption1,0,0);
            options_grid1.add(SupplierOption2,0,1);
            options_grid1.add(SupplierOption3,0,2);
-           options_grid1.add(SupplierOption4,0,3);
-           options_grid1.add(SupplierOption5,0,4);
-           options_grid1.add(SupplierOption6,0,8);
+           options_grid1.add(SupplierOption4,0,8);
            
      
            SupplierOption1.setOnAction(new EventHandler<ActionEvent>() {
@@ -438,28 +438,18 @@ public class IndexControllerD {
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadInsideFXML(Globals.menuFXML);
+               	Globals.loadInsideFXML(Globals.MenuFXML);
                 
                }});
+           
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
                	Globals.loadInsideFXML(Globals.intakeReport);
-                
+               
                }});
+           
            SupplierOption4.setOnAction(new EventHandler<ActionEvent>() {
-        	   @Override
-               public void handle(ActionEvent e) {
-               	Globals.loadInsideFXML(Globals.addDish);
-                
-               }});
-           SupplierOption5.setOnAction(new EventHandler<ActionEvent>() {
-        	   @Override
-               public void handle(ActionEvent e) {
-               	Globals.loadInsideFXML(Globals.addDishToRest);
-                
-               }});
-           SupplierOption6.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
         		   StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
@@ -526,8 +516,7 @@ public class IndexControllerD {
 		 Globals.loadInsideFXML(Globals.homePageCustomer);
 		else
 			if(tempTypeUser=="Ceo")
-			Globals.loadInsideFXML(Globals.homePageCeo);
-		 
+			Globals.loadInsideFXML(Globals.homePageCeo); 
 	}
 
 }
