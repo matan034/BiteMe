@@ -1,7 +1,7 @@
 /clients/
 /common/
 /entity/
-/general/
+/img/
 /managment/
 /menu/
 /ocsf/
@@ -11,5 +11,4 @@
 /resturant/
 /server/
 /utility/
-/img/
-/dishPics/
+/general/
