@@ -15,8 +15,6 @@ public class AddDishController {
     @FXML
     private TextField dish_name_input;
 
-    @FXML
-    private ComboBox<String> dish_type_cmb;
 
     @FXML
     private Button add_btn;
@@ -24,15 +22,18 @@ public class AddDishController {
     @FXML
     private Label result_lbl;
 
-    public void initialize()
-    {
-    	dish_type_cmb.setItems(Globals.dishesTypes);
-    }
+    private String type;
+
     
+    public void setType(String type)
+    {
+    	this.type=type;
+    }
     @FXML
     void addDish(ActionEvent event) {
-    	StartClient.order.accept("Add_Dish~"+dish_name_input.getText()+"~"+dish_type_cmb.getSelectionModel().getSelectedItem());
+    	StartClient.order.accept("Add_Dish~"+dish_name_input.getText()+"~"+type);
     	result_lbl.setText(OrderClient.addDish);
+    	
     }
 
 }

@@ -263,24 +263,52 @@ public class DBUserController {
 	}
 	/**
 	Func for registering an employer to DB
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Reg_employer",res[1..]=employer details by employer.Tostring.
+	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Reg_employer",res[1..]=employer details by employer.Tostring.,res[4]=branchID,res[5]=hr_id
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
 		protected void regEmployer(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 		Statement stmt;
+		ResultSet rs;
+		stmt = myCon.createStatement();
+		int flag;
+		
+		rs = stmt.executeQuery("SELECT * FROM biteme.hr WHERE ID=" + res[5]);
+		if(rs.isBeforeFirst()) db.sendToClient("Employer Register~HR already registered", client);
+		else
+		{
+		flag = stmt.executeUpdate(
+				String.format("INSERT INTO biteme.employer (Name, Address, Telephone,BranchID) VALUES ('%s', '%s', '%s','%s');",
+						res[1], res[2], res[3],res[4]));
+		if (flag > 0)
+		{
+			rs=stmt.executeQuery("SELECT last_insert_id()");//get new employer num
+			if(rs.next())
+				if(addHr(rs.getInt(1),res[5],myCon))
+					db.sendToClient("Employer Register~Employer Has Been Registered", client);
+				else db.sendToClient("Employer Register~Fail!", client);
+		}	
+		else
+			db.sendToClient("Employer Register ~Error Registering Employer", client);
+		}
+		stmt.close();
+	}
+	private boolean addHr(int employerNum ,String hr_id, Connection myCon) throws SQLException {
+		Statement stmt;
+		ResultSet rs;
 		stmt = myCon.createStatement();
 		int flag;
 		flag = stmt.executeUpdate(
-				String.format("INSERT INTO biteme.employer (Name, Address, Telephone) VALUES ('%s', '%s', '%s');",
-						res[1], res[2], res[3]));
+				String.format("INSERT INTO biteme.hr (EmployerNum, ID) VALUES ('%d', '%s');",
+						employerNum,hr_id));
 		if (flag > 0)
-			db.sendToClient("Employer Register~Employer Has Been Registered", client);
-		else
-			db.sendToClient("Employer Register ~Error Registering Employer", client);
-		stmt.close();
+		{
+			return true;
+		}
+		else return false;
+		
+		
 	}
-	
 	/**
 	Func for updating customer Status
 	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_user",res[1]=Status to update, res[2]=User ID
@@ -443,8 +471,8 @@ public class DBUserController {
 	}
 	
 	/**
-	Func for getting loading all business accounts that need to be approved
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_business_account"
+	Func for getting loading all business accounts that need to be approved for s specific employer
+	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_business_account" , res[1] = hr id
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -454,17 +482,17 @@ public class DBUserController {
 		  stmt = myCon.createStatement();
 		  ResultSet rs;
 		  ArrayList<String> usersToApprove=new ArrayList<>();
-		  rs =stmt.executeQuery("SELECT employer.Name,AccountWithBusiness.ID,AccountWithBusiness.FirstName,AccountWithBusiness.LastName,AccountWithBusiness.IsApproved,AccountWithBusiness.AccountNum\r\n"
+		  rs =stmt.executeQuery(String.format("SELECT employer.Name,AccountWithBusiness.ID,AccountWithBusiness.FirstName,AccountWithBusiness.LastName,AccountWithBusiness.IsApproved,AccountWithBusiness.AccountNum\r\n"
 		  		+ "FROM biteme.employer\r\n"
 		  		+ "INNER JOIN (SELECT account.ID,account.AccountNum, account.FirstName,account.LastName,businessaccount.EmployerNum,businessaccount.IsApproved\r\n"
-		  		+ "	FROM biteme.account\r\n"
+		  		+ "FROM biteme.account\r\n"
 		  		+ "	INNER JOIN biteme.businessaccount\r\n"
-		  		+ "	ON biteme.businessaccount.AccountNum=account.AccountNum\r\n"
+		  		+ "ON biteme.businessaccount.AccountNum=account.AccountNum \r\n"
 		  		+ ")As AccountWithBusiness\r\n"
 		  		+ "ON employer.EmployerNum=AccountWithBusiness.EmployerNum\r\n"
-		  		+ "WHERE AccountWithBusiness.IsApproved=0 AND employer.IsApproved=1");
+		  		+ "WHERE AccountWithBusiness.IsApproved=0 AND employer.IsApproved=1 AND AccountWithBusiness.EmployerNum= (Select EmployerNum FROM biteme.hr Where ID='%s');",res[1]));
 		  usersToApprove.add("Approve Business");
-		  if(!rs.next()) {
+		  if(!rs.isBeforeFirst()) {
 			  System.out.println("NO Business Users to approve ");
 			  db.sendToClient("NO Business Users to approve",client);
 		  }
@@ -472,8 +500,9 @@ public class DBUserController {
 			{
 				System.out.println("Business User to approve Found");
 				usersToApprove.add(rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(6));
-				db.sendToClient(usersToApprove,client);
+				
 			}
+			db.sendToClient(usersToApprove,client);
 			rs.close();
 			stmt.close();
 	  }
@@ -578,12 +607,12 @@ public class DBUserController {
 		  stmt = myCon.createStatement();
 		  ResultSet rs;
 		  String result;
-		  rs=stmt.executeQuery(String.format("SELECT IsApproved FROM biteme.order WHERE OrderID='%d'",Integer.parseInt(res[1])));
+		  rs=stmt.executeQuery(String.format("SELECT IsApproved,OutForDelivery FROM biteme.order WHERE OrderID='%d'",Integer.parseInt(res[1])));
 		  try {
 			  if(rs.next())
 				{
 					System.out.println("Order found"); 
-					result= "Check Approved Order~"+res[1]+"~"+rs.getInt(1);
+					result= "Check Approved Order~"+res[1]+"~"+rs.getInt(1)+"~"+rs.getInt(2);
 					db.sendToClient(result,client);
 				} 
 				else db.sendToClient("Check Approved Order~Order Wasnt found", client);

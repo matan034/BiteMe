@@ -22,7 +22,7 @@ public class ApproveAcountController {
     private Label msglbl;
     
     public void initialize() {
-    	StartClient.order.accept("Load_business_account");
+    	StartClient.order.accept("Load_business_account~"+OrderClient.user.getID());
     	
     	if(OrderClient.usersToApprove.size()==0)
     	{
@@ -35,18 +35,20 @@ public class ApproveAcountController {
     		vbox.getChildren().add(new Label("Name: "+account.getFirstName()+" "+account.getLastName()));
     		vbox.getChildren().add(new Label("Employer: "+account.getEmployerName()));
     		Button button = new Button("Approve");
+    		
+    		vbox.getChildren().add(button);
+			TitledPane pane1 = new TitledPane("ID #"+""+account.getID(),vbox);
+			pane1.getStyleClass().add("titled-pane");
+			user_accordion.getPanes().add(pane1);
     		button.setOnAction((new EventHandler<ActionEvent>() {
     			@Override
     		public void handle(ActionEvent e) {
     			StartClient.order.accept("Approve_account~"+account.getAccountNum());
     			button.setVisible(false);
-    					
+    			user_accordion.getPanes().remove(pane1);		
     				}
     			}));
-    			vbox.getChildren().add(button);
-    			TitledPane pane1 = new TitledPane("ID #"+""+account.getID(),vbox);
-    			pane1.getStyleClass().add("titled-pane");
-    			user_accordion.getPanes().add(pane1);
+    			
 
     	}
     		

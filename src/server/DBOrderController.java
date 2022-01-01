@@ -123,7 +123,7 @@ public class DBOrderController {
 		  		+ "		  		WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;\r\n"
 		  		+ "                ",restuarantNum));
 		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders\r\n"
-		  		+ "		  		SELECT *\r\n"
+		  		+ "		  		SELECT DISTINCT *\r\n"
 		  		+ "		  		FROM(\r\n"
 		  		+ "		  		SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
 		  		+ "		  		FROM biteme.account\r\n"
@@ -580,6 +580,21 @@ public class DBOrderController {
 	 		}
 	 		  
 	 	}
+	 	
+	 	protected void DeliverOrder(String[]res,ConnectionToClient  client,Connection myCon,DBController db) {
+	 		Statement stmt;
+	 		  int flag;
+	 		  try {
+	 		  stmt = myCon.createStatement();
+	 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.order SET OutForDelivery =1 WHERE OrderID = '%d';",Integer.parseInt(res[1])));
+	 		  db.sendToClient(" updated to deliver~Updated Successfully",client);
+	 			stmt.close();
+	 		  }
+	 		  catch (Exception e) {
+	 			
+	 		}
+	 	}
+	 	
 	 	
 	 	
 	 	

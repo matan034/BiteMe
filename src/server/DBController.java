@@ -101,7 +101,8 @@ public class DBController extends AbstractServer {
 				case "Approve_order":dbOrder.ApproveOrder(res,client,myCon,this);break;
 				case "Refund Account" : dbOrder.refundAccount(res,client,myCon,this);break;
 				case "Update_recieve_time": dbOrder.updateRecieveTime(res,client,myCon,this);break;
-				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
+				case "Deliver_order":dbOrder.DeliverOrder(res,client,myCon,this);break;
+				
 				//case "Update_order": updateOrder(res, client); break; from prototype
 				//case "Search_order": searchOrder(res, client); break;from prototype
 				
@@ -148,6 +149,13 @@ public class DBController extends AbstractServer {
 				//cases for DB menu control
 				case "Add_Dish": dbMenu.addDish(res, client, myCon, this);break;
 				case "Add_to_rest_menu": dbMenu.addDishToRestMenu(res, client, myCon, this);break;
+				
+				//muhammad
+				case "load_all_dishes":dbMenu.loadAllDishs(res, client, myCon, this);break;
+				case "load_dishes_in_menu":dbMenu.loadAllDishsInMenu(res, client, myCon, this);break;
+				case "load_all_dish_in_restaurant":dbMenu.loadAllDishInRestaurant(res, client, myCon, this);break;
+
+				case "Create_New_Menu":dbMenu.createNewMenu(res,client,myCon,this);break;
 				
 				}
 				}catch (Exception e) {

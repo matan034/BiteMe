@@ -7,9 +7,9 @@ public class DishInRestaurant extends Dish implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int restaurantNumber,dishID,chooseSize,chooseCookingLvl,chooseExtras,imageSize=0;
+	private int restaurantNumber,dishID,chooseSize,chooseCookingLvl,chooseExtras,imageSize=0,inMenu;
 	private double price;
-	private String imageName;
+	private String imageName,dbSetting="";
 	public  byte[] myImagebytearray;
 	
 	
@@ -27,6 +27,36 @@ public class DishInRestaurant extends Dish implements Serializable {
 		this.price = price;
 		this.imageName = imageName;
 		this.myImagebytearray = myImagebytearray;
+	}
+	
+	public int getInMenu() {
+		return inMenu;
+	}
+
+	public void setInMenu(int inMenu) {
+		this.inMenu = inMenu;
+	}
+
+	public String getDbSetting() {
+		return dbSetting;
+	}
+
+	public void setDbSetting(String dbSetting) {
+		this.dbSetting = dbSetting;
+	}
+
+	public DishInRestaurant(int dishID, String name,String type,double price, int chooseSize, int chooseCookingLvl, int chooseExtras,
+			String imageName,byte[] myImagebytearray,int inMenu,int restaurantNumber) {
+		super(dishID,name,type);
+		this.imageName=imageName;
+		this.chooseSize = chooseSize;
+		this.chooseCookingLvl = chooseCookingLvl;
+		this.chooseExtras = chooseExtras;
+		this.price = price;
+		this.myImagebytearray = new byte [(int)myImagebytearray.length];
+		this.myImagebytearray=myImagebytearray;
+		this.inMenu=inMenu;
+		this.restaurantNumber=restaurantNumber;	
 	}
 	public int getRestaurantNumber() {
 		return restaurantNumber;

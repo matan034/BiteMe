@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.NewOrderScreenController">
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.NewOrderScreenController">
    <children>
       <BorderPane prefHeight="650.0" prefWidth="1010.0">
          <center>
@@ -15,7 +15,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="58.0" prefWidth="1010.0">
                      <children>
-                        <Label text="Orders">
+                        <Label text="New Orders">
                            <font>
                               <Font name="Levenim MT Bold" size="18.0" />
                            </font>
@@ -33,6 +33,22 @@
                      </children>
                   </VBox>
                   <Separator prefHeight="0.0" prefWidth="670.0" />
+                  <VBox alignment="TOP_CENTER" prefHeight="283.0" prefWidth="1010.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="172.0" text="Orders to deliver">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Accordion fx:id="orders_to_deliver_accordion" prefHeight="283.0" prefWidth="1010.0" />
+                        <Label fx:id="No_delivery_lbl" text="No orders to deliver" visible="false">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
                   <VBox alignment="CENTER" prefHeight="49.0" prefWidth="1010.0">
                      <children>
                         <Label text="History">
@@ -49,7 +65,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Accordion fx:id="historyaccordion" prefHeight="226.0" prefWidth="497.0" />
+                        <Accordion fx:id="historyaccordion" prefHeight="211.0" prefWidth="1010.0" />
                      </children>
                   </VBox>
                </children>

@@ -81,7 +81,6 @@ public class Globals {
 			ceo_chooses_quarter_and_monthFXML="/report/CeoChooses.fxml",
 			ceo_view_the_report_she_chose="/report/ceoQuarterReportOfOrdersNumAndIncomes.fxml",
 		    income_reportFXML = "/report/IncomeReport.fxml",
-			menuFXML="/menu/menu.fxml",
 			dishFXML="/menu/Dishes.fxml",
 			createMenu="/menu/createMenu.fxml",
 			viewMenu="/menu/ViewMyMenus.fxml",
@@ -92,12 +91,15 @@ public class Globals {
 			intakeReport="/report/IntakeReportScreen.fxml",
 			addDish="/menu/AddDishScreen.fxml",
 			addDishToRest="/menu/AddDishToRestaurant.fxml",
-			homeScreen="/general/HomeScreen.fxml";
+			homeScreen="/general/HomeScreen.fxml",
+			MenuFXML="/menu/createMenu.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
+	private static String[] types1={"Salad","Appetizer","Main","Dessert","Drink"};
 	public static String dishType;
 	public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
+	public static ObservableList<String> dishesTypes1=FXCollections.observableArrayList(types1);
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);

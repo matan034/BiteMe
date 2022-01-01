@@ -39,7 +39,7 @@ public class RegNewEmployerController {
     		
     	employer=new Employer(name_lbl.getText(),address_lbl.getText(),number_lbl.getText());
     	if(CheckInput()) {
-    		StartClient.order.accept("Reg_employer~"+employer.toString());
+    		StartClient.order.accept("Reg_employer~"+employer.toString()+"~"+OrderClient.user.getHomeBranch()+"~"+OrderClient.user.getID());
         	res_lbl.setText(OrderClient.employer_reg_msg);
     	}
     }

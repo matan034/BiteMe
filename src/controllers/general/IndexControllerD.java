@@ -154,7 +154,7 @@ public class IndexControllerD {
     	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
-            Button BranchManagerOption3= new Button ("View And Update Menu");
+            Button BranchManagerOption3= new Button ("View And Update Menu");// WHY?????
             Button BranchManagerOption4= new Button ("View Employers");
             Button BranchManagerOption5= new Button ("Register Account");
             Button BranchManagerOption6= new Button ("Approve suppliers");
@@ -199,6 +199,12 @@ public class IndexControllerD {
                 }});
             
             ///3--> update menu Muhamad
+            
+            BranchManagerOption3.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.MenuFXML);
+                }});
             
             BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -391,7 +397,7 @@ public class IndexControllerD {
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadInsideFXML(Globals.menuFXML);
+               	Globals.loadInsideFXML(Globals.MenuFXML);
                 
                }});
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
