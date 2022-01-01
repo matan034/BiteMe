@@ -41,9 +41,16 @@
         -fx-background-radius: 30;
 }
 .text-box{
-    -fx-background-color:#FFFFFF;
+    -fx-background-color:#F5F5F5;
     -fx-background-radius: 100;
+
 }
+.text-box:focused{
+	-fx-border-color:black;
+	 -fx-border-radius:100;
+	  -fx-border-width:2px;
+}
+
 
 .error {
   -fx-border-radius:100;
@@ -117,6 +124,7 @@
 
 .btn:hover,
 .btn:focus {
+	-fx-cursor:hand;
   -fx-background-color: #f79452;
   -fx-box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }

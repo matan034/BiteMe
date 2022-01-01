@@ -8,7 +8,7 @@ public class Customer implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer customerNumber,pAccount,bAccount;
+	private Integer customerNumber,pAccount=0,bAccount=0;
 	private String id,status,name,stringPaccount,stringBaccount;
 	public Customer(int customerNumber, int pAccount,int bAccount,String id,  String status) {
 		super();

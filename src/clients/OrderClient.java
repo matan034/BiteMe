@@ -38,6 +38,7 @@ import ocsf.client.AbstractClient;
 public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;
+	public static boolean AccountInfo;
 
 	public static int orderLateFlag=0;
 	public static Map<String, ArrayList<DishInRestaurant>> branch_menu = new HashMap<String, ArrayList<DishInRestaurant>>();
@@ -300,7 +301,7 @@ public class OrderClient extends AbstractClient {
 				 baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Integer.parseInt(res[8]),Integer.parseInt(res[9]),res[10]) ;
 				//Globals.newOrder.setbAccount(baccount);
 				break;
-			case "Customer load"://maybe delete
+			case "Customer load":
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
 				customer.setId(res[2]);
 				if(!res[4].equals("null")) 
@@ -322,6 +323,10 @@ public class OrderClient extends AbstractClient {
 			case "Supplier Quarter Data": orderAmount=res[1]; income=res[2];
 			case "Add_dish": addDish=res[1];
 			case "Add_dish_to_rest" : addDish=res[1];
+			case "AccountInfo":
+				if(res[1].equals("Found")) AccountInfo=true;
+				else
+					AccountInfo=false;
 			}
 
 		}

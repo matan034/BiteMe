@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.NewOrderScreenController">
    <children>
       <BorderPane prefHeight="650.0" prefWidth="1010.0">
@@ -23,9 +22,14 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="264.0" prefWidth="1010.0">
+                  <VBox alignment="CENTER" prefHeight="264.0" prefWidth="1010.0">
                      <children>
-                        <Accordion fx:id="neworders_accordion" prefHeight="256.0" prefWidth="454.0" styleClass="accordion" />
+                        <Label fx:id="no_orders_lbl" prefHeight="38.0" prefWidth="304.0" text="No new orders" visible="false">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Accordion fx:id="neworders_accordion" prefHeight="222.0" prefWidth="1010.0" styleClass="accordion" />
                      </children>
                   </VBox>
                   <Separator prefHeight="0.0" prefWidth="670.0" />
@@ -38,8 +42,13 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="276.0" prefWidth="1010.0">
+                  <VBox alignment="CENTER" prefHeight="276.0" prefWidth="1010.0">
                      <children>
+                        <Label fx:id="no_history_lbl" text="No order history" visible="false">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
                         <Accordion fx:id="historyaccordion" prefHeight="226.0" prefWidth="497.0" />
                      </children>
                   </VBox>

@@ -2,6 +2,7 @@ package common;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import clients.OrderClient;
 import clients.StartClient;
 import general.IndexControllerD;
 import general.OrderClientController;
+import general.VerifyListener;
 import entity.Branch;
 import entity.Dish;
 import entity.DishInOrder;
@@ -23,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -89,6 +92,7 @@ public class Globals {
 			intakeReport="/report/IntakeReportScreen.fxml",
 			addDish="/menu/AddDishScreen.fxml",
 			addDishToRest="/menu/AddDishToRestaurant.fxml";
+			homeScreen="/general/HomeScreen.fxml";
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
@@ -97,6 +101,7 @@ public class Globals {
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);
+	 public static String AccountInfoArr[];
 	 
 	 public static ObservableList<Branch> branches;
 	 public static ObservableList<Supplier> suppliers;
@@ -200,6 +205,56 @@ public class Globals {
 		    return;
 		}
 	}
+	
+	
+	public static void VerifyInputListener(TextField textfield,VerifyListener verify)
+    {
+    	textfield.focusedProperty().addListener((obs,oldValue, newValue)-> {
+    		if(newValue)//here we get focus in textfield
+    		{
+    			if ( textfield.getStyleClass().contains("error")) {
+	    			textfield.getStyleClass().removeAll(Collections.singleton("error"));
+	    		}
+    			if (  textfield.getStyleClass().contains("success")) {
+	    			textfield.getStyleClass().removeAll(Collections.singleton("success"));
+	    		}
+    		}
+    	    if(!newValue)//here we focused out
+    	    {
+    	    	if(verify.verify())
+    	    	{
+    	    		if ( textfield.getStyleClass().contains("error")) {
+    	    			textfield.getStyleClass().removeAll(Collections.singleton("error"));
+    	    		}
+    	    		 if (!  textfield.getStyleClass().contains("success")) {
+    	    			 textfield.getStyleClass().add("success");
+    	    		 }
+    	    	}
+    	    	else
+    	    	{
+    	    		if (  textfield.getStyleClass().contains("success")) {
+    	    			textfield.getStyleClass().removeAll(Collections.singleton("success"));
+    	    		}
+    	    		if (!  textfield.getStyleClass().contains("error")) {
+    	    			textfield.getStyleClass().add("error");
+    	    		} 	
+    	    	}
+    	    }
+    	});
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 

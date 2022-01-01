@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.UserAlreadyHasAccountController">
+   <children>
+      <Pane prefHeight="414.0" prefWidth="600.0">
+         <children>
+            <TextField fx:id="id_lbl" layoutX="235.0" layoutY="126.0" promptText="ID" styleClass="text-box" />
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="206.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IDIcon.png" />
+               </image>
+            </ImageView>
+            <Button id="NextPageBtn" fx:id="next_btn" layoutX="272.0" layoutY="200.0" mnemonicParsing="false" onAction="#NextPage" prefHeight="35.0" prefWidth="56.0" styleClass="btn" text="Next" />
+            <Label fx:id="id_error_lbl" layoutX="398.0" layoutY="130.0" prefHeight="17.0" prefWidth="201.0" textFill="RED" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

@@ -113,6 +113,8 @@ public class DBController extends AbstractServer {
 				case "User_login":dbUser.userLogin(res,client,myCon,this);break;
 				case "Business_account":dbUser.privateOrBusinessAccountReg(res,client,myCon,this);break;
 				case "Private_account":dbUser.privateOrBusinessAccountReg(res,client,myCon,this);break;
+				case "Check_account_info":dbUser.checkAccountInfo(res, client, myCon, this);break;
+				case "Check_user":dbUser.checkUser(res, client, myCon, this);break;
 				case "Check_account_input":dbUser.checkAccountInput(res,client,myCon,this);break;
 				case "Check_employer":dbUser.checkEmployer(res,client,myCon,this);break;
 				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;
@@ -130,6 +132,8 @@ public class DBController extends AbstractServer {
 				case "Approve_account":dbUser.ApproveAccount(res,client,myCon,this);break;
 				case "Get_restaurants":dbUser.GetRestaurants(res, client, myCon, this);break;
 				case "Approve_restaurant":dbUser.ApproveRestaurant(res, client, myCon, this);break;
+				case "Update_private_account":dbUser.UpdatePrivateAccount(res, client, myCon, this);break;
+				case "Update_business_account":dbUser.UpdateBusinessAccount(res, client, myCon, this);break;
 				case "Logout" :dbUser.logout(res, client, myCon, this);break;
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;
