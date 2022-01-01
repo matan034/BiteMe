@@ -18,14 +18,14 @@
          <children>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css">
                <children>
-                  <TextField fx:id="cc_lbl" layoutX="419.0" layoutY="179.0" promptText="Credit Card Number" />
-                  <TextField fx:id="employer_name_lbl" layoutX="417.0" layoutY="313.0" promptText="Employer Name" />
+                  <TextField fx:id="cc_lbl" layoutX="419.0" layoutY="179.0" promptText="Credit Card Number" styleClass="text-box" />
+                  <TextField fx:id="employer_name_lbl" layoutX="417.0" layoutY="313.0" promptText="Employer Name" styleClass="text-box" />
                   <Button fx:id="back_btn" layoutX="40.0" layoutY="590.0" mnemonicParsing="false" onAction="#BackPage" styleClass="btn" text="Back" />
                   <Button fx:id="reg_btn" layoutX="460.0" layoutY="431.0" mnemonicParsing="false" onAction="#RegisterAccount" styleClass="btn" text="Register" />
                   <Label fx:id="res_lbl" layoutX="375.0" layoutY="403.0" prefHeight="17.0" prefWidth="260.0" textFill="RED" />
                   <Label fx:id="cc_error_lbl" layoutX="584.0" layoutY="183.0" prefHeight="17.0" prefWidth="227.0" textFill="RED" />
                   <Label fx:id="employer_name_error_lbl" layoutX="584.0" layoutY="317.0" prefHeight="17.0" prefWidth="200.0" textFill="RED" />
-                  <TextField fx:id="budget_lbl" layoutX="419.0" layoutY="365.0" promptText="Monthly Budget " />
+                  <TextField fx:id="budget_lbl" layoutX="419.0" layoutY="365.0" promptText="Monthly Budget " styleClass="text-box" />
                   <CheckBox fx:id="BusinessCheckBox" layoutX="437.0" layoutY="264.0" mnemonicParsing="false" text="Business Account" />
                   <CheckBox fx:id="PrivateCheckBox" layoutX="429.0" layoutY="135.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Private Account" />
                   <Label layoutX="342.0" layoutY="39.0" text="Account Type">
@@ -59,11 +59,12 @@
                      </image>
                   </ImageView>
                   <Separator layoutX="393.0" layoutY="230.0" prefWidth="200.0" />
-                  <ImageView fx:id="green_v_img" fitHeight="35.0" fitWidth="43.0" layoutX="543.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="green_v_img" fitHeight="35.0" fitWidth="43.0" layoutX="544.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../img/greenv.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="budget_error_lbl" layoutX="584.0" layoutY="369.0" prefHeight="17.0" prefWidth="207.0" textFill="RED" />
                </children>
             </Pane>
          </children>

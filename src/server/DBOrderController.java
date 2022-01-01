@@ -100,31 +100,36 @@ public class DBOrderController {
 		  stmt = myCon.createStatement();
 		  String result="Load Orders~";
 		  ArrayList <String> orders=new ArrayList<>();
-		  int flag;
+		  int flag,restuarantNum=0;
 		  ResultSet rs;
-		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.DishesInOrders \r\n"
-		  		+ "SELECT * \r\n"
-		  		+ "FROM (\r\n"
-		  		+ "	SELECT biteme.dishes.DishName,DishesByOrderNumber.DishID,DishesByOrderNumber.OrderNumber\r\n"
-		  		+ "	FROM biteme.dishes\r\n"
-		  		+ "	INNER JOIN (SELECT dishinorder.DishID,dishinorder.OrderNumber\r\n"
-		  		+ "	FROM biteme.dishinorder\r\n"
-		  		+ "		INNER JOIN (SELECT biteme.order.OrderID, biteme.order.CustomerNumber\r\n"
-		  		+ "					FROM biteme.order\r\n"
-		  		+ "                    INNER JOIN biteme.restaurant\r\n"
-		  		+ "					ON restaurant.Number=biteme.order.ResturantNumber)AS OrderByRestaurant\r\n"
-		  		+ "	ON OrderNumber=OrderID)AS DishesByOrderNumber\r\n"
-		  		+ "	WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;");
-		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders \r\n"
-		  		+ "SELECT * \r\n"
-		  		+ "FROM(\r\n"
-		  		+ "SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
-		  		+ "FROM biteme.account\r\n"
-		  		+ "INNER JOIN (SELECT biteme.order.SupplyWay, biteme.order.RequestOrderTime, customers.AccountNum,biteme.order.OrderID\r\n"
-		  		+ "	FROM biteme.order\r\n"
-		  		+ "	INNER JOIN biteme.customers\r\n"
-		  		+ "	ON biteme.order.CustomerNumber=customers.CustomerNumber)AS CustomerOrderJoin\r\n"
-		  		+ "ON account.AccountNum=CustomerOrderJoin.AccountNum)AS y;");
+		  rs = stmt.executeQuery(String.format("SELECT Number FROM biteme.restaurant WHERE Manager='%s'",res[1]));
+		  if(rs.next()) {
+			  restuarantNum=rs.getInt(1);
+		  }
+		  flag=stmt.executeUpdate(String.format("CREATE TEMPORARY TABLE biteme.DishesInOrders\r\n"
+		  		+ "		  		SELECT * \r\n"
+		  		+ "		  		FROM (\r\n"
+		  		+ "		  		SELECT biteme.dishes.DishName,DishesByOrderNumber.DishID,DishesByOrderNumber.OrderNumber\r\n"
+		  		+ "		  		FROM biteme.dishes\r\n"
+		  		+ "		  			INNER JOIN (SELECT dishinorder.DishID,dishinorder.OrderNumber\r\n"
+		  		+ "		  		FROM biteme.dishinorder\r\n"
+		  		+ "		  		INNER JOIN (SELECT biteme.order.OrderID, biteme.order.CustomerNumber\r\n"
+		  		+ "		  		FROM biteme.order\r\n"
+		  		+ "		  		INNER JOIN biteme.restaurant\r\n"
+		  		+ "		  		ON restaurant.Number=biteme.order.ResturantNumber WHERE ResturantNumber='%d')AS OrderByRestaurant\r\n"
+		  		+ "		  		ON OrderNumber=OrderID)AS DishesByOrderNumber\r\n"
+		  		+ "		  		WHERE dishes.DishID=DishesByOrderNumber.DishID)As x;\r\n"
+		  		+ "                ",restuarantNum));
+		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders\r\n"
+		  		+ "		  		SELECT *\r\n"
+		  		+ "		  		FROM(\r\n"
+		  		+ "		  		SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
+		  		+ "		  		FROM biteme.account\r\n"
+		  		+ "		  		INNER JOIN (SELECT biteme.order.SupplyWay, biteme.order.RequestOrderTime, customers.PrivateAccount,customers.BusinessAccount,biteme.order.OrderID\r\n"
+		  		+ "		  		FROM biteme.order\r\n"
+		  		+ "		  		INNER JOIN biteme.customers\r\n"
+		  		+ "		  		ON biteme.order.CustomerNumber=customers.CustomerNumber)AS CustomerOrderJoin\r\n"
+		  		+ "		  		ON account.AccountNum=CustomerOrderJoin.PrivateAccount OR account.AccountNum=CustomerOrderJoin.businessaccount)AS y;");
 		  
 		  rs=stmt.executeQuery("SELECT DishesInOrders.DishName, CustomersInOrders.FirstName,CustomersInOrders.LastName,CustomersInOrders.SupplyWay,CustomersInOrders.RequestOrderTime,CustomersInOrders.OrderID\r\n"
 		  		+ "FROM biteme.DishesInOrders\r\n"
@@ -503,7 +508,8 @@ public class DBOrderController {
 			  int flag;
 				try {
 					stmt = myCon.createStatement();
-					flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET IsApproved = '1' WHERE OrderID = %d;",Integer.parseInt(res[1])));
+					flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET IsApproved = '1', RecivedOrderTime=CURRENT_TIMESTAMP WHERE OrderID = %d;",Integer.parseInt(res[1])));
+					
 					if(flag>0)	db.sendToClient("OrderApproved~Updated Successfuly", client);
 					else db.sendToClient("OrderApproved~Failed to update", client);
 					stmt.close();	

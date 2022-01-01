@@ -89,6 +89,7 @@ public class DBUserController {
 	protected void privateOrBusinessAccountReg(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 		Statement stmt;
 		stmt = myCon.createStatement();
+		ResultSet rs;
 		int newAccountNum = 0, flagReg = 0;
 	
 		newAccountNum = accountReg(res, client,myCon,db);
@@ -103,10 +104,16 @@ public class DBUserController {
 				
 				if(flagReg>0)//create a customer 
 				{
-			
+					rs = stmt.executeQuery(String.format("SELECT * FROM biteme.customers WHERE ID='%s'",res[3]));
+					if(rs.next()) {
+						flagReg = stmt.executeUpdate(String.format(
+								"UPDATE biteme.customers SET PrivateAccount='%d';",
+								newAccountNum));
+					}
+					else {
 					flagReg = stmt.executeUpdate(String.format(
 							"INSERT INTO biteme.customers (ID,PrivateAccount) VALUES ('%s','%d');",
-							res[3], newAccountNum));
+							res[3], newAccountNum));}
 	
 					flagReg = stmt.executeUpdate(String.format(
 							"UPDATE biteme.users SET Type = 'Customer' WHERE ID='%s';",
@@ -115,14 +122,21 @@ public class DBUserController {
 							"UPDATE biteme.w4c_cards SET PrivateAccount = '%d' WHERE CardNum=(SELECT W4C FROM biteme.account WHERE AccountNum='%d');",
 							newAccountNum,newAccountNum));
 				}
-			} else{// business_account
+			} else {// business_account
 				flagReg = stmt.executeUpdate(String.format(
 						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ('%d',(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');",
 						newAccountNum, res[6], Integer.parseInt(res[7])));
-		
+				
+				rs = stmt.executeQuery(String.format("SELECT * FROM biteme.customers WHERE ID='%s'",res[3]));
+				if(rs.next()) {
+					flagReg = stmt.executeUpdate(String.format(
+							"UPDATE biteme.customers SET BusinessAccount='%d';",
+							newAccountNum));
+				}
+				else {
 				flagReg = stmt.executeUpdate(String.format(
 						"INSERT INTO biteme.customers (ID,BusinessAccount) VALUES ('%s','%d');",
-						res[3], newAccountNum));
+						res[3], newAccountNum));}
 		
 				flagReg = stmt.executeUpdate(String.format(
 						"UPDATE biteme.users SET Type = 'Customer' WHERE ID='%s';",
@@ -663,6 +677,78 @@ public class DBUserController {
 					stmt.close();
 					rs.close();
 				}
+					
+					
+					protected void checkAccountInfo(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						Statement stmt;
+						stmt = myCon.createStatement();
+						ResultSet rs;
+						rs = stmt.executeQuery(String.format("SELECT * FROM biteme.account WHERE %s='%s';",res[1],res[2]));
+						if(rs.next()) {
+							db.sendToClient("AccountInfo~Found", client);
+						}
+						else
+							db.sendToClient("AccountInfo~NotFound", client);
+						
+						stmt.close();
+						rs.close();
+					}
+					
+					protected void checkUser(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						Statement stmt;
+						stmt = myCon.createStatement();
+						ResultSet rs;
+						rs = stmt.executeQuery(String.format("SELECT ID FROM biteme.users WHERE ID='%s' AND Type='Base User'",res[1]));
+						if(rs.next()) {
+							db.sendToClient("AccountInfo~Found", client);
+						}
+						else
+							db.sendToClient("AccountInfo~NotFound", client);
+						
+						stmt.close();
+						rs.close();
+					}
+					
+					
+					protected void UpdatePrivateAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						 Statement stmt;
+				  		  int flag;
+				  		  try {
+				  		  stmt = myCon.createStatement();
+				  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.privateaccount SET CreditCardNumber = '%s' WHERE AccountNum = '%d';",res[1],Integer.parseInt(res[2])));
+				  		  System.out.println("Private account updated");
+				  		  db.sendToClient("Private account updated~",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			
+				  		}
+
+					}
+					
+					protected void UpdateBusinessAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						 Statement stmt;
+						 ResultSet rs;
+						 int employernum=0;
+				  		  int flag;
+				  		  try {
+				  		  stmt = myCon.createStatement();
+				  		  rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
+				  		  if(rs.next())employernum=rs.getInt(1);
+				  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET EmployerNum = '%d',MonthlyLimit='%d' WHERE AccountNum = '%d';",employernum,Integer.parseInt(res[2]),Integer.parseInt(res[3])));
+				  		  System.out.println("Business account updated");
+				  		  db.sendToClient("Business account updated~",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			
+				  		}
+
+					}
+					
+					
+					
+					
 		
 		
 }

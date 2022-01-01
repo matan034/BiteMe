@@ -1,5 +1,14 @@
-/common/
-/server/
-/managment/
 /clients/
+/common/
+/entity/
 /general/
+/managment/
+/menu/
+/ocsf/
+/order/
+/quartelyreports/
+/report/
+/resturant/
+/server/
+/utility/
+/branch_manager/
