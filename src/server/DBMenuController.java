@@ -152,13 +152,13 @@ public class DBMenuController {
 		Statement stmt;
 		ResultSet menu,menuID;
 		int restaurantID=dishes.get(0).getRestaurantNumber();
-		int MenuID=0;
+		int MenuID=0,temp=0;
 		String myMenu=String.format("SELECT MenuID FROM biteme.menu WHERE RestaurantNum=%d;",restaurantID);
 		try 
 		{
 			stmt = myCon.createStatement();
 			menu=stmt.executeQuery(myMenu);
-			if(!menu.next())
+			if(!menu.isBeforeFirst())
 			{
 				MenuID=createNewEmptyMenu(restaurantID,myCon);
 				if(MenuID==-1)
@@ -167,12 +167,15 @@ public class DBMenuController {
 					return;
 				}
 			}
-			else MenuID=menu.getInt(1);
+			else { 
+				menu.next();
+				MenuID=menu.getInt(1);
+			}
 			boolean result;
 			for(DishInRestaurant DIR:dishes)
 			{
-				  menuID =stmt.executeQuery(String.format("SELECT MenuID FROM biteme.dishinmenu "
-					 		+ "WHERE DishID='%d' AND MenuID='%d';",DIR.getDishID(),MenuID));
+				  menuID =stmt.executeQuery(String.format("SELECT MenuID FROM biteme.dishinmenu \r\n"
+				  		+ "WHERE DishID='%d' AND MenuID='%d';",DIR.getDishID(),MenuID));
 				  if(menuID.next())
 				  {
 					  result=editDish(DIR,myCon,MenuID);
@@ -187,9 +190,11 @@ public class DBMenuController {
 					  result=insertDish(DIR,1,MenuID,myCon);
 					  if(!result)
 					  {
+						  
 						  db.sendToClient("insert_dishes_to_restaurant_msg~Error happened while insert dishes",client); 
 						  return;
 					  }
+
 				  }
 			}
 			db.sendToClient("insert_dishes_to_restaurant_msg~The dishes has been added successfully to your menu.",client); 
@@ -235,9 +240,9 @@ public class DBMenuController {
 		String editDish;
 		PreparedStatement preparedStmt;
 		try {
-			  editDish="UPDATE biteme.dishesInRestaurant "
+			  editDish="UPDATE biteme.dishinrestaurant "
 				  		+ "SET Price=? , ChooseSize=?, ChooseCookingLevel=?,ChooseExtras=?,"
-				  		+ "DishImage=? , ImageName=? , ImageSize=? "
+				  		+ "DishImage=? , ImageName=?  "
 				  		+ "WHERE DishID=?;";
 			  preparedStmt = myCon.prepareStatement(editDish);
 			  preparedStmt.setDouble (1,Dish.getPrice());
@@ -247,8 +252,8 @@ public class DBMenuController {
 			  preparedStmt.setString(6,Dish.getImageName());
 			  InputStream targetStream = new ByteArrayInputStream(Dish.getMyImagebytearray());
 			  preparedStmt.setBinaryStream(5, targetStream);
-			  preparedStmt.setInt(7,Dish.getMyImagebytearray().length);
-			  preparedStmt.setInt(8,Dish.getDishID());
+			  preparedStmt.setInt(7,Dish.getDishID());
+			  preparedStmt.execute();
 			  preparedStmt.close();
 		}catch(Exception e) {
 			  return false;
@@ -262,7 +267,7 @@ public class DBMenuController {
 		  boolean result;
 		  try {
 			  stmt = myCon.createStatement();
-			  String AddDishToRestaurant="INSERT INTO biteme.dishinrestaurant (restaurantNumber, DishID, Price, ChooseSize, ChooseCookingLevel, ChooseExtras, DishImage,ImageName,ImageSize) VALUES (?,?,?,?,?,?,?,?,?);";
+			  String AddDishToRestaurant="INSERT INTO biteme.dishinrestaurant (restaurantNumber, DishID, Price, ChooseSize, ChooseCookingLevel, ChooseExtras, DishImage,ImageName) VALUES (?,?,?,?,?,?,?,?);";
 			  preparedStmt = myCon.prepareStatement(AddDishToRestaurant);
 			  preparedStmt.setInt (1,dish.getRestaurantNumber());
 			  preparedStmt.setInt(2,dish.getDishID());
@@ -273,13 +278,12 @@ public class DBMenuController {
 			  InputStream targetStream = new ByteArrayInputStream(dish.getMyImagebytearray());
 			  preparedStmt.setBinaryStream(7, targetStream);
 			  preparedStmt.setString(8,dish.getImageName());
-			  preparedStmt.setInt(9,dish.getDishID());
 			  preparedStmt.execute();
 			  stmt.close();
 			  preparedStmt.close();
 			  if(addToMenu==1)
 			  {
-				  result=addDishToMenu(dish.getDishID(),menuId,myCon);
+				  result=addDishToMenu(dish.getRestaurantNumber(),dish.getDishID(),myCon);
 				  if(!result)
 					  return false;
 			  }
@@ -288,14 +292,14 @@ public class DBMenuController {
 		  }
 		  return true;
 	}
-	protected boolean addDishToMenu(int dishId,int menuId,Connection myCon)
+	protected boolean addDishToMenu(int restNum,int dishID,Connection myCon)
 	{
 		  PreparedStatement preparedStmt;
 		  try {
 			  String AddDish="INSERT INTO biteme.dishinmenu (MenuID,DishID) VALUES ((SELECT MenuID FROM biteme.menu Where RestaurantNum=?),?);";
 			  preparedStmt = myCon.prepareStatement(AddDish);
-			  preparedStmt.setInt (1,dishId);
-			  preparedStmt.setInt(2,menuId);
+			  preparedStmt.setInt (1,restNum);
+			  preparedStmt.setInt(2,dishID);
 			  preparedStmt.execute();		
 			  preparedStmt.close();
 		  }catch(Exception e) {
@@ -458,5 +462,26 @@ public class DBMenuController {
 		  }catch(Exception e) {
 			  db.sendToClient("Add_dish_to_menu~"+e,client);
 		  }
+	}
+	protected void removeDishes(ArrayList<DishInRestaurant> dishes,ConnectionToClient client,Connection myCon,DBController db)
+	{
+		 PreparedStatement stmt;
+		  ResultSet rs;
+		  String deleteDish="Delete From biteme.dishinrestaurant Where restaurantNumber=? AND DishID=?";
+		  try {
+		  for(DishInRestaurant dish:dishes)
+		  {
+			 
+			  stmt = myCon.prepareStatement(deleteDish);
+			  stmt.setInt (1,dish.getRestaurantNumber());
+			  stmt.setInt(2,dish.getDishID());
+			  stmt.execute();
+			  
+		  }
+		  db.sendToClient("remove dishes~Dishes were removed successfuly", client);	
+		  }
+		  catch (Exception e) {
+			  db.sendToClient("remove dishes~"+e, client);	
+		}
 	}
 }

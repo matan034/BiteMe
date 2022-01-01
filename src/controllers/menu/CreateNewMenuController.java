@@ -110,7 +110,10 @@ public class CreateNewMenuController {
     ArrayList<Dish> Dishes_to_choose=new ArrayList<Dish>();
     ArrayList<DishInRestaurant> Dishes_in_menu=new ArrayList<DishInRestaurant>();
     Map<String, ArrayList<DishInRestaurant>> dishes_to_add=new HashMap<String, ArrayList<DishInRestaurant>>();
-
+    
+    ArrayList<DishInRestaurant> toUpdate=new ArrayList<DishInRestaurant>();
+    ArrayList<DishInRestaurant> toDelete=new ArrayList<DishInRestaurant>();
+    
     public void initialize() {
     	ChooseMenuTypeComboBox.setItems(Globals.dishesTypes1);
     	setListViewFieldsVisibility(false);
@@ -275,6 +278,7 @@ public class CreateNewMenuController {
     	DishInRestaurant DIR;
     	int dishId,chooseSize=0,chooseCookingLvl=0,chooseExtras=0;
     	double price;
+    	
     	String imageName,dishName;
     	if(dishPrice.getText().isEmpty()||ImageName.getText().isEmpty())
     	{
@@ -282,6 +286,7 @@ public class CreateNewMenuController {
     		return;
     	}
     	price=Double.parseDouble(dishPrice.getText());
+   
     	imageName=ImageName.getText();
     	if(hasMultipleSizes.isSelected())
     		chooseSize=1;
@@ -293,14 +298,15 @@ public class CreateNewMenuController {
     	{
     		dishName=currentDishToAdd.getName();
     		dishId=currentDishToAdd.getDishID();
-
+    		
     		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
-    				chooseExtras,imageName,Imagebytearray,1,restaurentNumber);
+    				chooseExtras,imageName,currentDishToAdd.getMyImagebytearray(),1,restaurentNumber);
     		Dishes_in_menu.remove(currentDishToAdd);
     		Dishes_in_menu.add(DIR);
     		currentDishToAdd=DIR;
     		dishes_to_add.put(dishType, Dishes_in_menu);
-    		
+    		toUpdate.add(DIR);
+    		saveMenu.setDisable(false);
     	}
     	else if(currentDishToAdd==null)
     	{
@@ -313,8 +319,12 @@ public class CreateNewMenuController {
     		currentDish=null;
     		dishes_to_add.put(dishType, Dishes_in_menu);
     		dishToAdd.add(dishName);
+    		dishToChoose.remove(dishName);
     		dishesToAdd.setItems(dishToAdd);
+    		saveMenu.setDisable(false);
+    		toUpdate.add(DIR);
     	}
+    	
     	
     }
 
@@ -323,46 +333,39 @@ public class CreateNewMenuController {
     	if(dishesToAdd.getSelectionModel().getSelectedItem()==null)
     		return;
     	Dishes_in_menu.remove(currentDishToAdd);
-    	dishes_to_add.put(dishType, Dishes_in_menu);
+    	
+    	dishToChoose.add(currentDishToAdd.getName());
+    	
     	setDishFieldsVisibility(true);
-
-    	dishesToAdd.refresh();
-    	DishesList.refresh();
+    	
+    	dishToAdd.remove(currentDishToAdd.getName()); 
+    	saveMenu.setDisable(false);
+    	toDelete.add(currentDishToAdd);
     	resetDishFields();
     }
     @FXML
     void saveMenu(ActionEvent event) {
     	ArrayList<DishInRestaurant> sendToServer=new ArrayList<DishInRestaurant>();
-    	sendToServer.addAll(dishes_to_add.get("Appetizer"));
-    	sendToServer.addAll(dishes_to_add.get("Salad"));
-    	sendToServer.addAll(dishes_to_add.get("Main"));
-    	sendToServer.addAll(dishes_to_add.get("Dessert"));
-    	sendToServer.addAll(dishes_to_add.get("Drink"));
-    	if(sendToServer.isEmpty())
+
+ 
+    	clientData data;
+    	if(!toUpdate.isEmpty())
     	{
-    		createMessageLabel.setText("Edit or add dish to menu first!!");
-    		return;
+    		data=new clientData(toUpdate,"add_to_restaurant");
+        	StartClient.order.accept(data);	
     	}
-    	for(DishInRestaurant DIR:sendToServer)
+    	if(!toDelete.isEmpty())
     	{
-    		if(OrderClient.dishes_in_menu.get(DIR.getType()).contains(DIR))
-    		{
-    			sendToServer.remove(DIR);
-    		}
+    		data=new clientData(toDelete,"remove");
+        	StartClient.order.accept(data);	
     	}
-    	if(sendToServer.isEmpty())
-    	{
-    		createMessageLabel.setText("Edit or add dish to menu first!!");
-    		return;
-    	}
-    	clientData data=new clientData(sendToServer,"add_to_restaurant");
-    	StartClient.order.accept(data);	
+    		
+    	//data=new clientData(toDelete,"add_to_restaurant");
     	OrderClient.dishes_in_menu.putAll(dishes_to_add);
     	setListViewFieldsVisibility(false);
     	setDishFieldsVisibility(false);
     	saveMenu.setDisable(true);
     	
-    	ChooseMenuTypeComboBox.getSelectionModel().select(0);
     	createMessageLabel.setText(OrderClient.insert_dishes_to_restaurant_msg);
     }
     void setDishFieldsVisibility(boolean setting) 

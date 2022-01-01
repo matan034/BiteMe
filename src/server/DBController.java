@@ -4,10 +4,12 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entity.Dish;
 import entity.DishInRestaurant;
 import entity.MyFile;
+import entity.clientData;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -65,6 +67,17 @@ public class DBController extends AbstractServer {
 	  {
 		    System.out.println("Message received: " + msg + " from " + client); 
 		    
+		    //muhammad
+		    if(msg instanceof clientData)
+		    {
+		    	clientData message=(clientData)msg;
+				switch(message.getOperation())
+				{
+				case "add_to_restaurant"://muhammad
+					dbMenu.insertDishesToRestaurant((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);
+				case "remove": dbMenu.removeDishes((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);
+				}
+		    }
 		    if(msg instanceof MyFile) {		    	
 		    		dbReport.UploadReport(msg, client, myCon, this);
 		    }

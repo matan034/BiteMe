@@ -7,7 +7,7 @@ public class DishInRestaurant extends Dish implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int restaurantNumber,dishID,chooseSize,chooseCookingLvl,chooseExtras,imageSize=0,inMenu;
+	private int restaurantNumber,chooseSize,chooseCookingLvl,chooseExtras,imageSize=0,inMenu;
 	private double price;
 	private String imageName,dbSetting="";
 	public  byte[] myImagebytearray;
@@ -19,7 +19,7 @@ public class DishInRestaurant extends Dish implements Serializable {
 			int imageSize, double price, String imageName, byte[] myImagebytearray) {
 		super(dishID,"","");
 		this.restaurantNumber = restaurantNumber;
-		this.dishID = dishID;
+		//this.dishID = dishID;
 		this.chooseSize = chooseSize;
 		this.chooseCookingLvl = chooseCookingLvl;
 		this.chooseExtras = chooseExtras;
@@ -64,12 +64,7 @@ public class DishInRestaurant extends Dish implements Serializable {
 	public void setRestaurantNumber(int restaurantNumber) {
 		this.restaurantNumber = restaurantNumber;
 	}
-	public int getDishID() {
-		return dishID;
-	}
-	public void setDishID(int dishID) {
-		this.dishID = dishID;
-	}
+
 	public int getChooseSize() {
 		return chooseSize;
 	}
