@@ -62,6 +62,11 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="comboBoxBranch" editable="true" layoutX="120.0" layoutY="91.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="131.0" promptText="Change branch" style="-fx-background-color: #F7C665;" />
+                              <ImageView fx:id="home_page" fitHeight="42.0" fitWidth="125.0" layoutX="120.0" layoutY="43.0" onMouseClicked="#setHomePage" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/homepage-button.gif" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="505.0" HBox.hgrow="ALWAYS">

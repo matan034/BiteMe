@@ -17,7 +17,7 @@
          <children>
             <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0">
                <center>
-                  <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" BorderPane.alignment="CENTER">
                      <children>
                         <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -48,12 +48,7 @@
                                     <Image url="@../img/undraw_On_the_way_re_swjt.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="103.0" fitWidth="193.0" layoutX="68.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/undraw_takeout_boxes_ap54.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="164.0" fitWidth="238.0" layoutX="790.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="142.0" fitWidth="173.0" layoutX="804.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/fast-delivery-removebg-preview.png" />
                                  </image>

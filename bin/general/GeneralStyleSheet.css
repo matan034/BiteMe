@@ -43,6 +43,9 @@
 .text-box{
     -fx-background-color:#F5F5F5;
     -fx-background-radius: 100;
+     -fx-border-radius:100;
+    -fx-border-color: #F7C665;
+    -fx-border-width:2px
 
 }
 .text-box:focused{

@@ -262,13 +262,6 @@ public class RegNewAccountP1Controller {
 		}
 		   
 	   });
-
-	   
-	   
-	   
-	   
-	  
-	   
    }
 
     /**
@@ -370,13 +363,10 @@ public class RegNewAccountP1Controller {
            			id_error_lbl.setText("No User with this ID ");
            		return flag;
            	}
-           	
-           		
-           	
+
     	}
     	else
     		return flag;
-    	
     }
     /**
      * Function to validate correct email address (ending with shtrudol and .com and so on)*/

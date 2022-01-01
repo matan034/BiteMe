@@ -5,17 +5,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.EmployerRecordController">
    <children>
       <HBox fx:id="employer_details_hbox" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
          <children>
-            <Label fx:id="address_lbl" text="address">
+            <Label fx:id="address_lbl" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="address">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="telephone_lbl" minHeight="-Infinity" minWidth="-Infinity" text="telephone">
+            <Label fx:id="telephone_lbl" minHeight="-Infinity" minWidth="-Infinity" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="telephone">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>

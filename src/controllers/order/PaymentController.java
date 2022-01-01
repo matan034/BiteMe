@@ -23,6 +23,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -59,6 +60,10 @@ public class PaymentController {
     private VBox extra_fees_vbox;
     @FXML
     private Label total_price_label;
+    
+    @FXML
+    private ImageView back_screen;
+
 
     private int delivery_pay;
     private double early_discount;

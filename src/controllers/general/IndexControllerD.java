@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -40,26 +41,28 @@ public class IndexControllerD {
     @FXML
     private Label msg_label;
     
+    @FXML
+    private ImageView home_page;
 
-
+    static String tempTypeUser; 
 
 	public void initialize()
     {
 
         StartClient.order.accept("Load_branches");
-        String typeUser=OrderClient.user.getType();
         hello_label.setText("Hello "+OrderClient.user.getFirstName());
         comboBoxBranch.setItems(Globals.branches);
+        String typeUser = OrderClient.user.getType();
         Branch homeBranch= new Branch(OrderClient.user.getHomeBranch(),OrderClient.user.getStringHomeBranch());
         comboBoxBranch.getSelectionModel().select(homeBranch);
-        
-        
         
         switch(typeUser) {
         
         case "CEO":
-            
-  
+        	
+        	Globals.loadInsideFXML(Globals.homePageCeo);
+        	tempTypeUser="CEO";
+        	
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
@@ -68,22 +71,33 @@ public class IndexControllerD {
             Button CEOOption6= new Button ("Approve Account");
             Button CEOOption7= new Button ("Log out");
             
-
             CEOOption1.getStyleClass().add("ViewBtn");
+            CEOOption1.getStyleClass().add("lbl");
             CEOOption1.setMaxWidth(Double.MAX_VALUE);
-            CEOOption2.getStyleClass().add("ViewBtn");
-            CEOOption2.setMaxWidth(Double.MAX_VALUE);
-            CEOOption3.getStyleClass().add("ViewBtn");
-            CEOOption3.setMaxWidth(Double.MAX_VALUE);
-            CEOOption4.getStyleClass().add("ViewBtn");
-            CEOOption4.setMaxWidth(Double.MAX_VALUE);
-            CEOOption5.getStyleClass().add("ViewBtn");
-            CEOOption5.setMaxWidth(Double.MAX_VALUE);
-            CEOOption6.getStyleClass().add("ViewBtn");
-            CEOOption6.setMaxWidth(Double.MAX_VALUE);
-            CEOOption7.getStyleClass().add("ViewBtn");
-            CEOOption7.setMaxWidth(Double.MAX_VALUE);
             
+            CEOOption2.getStyleClass().add("ViewBtn");
+            CEOOption2.getStyleClass().add("lbl");
+            CEOOption2.setMaxWidth(Double.MAX_VALUE);
+            
+            CEOOption3.getStyleClass().add("ViewBtn");
+            CEOOption3.getStyleClass().add("lbl");
+            CEOOption3.setMaxWidth(Double.MAX_VALUE);
+            
+            CEOOption4.getStyleClass().add("ViewBtn");
+            CEOOption4.getStyleClass().add("lbl");
+            CEOOption4.setMaxWidth(Double.MAX_VALUE);
+            
+            CEOOption5.getStyleClass().add("ViewBtn");
+            CEOOption5.getStyleClass().add("lbl");
+            CEOOption5.setMaxWidth(Double.MAX_VALUE);
+            
+            CEOOption6.getStyleClass().add("ViewBtn");
+            CEOOption6.getStyleClass().add("lbl");
+            CEOOption6.setMaxWidth(Double.MAX_VALUE);
+            
+            CEOOption7.getStyleClass().add("ViewBtn");
+            CEOOption7.getStyleClass().add("lbl");
+            CEOOption7.setMaxWidth(Double.MAX_VALUE);
             
             options_grid1.add(CEOOption1,0,0);
             options_grid1.add(CEOOption2,0,1);
@@ -97,10 +111,9 @@ public class IndexControllerD {
                 CEOOption1.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
-                    	
-       
-                        Globals.loadInsideFXML(Globals.reportFXML);
+                    	   Globals.loadInsideFXML(Globals.reportFXML);
                     }});
+                
                 
                 CEOOption2.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -108,14 +121,13 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.view_employersFXML);
                     }});
                 
-               
-                
                 CEOOption3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
+                
           /////4->>>update menu Muhamad
               CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
                   @Override
@@ -129,9 +141,8 @@ public class IndexControllerD {
                     public void handle(ActionEvent e) {
                         Globals.loadInsideFXML(Globals.regnewemployerFXML);
                     }});
+
                 
-                
-          //6-->approve account Daniel
               CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
                   @Override
                   public void handle(ActionEvent e) {
@@ -143,9 +154,8 @@ public class IndexControllerD {
                     public void handle(ActionEvent e) {
                     	StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
                     	Globals.loadFXML(null, Globals.userloginFXML, e,null);
-                     
                     }});
-          
+
             break;
             
        case "Branch Manager":
@@ -154,25 +164,38 @@ public class IndexControllerD {
     	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
-            Button BranchManagerOption3= new Button ("View And Update Menu");
+            Button BranchManagerOption3= new Button ("Update Menu");
             Button BranchManagerOption4= new Button ("View Employers");
             Button BranchManagerOption5= new Button ("Register Account");
             Button BranchManagerOption6= new Button ("Approve suppliers");
             Button BranchManagerOption7= new Button ("Log out");
             
             BranchManagerOption1.getStyleClass().add("ViewBtn");
+            BranchManagerOption1.getStyleClass().add("lbl");
             BranchManagerOption1.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption2.getStyleClass().add("ViewBtn");
+            BranchManagerOption2.getStyleClass().add("lbl");
             BranchManagerOption2.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption3.getStyleClass().add("ViewBtn");
+            BranchManagerOption3.getStyleClass().add("lbl");
             BranchManagerOption3.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption4.getStyleClass().add("ViewBtn");
+            BranchManagerOption4.getStyleClass().add("lbl");
             BranchManagerOption4.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption5.getStyleClass().add("ViewBtn");
+            BranchManagerOption5.getStyleClass().add("lbl");
             BranchManagerOption5.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption6.getStyleClass().add("ViewBtn");
+            BranchManagerOption6.getStyleClass().add("lbl");
             BranchManagerOption6.setMaxWidth(Double.MAX_VALUE);
+            
             BranchManagerOption7.getStyleClass().add("ViewBtn");
+            BranchManagerOption7.getStyleClass().add("lbl");
             BranchManagerOption7.setMaxWidth(Double.MAX_VALUE);
 
   
@@ -182,7 +205,7 @@ public class IndexControllerD {
             options_grid1.add(BranchManagerOption4,0,3);
             options_grid1.add(BranchManagerOption5,0,4);
             options_grid1.add(BranchManagerOption6,0,5);
-            options_grid1.add(BranchManagerOption7,0,6);
+            options_grid1.add(BranchManagerOption7,0,8);
   
             
             
@@ -233,23 +256,29 @@ public class IndexControllerD {
             
        case "Customer":
     	   
+    	   tempTypeUser="Customer";
     	   StartClient.order.accept("Load_customer~"+OrderClient.user.getID());
-          
+
            Button CustomerOption1= new Button ("New Order");
            Button CustomerOption2= new Button ("My Orders");
            Button CustomerOption3= new Button ("Log out");
            
            CustomerOption1.getStyleClass().add("ViewBtn");
+           CustomerOption1.getStyleClass().add("lbl");
            CustomerOption1.setMaxWidth(Double.MAX_VALUE);
+           
            CustomerOption2.getStyleClass().add("ViewBtn");
+           CustomerOption2.getStyleClass().add("lbl");
            CustomerOption2.setMaxWidth(Double.MAX_VALUE);
+           
            CustomerOption3.getStyleClass().add("ViewBtn");
+           CustomerOption3.getStyleClass().add("lbl");
            CustomerOption3.setMaxWidth(Double.MAX_VALUE);
         
-           
            options_grid1.add(CustomerOption1,0,0);
            options_grid1.add(CustomerOption2,0,1);
            options_grid1.add(CustomerOption3,0,8);
+           
         
            if(OrderClient.customer.getStatus().equals("Frozen"))
            {
@@ -257,6 +286,12 @@ public class IndexControllerD {
         	   msg_label.setText("Customer frozen");
            }
            
+           else
+           {
+        	   ////////////////////////////////////////////////////////
+        
+           Globals.loadInsideFXML(Globals.homePageCustomer);
+         
            CustomerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -277,10 +312,10 @@ public class IndexControllerD {
                 	Globals.loadFXML(null, Globals.userloginFXML, e,null);
                 
                }});
-           
+           } 
        
             break;      
-            
+           
        case "HR":
     	
     	   comboBoxBranch.setVisible(false);
@@ -290,10 +325,15 @@ public class IndexControllerD {
            Button HROption3= new Button ("Log out");
             
            HROption1.getStyleClass().add("ViewBtn");
+           HROption1.getStyleClass().add("lbl");
            HROption1.setMaxWidth(Double.MAX_VALUE);
+           
            HROption2.getStyleClass().add("ViewBtn");
+           HROption2.getStyleClass().add("lbl");
            HROption2.setMaxWidth(Double.MAX_VALUE);
+           
            HROption3.getStyleClass().add("ViewBtn");
+           HROption3.getStyleClass().add("lbl");
            HROption3.setMaxWidth(Double.MAX_VALUE);
            
            options_grid1.add(HROption1,0,0);
@@ -332,8 +372,11 @@ public class IndexControllerD {
            Button CEOption2= new Button ("Log out");
            
            CEOption1.getStyleClass().add("ViewBtn");
+           CEOption1.getStyleClass().add("lbl");
            CEOption1.setMaxWidth(Double.MAX_VALUE);
+           
            CEOption2.getStyleClass().add("ViewBtn");
+           CEOption2.getStyleClass().add("lbl");
            CEOption2.setMaxWidth(Double.MAX_VALUE);
            
            options_grid1.add(CEOption1,0,0);
@@ -346,7 +389,6 @@ public class IndexControllerD {
                public void handle(ActionEvent e) {
         		   StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
                	   Globals.loadFXML(null, Globals.userloginFXML, e,null);
-                
                }});  
            
             
@@ -366,10 +408,15 @@ public class IndexControllerD {
            Button SupplierOption6= new Button ("Log out");
            
            SupplierOption1.getStyleClass().add("ViewBtn");
+           SupplierOption1.getStyleClass().add("lbl");
            SupplierOption1.setMaxWidth(Double.MAX_VALUE);
+           
            SupplierOption2.getStyleClass().add("ViewBtn");
+           SupplierOption2.getStyleClass().add("lbl");
            SupplierOption2.setMaxWidth(Double.MAX_VALUE);
+           
            SupplierOption3.getStyleClass().add("ViewBtn");
+           SupplierOption3.getStyleClass().add("lbl");
            SupplierOption3.setMaxWidth(Double.MAX_VALUE);
         
            
@@ -421,9 +468,7 @@ public class IndexControllerD {
                }});
             
             break;  
-            
-            
-            
+
        case "Base User":
     	   
     	   comboBoxBranch.setVisible(false);
@@ -431,6 +476,7 @@ public class IndexControllerD {
     	   Button baseUseription1= new Button ("Log out");
     	   
     	   options_grid1.add(baseUseription1,0,8);
+    	   options_grid1.getStyleClass().add("lbl");
     	   
     	   baseUseription1.setOnAction(new EventHandler<ActionEvent>() {
     		   @Override
@@ -442,13 +488,10 @@ public class IndexControllerD {
     	   break; 
         }
     }
-    
-
 
 	public VBox getPane_in_vbox() {
 		return pane_in_vbox;
 	}
-
 
 
 	public void setPane_in_vbox(VBox pane_in_vbox) {
@@ -456,11 +499,9 @@ public class IndexControllerD {
 	}
 
 
-
 	public Label getWelcome_label() {
 		return welcome_label;
 	}
-
 
 	public void setWelcome_label(String str) {
 		this.welcome_label.setText(str);
@@ -473,10 +514,20 @@ public class IndexControllerD {
 	}
 
 
-
 	public void setComboBoxBranch(ComboBox<Branch> comboBoxBranch) {
 		this.comboBoxBranch = comboBoxBranch;
 	}
 
+ ////////check why not recognize ???
+	public void setHomePage()
+	{
+		
+		if(tempTypeUser=="Customer")
+		 Globals.loadInsideFXML(Globals.homePageCustomer);
+		else
+			if(tempTypeUser=="Ceo")
+			Globals.loadInsideFXML(Globals.homePageCeo);
+		 
+	}
 
 }

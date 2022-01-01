@@ -20,18 +20,18 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.BranchMenuController">
    <children>
-      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <AnchorPane StackPane.alignment="CENTER">
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" StackPane.alignment="CENTER">
                <children>
                   <ProgressIndicator fx:id="pi" layoutX="505.0" progress="0.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="505.0" AnchorPane.rightAnchor="476.0" AnchorPane.topAnchor="300.0" />
                </children>
             </AnchorPane>
             <BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
                <left>
-                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="653.0">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="653.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefWidth="536.0" styleClass="transparent" stylesheets="@../general/GeneralStyleSheet.css">
+                        <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="536.0" styleClass="transparent" stylesheets="@../general/GeneralStyleSheet.css">
                           <content>
                               <GridPane fx:id="items_grid" alignment="CENTER" hgap="10.0" prefHeight="0.0" prefWidth="0.0" vgap="10.0">
                                  <rowConstraints>
@@ -40,6 +40,11 @@
                               </GridPane>
                           </content>
                         </ScrollPane>
+                        <ImageView fx:id="back_image" fitHeight="59.0" fitWidth="106.0" onMouseClicked="#back_to_branch_selection" pickOnBounds="true" preserveRatio="true" styleClass="cart-img" translateX="20.0" translateY="450.0">
+                           <image>
+                              <Image url="@../img/back-arrow.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </VBox>
                </left>
@@ -65,13 +70,22 @@
                               </ImageView>
                            </children>
                         </HBox>
+                        <Button fx:id="back_btn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#back_to_branch_selection" prefHeight="48.0" prefWidth="78.0" stylesheets="@../general/GeneralStyleSheet.css" text="Back" AnchorPane.topAnchor="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="ViewBtn" />
+                              <String fx:value="lbl" />
+                           </styleClass>
+                        </Button>
                      </children>
                   </AnchorPane>
                </top>
                <right>
                   <Pane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="636.0" style="-fx-background-color: #DCDCDC;" BorderPane.alignment="CENTER_RIGHT">
                      <children>
-                        <VBox alignment="CENTER" layoutX="22.0" layoutY="28.0" prefHeight="349.0" prefWidth="312.0" styleClass="chosen-dish-card" stylesheets="@../general/GeneralStyleSheet.css">
+                        <VBox alignment="CENTER" layoutX="22.0" layoutY="28.0" prefHeight="349.0" prefWidth="312.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css">
                            <children>
                               <HBox alignment="CENTER" prefHeight="105.0" prefWidth="395.0">
                                  <children>
@@ -94,13 +108,13 @@
                                     <Insets bottom="15.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button fx:id="add_btn" mnemonicParsing="false" onAction="#addToOrder" prefHeight="22.0" prefWidth="149.0" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Order" textAlignment="CENTER">
+                                    <Button fx:id="add_btn" alignment="CENTER" mnemonicParsing="false" onAction="#addToOrder" prefHeight="22.0" prefWidth="149.0" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Order" textAlignment="JUSTIFY" translateX="13.0">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                        <styleClass>
-                                          <String fx:value="btn" />
-                                          <String fx:value="add-btn" />
+                                          <String fx:value="ViewBtnOrange" />
+                                          <String fx:value="lbl" />
                                        </styleClass>
                                     </Button>
                                     <ImageView fx:id="green_v_img" fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -112,18 +126,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="BOTTOM_CENTER" layoutY="474.0" prefWidth="356.0">
-                           <children>
-                              <Button fx:id="back_btn" mnemonicParsing="false" onAction="#back_to_branch_selection" styleClass="add-btn" text="Back">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="10.0" />
-                                 </HBox.margin>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" layoutY="474.0" prefWidth="356.0" />
                         <VBox fx:id="cart_vbox" alignment="TOP_RIGHT" layoutX="150.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #fff; -fx-border-style: solid; -fx-background-radius: 15;" visible="false" />
                      </children>
                   </Pane>
