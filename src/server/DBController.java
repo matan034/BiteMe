@@ -74,8 +74,8 @@ public class DBController extends AbstractServer {
 				switch(message.getOperation())
 				{
 				case "add_to_restaurant"://muhammad
-					dbMenu.insertDishesToRestaurant((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);
-				case "remove": dbMenu.removeDishes((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);
+					dbMenu.insertDishesToRestaurant((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);break;
+				case "remove": dbMenu.removeDishes((ArrayList<DishInRestaurant>)message.getData(),client,myCon,this);break;
 				}
 		    }
 		    if(msg instanceof MyFile) {		    	

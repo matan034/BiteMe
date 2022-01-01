@@ -387,11 +387,12 @@ public class DBMenuController {
 		  Statement stmt;
 		  ResultSet rs;
 		  PreparedStatement preparedStmt;
+		  int id=-1;
 		  try {
 			  stmt = myCon.createStatement();
 			  String AddDish="INSERT INTO biteme.dishes (DishName,DishType) VALUES (?,?);";
 			  preparedStmt = myCon.prepareStatement(AddDish);
-			  rs =stmt.executeQuery(String.format("SELECT DishID FROM biteme.dishes WHERE DishName='%s'",res[1]));
+			  rs =stmt.executeQuery(String.format("SELECT DishID FROM biteme.dishes WHERE DishName='%s' AND DishType='%s'",res[1],res[2]));
 			  if(rs.next())
 			  {
 				  db.sendToClient("Add_dish~Dish Already Exist", client);
@@ -401,7 +402,12 @@ public class DBMenuController {
 					preparedStmt.setString (1,res[1]);
 					preparedStmt.setString(2,res[2]);
 					preparedStmt.execute();
-					db.sendToClient("Add_dish~Dish was added successfuly", client);		
+					rs=stmt.executeQuery("SELECT last_insert_id()");//get new menu id
+					if(rs.next()) 
+					{
+						id=rs.getInt(1);
+					}
+					db.sendToClient("Add_dish~Dish was added successfuly~"+id, client);		
 			  }
 			  stmt.close();
 			  rs.close();

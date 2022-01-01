@@ -438,7 +438,7 @@ public class IndexControllerD {
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
-               	Globals.loadInsideFXML(Globals.menuFXML);
+               	Globals.loadInsideFXML(Globals.MenuFXML);
                 
                }});
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {

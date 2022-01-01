@@ -51,7 +51,7 @@ public class OrderClient extends AbstractClient {
 	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
 	public static Map<Integer,ArrayList<Integer>> IsOrderApproved=new HashMap<>();
 
-	public static String update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish;
+	public static String update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish,dishId;
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
 	public static Order found_order = new Order(null,null,null,null,null);
@@ -343,7 +343,7 @@ public class OrderClient extends AbstractClient {
 				break;
 			case "Order_customer recieved time": checkIfWasLate(res);
 			case "Supplier Quarter Data": orderAmount=res[1]; income=res[2];
-			case "Add_dish": addDish=res[1];
+			case "Add_dish": addDish=res[1]; dishId=res[2];
 			case "Add_dish_to_rest" : addDish=res[1];
 			case "AccountInfo":
 				if(res[1].equals("Found")) AccountInfo=true;

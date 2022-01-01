@@ -93,7 +93,7 @@ public class Globals {
 			addDishToRest="/menu/AddDishToRestaurant.fxml",
 			homeScreen="/general/HomeScreen.fxml",
 
-			MenuFXML="/menu/createMenu.fxml";
+			MenuFXML="/menu/createMenu.fxml",
 
 	        homePageCustomer="/general/homePageCustomer.fxml",
 	        homePageCeo="/general/homePageCeo.fxml";

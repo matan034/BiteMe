@@ -15,6 +15,7 @@ import common.Globals;
 import entity.Dish;
 import entity.DishInRestaurant;
 import entity.clientData;
+import general.MyListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ import order.QRSimulationController;
 
 public class CreateNewMenuController {
 	 @FXML
-	 private Button saveMenu;
+	 private Button save;
 
 	 @FXML
 	 private ListView<String> DishesList;
@@ -53,7 +54,8 @@ public class CreateNewMenuController {
 	 @FXML
 	 private Label chooseDishMessage;
 
-
+	 @FXML
+	    private Button edit_btn;
 
 	 @FXML
 	 private TextField dishPrice;
@@ -113,13 +115,22 @@ public class CreateNewMenuController {
     
     ArrayList<DishInRestaurant> toUpdate=new ArrayList<DishInRestaurant>();
     ArrayList<DishInRestaurant> toDelete=new ArrayList<DishInRestaurant>();
-    
+    private MyListener getAddedDish;
     public void initialize() {
     	ChooseMenuTypeComboBox.setItems(Globals.dishesTypes1);
     	setListViewFieldsVisibility(false);
     	setDishFieldsVisibility(false);
-    	saveMenu.setDisable(true);
-
+    	getAddedDish=new MyListener() {
+			
+			@Override
+			public void onClickListener(Object object) {
+				String [] temp=((String)object).split("~");
+				
+				
+				dishToChoose.add(temp[0]);
+				Dishes_to_choose.add(new Dish(Integer.parseInt(temp[2]),temp[0],temp[1]));
+			}
+		};
     	
     	dishes_to_add.put("Appetizer",new ArrayList<DishInRestaurant>());
     	dishes_to_add.put("Salad",new ArrayList<DishInRestaurant>());
@@ -145,6 +156,7 @@ public class CreateNewMenuController {
         try {
 			anchorPane = fxmlLoader.load();
 			AddDishController addDishController=fxmlLoader.getController();
+			addDishController.setListener(getAddedDish);
 			addDishController.setType(ChooseMenuTypeComboBox.getSelectionModel().getSelectedItem());
 			final Stage dialog = new Stage();
 	        dialog.initModality(Modality.APPLICATION_MODAL);    
@@ -165,6 +177,8 @@ public class CreateNewMenuController {
     	dishType=ChooseMenuTypeComboBox.getSelectionModel().getSelectedItem();
     	setListViewFieldsVisibility(true);
     	setDishFieldsVisibility(false);
+    	edit_btn.setVisible(false);
+    	save.setVisible(false);
     	ArrayList<String> chooseFromList=new ArrayList<String>();
     	ArrayList<String> listToAdd=new ArrayList<String>();
     	Dishes_to_choose=OrderClient.all_dishes.get(dishType);
@@ -197,6 +211,8 @@ public class CreateNewMenuController {
     void setDishFields(MouseEvent event) {
     	if(DishesList.getSelectionModel().getSelectedItem().isEmpty())
     		return;
+    	edit_btn.setVisible(false);
+    	save.setVisible(false);
     	setDishFieldsVisibility(true);
     	resetDishFields();
     	String selected=DishesList.getSelectionModel().getSelectedItem();
@@ -229,8 +245,8 @@ public class CreateNewMenuController {
     void displayDish(MouseEvent event) {
     	if(dishesToAdd.getSelectionModel().getSelectedItem().isEmpty())
     		return;
-    	setDishFieldsVisibility(true);
- 
+    	setDishFieldsVisibility(false);
+    	edit_btn.setVisible(true);
     	resetDishFields();
     	String selected=dishesToAdd.getSelectionModel().getSelectedItem();
     	for(DishInRestaurant DIN:Dishes_in_menu)
@@ -306,7 +322,7 @@ public class CreateNewMenuController {
     		currentDishToAdd=DIR;
     		dishes_to_add.put(dishType, Dishes_in_menu);
     		toUpdate.add(DIR);
-    		saveMenu.setDisable(false);
+    		
     	}
     	else if(currentDishToAdd==null)
     	{
@@ -321,11 +337,11 @@ public class CreateNewMenuController {
     		dishToAdd.add(dishName);
     		dishToChoose.remove(dishName);
     		dishesToAdd.setItems(dishToAdd);
-    		saveMenu.setDisable(false);
+    		
     		toUpdate.add(DIR);
     	}
     	
-    	
+    	save();
     }
 
     @FXML
@@ -339,11 +355,12 @@ public class CreateNewMenuController {
     	setDishFieldsVisibility(true);
     	
     	dishToAdd.remove(currentDishToAdd.getName()); 
-    	saveMenu.setDisable(false);
+    	
     	toDelete.add(currentDishToAdd);
     	resetDishFields();
+    	save();
     }
-    @FXML
+   @FXML
     void saveMenu(ActionEvent event) {
     	ArrayList<DishInRestaurant> sendToServer=new ArrayList<DishInRestaurant>();
 
@@ -362,12 +379,45 @@ public class CreateNewMenuController {
     		
     	//data=new clientData(toDelete,"add_to_restaurant");
     	OrderClient.dishes_in_menu.putAll(dishes_to_add);
-    	setListViewFieldsVisibility(false);
+    	//setListViewFieldsVisibility(false);
     	setDishFieldsVisibility(false);
-    	saveMenu.setDisable(true);
+    
+    	toDelete.clear();
+    	toUpdate.clear();
     	
     	createMessageLabel.setText(OrderClient.insert_dishes_to_restaurant_msg);
     }
+    
+    
+    private void save() {
+    	ArrayList<DishInRestaurant> sendToServer=new ArrayList<DishInRestaurant>();
+
+ 
+    	clientData data;
+    	if(!toUpdate.isEmpty())
+    	{
+    		data=new clientData(toUpdate,"add_to_restaurant");
+        	StartClient.order.accept(data);	
+    	}
+    	if(!toDelete.isEmpty())
+    	{
+    		data=new clientData(toDelete,"remove");
+        	StartClient.order.accept(data);	
+    	}
+
+    	OrderClient.dishes_in_menu.putAll(dishes_to_add);
+
+    	setDishFieldsVisibility(false);
+    	
+    	toDelete.clear();
+    	toUpdate.clear();
+    	
+    	createMessageLabel.setText(OrderClient.insert_dishes_to_restaurant_msg);
+    }
+    
+    
+    
+    
     void setDishFieldsVisibility(boolean setting) 
     {
     	
@@ -406,6 +456,11 @@ public class CreateNewMenuController {
     	fileChooserMsg.setText("");
     }
 
-
+    @FXML
+    void edit(ActionEvent event) {
+    	save.setVisible(true);
+    	setDishFieldsVisibility(true);
+    	
+    }
 
 }
