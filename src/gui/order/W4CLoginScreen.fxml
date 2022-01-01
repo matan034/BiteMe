@@ -4,30 +4,41 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.W4CLoginController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.W4CLoginController">
    <children>
       <BorderPane minHeight="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <top>
             <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1010.0" BorderPane.alignment="TOP_LEFT">
                <children>
+                  <ImageView fx:id="home_page" fitHeight="45.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: #fff;" translateX="-410.0">
+                     <image>
+                        <Image url="@../img/homepage-button.gif" />
+                     </image>
+                  </ImageView>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#qrScanSimulation" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="271.0" fitWidth="295.0" onMouseClicked="#qrScanSimulation" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/qrlogo.JPG" />
+                              <Image url="@../img/qr-code-1024x1024.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="1010.0">
                      <children>
-                        <TextField fx:id="qr_alternative_input" promptText="QR alternative" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css" />
+                        <TextField fx:id="qr_alternative_input" prefHeight="24.0" prefWidth="176.0" promptText="QR alternative" styleClass="text-box" stylesheets="@../general/GeneralStyleSheet.css">
+                           <tooltip>
+                              <Tooltip text="Please click in QR to scean or insert the number here. " />
+                           </tooltip>
+                        </TextField>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER">
@@ -39,11 +50,16 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1010.0">
                      <children>
-                        <Button fx:id="login_btn" mnemonicParsing="false" onAction="#verifyW4C" styleClass="btn" stylesheets="@../general/GeneralStyleSheet.css" text="Login" />
+                        <Button fx:id="login_btn" mnemonicParsing="false" onAction="#verifyW4C" prefHeight="41.0" prefWidth="117.0" styleClass="ViewBtnOrange" stylesheets="@../general/GeneralStyleSheet.css" text="Login" translateX="10.0">
+                           <font>
+                              <Font name="Levenim MT" size="14.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
+                  <HBox prefHeight="62.0" prefWidth="1010.0" />
                </children>
                <BorderPane.margin>
                   <Insets />

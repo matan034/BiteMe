@@ -479,8 +479,4 @@ public class IndexControllerD {
 	}
 
 
-
-
-    
-   
 }

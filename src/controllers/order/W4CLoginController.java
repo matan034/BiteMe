@@ -26,6 +26,8 @@ public class W4CLoginController {
 
     @FXML
     private Button login_btn;
+ 
+    
     private MyListener qrListener;
     public void initialize()
     {
