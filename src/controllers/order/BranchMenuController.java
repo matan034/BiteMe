@@ -87,6 +87,8 @@ public class BranchMenuController {
 	    @FXML
 	    private VBox cart_vbox;
 
+	    @FXML
+	    private ImageView back_image;
 
 	    @FXML
 	    private BorderPane borderPane;

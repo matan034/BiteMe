@@ -88,7 +88,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="back_btn" layoutX="22.0" layoutY="599.0" mnemonicParsing="false" onAction="#back" prefHeight="38.0" prefWidth="69.0" stylesheets="@../general/GeneralStyleSheet.css" text="Back">
+                  <Button fx:id="back_btn" layoutX="22.0" layoutY="595.0" mnemonicParsing="false" onAction="#back" prefHeight="42.0" prefWidth="77.0" stylesheets="@../general/GeneralStyleSheet.css" text="Back">
                      <styleClass>
                         <String fx:value="ViewBtn" />
                         <String fx:value="lbl" />

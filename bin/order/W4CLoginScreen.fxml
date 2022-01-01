@@ -18,11 +18,6 @@
          <top>
             <VBox alignment="CENTER" prefHeight="650.0" prefWidth="1010.0" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <ImageView fx:id="home_page" fitHeight="45.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: #fff;" translateX="-410.0">
-                     <image>
-                        <Image url="@../img/homepage-button.gif" />
-                     </image>
-                  </ImageView>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <ImageView fitHeight="271.0" fitWidth="295.0" onMouseClicked="#qrScanSimulation" pickOnBounds="true" preserveRatio="true">

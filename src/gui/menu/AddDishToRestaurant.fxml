@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.AddDishToRestaurantController">
+<VBox prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.AddDishToRestaurantController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <children>
-            <TextField fx:id="priceText" layoutX="286.0" layoutY="190.0" prefHeight="26.0" prefWidth="320.0" promptText="Dish Price" />
-            <TextField fx:id="ImegeName" layoutX="286.0" layoutY="238.0" prefHeight="26.0" prefWidth="214.0" promptText="Image Name" />
-            <Button fx:id="ChooseImage" layoutX="500.0" layoutY="239.0" mnemonicParsing="false" onAction="#ChooseImage" text="Choose Image" />
-            <CheckBox fx:id="addDirectllyToMenu" layoutX="275.0" layoutY="396.0" mnemonicParsing="false" text="Add dish to menu" />
-            <CheckBox fx:id="hasMultipleSizes" layoutX="274.0" layoutY="434.0" mnemonicParsing="false" text="Dish has multiple sizes" />
-            <CheckBox fx:id="hasMultipleCockingLvls" layoutX="274.0" layoutY="469.0" mnemonicParsing="false" text="Dish has multiple cocking levels" />
-            <CheckBox fx:id="canAddExtras" layoutX="274.0" layoutY="508.0" mnemonicParsing="false" text="Customer can add extras" />
-            <Button fx:id="add_btn" layoutX="265.0" layoutY="585.0" mnemonicParsing="false" onAction="#addDishToRest" text="Add To Restaurant" />
-            <Button fx:id="addAnotherDishBttn" layoutX="628.0" layoutY="585.0" mnemonicParsing="false" onAction="#AddAnotherDish" text="Add Anthor Dish" />
+            <TextField fx:id="priceText" layoutX="286.0" layoutY="190.0" prefHeight="26.0" prefWidth="320.0" promptText="Dish Price" stylesheets="@../general/GeneralStyleSheet.css">
+               <styleClass>
+                  <String fx:value="text-box" />
+                  <String fx:value="lbl" />
+               </styleClass></TextField>
+            <TextField fx:id="ImegeName" layoutX="286.0" layoutY="238.0" prefHeight="26.0" prefWidth="214.0" promptText="Image Name" stylesheets="@../general/GeneralStyleSheet.css">
+               <styleClass>
+                  <String fx:value="text-box" />
+                  <String fx:value="lbl" />
+               </styleClass></TextField>
+            <Button fx:id="ChooseImage" layoutX="524.0" layoutY="239.0" mnemonicParsing="false" onAction="#ChooseImage" stylesheets="@../general/GeneralStyleSheet.css" text="Choose Image">
+               <styleClass>
+                  <String fx:value="ViewBtnOrange" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
+            <CheckBox fx:id="addDirectllyToMenu" layoutX="286.0" layoutY="336.0" mnemonicParsing="false" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Add dish to menu" />
+            <CheckBox fx:id="hasMultipleSizes" layoutX="287.0" layoutY="372.0" mnemonicParsing="false" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Dish has multiple sizes" />
+            <CheckBox fx:id="hasMultipleCockingLvls" layoutX="287.0" layoutY="413.0" mnemonicParsing="false" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Dish has multiple cocking levels" />
+            <CheckBox fx:id="canAddExtras" layoutX="287.0" layoutY="451.0" mnemonicParsing="false" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Customer can add extras" />
+            <Button fx:id="add_btn" layoutX="286.0" layoutY="496.0" mnemonicParsing="false" onAction="#addDishToRest" stylesheets="@../general/GeneralStyleSheet.css" text="Add To Restaurant">
+               <styleClass>
+                  <String fx:value="ViewBtnOrange" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
+            <Button fx:id="addAnotherDishBttn" layoutX="520.0" layoutY="496.0" mnemonicParsing="false" onAction="#AddAnotherDish" stylesheets="@../general/GeneralStyleSheet.css" text="Add Anthor Dish">
+               <styleClass>
+                  <String fx:value="lbl" />
+                  <String fx:value="ViewBtnOrange" />
+               </styleClass></Button>
             <Label fx:id="message" layoutX="276.0" layoutY="554.0" prefHeight="18.0" prefWidth="455.0" />
-            <ComboBox fx:id="dish_cmb" layoutX="286.0" layoutY="142.0" prefWidth="150.0" promptText="Dish" />
+            <ComboBox fx:id="dish_cmb" layoutX="286.0" layoutY="142.0" prefWidth="150.0" promptText="Dish" stylesheets="@../general/GeneralStyleSheet.css">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <ImageView fitHeight="197.0" fitWidth="237.0" layoutX="773.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/undraw_Hamburger_8ge6.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

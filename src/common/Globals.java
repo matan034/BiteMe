@@ -92,7 +92,12 @@ public class Globals {
 			addDish="/menu/AddDishScreen.fxml",
 			addDishToRest="/menu/AddDishToRestaurant.fxml",
 			homeScreen="/general/HomeScreen.fxml",
+
 			MenuFXML="/menu/createMenu.fxml";
+
+	        homePageCustomer="/general/homePageCustomer.fxml",
+	        homePageCeo="/general/homePageCeo.fxml";
+
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
@@ -134,6 +139,9 @@ public class Globals {
 		 put(performance_reportFXML,"Performance Report");
 		 put(order_components_rating_reportFXML,"Dishes Type Report");
 		 put(viewPdf,"Inclusive Quarter Report");
+		 put(view_employersFXML,"My Employers");
+		 put(homePageCustomer,"Welcome to BiteME");
+		 put(homePageCeo,"Welcome to BiteME");
 	 }};
 	 
 	 public static HostServices host_service;

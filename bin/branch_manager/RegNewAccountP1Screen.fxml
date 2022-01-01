@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
@@ -10,16 +11,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewAccountP1Controller">
+<VBox alignment="CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewAccountP1Controller">
    <children>
-      <AnchorPane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="650.0" minWidth="1010.0" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
          <children>
-            <HBox layoutX="250.0" layoutY="59.0" />
-            <GridPane layoutX="390.0" layoutY="105.0" prefHeight="269.0" prefWidth="422.0">
+            <GridPane layoutX="390.0" layoutY="97.0" prefHeight="316.0" prefWidth="422.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="173.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="173.0" />
@@ -34,12 +33,42 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="first_name_lbl" prefHeight="25.0" prefWidth="136.0" promptText="First name" styleClass="text-box" />
-                  <TextField fx:id="last_name_lbl" promptText="Last name" styleClass="text-box" GridPane.rowIndex="1" />
-                  <TextField fx:id="id_lbl" promptText="ID" styleClass="text-box" GridPane.rowIndex="2" />
-                  <TextField fx:id="telephone_lbl" promptText="Telephone" styleClass="text-box" GridPane.rowIndex="3" />
-                  <TextField fx:id="email_lbl" promptText="Email address " styleClass="text-box" GridPane.rowIndex="4" />
-                  <TextField fx:id="confirm_email_lbl" prefHeight="25.0" prefWidth="199.0" promptText="Confirm email address" styleClass="text-box" GridPane.rowIndex="5" />
+                  <TextField fx:id="first_name_lbl" prefHeight="24.0" prefWidth="211.0" promptText="First name">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="last_name_lbl" prefHeight="22.0" prefWidth="211.0" promptText="Last name" GridPane.rowIndex="1">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="id_lbl" prefHeight="23.0" prefWidth="211.0" promptText="ID" GridPane.rowIndex="2">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="telephone_lbl" prefHeight="15.0" prefWidth="211.0" promptText="Telephone" GridPane.rowIndex="3">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="email_lbl" prefHeight="23.0" prefWidth="211.0" promptText="Email address " GridPane.rowIndex="4">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="confirm_email_lbl" prefHeight="20.0" prefWidth="211.0" promptText="Confirm email address" GridPane.rowIndex="5">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
                   <Label fx:id="first_error_lbl" prefHeight="17.0" prefWidth="248.0" textFill="RED" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -73,35 +102,48 @@
                   <Label fx:id="res_lbl" prefHeight="17.0" prefWidth="215.0" GridPane.rowIndex="6" />
                </children>
             </GridPane>
-            <ImageView fitHeight="263.0" fitWidth="298.0" layoutX="614.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="263.0" fitWidth="298.0" layoutX="705.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/AccountRegImage.png" />
                </image>
             </ImageView>
-            <Button id="NextPageBtn" fx:id="next_btn" layoutX="463.0" layoutY="440.0" mnemonicParsing="false" onAction="#NextPage" prefHeight="35.0" prefWidth="56.0" styleClass="btn" text="Next" />
-            <Button fx:id="before_btn" layoutX="50.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="56.0" styleClass="btn" text="Back" />
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="367.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+            <Button id="NextPageBtn" fx:id="next_btn" layoutX="463.0" layoutY="434.0" mnemonicParsing="false" onAction="#NextPage" prefHeight="41.0" prefWidth="85.0" text="Next">
+               <styleClass>
+                  <String fx:value="ViewBtnOrange" />
+                  <String fx:value="lbl" />
+               </styleClass>
+            </Button>
+            <Button fx:id="before_btn" layoutX="50.0" layoutY="581.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="68.0" text="Back">
+               <styleClass>
+                  <String fx:value="ViewBtn" />
+                  <String fx:value="lbl" />
+               </styleClass>
+            </Button>
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="361.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/UserIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="367.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="360.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/IDIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="367.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="361.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/PhoneIcon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="367.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="363.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/emailIcon.png" />
                </image>
             </ImageView>
             <Hyperlink fx:id="UserHasAccount_lbl" layoutX="410.0" layoutY="374.0" onAction="#openReg2" text="User already has an account?" />
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </AnchorPane>
    </children>
 </VBox>
