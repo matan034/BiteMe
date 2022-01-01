@@ -163,6 +163,7 @@
   -fx-border-radius:50;
 }
 .ViewBtn:hover {
+	-fx-cursor: hand;
   -fx-background-color: #fff;
 }
 
@@ -185,6 +186,7 @@
   -fx-border-radius:50;
 }
 .ViewBtnOrange:hover {
+	-fx-cursor: hand;
   -fx-background-color: #fff;
 }
 
