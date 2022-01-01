@@ -66,7 +66,7 @@ public class IndexControllerD {
             Button CEOOption1= new Button ("View Reports");
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
-            Button CEOOption4= new Button ("View Menu ");
+            Button CEOOption4= new Button ("Edit Menu ");
             Button CEOOption5= new Button ("Register Employer");
             Button CEOOption6= new Button ("Approve Account");
             Button CEOOption7= new Button ("Log out");
@@ -127,12 +127,11 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
-                
-          /////4->>>update menu Muhamad
+ 
               CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
                   @Override
                   public void handle(ActionEvent e) {
-                      Globals.loadInsideFXML(Globals.viewMenu);
+                      Globals.loadInsideFXML(Globals.MenuFXML);
                   }});
               
                 
@@ -164,7 +163,7 @@ public class IndexControllerD {
     	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
-            Button BranchManagerOption3= new Button ("Update Menu");
+            Button BranchManagerOption3= new Button ("Edit Menu");
             Button BranchManagerOption4= new Button ("View Employers");
             Button BranchManagerOption5= new Button ("Register Account");
             Button BranchManagerOption6= new Button ("Approve suppliers");
@@ -221,7 +220,11 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            ///3--> update menu Muhamad
+            BranchManagerOption3.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.MenuFXML);
+                }});
             
             BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -237,11 +240,11 @@ public class IndexControllerD {
                 }});
             
            
-            /*BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.);
-                }});*/
+                    Globals.loadInsideFXML(Globals.regRestaurant);
+                }});
             
             BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override
@@ -368,7 +371,7 @@ public class IndexControllerD {
     	   
     	   comboBoxBranch.setVisible(false);
             
-           Button CEOption1= new Button ("View and Update Menu");
+           Button CEOption1= new Button ("Edit Menu");
            Button CEOption2= new Button ("Log out");
            
            CEOption1.getStyleClass().add("ViewBtn");
@@ -382,7 +385,12 @@ public class IndexControllerD {
            options_grid1.add(CEOption1,0,0);
            options_grid1.add(CEOption2,0,8);
            
-         ///1--> update menu Muhamad
+         
+           CEOption1.setOnAction(new EventHandler<ActionEvent>() {
+               @Override
+               public void handle(ActionEvent e) {
+                   Globals.loadInsideFXML(Globals.MenuFXML);
+               }});
            
            CEOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
