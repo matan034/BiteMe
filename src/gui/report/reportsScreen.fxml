@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.ReportController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.ReportController">
    <children>
-      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="viewReportButton" layoutX="273.0" layoutY="312.0" mnemonicParsing="false" onAction="#goToViewReports" styleClass="ViewBtn" text="Monthly Reports" />
-            <Button fx:id="UploadReportsBtn" layoutX="435.0" layoutY="312.0" mnemonicParsing="false" onAction="#goToCreateReports" styleClass="ViewBtn" text="Upload Quarter Report" />
-            <Button fx:id="viewQuarterIncome" layoutX="454.0" layoutY="312.0" mnemonicParsing="false" onAction="#goToChooseQuarterAndBranch" styleClass="ViewBtn" text="Quarter Reports" />
-            <Button fx:id="viewBranchPdfReport" layoutX="622.0" layoutY="312.0" mnemonicParsing="false" onAction="#ViewPdf" styleClass="ViewBtn" text="Branch Manager Quartely Reports" />
+            <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0">
+               <children>
+                  <Button fx:id="viewReportButton" layoutX="240.0" layoutY="214.0" mnemonicParsing="false" onAction="#goToViewReports" text="Monthly Reports">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="UploadReportsBtn" layoutX="414.0" layoutY="218.0" mnemonicParsing="false" onAction="#goToCreateReports" text="Upload Quarter Report">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="viewQuarterIncome" layoutX="440.0" layoutY="217.0" mnemonicParsing="false" onAction="#goToChooseQuarterAndBranch" text="Quarter Reports">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="viewBranchPdfReport" layoutX="613.0" layoutY="224.0" mnemonicParsing="false" onAction="#ViewPdf" text="Branch Manager Quartely Reports">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <ImageView fitHeight="301.0" fitWidth="481.0" layoutX="6.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/undraw_Business_plan_re_0v81.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </HBox>
    </children>
 </VBox>

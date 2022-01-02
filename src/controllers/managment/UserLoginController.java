@@ -66,7 +66,7 @@ public class UserLoginController {
         			Globals.loadInsideFXML(Globals.homePageCustomer);
         		else 
         			Globals.loadInsideFXML(Globals.homePageCeo);
-        		        	}
+        		  }
         		
     	}
     	else if(username_lbl.getText().trim().isEmpty() && password_lbl.getText().trim().isEmpty())

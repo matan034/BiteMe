@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -10,12 +13,41 @@
    <children>
       <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <ComboBox fx:id="branchCombox" layoutX="416.0" layoutY="187.0" prefWidth="150.0" promptText="Branch" styleClass="comboBox" visibleRowCount="3" />
-            <ComboBox fx:id="monthCombox" layoutX="416.0" layoutY="313.0" prefWidth="150.0" promptText="Month" styleClass="comboBox" visibleRowCount="12" />
-            <ComboBox fx:id="typeCombox" layoutX="416.0" layoutY="375.0" prefWidth="150.0" promptText="Type" styleClass="comboBox" visibleRowCount="3" />
-            <Button fx:id="viewBtn" layoutX="471.0" layoutY="453.0" mnemonicParsing="false" onAction="#goToRep" styleClass="ViewBtn" text="view" textAlignment="CENTER" />
-            <Button fx:id="backButton" layoutX="45.0" layoutY="580.0" mnemonicParsing="false" onAction="#goToReportScreen" styleClass="ViewBtn" text="back" />
-            <ComboBox fx:id="YearComboBox" layoutX="416.0" layoutY="254.0" prefWidth="150.0" promptText="Year" styleClass="comboBox" visibleRowCount="12" />
+            <ComboBox fx:id="branchCombox" layoutX="398.0" layoutY="133.0" prefWidth="150.0" promptText="Branch" visibleRowCount="3">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <ComboBox fx:id="monthCombox" layoutX="397.0" layoutY="271.0" prefWidth="150.0" promptText="Month" visibleRowCount="12">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <ComboBox fx:id="typeCombox" layoutX="397.0" layoutY="346.0" prefWidth="150.0" promptText="Type" visibleRowCount="3">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <Button fx:id="viewBtn" layoutX="424.0" layoutY="426.0" mnemonicParsing="false" onAction="#goToRep" prefHeight="36.0" prefWidth="91.0" stylesheets="@../general/GeneralStyleSheet.css" text="view" textAlignment="CENTER">
+               <styleClass>
+                  <String fx:value="ViewBtnOrange" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
+            <Button fx:id="backButton" layoutX="45.0" layoutY="571.0" mnemonicParsing="false" onAction="#goToReportScreen" prefHeight="43.0" prefWidth="82.0" text="back">
+               <styleClass>
+                  <String fx:value="ViewBtn" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
+            <ComboBox fx:id="YearComboBox" layoutX="399.0" layoutY="200.0" prefWidth="150.0" promptText="Year" visibleRowCount="12">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <ImageView fitHeight="241.0" fitWidth="291.0" layoutX="719.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/undraw_Data_report_re_p4so.png" />
+               </image>
+            </ImageView>
          </children>
          <VBox.margin>
             <Insets />

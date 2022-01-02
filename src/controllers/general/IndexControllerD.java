@@ -60,15 +60,19 @@ public class IndexControllerD {
         
         case "CEO":
         	
-        	Globals.loadInsideFXML(Globals.homePageCeo);
         	tempTypeUser="CEO";
         	
             Button CEOOption1= new Button ("View Reports");
+            
+            
+            /////////////////////////////////////
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
             Button CEOOption4= new Button ("Edit Menu ");
             Button CEOOption5= new Button ("Register Employer");
             Button CEOOption6= new Button ("Approve Account");
+            /////////////////////////////////////////
+            
             Button CEOOption7= new Button ("Log out");
             
             
@@ -107,7 +111,6 @@ public class IndexControllerD {
                         Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                     }});
         
- 
               CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
                   @Override
                   public void handle(ActionEvent e) {
@@ -145,11 +148,10 @@ public class IndexControllerD {
     	   
             Button BranchManagerOption1= new Button ("View Reports");
             Button BranchManagerOption2= new Button ("View Users");
-            Button BranchManagerOption3= new Button ("Edit Menu");
-            Button BranchManagerOption4= new Button ("View Employers");
-            Button BranchManagerOption5= new Button ("Register Account");
-            Button BranchManagerOption6= new Button ("Approve suppliers");
-            Button BranchManagerOption7= new Button ("Log out");
+            Button BranchManagerOption3= new Button ("View Employers");
+            Button BranchManagerOption4= new Button ("Register Account");
+            Button BranchManagerOption5= new Button ("Approve suppliers");
+            Button BranchManagerOption6= new Button ("Log out");
             
             setDeginButton(BranchManagerOption1);
             setDeginButton(BranchManagerOption2);
@@ -157,18 +159,15 @@ public class IndexControllerD {
             setDeginButton(BranchManagerOption4);
             setDeginButton(BranchManagerOption5);
             setDeginButton(BranchManagerOption6);
-            setDeginButton(BranchManagerOption7);
   
             options_grid1.add(BranchManagerOption1,0,0);
             options_grid1.add(BranchManagerOption2,0,1);
             options_grid1.add(BranchManagerOption3,0,2);
             options_grid1.add(BranchManagerOption4,0,3);
             options_grid1.add(BranchManagerOption5,0,4);
-            options_grid1.add(BranchManagerOption6,0,5);
-            options_grid1.add(BranchManagerOption7,0,8);
-  
-            
-            
+            options_grid1.add(BranchManagerOption6,0,8);
+           
+
             BranchManagerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
@@ -181,33 +180,28 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            BranchManagerOption3.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.MenuFXML);
-                }});
             
-            BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption3.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.view_employersFXML);
                 }});
             
          
-            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.regnewaccountp1FXML);
                 }});
             
            
-            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption5.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
                     Globals.loadInsideFXML(Globals.regRestaurant);
                 }});
             
-            BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override
                   public void handle(ActionEvent e) {
             		StartClient.order.accept("Logout~"+OrderClient.user.getID()); 
@@ -242,8 +236,6 @@ public class IndexControllerD {
         	   msg_label.setText("Customer frozen");
            }
            
-        
-           Globals.loadInsideFXML(Globals.homePageCustomer);
          
            CustomerOption1.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -367,12 +359,10 @@ public class IndexControllerD {
                	Globals.loadInsideFXML(Globals.NewOrdersFXML);
                 
                }});
-           //2-->update menu Muhamad
            SupplierOption2.setOnAction(new EventHandler<ActionEvent>() {
         	   @Override
                public void handle(ActionEvent e) {
                	Globals.loadInsideFXML(Globals.MenuFXML);
-                
                }});
            
            SupplierOption3.setOnAction(new EventHandler<ActionEvent>() {
@@ -393,7 +383,7 @@ public class IndexControllerD {
             break;  
 
        case "Base User":
-    	   
+
     	   comboBoxBranch.setVisible(false);
     	   
     	   Button baseUseription1= new Button ("Log out");

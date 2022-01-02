@@ -16,59 +16,53 @@
          <children>
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0">
                <children>
-                  <TextField fx:id="name_lbl" layoutX="429.0" layoutY="186.0" promptText="Company name" stylesheets="@../general/GeneralStyleSheet.css">
+                  <TextField fx:id="name_lbl" layoutX="429.0" layoutY="168.0" promptText="Company name" stylesheets="@../general/GeneralStyleSheet.css">
                      <styleClass>
                         <String fx:value="text-box" />
                         <String fx:value="lbl" />
                      </styleClass>
                   </TextField>
-                  <TextField fx:id="address_lbl" layoutX="430.0" layoutY="248.0" promptText="Address" stylesheets="@../general/GeneralStyleSheet.css">
+                  <TextField fx:id="address_lbl" layoutX="430.0" layoutY="244.0" promptText="Address" stylesheets="@../general/GeneralStyleSheet.css">
                      <styleClass>
                         <String fx:value="text-box" />
                         <String fx:value="lbl" />
                      </styleClass>
                   </TextField>
-                  <TextField fx:id="number_lbl" layoutX="431.0" layoutY="313.0" promptText="Phone Number" stylesheets="@../general/GeneralStyleSheet.css">
+                  <TextField fx:id="number_lbl" layoutX="431.0" layoutY="325.0" promptText="Phone Number" stylesheets="@../general/GeneralStyleSheet.css">
                      <styleClass>
                         <String fx:value="text-box" />
                         <String fx:value="lbl" />
                      </styleClass>
                   </TextField>
-                  <Button layoutX="470.0" layoutY="394.0" mnemonicParsing="false" onAction="#RegisterEmployer" prefHeight="36.0" prefWidth="86.0" stylesheets="@../general/GeneralStyleSheet.css" text="Register">
+                  <Button layoutX="470.0" layoutY="414.0" mnemonicParsing="false" onAction="#RegisterEmployer" prefHeight="36.0" prefWidth="86.0" stylesheets="@../general/GeneralStyleSheet.css" text="Register">
                      <styleClass>
                         <String fx:value="ViewBtnOrange" />
                         <String fx:value="lbl" />
                      </styleClass>
                   </Button>
-                  <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="394.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="394.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/EmployerIcon.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="res_lbl" layoutX="343.0" layoutY="438.0" prefHeight="27.0" prefWidth="255.0" />
-                  <ImageView fitHeight="25.0" fitWidth="78.0" layoutX="394.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="res_lbl" layoutX="386.0" layoutY="448.0" prefHeight="27.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
+                  <ImageView fitHeight="25.0" fitWidth="78.0" layoutX="394.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/PhoneIcon.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="394.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="394.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/locationIcon.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="61.0" layoutY="582.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" stylesheets="@../general/GeneralStyleSheet.css" text="Back">
-                     <styleClass>
-                        <String fx:value="ViewBtn" />
-                        <String fx:value="lbl" />
-                     </styleClass>
-                  </Button>
                   <ImageView fitHeight="266.0" fitWidth="367.0" layoutX="679.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/RegisterEmployeeImage.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="name_error_lbl" layoutX="586.0" layoutY="190.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
-                  <Label fx:id="number_error_lbl" layoutX="592.0" layoutY="317.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
+                  <Label fx:id="name_error_lbl" layoutX="592.0" layoutY="175.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
+                  <Label fx:id="number_error_lbl" layoutX="592.0" layoutY="323.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
                </children>
             </AnchorPane>
          </children>

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.PerformanceReportController">
    <children>
-      <Pane prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
+      <Pane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
          <children>
             <TableView fx:id="performanceTable" layoutX="187.0" layoutY="100.0" prefHeight="400.0" prefWidth="715.0">
               <columns>
@@ -18,11 +21,20 @@
                   <TableColumn fx:id="delaySupplyCol" prefWidth="269.0" text="Late Orders" />
               </columns>
             </TableView>
-            <Button fx:id="backButton" layoutX="51.0" layoutY="582.0" mnemonicParsing="false" onAction="#goBack" text="back" />
-            <Label layoutX="18.0" layoutY="100.0" text="Branch:" />
-            <Label layoutX="19.0" layoutY="146.0" text="Month:" />
+            <Button fx:id="backButton" layoutX="38.0" layoutY="575.0" mnemonicParsing="false" onAction="#goBack" prefHeight="44.0" prefWidth="79.0" stylesheets="@../general/GeneralStyleSheet.css" text="back">
+               <styleClass>
+                  <String fx:value="ViewBtn" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
+            <Label layoutX="18.0" layoutY="100.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Branch:" />
+            <Label layoutX="19.0" layoutY="146.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Month:" />
             <Label fx:id="whichBranch" layoutX="87.0" layoutY="100.0" prefHeight="21.0" prefWidth="79.0" />
             <Label fx:id="whichMonth" layoutX="87.0" layoutY="146.0" prefHeight="21.0" prefWidth="57.0" />
+            <ImageView fitHeight="125.0" fitWidth="184.0" layoutX="810.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/undraw_Site_stats_re_ejgy.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
