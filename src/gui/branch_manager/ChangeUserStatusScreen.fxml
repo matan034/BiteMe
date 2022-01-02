@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox style="-fx-background-color: #ffff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
+<VBox style="-fx-background-color: #ffff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <children>
@@ -32,11 +32,6 @@
             <Button fx:id="update_btn" layoutX="474.0" layoutY="571.0" mnemonicParsing="false" onAction="#update" stylesheets="@../general/GeneralStyleSheet.css" text="Update">
                <styleClass>
                   <String fx:value="ViewBtnOrange" />
-                  <String fx:value="lbl" />
-               </styleClass></Button>
-            <Button fx:id="back_btn" layoutX="33.0" layoutY="587.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="64.0" text="Back">
-               <styleClass>
-                  <String fx:value="ViewBtn" />
                   <String fx:value="lbl" />
                </styleClass></Button>
          </children>
