@@ -422,7 +422,7 @@ public class DBUserController {
 	}
 	
 	 /**
-	Func for getting a specific supplier by it's Branchnum
+	Func for getting a specific supplier by it's Branch num who have dishes to customer
 	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_suppliers",res[1..]=BranchNum
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
@@ -433,7 +433,10 @@ public class DBUserController {
 
 		try {
 			stmt = myCon.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM biteme.restaurant WHERE BranchNum = "+res[1]);
+			rs = stmt.executeQuery("Select distinct branch_rest.*\r\n"
+					+ "From(SELECT * FROM biteme.restaurant WHERE BranchNum = '"+res[1]+"') as branch_rest\r\n"
+					+ "Inner join dishinrestaurant\r\n"
+					+ "On dishinrestaurant.restaurantNumber=branch_rest.number");
 			ArrayList<Supplier> suppliers = new ArrayList<>();
 			while (rs.next()) {
 				int supplierNum = rs.getInt(1);

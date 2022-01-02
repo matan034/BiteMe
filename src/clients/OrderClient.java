@@ -130,7 +130,7 @@ public class OrderClient extends AbstractClient {
 				all_users = ((ArrayList<User>) msg);
 			if (arr[0] instanceof Customer)
 				branch_customers = ((ArrayList<Customer>) msg);
-			if (arr[0] instanceof Dish)
+			if (arr[0] instanceof DishInRestaurant)
 				loadBranchMenu((ArrayList<DishInRestaurant>) msg);
 			if (arr[0] instanceof Branch)
 				Globals.branches = FXCollections.observableArrayList((ArrayList<Branch>) msg);

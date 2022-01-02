@@ -28,14 +28,16 @@ public class GetDishesService extends Service<DishInRestaurant> {
             	 int amount=0;
             	 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
     			 {
-    				 for(DishInRestaurant dish:entry.getValue())
-    				 {
-    					 amount++;					
-    				 }
+            		 if(!entry.getValue().isEmpty())
+            			 for(DishInRestaurant dish:entry.getValue())
+            			 {
+            				 amount++;					
+            			 }
     			 }
             	 int i=0;
  
-               
+               if(amount!=0)
+               {
             		 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
         			 {
         				 for(DishInRestaurant dish:entry.getValue())
@@ -53,9 +55,10 @@ public class GetDishesService extends Service<DishInRestaurant> {
         						}					
         				 }
         			 }
-					return null;
+					
             
-
+               }
+               return null;
         
              }
          };
