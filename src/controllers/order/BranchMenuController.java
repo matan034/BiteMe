@@ -1,20 +1,15 @@
 package order;
 
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
+
 import java.io.IOException;
 import javafx.concurrent.WorkerStateEvent;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
-import entity.Dish;
 import entity.DishInOrder;
 import entity.DishInRestaurant;
 import general.MyListener;
@@ -28,7 +23,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -160,7 +154,6 @@ public class BranchMenuController {
 	    	                    setChosenDish((DishInRestaurant)dish);
 	    	                }  
 	    			};
-	    			//loadPics();
 	    			checkDishes();
 	    			
 	    			Globals.newOrder.getDishes().addListener(new ListChangeListener<DishInOrder>() { 
@@ -401,23 +394,6 @@ public class BranchMenuController {
                 }});
 			return temp;
 		}
-//		public void loadPics()
-//		{
-//			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
-//			 {
-//				 for(DishInRestaurant dish:entry.getValue())
-//				 {
-//					 try {
-//					 ByteArrayInputStream bis = new ByteArrayInputStream(dish.getMyImagebytearray());
-//						BufferedImage bi = ImageIO.read(bis);
-//						File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+dish.getImageName());
-//						String suffix=dish.getImageName().split("\\.")[1];
-//						ImageIO.write(bi, suffix, out); 
-//					 } catch (Exception e) {
-//						
-//					}
-//				 }
-//			 }
-//		}
+
 }
 
