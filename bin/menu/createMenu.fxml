@@ -16,13 +16,13 @@
    <children>
       <AnchorPane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
          <children>
-            <Button fx:id="saveMenu" layoutX="606.0" layoutY="547.0" mnemonicParsing="false" onAction="#saveMenu" prefHeight="34.0" prefWidth="115.0" stylesheets="@../general/GeneralStyleSheet.css" text="save menu">
+            <Button fx:id="save" layoutX="452.0" layoutY="538.0" mnemonicParsing="false" onAction="#saveDish" prefHeight="34.0" prefWidth="115.0" stylesheets="@../general/GeneralStyleSheet.css" text="Save" visible="false">
                <styleClass>
                   <String fx:value="ViewBtnOrange" />
                   <String fx:value="lbl" />
                </styleClass></Button>
             <ListView fx:id="DishesList" layoutX="301.0" layoutY="142.0" onMouseClicked="#setDishFields" prefHeight="134.0" prefWidth="169.0" AnchorPane.topAnchor="142.0" />
-            <Label fx:id="createMessageLabel" layoutX="446.0" layoutY="606.0" prefHeight="18.0" prefWidth="185.0" textFill="RED" />
+            <Label fx:id="createMessageLabel" layoutX="317.0" layoutY="606.0" prefHeight="18.0" prefWidth="426.0" textFill="RED" />
             <ComboBox fx:id="ChooseMenuTypeComboBox" layoutX="383.0" layoutY="68.0" onAction="#chooseType" prefHeight="29.0" prefWidth="245.0" promptText="Dish Type" stylesheets="@../general/GeneralStyleSheet.css">
                <styleClass>
                   <String fx:value="comboBox" />
@@ -47,10 +47,10 @@
                   <String fx:value="ViewBtn" />
                   <String fx:value="lbl" />
                </styleClass></Button>
-            <Label fx:id="errorMessage" layoutX="802.0" layoutY="589.0" prefHeight="18.0" prefWidth="169.0" />
+            <Label fx:id="errorMessage" layoutX="284.0" layoutY="588.0" prefHeight="18.0" prefWidth="509.0" textFill="RED" />
             <ListView fx:id="dishesToAdd" layoutX="563.0" layoutY="142.0" onMouseClicked="#displayDish" prefHeight="134.0" prefWidth="169.0" stylesheets="@../general/GeneralStyleSheet.css" />
             <Label fx:id="dishesToAddMessage" layoutX="568.0" layoutY="120.0" prefHeight="18.0" prefWidth="156.0" />
-            <Label fx:id="fileChooserMsg" layoutX="771.0" layoutY="555.0" prefHeight="18.0" prefWidth="210.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
+            <Label fx:id="fileChooserMsg" layoutX="220.0" layoutY="371.0" prefHeight="18.0" prefWidth="210.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
             <ImageView fx:id="rightarrw_img" fitHeight="32.0" fitWidth="36.0" layoutX="502.0" layoutY="156.0" onMouseClicked="#saveDish" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/rightarrow.png" />
@@ -71,6 +71,7 @@
                   <Image url="@../img/undraw_online_groceries_a02y.png" />
                </image>
             </ImageView>
+            <Button fx:id="edit_btn" layoutX="765.0" layoutY="197.0" mnemonicParsing="false" onAction="#edit" styleClass="ViewBtnOrange" text="Edit" visible="false" />
          </children>
       </AnchorPane>
    </children>
