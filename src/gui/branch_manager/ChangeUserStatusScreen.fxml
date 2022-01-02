@@ -6,11 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox style="-fx-background-color: #ffff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
+<VBox style="-fx-background-color: #ffff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.ChangeUserStatusController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0">
          <children>
@@ -23,24 +22,14 @@
                   <TableColumn fx:id="status_col" prefWidth="167.0" styleClass="lbl" text="Status" />
               </columns>
             </TableView>
-            <TextField fx:id="search_txt" layoutX="453.0" layoutY="29.0" promptText="Enter ID" stylesheets="@../general/GeneralStyleSheet.css">
-               <styleClass>
-                  <String fx:value="text-box" />
-                  <String fx:value="lbl" />
-               </styleClass></TextField>
-            <Button fx:id="search_btn" layoutX="658.0" layoutY="29.0" mnemonicParsing="false" text="Search">
-               <styleClass>
-                  <String fx:value="ViewBtnOrange" />
-                  <String fx:value="lbl" />
-               </styleClass></Button>
-            <ComboBox fx:id="status_cmb" layoutX="245.0" layoutY="475.0" prefWidth="150.0">
+            <ComboBox fx:id="status_cmb" layoutX="433.0" layoutY="519.0" prefWidth="150.0">
                <styleClass>
                   <String fx:value="comboBox" />
                   <String fx:value="lbl" />
                </styleClass></ComboBox>
-            <Label fx:id="selected_lbl" layoutX="275.0" layoutY="644.0" prefHeight="17.0" prefWidth="730.0" />
-            <Label layoutX="180.0" layoutY="480.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Status" />
-            <Button fx:id="update_btn" layoutX="395.0" layoutY="518.0" mnemonicParsing="false" onAction="#update" stylesheets="@../general/GeneralStyleSheet.css" text="Update">
+            <Label fx:id="selected_lbl" layoutX="143.0" layoutY="473.0" prefHeight="17.0" prefWidth="730.0" />
+            <Label layoutX="371.0" layoutY="525.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Status" />
+            <Button fx:id="update_btn" layoutX="474.0" layoutY="571.0" mnemonicParsing="false" onAction="#update" stylesheets="@../general/GeneralStyleSheet.css" text="Update">
                <styleClass>
                   <String fx:value="ViewBtnOrange" />
                   <String fx:value="lbl" />

@@ -59,7 +59,7 @@ public class ChangeUserStatusController {
     {
     	StartClient.order.accept("Load_branch_customers~"+OrderClient.user.getHomeBranch());
     	display_table();
-    	status_cmb.setItems(FXCollections.observableArrayList("Frozen","Active"));
+    	status_cmb.setItems(FXCollections.observableArrayList("Frozen","Active","Delete"));
     	table.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
     		if(newSelection!=null) {
     			try {
@@ -83,15 +83,32 @@ public class ChangeUserStatusController {
     }
     @FXML
     void update(ActionEvent event) {
-    	StartClient.order.accept("Update_customer~"+status_cmb.getSelectionModel().getSelectedItem()+"~"+table.getSelectionModel().getSelectedItem().getId());
-    	selected_lbl.setText(OrderClient.update_msg);
-    	for(Customer c: branch_customer)
-		{
-			if(c.getId()==table.getSelectionModel().getSelectedItem().getId())
+    	if(!status_cmb.getSelectionModel().getSelectedItem().equals("Delete")) {
+    		StartClient.order.accept("Update_customer~"+status_cmb.getSelectionModel().getSelectedItem()+"~"+table.getSelectionModel().getSelectedItem().getId());
+	    	selected_lbl.setText(OrderClient.update_msg);
+	    	for(Customer c: branch_customer)
 			{
-				c.setStatus(status_cmb.getSelectionModel().getSelectedItem());
+				if(c.getId()==table.getSelectionModel().getSelectedItem().getId())
+				{
+					c.setStatus(status_cmb.getSelectionModel().getSelectedItem());
+				}
 			}
-		}
+    	}
+    	else {//delete account
+    		StartClient.order.accept("Delete_account~"+table.getSelectionModel().getSelectedItem().getId());
+    		selected_lbl.setText("Account deleted");
+    		Customer toRemove=null;
+    		for(Customer c: branch_customer)
+			{
+    			if(c.getId()==table.getSelectionModel().getSelectedItem().getId()) {
+    				toRemove=c;
+    				OrderClient.branch_customers.remove(c);
+    			}
+			}
+    		if(toRemove!=null)
+    			branch_customer.remove(toRemove);
+
+    	}
     	table.refresh();
     }
 

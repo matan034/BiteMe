@@ -56,7 +56,8 @@ public class RegistarRestaurantController {
 
     @FXML
     void approve_restaurant(ActionEvent event) {
-    	String res=OrderClient.user.getHomeBranch()+"~"+restaurant_cmb.getSelectionModel().getSelectedItem()+"~"+address_lbl.getText()+"~"+city_lbl.getText()+"~"+type_cmb.getSelectionModel().getSelectedItem()+"~"+OrderClient.user.getID();
+    	
+    	String res=OrderClient.user.getHomeBranch()+"~"+restaurant_cmb.getSelectionModel().getSelectedItem()+"~"+address_lbl.getText()+"~"+city_lbl.getText()+"~"+type_cmb.getSelectionModel().getSelectedItem();
     	StartClient.order.accept("Approve_restaurant~"+res);
     }
 

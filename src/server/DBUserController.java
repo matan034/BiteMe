@@ -293,6 +293,14 @@ public class DBUserController {
 		}
 		stmt.close();
 	}
+		
+		
+		/**
+		Func for adding HR into hr table
+		* @param employerNum= which employer the hr belongs to, hr_id= which user to make an hr
+		 * @param client The connection from which the message originated.
+		 * @param myCon the connection to mySql DB
+		 * @param db the main database controller used in order to send message back to client */	
 	private boolean addHr(int employerNum ,String hr_id, Connection myCon) throws SQLException {
 		Statement stmt;
 		ResultSet rs;
@@ -357,7 +365,12 @@ public class DBUserController {
 	  }
 	  
 	  
-
+	  /**
+		Func for loading a specific customer
+		* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="ID"
+		 * @param client The connection from which the message originated.
+		 * @param myCon the connection to mySql DB
+		 * @param db the main database controller used in order to send message back to client */
 	  	protected void loadCustomer(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
 		Statement stmt;
 		ResultSet rs;
@@ -442,6 +455,13 @@ public class DBUserController {
 		}
 	}
 	
+	
+	/**
+	Func for getting a specific supplier
+	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_supplier",res[1]=manager ID
+	 * @param client The connection from which the message originated.
+	 * @param myCon the connection to mySql DB
+	 * @param db the main database controller used in order to send message back to client */
 	protected void loadSupplier(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
 		Statement stmt;
 		ResultSet rs;
@@ -644,8 +664,8 @@ public class DBUserController {
 			 }
 			 
 			 /**
-				Func 
-				* @param res  
+				Func for logging a user out
+				* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=logout res[1]=ID
 				 * @param client The connection from which the message originated.
 				 * @param myCon the connection to mySql DB
 				 * @param db the main database controller used in order to send message back to client */
@@ -664,8 +684,14 @@ public class DBUserController {
 			  		}
 
 				 }
-			 
-			 protected void GetRestaurants(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
+				 
+				 /**
+					Func getting all restaurants in a branch
+					* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Get_restaurants res[1]=BranchID
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
+			 protected void GetRestaurants(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{//CHECK THIS FUNC NEED TO CHECK SUPPLIER AND NOT BASE USER
 				  Statement stmt;
 				  stmt = myCon.createStatement();
 				  ResultSet rs;
@@ -689,16 +715,25 @@ public class DBUserController {
 				  }catch(Exception e) {};
 				 }
 			 
-			 
+			 /**
+				Func for registering a restaurant as a supplier
+				* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Approve_restaurant res[1]=BranchNum,res[2]=Name,res[3]=Address,res[4]=City,res[5]=Type
+				 * @param client The connection from which the message originated.
+				 * @param myCon the connection to mySql DB
+				 * @param db the main database controller used in order to send message back to client */
 			 protected void ApproveRestaurant(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
 				 Statement stmt;
 		  		  int flag;
+		  		  ResultSet rs;
+		  		  String id="0";
 		  		  try {
 		  		  stmt = myCon.createStatement();
+		  		  rs=stmt.executeQuery(String.format("SELECT ID FROM biteme.users FirstName='%s' WHERE LastName='Company'",res[2]));
+		  		  if(rs.next()) id=rs.getString(1);
 		  		flag = stmt.executeUpdate(
 						String.format("INSERT INTO biteme.restaurant (BranchNum, IsApproved, Name, Address, City,Type,Manager) VALUES ('%d', 1, '%s','%s','%s','%s','%s');",
-								Integer.parseInt(res[1]), res[2], res[3],res[4],res[5],res[6]));
-		  		flag =stmt.executeUpdate(String.format("UPDATE biteme.users SET Type = 'Restaurant' WHERE FirstName = '%s';",res[2]));
+								Integer.parseInt(res[1]), res[2], res[3],res[4],res[5],id));
+		  		flag =stmt.executeUpdate(String.format("UPDATE biteme.users SET Type = 'Supplier' WHERE FirstName = '%s';",res[2]));
 		  		  System.out.println("Resturant approved");
 		  		  db.sendToClient("Restaurant~Updated Successfully",client);
 		  			stmt.close();
@@ -802,6 +837,28 @@ public class DBUserController {
 				  		}
 
 					}
+					
+					
+					protected void deleteAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						 Statement stmt;
+						 ResultSet rs;
+						 int employernum=0;
+				  		  int flag;
+				  		  try {
+				  		  stmt = myCon.createStatement();
+				  		  flag =stmt.executeUpdate(String.format("DELETE FROM biteme.account WHERE ID = '%s';",res[1]));
+				  		flag =stmt.executeUpdate(String.format("UPDATE biteme.users SET Type='Base User' WHERE ID = '%s';",res[1]));
+				  		  System.out.println("account deleted");
+				  		  db.sendToClient("account deleted~",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			
+				  		}
+					}
+					
+					
+					
 					
 					
 					
