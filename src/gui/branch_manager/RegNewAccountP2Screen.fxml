@@ -39,8 +39,8 @@
                         <String fx:value="lbl" />
                      </styleClass></Button>
                   <Label fx:id="res_lbl" layoutX="375.0" layoutY="403.0" prefHeight="17.0" prefWidth="260.0" textFill="RED" />
-                  <Label fx:id="cc_error_lbl" layoutX="584.0" layoutY="183.0" prefHeight="17.0" prefWidth="227.0" textFill="RED" />
-                  <Label fx:id="employer_name_error_lbl" layoutX="584.0" layoutY="317.0" prefHeight="17.0" prefWidth="200.0" textFill="RED" />
+                  <Label fx:id="cc_error_lbl" layoutX="606.0" layoutY="183.0" prefHeight="17.0" prefWidth="227.0" textFill="RED" />
+                  <Label fx:id="employer_name_error_lbl" layoutX="598.0" layoutY="321.0" prefHeight="17.0" prefWidth="200.0" textFill="RED" />
                   <TextField fx:id="budget_lbl" layoutX="419.0" layoutY="365.0" promptText="Monthly Budget ">
                      <styleClass>
                         <String fx:value="text-box" />
@@ -79,7 +79,7 @@
                         <Image url="@../img/greenv.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="budget_error_lbl" layoutX="584.0" layoutY="369.0" prefHeight="17.0" prefWidth="207.0" textFill="RED" />
+                  <Label fx:id="budget_error_lbl" layoutX="606.0" layoutY="373.0" prefHeight="17.0" prefWidth="207.0" textFill="RED" />
                </children>
             </Pane>
          </children>

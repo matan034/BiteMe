@@ -111,6 +111,13 @@ public class CreateNewMenuController {
 
 	    @FXML
 	    private Label error_lbl;
+	    
+	    @FXML
+	    private Label add_lbl;
+
+	    @FXML
+	    private Label remove_lbl;
+
 
 
 	int restaurentNumber=OrderClient.supplier.getSupplierNum(); 
@@ -224,6 +231,7 @@ public class CreateNewMenuController {
     		return;
     	edit_btn.setVisible(false);
     	saveEdit_btn.setVisible(false);
+    	selected_image.setImage(null);
     	setDishFieldsVisibility(true);
     	resetDishFields();
     	String selected=DishesList.getSelectionModel().getSelectedItem();
@@ -258,6 +266,7 @@ public class CreateNewMenuController {
     	if(dishesToAdd.getSelectionModel().getSelectedItem().isEmpty())
     		return;
     	error_lbl.setText("");
+    	selected_image.setImage(null);
     	setDishFieldsVisibility(false);
     	edit_btn.setVisible(true);
     	saveEdit_btn.setVisible(false);
@@ -319,11 +328,11 @@ public class CreateNewMenuController {
 	    		chooseCookingLvl=1;
 	    	if(canAddExtras.isSelected())
 	    		chooseExtras=1;
-	    	if(currentDish==null)
+	    	if(currentDish==null)//update dish(from right)
 	    	{
 	    		dishName=currentDishToAdd.getName();
 	    		dishId=currentDishToAdd.getDishID();
-	    		
+	    		currentDishToAdd.setMyImegebytearray(Imagebytearray);
 	    		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
 	    				chooseExtras,imageName,currentDishToAdd.getMyImagebytearray(),1,restaurentNumber);
 	    		Dishes_in_menu.remove(currentDishToAdd);
@@ -334,7 +343,7 @@ public class CreateNewMenuController {
 	    		error_lbl.setText("");
 	    		save();
     	}
-    	else if(currentDishToAdd==null)
+    	else if(currentDishToAdd==null)//when adding new dish (from left)
     	{
     
     			dishName=currentDish.getName();
@@ -428,7 +437,10 @@ public class CreateNewMenuController {
     	rightarrw_img.setVisible(setting);
     	leftarrow_img.setVisible(setting);
     	plus_img.setVisible(setting);
-  	 
+
+ 	    add_lbl.setVisible(setting);
+
+ 	  remove_lbl.setVisible(setting);
     	
     }
     

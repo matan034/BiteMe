@@ -356,18 +356,35 @@ public class RegNewAccountP1Controller {
            	if(OrderClient.account_reg_errors.get("Errors")==false) {//no errors found in input
            		return flag;
            	}
+           	
            	else
            	{
-           		flag=false;
+           		
            		if(OrderClient.account_reg_errors.get("ID")==true) {
            			id_error_lbl.setText("Account with this ID already exists");
+           			flag=false;
            		}
            		if(OrderClient.account_reg_errors.get("Telephone")==true && !telephone_lbl.getText().isEmpty())
+           		{
            			phone_error_lbl.setText("Account with this Telephone already exists");
+           			flag=false;
+           		}
+
            		if(OrderClient.account_reg_errors.get("Email")==true)
+           		{
            			email_error_lbl.setText("Account with this Email already exists");
+           			flag=false;
+           		}
+
            		if(OrderClient.account_reg_errors.get("UserID")==true)
+           		{
            			id_error_lbl.setText("No User with this ID ");
+           			flag=false;
+           		}
+           		if(telephone_lbl.getText().equals(""))
+           			flag=true;
+           			
+           		
            		return flag;
            	}
 

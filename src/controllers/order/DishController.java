@@ -45,8 +45,14 @@ public class DishController {
     	this.myListener=menuListener;
     	dish_name_label.setText(d.getName());
     	dish_price_label.setText(d.getPrice()+Globals.currency);
-    	Image image = new Image(getClass().getResourceAsStream("/dishPics/"+d.getImageName()));
-		this.img.setImage(image);    
+    	Image image;
+    	try {
+    	 image = new Image(getClass().getResourceAsStream("/dishPics/"+d.getImageName()));
+    	 this.img.setImage(image);    
+    	} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		       
     	
     }

@@ -190,12 +190,12 @@ public class BranchMenuController {
 	    	selected_dish=dish;
 	        selected_dish_name.setText(dish.getName());
 	        selected_dish_price.setText(dish.getPrice()+Globals.currency);
-	        Image image;
-	        try {
+	        Image image;    
 	        	image = new Image(getClass().getResourceAsStream("/dishPics/"+selected_dish.getImageName()));
-	        } catch (Exception e) {
-	        	 image = new Image(getClass().getResourceAsStream("/img/imageNotFound.jpg"));
-			}
+	        if(image==null)
+	        {
+	        	image = new Image(getClass().getResourceAsStream("/img/imageNotFound.jpg"));
+	        }
 	        selected_dish_img.setImage(image);
 	        dish_options_vbox.getChildren().clear();
 	        if(dish.getChooseSize()==1)
