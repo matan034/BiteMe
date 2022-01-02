@@ -12,10 +12,12 @@ package general;
 import clients.StartClient;
 import common.Globals;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 
 public class ClientStartController {
@@ -33,18 +35,30 @@ public class ClientStartController {
     	    	validate_login();
     	    }
     	});
+    	ip_address.setOnKeyPressed( event -> {
+  		  if( event.getCode() == KeyCode.ENTER ) {
+  		    if(validate_login())
+  		    	LoginToServer(event);
+  		  }
+  		} );
     }
     	
-    public void validate_login()
+    public boolean validate_login()
     {
-    	if(ip_address.getText()!="") login_btn.setDisable(false);
-    	else login_btn.setDisable(true);
+    	if(ip_address.getText()!="") {
+    		login_btn.setDisable(false);
+    		return true;
+    	}
+    	else {
+    		login_btn.setDisable(true);
+    		return false;
+    	}
     }
 	/**
 	*LoginToServer func loads our IndexScreen after user logs in to server also saves ip address in our param ip
 	*/
     @FXML
-    void LoginToServer(ActionEvent event) {
+    void LoginToServer(Event event) {
     	ip=ip_address.getText();
     	StartClient.order= new OrderClientController(ip, 5555);
 

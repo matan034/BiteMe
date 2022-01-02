@@ -1,13 +1,18 @@
 package menu;
 
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import clients.OrderClient;
 import clients.StartClient;
@@ -27,8 +32,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -36,17 +43,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
-import order.QRSimulationController;
+
 
 public class CreateNewMenuController {
-	 @FXML
-	 private Button save;
+	  @FXML
+	    private Button saveEdit_btn;
 
 	 @FXML
 	 private ListView<String> DishesList;
 
-	 @FXML
-	 private Label createMessageLabel;
+
 
 	 @FXML
 	 private ComboBox<String> ChooseMenuTypeComboBox;
@@ -60,6 +66,8 @@ public class CreateNewMenuController {
 	 @FXML
 	 private TextField dishPrice;
 
+	    @FXML
+	    private Label price_lbl;
 
 	 @FXML
 	 private CheckBox hasMultipleSizes;
@@ -77,8 +85,7 @@ public class CreateNewMenuController {
 	 @FXML
 	 private Button ChooseImege;
 
-	 @FXML
-	 private Label errorMessage;
+	
 
 	 @FXML
 	 private ListView<String> dishesToAdd;
@@ -90,6 +97,8 @@ public class CreateNewMenuController {
 	 private Label fileChooserMsg;
 	 
 
+	    @FXML
+	    private ImageView selected_image;
 
 	  @FXML
 	    private ImageView rightarrw_img;
@@ -100,7 +109,9 @@ public class CreateNewMenuController {
 	    @FXML
 	    private ImageView plus_img;
 
-	
+	    @FXML
+	    private Label error_lbl;
+
 
 	int restaurentNumber=OrderClient.supplier.getSupplierNum(); 
     byte[]Imagebytearray=null;
@@ -118,6 +129,12 @@ public class CreateNewMenuController {
     private MyListener getAddedDish;
     public void initialize() {
     	ChooseMenuTypeComboBox.setItems(Globals.dishesTypes1);
+    	setToolTips();
+    	dishesToAdd.setPlaceholder(new Label("No Dishes At This Category"));
+    	DishesList.setPlaceholder(new Label("No Available Dishes To Add"));
+    	selected_image.setStyle(" -fx-border-color: black;\r\n"
+    			+ "    -fx-border-style: solid;\r\n"
+    			+ "    -fx-border-width: 5;");
     	setListViewFieldsVisibility(false);
     	setDishFieldsVisibility(false);
     	getAddedDish=new MyListener() {
@@ -125,8 +142,6 @@ public class CreateNewMenuController {
 			@Override
 			public void onClickListener(Object object) {
 				String [] temp=((String)object).split("~");
-				
-				
 				dishToChoose.add(temp[0]);
 				Dishes_to_choose.add(new Dish(Integer.parseInt(temp[2]),temp[0],temp[1]));
 			}
@@ -178,7 +193,7 @@ public class CreateNewMenuController {
     	setListViewFieldsVisibility(true);
     	setDishFieldsVisibility(false);
     	edit_btn.setVisible(false);
-    	save.setVisible(false);
+    	saveEdit_btn.setVisible(false);
     	ArrayList<String> chooseFromList=new ArrayList<String>();
     	ArrayList<String> listToAdd=new ArrayList<String>();
     	Dishes_to_choose=OrderClient.all_dishes.get(dishType);
@@ -195,16 +210,11 @@ public class CreateNewMenuController {
     	dishToChoose=FXCollections.observableList(chooseFromList);
     	
     	dishToAdd=FXCollections.observableList(listToAdd);
-    	dishesToAddMessage.setText("Dishes in menu:");
-    	chooseDishMessage.setText("Choose dish:");
+    	dishesToAddMessage.setText("Restaurant Menu");
+    	chooseDishMessage.setText("Potential Dishes");
     	DishesList.setItems(dishToChoose);
     	dishesToAdd.setItems(dishToAdd);
-
-    	if(dishToChoose.isEmpty())
-    	{
-    		errorMessage.setText("There is no availiable dishes!");
-    	}
-    		
+		
     }
     
     @FXML
@@ -213,7 +223,7 @@ public class CreateNewMenuController {
     	if(DishesList.getSelectionModel().getSelectedItem().isEmpty())
     		return;
     	edit_btn.setVisible(false);
-    	save.setVisible(false);
+    	saveEdit_btn.setVisible(false);
     	setDishFieldsVisibility(true);
     	resetDishFields();
     	String selected=DishesList.getSelectionModel().getSelectedItem();
@@ -247,8 +257,10 @@ public class CreateNewMenuController {
     	if(dishesToAdd.getSelectionModel().isEmpty()) return;
     	if(dishesToAdd.getSelectionModel().getSelectedItem().isEmpty())
     		return;
+    	error_lbl.setText("");
     	setDishFieldsVisibility(false);
     	edit_btn.setVisible(true);
+    	saveEdit_btn.setVisible(false);
     	resetDishFields();
     	String selected=dishesToAdd.getSelectionModel().getSelectedItem();
     	for(DishInRestaurant DIN:Dishes_in_menu)
@@ -256,14 +268,6 @@ public class CreateNewMenuController {
     		if(DIN.getName().equals(selected))
     		{
     			currentDishToAdd=DIN;
-    			if(DIN.getChooseSize()==1)
-    				hasMultipleSizes.setSelected(true);
-    			if(DIN.getChooseCookingLvl()==1)
-    				hasMultipleCockingLvls.setSelected(true);
-    			if(DIN.getChooseExtras()==1)
-    				canAddExtras.setSelected(false);
-    	    	dishPrice.setText(DIN.getPrice()+"");
-    	    	ImageName.setText(DIN.getImageName());
     		}
     	}
     }
@@ -275,6 +279,7 @@ public class CreateNewMenuController {
     	fc.getExtensionFilters().addAll(new ExtensionFilter("JPG Files","*.jpg")
     			,new ExtensionFilter("PNG Files","*.png"));
     	File selectedFile=fc.showOpenDialog(null);
+   
     	if(selectedFile!=null)
     	{
     		ImageName.setText(selectedFile.getName());
@@ -284,11 +289,15 @@ public class CreateNewMenuController {
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				Imagebytearray=new byte[(int)file.length()];
 				bis.read(Imagebytearray,0,Imagebytearray.length);	
+				Image image = new Image(file.getAbsolutePath());
+				
+				//Setting image to the image view
+		         selected_image.setImage(image);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
-    	else {fileChooserMsg.setText("File is not valid choose another one");}
+    	else {error_lbl.setText("File is not valid choose another one");}
 
     }
     @FXML
@@ -298,52 +307,59 @@ public class CreateNewMenuController {
     	double price;
     	
     	String imageName,dishName;
-    	if(dishPrice.getText().isEmpty()||ImageName.getText().isEmpty())
+
+    	if(!dishPrice.getText().equals("") && !ImageName.getText().equals(""))
     	{
-    		createMessageLabel.setText("You must enter price and image for the dish!");
-    		return;
-    	}
-    	price=Double.parseDouble(dishPrice.getText());
-   
-    	imageName=ImageName.getText();
-    	if(hasMultipleSizes.isSelected())
-    		chooseSize=1;
-    	if(hasMultipleCockingLvls.isSelected())
-    		chooseCookingLvl=1;
-    	if(canAddExtras.isSelected())
-    		chooseExtras=1;
-    	if(currentDish==null)
-    	{
-    		dishName=currentDishToAdd.getName();
-    		dishId=currentDishToAdd.getDishID();
-    		
-    		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
-    				chooseExtras,imageName,currentDishToAdd.getMyImagebytearray(),1,restaurentNumber);
-    		Dishes_in_menu.remove(currentDishToAdd);
-    		Dishes_in_menu.add(DIR);
-    		currentDishToAdd=DIR;
-    		dishes_to_add.put(dishType, Dishes_in_menu);
-    		toUpdate.add(DIR);
-    		
+	    	price=Double.parseDouble(dishPrice.getText());
+	   
+	    	imageName=ImageName.getText();
+	    	if(hasMultipleSizes.isSelected())
+	    		chooseSize=1;
+	    	if(hasMultipleCockingLvls.isSelected())
+	    		chooseCookingLvl=1;
+	    	if(canAddExtras.isSelected())
+	    		chooseExtras=1;
+	    	if(currentDish==null)
+	    	{
+	    		dishName=currentDishToAdd.getName();
+	    		dishId=currentDishToAdd.getDishID();
+	    		
+	    		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
+	    				chooseExtras,imageName,currentDishToAdd.getMyImagebytearray(),1,restaurentNumber);
+	    		Dishes_in_menu.remove(currentDishToAdd);
+	    		Dishes_in_menu.add(DIR);
+	    		currentDishToAdd=DIR;
+	    		dishes_to_add.put(dishType, Dishes_in_menu);
+	    		toUpdate.add(DIR);
+	    		error_lbl.setText("");
+	    		save();
     	}
     	else if(currentDishToAdd==null)
     	{
-    		dishName=currentDish.getName();
-    		dishId=currentDish.getDishID();
-    		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
-    				chooseExtras,imageName,Imagebytearray,1,restaurentNumber);
-    		Dishes_in_menu.add(DIR);
-    		currentDishToAdd=DIR;
-    		currentDish=null;
-    		dishes_to_add.put(dishType, Dishes_in_menu);
-    		dishToAdd.add(dishName);
-    		dishToChoose.remove(dishName);
-    		dishesToAdd.setItems(dishToAdd);
+    
+    			dishName=currentDish.getName();
+        		dishId=currentDish.getDishID();
+        		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
+        				chooseExtras,imageName,Imagebytearray,1,restaurentNumber);
+        		Dishes_in_menu.add(DIR);
+        		currentDishToAdd=DIR;
+        		currentDish=null;
+        		dishes_to_add.put(dishType, Dishes_in_menu);
+        		dishToAdd.add(dishName);
+        		dishToChoose.remove(dishName);
+        		dishesToAdd.setItems(dishToAdd);
+        		
+        		toUpdate.add(DIR);
+        		error_lbl.setText("");
+        		save();
     		
-    		toUpdate.add(DIR);
+    		
+    		
+    	}
+
     	}
     	
-    	save();
+    	else error_lbl.setText("Please fill price and choose image");
     }
 
     @FXML
@@ -356,46 +372,18 @@ public class CreateNewMenuController {
     	
     	setDishFieldsVisibility(true);
     	edit_btn.setVisible(false);
-    	save.setVisible(false);
+    	saveEdit_btn.setVisible(false);
     	dishToAdd.remove(currentDishToAdd.getName()); 
     	
     	toDelete.add(currentDishToAdd);
     	resetDishFields();
     	save();
     }
-   @FXML
-    void saveMenu(ActionEvent event) {
-    	ArrayList<DishInRestaurant> sendToServer=new ArrayList<DishInRestaurant>();
 
- 
-    	clientData data;
-    	if(!toUpdate.isEmpty())
-    	{
-    		data=new clientData(toUpdate,"add_to_restaurant");
-        	StartClient.order.accept(data);	
-    	}
-    	if(!toDelete.isEmpty())
-    	{
-    		data=new clientData(toDelete,"remove");
-        	StartClient.order.accept(data);	
-    	}
-    		
-    	//data=new clientData(toDelete,"add_to_restaurant");
-    	OrderClient.dishes_in_menu.putAll(dishes_to_add);
-    	//setListViewFieldsVisibility(false);
-    	setDishFieldsVisibility(false);
-    
-    	toDelete.clear();
-    	toUpdate.clear();
-    	
-    	createMessageLabel.setText(OrderClient.insert_dishes_to_restaurant_msg);
-    }
     
     
     private void save() {
-    	ArrayList<DishInRestaurant> sendToServer=new ArrayList<DishInRestaurant>();
-
- 
+   
     	clientData data;
     	if(!toUpdate.isEmpty())
     	{
@@ -407,15 +395,12 @@ public class CreateNewMenuController {
     		data=new clientData(toDelete,"remove");
         	StartClient.order.accept(data);	
     	}
-
     	OrderClient.dishes_in_menu.putAll(dishes_to_add);
-
     	setDishFieldsVisibility(false);
-    	
+  
     	toDelete.clear();
     	toUpdate.clear();
     	
-    	createMessageLabel.setText(OrderClient.insert_dishes_to_restaurant_msg);
     }
     
     
@@ -430,7 +415,8 @@ public class CreateNewMenuController {
     	hasMultipleSizes.setVisible(setting);
     	dishPrice.setVisible(setting);
     	ImageName.setVisible(setting);
-    	
+    	selected_image.setVisible(setting);
+    	price_lbl.setVisible(setting);
     }
     
     void setListViewFieldsVisibility(boolean setting) 
@@ -460,10 +446,47 @@ public class CreateNewMenuController {
     }
 
     @FXML
+    void saveEdit(ActionEvent event) {    	 
+    	saveDish(null);
+    	saveEdit_btn.setVisible(false);   	  	
+    }
+    @FXML
     void edit(ActionEvent event) {
-    	save.setVisible(true);
+    	if(currentDishToAdd.getChooseSize()==1)
+			hasMultipleSizes.setSelected(true);
+		if(currentDishToAdd.getChooseCookingLvl()==1)
+			hasMultipleCockingLvls.setSelected(true);
+		if(currentDishToAdd.getChooseExtras()==1)
+			canAddExtras.setSelected(true);
+    	dishPrice.setText(currentDishToAdd.getPrice()+"");
+    	ImageName.setText(currentDishToAdd.getImageName());
+    	try {
+    	 ByteArrayInputStream bis = new ByteArrayInputStream(currentDishToAdd.getMyImagebytearray());
+			BufferedImage bi = ImageIO.read(bis);
+			File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+currentDishToAdd.getImageName());
+			String suffix=currentDishToAdd.getImageName().split("\\.")[1];
+			ImageIO.write(bi, suffix, out);   
+			Image image = new Image(getClass().getResourceAsStream("/dishPics/"+currentDishToAdd.getImageName()));
+			 selected_image.setImage(image);
+    	}catch (Exception e) {
+			System.out.println("image failed");
+		}
     	setDishFieldsVisibility(true);
+    	saveEdit_btn.setVisible(true);   
     	
     }
+    private void setToolTips()
+    {
+    	  setToolTip("Add new dish to the category",plus_img);
+    	  setToolTip("Add Dish to your menu, Need to select a dish from left view and fill details",rightarrw_img);
+    	  setToolTip("Remove selected dish from your menu",leftarrow_img);
 
+    }
+    private void setToolTip(String msg,ImageView img)
+    {
+    	Tooltip tooltip = new Tooltip(msg);
+    	tooltip.setStyle("-fx-font-size: 14");
+    	img.setPickOnBounds(true);
+   	  	Tooltip.install(img, tooltip);
+    }
 }

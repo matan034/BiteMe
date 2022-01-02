@@ -91,7 +91,10 @@
 .cart-img:hover{
 	-fx-cursor:hand;
 	-fx-background-color: #DEB887;
+	-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);
 }
+
+
 
 
 .minus-btn{
