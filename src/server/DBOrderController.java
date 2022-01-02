@@ -1,5 +1,7 @@
 package server;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -302,7 +304,14 @@ public class DBOrderController {
 					int chooseSize = rs.getInt(4);
 					int chooseCookLvl = rs.getInt(5);
 					int chooseExtras = rs.getInt(6);
-					InputStream input=rs.getBinaryStream(7);
+					 InputStream input;  
+					input=rs.getBinaryStream(7);
+					  if(input==null)
+					  {
+						  File image=new File("..\\BiteMe\\src\\gui\\img\\imageNotFound.jpg");
+						  input = new FileInputStream(image);	 
+					  }
+
 					byte[] targetArray = new byte[input.available()];
 					input.read(targetArray);
 					String imageName=rs.getString(8);
