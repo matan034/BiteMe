@@ -3,8 +3,11 @@ package server;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +15,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
 
 
 import entity.Dish;
 import entity.DishInRestaurant;
 import entity.clientData;
+import javafx.scene.image.Image;
 import ocsf.server.ConnectionToClient;
 
 public class DBMenuController {
@@ -108,7 +115,14 @@ public class DBMenuController {
 					  int chooseCookLvl=dishesInMenu.getInt(5);
 					  int chooseExtras=dishesInMenu.getInt(6);
 					  String DishImage=dishesInMenu.getString(8);
-					  InputStream imageData=dishesInMenu.getBinaryStream(7);
+					  InputStream imageData;
+					
+						  imageData=dishesInMenu.getBinaryStream(7);
+						  if(imageData==null)
+						  {		  
+							  File image=new File("/img/imageNotFound.jpg");
+							  imageData = new FileInputStream(image);	 
+						  }
 					  BufferedInputStream bis = new BufferedInputStream(imageData);
 					  byte[]myByteArray=new byte[imageData.available()];
 					  int size=myByteArray.length;
