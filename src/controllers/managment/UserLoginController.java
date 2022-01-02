@@ -64,10 +64,18 @@ public class UserLoginController {
         		Globals.loadFXML(null,Globals.indexFXML, event,null);
         		if(OrderClient.user.getType().equals("Customer"))
         			Globals.loadInsideFXML(Globals.homePageCustomer);
+        		else {
         		if(OrderClient.user.getType().equals("CEO"))
         			Globals.loadInsideFXML(Globals.homePageCeo);
-        		  }
-        		
+        		else {
+        		if(OrderClient.user.getType().equals("Supplier"))
+        			Globals.loadInsideFXML(Globals.homePageSupplier);
+        		else
+        			if(OrderClient.user.getType().equals("Base User"))
+            			Globals.loadInsideFXML(Globals.homePageBaseUser);
+        		}
+        	  }
+        	}
     	}
     	else if(username_lbl.getText().trim().isEmpty() && password_lbl.getText().trim().isEmpty())
     		login_res_lbl.setText("Please input User name and Password");

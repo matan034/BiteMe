@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="650.0" minWidth="1010.0" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="650.0" prefWidth="1010.0">
+         <children>
+            <AnchorPane prefHeight="650.0" prefWidth="1010.0">
+               <children>
+                  <ImageView fitHeight="676.0" fitWidth="1079.0" layoutX="1.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/maxi.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="167.0" fitWidth="206.0" layoutX="484.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/fries.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="298.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../dishPics/cola.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="429.0" layoutY="342.0" text="+" textFill="#f5f0f0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="298.0" layoutY="156.0" prefHeight="104.0" prefWidth="392.0" styleClass="lblWitoutSize" stylesheets="@GeneralStyleSheet.css" text="SALE Today" textFill="#ebe4e4">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="388.0" layoutY="458.0" prefHeight="53.0" prefWidth="193.0" stylesheets="@GeneralStyleSheet.css" text=" 15 NIS " textFill="#f5f4f4">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>
