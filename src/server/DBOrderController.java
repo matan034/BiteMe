@@ -21,7 +21,7 @@ public class DBOrderController {
 	  /*
 	   * This method insert a new order to DB
 	   *
-	   * @param res  order information res[0]=Insert_order
+	   * @param res[0] used to start function, rest of res for details we need for queries  order information res[0]=Insert_order, res[1]=branchId,res[2]=customernum,res[3]=supply_wait,res[4]=price,res[5]=isearlyorder,res[6]=requestordertime
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -92,7 +92,7 @@ public class DBOrderController {
 	  /*
 	   * This method loads all orders of specified restaurant
 	   *
-	   * @param res  restaurant number res[0]=Load_orders
+	   * @param res[0] used to start function, rest of res for details we need for queries  restaurant number res[0]=Load_orders
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -159,7 +159,7 @@ public class DBOrderController {
 		  /*
 		   * This method loads all orders of a specified customer
 		   *
-		   * @param res  customer number res[0]=Load_Myorders
+		   * @param res[0] used to start function, rest of res for details we need for queries  customer number res[0]=Load_Myorders
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -199,7 +199,7 @@ public class DBOrderController {
 	 	 /*
 		   * This method finds a w4c number in the database
 		   *
-		   * @param res  w4c card number res[0]=W4C_verify
+		   * @param res[0] used to start function, rest of res for details we need for queries  w4c card number res[0]=W4C_verify,res[1]=cardnum,res[2]=privateaccoutnum,res[3]=businessaccoutnnum
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -236,7 +236,7 @@ public class DBOrderController {
 	 	/*
 		   * This method loads w4c card number for a given customer for the qr simulation
 		   *
-		   * @param res  res[0]=W4C_load_list res[1]=PrivateAccount/BusinessAccount res[2]=accountNum
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=W4C_load_list res[1]=PrivateAccount/BusinessAccount res[2]=accountNum
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -270,7 +270,7 @@ public class DBOrderController {
 	 	/*
 		   * This method loads all dishes in a selected restaurant
 		   *
-		   * @param res  res[0]=Load_dishes res[1]= restaurant number
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Load_dishes res[1]= restaurant number
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -326,7 +326,14 @@ public class DBOrderController {
 		}
 	 	
 	 	
-	 	
+	 	/*
+		   * This method loads all dishes in database
+		   *
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=load_all_dishes
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */  
 	 	protected void loadAllDishes(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
 	 		Statement stmt;
 			ResultSet rs;
@@ -347,7 +354,7 @@ public class DBOrderController {
 	 	/*
 		   * This method loads all company branches
 		   *
-		   * @param res  res[0]=Load_branches
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Load_branches
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -377,7 +384,7 @@ public class DBOrderController {
 	 	/*
 		   * This method adds a dish in order to dishinorder table in DB
 		   *
-		   * @param res  res[0]=Add_dishInOrder, res is the dish details and its order number
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Add_dishInOrder, res is the dish details and its order number
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -403,7 +410,7 @@ public class DBOrderController {
 	 	/*
 		   * This method update that a orders has arrived to customer
 		   *
-		   * @param res  res[0]=Order_arrived, res[1]= 1 ,res[2] = order id
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Order_arrived, res[1]= 1 ,res[2] = order id
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -425,7 +432,7 @@ public class DBOrderController {
 	 	/*
 		   * This method load all the dishes of a selected order
 		   *
-		   * @param res  res[0]=Load_orderDishes, res[1]= order id
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Load_orderDishes, res[1]= order id
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -474,7 +481,7 @@ public class DBOrderController {
 	 	/*
 		   * This method updates customer recieve time and check if it was late
 		   *
-		   * @param res  res[0]=Update_recieve_time, res[1]= order id
+		   * @param res[0] used to start function, rest of res for details we need for queries  res[0]=Update_recieve_time, res[1]= order id
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -538,7 +545,7 @@ public class DBOrderController {
 	 	/*
 		   * This method updates that the supplier has recieved the order
 		   *
-		   * @param res  res[0]=Approve_order, res[1]= order id
+		   * @param res[0] used to start function, rest of res for details we need for queries res[0]=Approve_order, res[1]= order id
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -560,7 +567,7 @@ public class DBOrderController {
 		 	/*
 		   * This method refund customer at a specified restaurant for being late
 		   *
-		   * @param res  res[0]=Refund Account, res[1]=refund amount , res[2] account
+		   * @param res[0] used to start function, rest of res for details we need for queries res[0]=Refund Account, res[1]=refund amount , res[2] account
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -580,7 +587,14 @@ public class DBOrderController {
 	 		}
 	 		  
 	 	}
-	 	
+	 	/*
+		   * This method sets an order to be out for delivery 
+		   *
+		   * @param  res[0] used to start function, rest of res for details we need for queries  res[0]=Deliver_order, res[1]=orderID 
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
 	 	protected void DeliverOrder(String[]res,ConnectionToClient  client,Connection myCon,DBController db) {
 	 		Statement stmt;
 	 		  int flag;

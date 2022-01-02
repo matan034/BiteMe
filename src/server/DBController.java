@@ -100,9 +100,8 @@ public class DBController extends AbstractServer {
 				
 				//cases for DB Order control
 				case "Insert_order": dbOrder.insertOrder(res, client,myCon,this); break;
-				case "Load_orders": dbOrder.loadOrders(res,client,myCon,this); break;//daniel
-				case "Load_Myorders": dbOrder.loadMyOrders(res,client,myCon,this); break;//matan
-				//case"Load_MyOrders":loadMyOrders(res,client); break;
+				case "Load_orders": dbOrder.loadOrders(res,client,myCon,this); break;
+				case "Load_Myorders": dbOrder.loadMyOrders(res,client,myCon,this); break;
 				case "W4C_verify": dbOrder.w4cVerify(res,client,myCon,this);break;
 				case "W4C_load_list": dbOrder.w4cLoadList(res,client,myCon,this);break;
 				case "Load_dishes": dbOrder.loadDishes(res,client,myCon,this);break;
@@ -116,9 +115,7 @@ public class DBController extends AbstractServer {
 				case "Update_recieve_time": dbOrder.updateRecieveTime(res,client,myCon,this);break;
 				case "Deliver_order":dbOrder.DeliverOrder(res,client,myCon,this);break;
 				
-				//case "Update_order": updateOrder(res, client); break; from prototype
-				//case "Search_order": searchOrder(res, client); break;from prototype
-				
+
 				case "Get_connection": getClientInfo(client); break;
 
 				//cases for DB user control
@@ -134,9 +131,9 @@ public class DBController extends AbstractServer {
 				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;
 				case "Update_customer":dbUser.updateCustomer(res,client,myCon,this);break;
 				case "Import_users":dbUser.importUsers(res,client,myCon,this);break;
-				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;//maybe delete
+				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;
 				case "Load private Account": dbUser.loadPrivateAccount(res,client,myCon,this);break;
-				case "Load business Account": dbUser.loadSpecificBusinessAccount(res,client,myCon,this);break;//matan
+				case "Load business Account": dbUser.loadSpecificBusinessAccount(res,client,myCon,this);break;
 				case "Load_supplier":dbUser.loadSupplier(res,client,myCon,this);break;
 				case "Load_suppliers": dbUser.loadSuppliers(res,client,myCon,this);break;
 				case "Load_myEmployers": dbUser.loadMyEmployers(res,client,myCon,this);break;
@@ -150,6 +147,7 @@ public class DBController extends AbstractServer {
 				case "Update_business_account":dbUser.UpdateBusinessAccount(res, client, myCon, this);break;
 				case "Delete_account":dbUser.deleteAccount(res, client, myCon, this);break;
 				case "Logout" :dbUser.logout(res, client, myCon, this);break;
+				
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;
 				case "Insert_quantity": dbReport.insertItemsAmount(res,client,myCon,this);break;
@@ -163,8 +161,6 @@ public class DBController extends AbstractServer {
 				//cases for DB menu control
 				case "Add_Dish": dbMenu.addDish(res, client, myCon, this);break;
 				case "Add_to_rest_menu": dbMenu.addDishToRestMenu(res, client, myCon, this);break;
-				
-				//muhammad
 				case "load_all_dishes":dbMenu.loadAllDishs(res, client, myCon, this);break;
 				case "load_dishes_in_menu":dbMenu.loadAllDishsInMenu(res, client, myCon, this);break;
 				case "load_all_dish_in_restaurant":dbMenu.loadAllDishInRestaurant(res, client, myCon, this);break;
@@ -217,52 +213,6 @@ public class DBController extends AbstractServer {
 		  }
 	
 	  
-	  
-	 
-	   
-	
-	  
-
-	  
-	/*
-	  protected void updateOrder(String[]res,ConnectionToClient client) throws SQLException
-	  {
-		  Statement stmt;
-		  int flag;
-			try {
-				stmt = myCon.createStatement();
-				flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET %s = '%s', %s = '%s' WHERE OrderNumber = %d;",res[1],res[2],res[3],res[4],Integer.parseInt(res[5])));
-				if(flag>0)	sendToClient("Update~Updated Successfuly", client);
-				else sendToClient("Update~Failed to update", client);
-				stmt.close();	
-			} catch (SQLException e) {	e.printStackTrace();}
-			
-	  }
-	  
-	  protected void searchOrder(String[]res,ConnectionToClient client) throws SQLException
-	  {
-		  String result;
-		  Statement stmt;
-		  try {
-		  stmt = myCon.createStatement();
-		  ResultSet rs;
-		  rs =stmt.executeQuery("SELECT * FROM biteme.order WHERE OrderNumber="+res[1]);
-			if(rs.next())
-			{
-				System.out.println("Order Found");
-				result= "Search~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
-				sendToClient(result,client);
-			} 
-			else sendToClient("Search~Order Wasnt found", client);
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-*/
-	
 
 
 	protected void getClientInfo(ConnectionToClient client) {
@@ -293,28 +243,6 @@ public class DBController extends AbstractServer {
 
 
 
-//	  protected void loadCustomer(String[]res,ConnectionToClient  client)
-//	  {
-//		  Statement stmt;
-//		  ResultSet rs;
-//		  String result;
-//		  try {
-//		  stmt = myCon.createStatement();
-//		  rs =stmt.executeQuery("SELECT * FROM biteme.customers WHERE AccountNum="+Integer.parseInt(res[1]));
-//		  if(rs.next())
-//			{
-//				System.out.println("customer found"); 
-//				result= "Customer load~"+rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4);
-//				sendToClient(result,client);
-//			} 
-//			else sendToClient("Customer load~Customer Wasnt found", client);
-//			rs.close();
-//			stmt.close();
-//		  }
-//		  catch (Exception e) {
-//			
-//		}
-//	  }
 
 
 

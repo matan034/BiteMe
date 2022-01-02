@@ -28,9 +28,9 @@ public class DBReportController {
 	
 	
  	/*
-   * This method 
+   * This method loads data on a restaurants amount of items ordered in a specific restaurant in a specific branch,month,year
    *
-   * @param res   
+   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=Load_components res[1]=branchID,res[2]=month,res[3]=year
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -64,7 +64,13 @@ public class DBReportController {
 		}
 	}
 	
-	
+	/*
+	   *
+	   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=Load_components res[1]=branchID,res[2]=month,res[3]=year
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 
 	protected void CheckMonthYear(int RestaurantNum,Connection myCon,String Type) throws SQLException {
 		Statement stmt;
@@ -106,9 +112,9 @@ public class DBReportController {
 	
 	
  	/*
-   * This method 
+   * This method updates data for report, each time a dish is ordered we update the counters we later pull to display for amount ordered by type
    *
-   * @param res   
+   * @param res res[0] used to start function, rest of res for details we need for queries res[0]=Insert_quantity,res[1]=ordertype,res[2]=amount starters ordered,res[3]=amount main ordered,res[4]=amount salad ordered,res[5]=amount desert ordered,res[6]=amount drinks ordered
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -135,9 +141,9 @@ public class DBReportController {
 	}
 	
  	/*
-   * This method 
+   * This method loads monthly perforamance or income report for a specific restaurant in a specific branch,month and year
    *
-   * @param res   
+   * @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Load_monthly_performance,res[1]=string to choose if we want performance or income report,res[2]=branchNum,res[3]=month,res[4]=year
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -180,9 +186,9 @@ public class DBReportController {
 	}
 	
 	/*
-	   * This method 
+	   * This method updates restaurant data for income, amount of orders
 	   *
-	   * @param res   
+	   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=updateRestaurantData res[1]=income,res[2]=restaurantnum
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -209,9 +215,9 @@ public class DBReportController {
 	}
 	
 	/*
-	   * This method 
+	   * This method is used to update amount of late orders delivered
 	   *
-	   * @param res   
+	   * @param res[0] used to start function, rest of res for details we need for queries res[0]=Update Supplier Late Cnt res[1]=restaurantnum   
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -231,14 +237,14 @@ public class DBReportController {
 		}
 	}
 		  
-		  /*
-		   * This method 
-		   *
-		   * @param res   
-		   * @param client The connection from which the message originated.
-		   * @param myCon the connection to mySql DB
-		   * @param db the main database controller used in order to send message back to client
-		   */
+	/*
+	   * This method is used to get quarterly data for reports
+	   *
+	   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Load_quarter_data res[1]=quarter start, res[2]=quarter end ,res[3]=year,res[4]=restaurantNum   
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 		protected void getSupplierQuarterData(String[]res,ConnectionToClient  client,Connection myCon,DBController db)
 		{
 			  Statement stmt;
@@ -261,6 +267,14 @@ public class DBReportController {
 				
 			}
 		}
+		/*
+		   * This method is used to upload a report branch manager sends to CEO
+		   *
+		   * @param msg our report using Entity MyFile 
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
 			  
 		protected void UploadReport(Object msg,ConnectionToClient  client,Connection myCon,DBController db)
 		{ 
@@ -291,7 +305,14 @@ public class DBReportController {
 		}  
 		
 		
-		
+		/*
+		   * This method is used to get our report pdf and display it to CEO
+		   *
+		   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Open_pdf res[1]=quarter, res[2]=year ,res[3]=branchID 
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
 		protected void getBlob(String[] res,ConnectionToClient  client,Connection myCon,DBController db) {
 			  ResultSet rs;
 			  PreparedStatement preparedStmt;
@@ -332,7 +353,14 @@ public class DBReportController {
 				  db.sendToClient("PdfPath~"+e, client);
 			}
 			  }
-		
+		/*
+		   * This method is used to get how much a supplier made during a specific month and year 
+		   *
+		   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Load_myIntake res[1]=restaurantnum, res[2]= year from user ,res[3]=month from user
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
 		protected void getSupplierIntake(String[] res,ConnectionToClient  client,Connection myCon,DBController db) {
 			 Statement stmt;
 			  ArrayList<IntakeOrder> orders=new ArrayList<IntakeOrder>();

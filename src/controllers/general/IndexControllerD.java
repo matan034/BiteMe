@@ -237,11 +237,11 @@ public class IndexControllerD {
                 }});
             
            
-            /*BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
+            BranchManagerOption6.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
-                    Globals.loadInsideFXML(Globals.);
-                }});*/
+                    Globals.loadInsideFXML(Globals.regRestaurant);
+                }});
             
             BranchManagerOption7.setOnAction(new EventHandler<ActionEvent>() {
             	  @Override

@@ -197,35 +197,41 @@ public class RegNewAccountP1Controller {
 
 		@Override
 		public boolean verify() {
-			
-			if(telephone_lbl.getText().trim().isEmpty()) {
-	    		phone_error_lbl.setText("Must input Telephone");
-	    		return false;
-	    	}
-			
-			
-			  if(!isNumeric(telephone_lbl.getText())) {
-			   		phone_error_lbl.setText("Phone must a number");
-			   		return false;
-			   	}
-			 else if (telephone_lbl.getText().length()!=10) {
-			   		phone_error_lbl.setText("Number must be 10 digits");
-			   		return false;
-			   	}
-				 
-			 else {
-				 StartClient.order.accept("Check_account_info~Telephone~"+telephone_lbl.getText());
-		 			if(OrderClient.AccountInfo == true) {
-		 				phone_error_lbl.setText("Account with this number already exists");
-		 				return false;
-		 			}
-		 			else {
-		 				phone_error_lbl.setText("");
-		 				return true;
-		 			}
-
+			int flag=0;
+		
+			 if(!telephone_lbl.getText().isEmpty() && !telephone_lbl.getText().equals("0")) { 
+				 if(!isNumeric(telephone_lbl.getText())) {
+				   		phone_error_lbl.setText("Phone must be a number");
+				   		return false;
+				   	}
+				 else
+					 flag++;
+					
+				  if (telephone_lbl.getText().length()!=10) {
+				   		phone_error_lbl.setText("Number must be 10 digits");
+				   		return false;
+				   	}
+				  else 
+					  flag++;
+				  if(flag==2) {
+					  StartClient.order.accept("Check_account_info~Telephone~"+telephone_lbl.getText());
+			 			if(OrderClient.AccountInfo == true) {
+			 				phone_error_lbl.setText("Account with this number already exists");
+			 				return false;
+			 			}
+			 			else {
+			 				phone_error_lbl.setText("");
+			 				return true;
+			 			}
+				  }
 			 }
-		}   
+			 
+				 phone_error_lbl.setText("");
+	 				return true;
+			
+				 
+		}
+				    
 	   });
 	   
 	   Globals.VerifyInputListener(id_lbl, new VerifyListener() {
@@ -268,7 +274,9 @@ public class RegNewAccountP1Controller {
      * Function to go to next page, account details in this page are saved to new_account*/
     @FXML
     void NextPage(ActionEvent event) {
-    	new_account= new Account(first_name_lbl.getText(),last_name_lbl.getText(),id_lbl.getText(),telephone_lbl.getText(),email_lbl.getText());
+    	String phone="0";
+    	if(!telephone_lbl.getText().isEmpty()) phone=telephone_lbl.getText();
+    	new_account= new Account(first_name_lbl.getText(),last_name_lbl.getText(),id_lbl.getText(),phone,email_lbl.getText());
     	if(CheckInput()){//if input is valid for this page we can move to the next page
     		Globals.AccountInfoArr=new String[] {first_name_lbl.getText(),last_name_lbl.getText(),id_lbl.getText(),telephone_lbl.getText(),email_lbl.getText(),confirm_email_lbl.getText()};
     		Globals.loadInsideFXML( Globals.regnewaccountp2FXML);
@@ -318,13 +326,15 @@ public class RegNewAccountP1Controller {
     		id_error_lbl.setText("ID must be 9 digits");
     		flag=false;
     	}
-    	if(!isNumeric(telephone_lbl.getText())) {
-    		phone_error_lbl.setText("Phone must a number");
-    		flag=false;
-    	}
-    	else if (telephone_lbl.getText().length()!=10) {
-    		phone_error_lbl.setText("Number must be 10 digits");
-    		flag=false;
+    	if(!telephone_lbl.getText().isEmpty()) {
+	    	if(!isNumeric(telephone_lbl.getText())) {
+	    		phone_error_lbl.setText("Phone must be a  number");
+	    		flag=false;
+	    	}
+	    	else if (telephone_lbl.getText().length()!=10) {
+	    		phone_error_lbl.setText("Number must be 10 digits");
+	    		flag=false;
+	    	}
     	}
     	if(!email_lbl.getText().equals(confirm_email_lbl.getText())) {
     		confirm_email_error_lbl.setText("Emails must match");
@@ -340,10 +350,7 @@ public class RegNewAccountP1Controller {
     		flag=false;
     	}
     		
-    	if(telephone_lbl.getText().trim().isEmpty()) {
-    		phone_error_lbl.setText("Must input Telephone");
-    		flag=false;
-    	}
+
     	if(flag==true) {
            	StartClient.order.accept("Check_account_input~"+new_account.toString());
            	if(OrderClient.account_reg_errors.get("Errors")==false) {//no errors found in input
@@ -355,7 +362,7 @@ public class RegNewAccountP1Controller {
            		if(OrderClient.account_reg_errors.get("ID")==true) {
            			id_error_lbl.setText("Account with this ID already exists");
            		}
-           		if(OrderClient.account_reg_errors.get("Telephone")==true)
+           		if(OrderClient.account_reg_errors.get("Telephone")==true && !telephone_lbl.getText().isEmpty())
            			phone_error_lbl.setText("Account with this Telephone already exists");
            		if(OrderClient.account_reg_errors.get("Email")==true)
            			email_error_lbl.setText("Account with this Email already exists");

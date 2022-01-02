@@ -728,7 +728,7 @@ public class DBUserController {
 		  		  String id="0";
 		  		  try {
 		  		  stmt = myCon.createStatement();
-		  		  rs=stmt.executeQuery(String.format("SELECT ID FROM biteme.users FirstName='%s' WHERE LastName='Company'",res[2]));
+		  		  rs=stmt.executeQuery(String.format("SELECT ID FROM biteme.users WHERE FirstName='%s' AND LastName='Company' ",res[2]));
 		  		  if(rs.next()) id=rs.getString(1);
 		  		flag = stmt.executeUpdate(
 						String.format("INSERT INTO biteme.restaurant (BranchNum, IsApproved, Name, Address, City,Type,Manager) VALUES ('%d', 1, '%s','%s','%s','%s','%s');",
@@ -745,8 +745,8 @@ public class DBUserController {
 			 }
 			 
 				/**
-				Func 
-				* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]=""Load_users"";
+				Func for loading all customers in a branch
+				* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_branch_customers",res[1]=HomeBranch;
 				 * @param client The connection from which the message originated.
 				 * @param myCon the connection to mySql DB
 				 * @param db the main database controller used in order to send message back to client */
@@ -770,7 +770,12 @@ public class DBUserController {
 					rs.close();
 				}
 					
-					
+					/**
+					Func for checking if account information like phone,email,id already exists so we dont allow duplicates
+					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Check_account_info",res[1]=Field to check,res[2]=Field data;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					protected void checkAccountInfo(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 						Statement stmt;
 						stmt = myCon.createStatement();
@@ -786,6 +791,12 @@ public class DBUserController {
 						rs.close();
 					}
 					
+					/**
+					Func for checking if the account we are trying to create has a user 
+					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Check_user",res[1]=ID ;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					protected void checkUser(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 						Statement stmt;
 						stmt = myCon.createStatement();
@@ -801,7 +812,12 @@ public class DBUserController {
 						rs.close();
 					}
 					
-					
+					/**
+					Func for updating private account information
+					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_private_account",res[1]=credit card number ,res[2]=AccountNum ;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					protected void UpdatePrivateAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 						 Statement stmt;
 				  		  int flag;
@@ -817,7 +833,12 @@ public class DBUserController {
 				  		}
 
 					}
-					
+					/**
+					Func for updating business account information
+					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_business_account",res[1]=Employer name ,res[2]=Monthlylimit,res[3]=accountnum ;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					protected void UpdateBusinessAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 						 Statement stmt;
 						 ResultSet rs;
@@ -838,7 +859,12 @@ public class DBUserController {
 
 					}
 					
-					
+					/**
+					Func for updating deleting an account
+					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Delete_account",res[1]=ID ;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					protected void deleteAccount (String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
 						 Statement stmt;
 						 ResultSet rs;

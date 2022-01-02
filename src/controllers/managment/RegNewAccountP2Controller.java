@@ -61,6 +61,9 @@ public class RegNewAccountP2Controller {
 	    private Pattern pattern = Pattern.compile("\\d+");
 	    
 	    public void initialize() {
+	    	cc_lbl.setText("");
+	    	employer_name_lbl.setText("");
+	    	budget_lbl.setText("");
 	    	if(UserAlreadyHasAccountController.account_id!=null) {
 	    		StartClient.order.accept("Load_customer~"+UserAlreadyHasAccountController.account_id);
 	    		if(OrderClient.customer.getpAccount()!=0) {
@@ -302,7 +305,7 @@ public class RegNewAccountP2Controller {
 	    			StartClient.order.accept(pAccount.toString());
 	    		else
 	    			StartClient.order.accept("Update_private_account~"+pAccount.getCreditCardNumber()+"~"+pAccount.getAccountNum());
-	    		green_v_img.setVisible(true);
+	    		Globals.AccountInfoArr=null;
 		    	/*PauseTransition pause = new PauseTransition(Duration.seconds(1));
 		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
 		    	pause.play();*/
@@ -315,6 +318,7 @@ public class RegNewAccountP2Controller {
 	    			StartClient.order.accept(bAccount.toString());
 	    		else
 	    			StartClient.order.accept("Update_business_account~"+bAccount.getEmployerName()+"~"+bAccount.getBudget()+"~"+bAccount.getAccountNum());
+	    		Globals.AccountInfoArr=null;
 	    		/*PauseTransition pause = new PauseTransition(Duration.seconds(1));
 		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
 		    	pause.play();*/
