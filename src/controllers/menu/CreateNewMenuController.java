@@ -352,9 +352,7 @@ public class CreateNewMenuController {
         		toUpdate.add(DIR);
         		error_lbl.setText("");
         		save();
-    		
-    		
-    		
+
     	}
 
     	}
@@ -402,10 +400,7 @@ public class CreateNewMenuController {
     	toUpdate.clear();
     	
     }
-    
-    
-    
-    
+
     void setDishFieldsVisibility(boolean setting) 
     {
     	

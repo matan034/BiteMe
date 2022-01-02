@@ -290,6 +290,7 @@ public class IndexControllerD {
        case "Supplier":
     	   
     	   comboBoxBranch.setVisible(false);
+    	   tempTypeUser="Supplier";
     	   
     	   StartClient.order.accept("Load_supplier~"+OrderClient.user.getID());
            
@@ -341,6 +342,7 @@ public class IndexControllerD {
 
        case "Base User":
 
+    	   
     	   comboBoxBranch.setVisible(false);
     	   
     	   Button baseUseription1= new Button ("Log out");
@@ -384,14 +386,16 @@ public class IndexControllerD {
 		this.comboBoxBranch = comboBoxBranch;
 	}
 
- ////////check why not recognize ???
 	public void setHomePage(){
 		
 		if(tempTypeUser=="Customer")
 			Globals.loadInsideFXML(Globals.homePageCustomer);
-		else
-			if(tempTypeUser=="CEO")
-				 Globals.loadInsideFXML(Globals.homePageCeo);		 
+		if(tempTypeUser=="CEO")
+			 Globals.loadInsideFXML(Globals.homePageCeo);
+	     if(tempTypeUser=="Supplier")
+			 Globals.loadInsideFXML(Globals.homePageSupplier);
+	     if(tempTypeUser=="Base User")
+	    	 Globals.loadInsideFXML(Globals.homePageBaseUser); 
 }
 	
 	public void setDeginButton(Button b) {

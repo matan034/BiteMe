@@ -94,7 +94,10 @@ public class Globals {
 			homeScreen="/general/HomeScreen.fxml",
 			MenuFXML="/menu/createMenu.fxml",
 	        homePageCustomer="/general/homePageCustomer.fxml",
-	        homePageCeo="/general/homePageCeo.fxml";
+	        homePageCeo="/general/homePageCeo.fxml",
+	        homePageBaseUser="/general/homePageBaseUser.fxml",
+	        homePageSupplier="/general/homePageSupplier.fxml";
+	
 	
 
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
@@ -138,6 +141,7 @@ public class Globals {
 		 put(viewPdf,"Inclusive Quarter Report");
 		 put(view_employersFXML,"My Employers");
 		 put(homePageCustomer,"Welcome to BiteME");
+		 put(homePageSupplier,"Welcome to BiteME");
 		 put(homePageCeo,"Welcome to BiteME");
 		 put(MenuFXML,"Edit menu");
 		 put(regnewemployerFXML,"Register new employer");

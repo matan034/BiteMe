@@ -67,7 +67,7 @@
                                     <Image url="@../img/LockIcon.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="login_res_lbl" layoutX="211.0" layoutY="589.0" prefHeight="17.0" prefWidth="397.0" textAlignment="CENTER" textFill="RED" />
+                              <Label fx:id="login_res_lbl" layoutX="395.0" layoutY="574.0" prefHeight="17.0" prefWidth="251.0" textAlignment="CENTER" textFill="RED" />
                               <Button fx:id="import_btn" layoutX="14.0" layoutY="764.0" mnemonicParsing="false" onAction="#import_users" text="import" />
                            </children>
                         </AnchorPane>
