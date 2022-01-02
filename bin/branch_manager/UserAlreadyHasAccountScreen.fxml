@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.UserAlreadyHasAccountController">
    <children>
@@ -28,7 +29,12 @@
                   <String fx:value="ViewBtnOrange" />
                   <String fx:value="lbl" />
                </styleClass></Button>
-            <Label fx:id="id_error_lbl" layoutX="398.0" layoutY="130.0" prefHeight="17.0" prefWidth="201.0" textFill="RED" />
+            <Label fx:id="id_error_lbl" layoutX="422.0" layoutY="134.0" prefHeight="17.0" prefWidth="177.0" textFill="RED" />
+            <Label alignment="CENTER" layoutX="262.0" layoutY="32.0" text="Enter ID">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

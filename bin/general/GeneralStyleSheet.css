@@ -39,6 +39,7 @@
  .dish-item{
     -fx-background-color: #FFFFFF;
         -fx-background-radius: 30;
+        -fx-cursor:hand;
 }
 .text-box{
     -fx-background-color:#F5F5F5;

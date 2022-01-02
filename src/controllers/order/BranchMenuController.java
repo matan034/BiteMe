@@ -142,7 +142,7 @@ public class BranchMenuController {
 	            @Override
 	            public void handle(WorkerStateEvent workerStateEvent) {
 	            	borderPane.setDisable(false);
-	            	 borderPane.setStyle( "-fx-background-color: white");
+	            	 borderPane.setStyle( "-fx-background-color: #fff");
 	    	    	appetizer_btn=defineButton("Appetizer");
 	    	    	salad_btn=defineButton("Salad");
 	    	    	main_dish_btn=defineButton("Main");
@@ -191,7 +191,7 @@ public class BranchMenuController {
 	        selected_dish_name.setText(dish.getName());
 	        selected_dish_price.setText(dish.getPrice()+Globals.currency);
 	        Image image;    
-	        	image = new Image(getClass().getResourceAsStream("/dishPics/"+selected_dish.getImageName()));
+	        image = new Image(getClass().getResourceAsStream("/dishPics/"+selected_dish.getImageName()));
 	        if(image==null)
 	        {
 	        	image = new Image(getClass().getResourceAsStream("/img/imageNotFound.jpg"));

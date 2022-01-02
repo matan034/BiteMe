@@ -72,7 +72,8 @@ public class CartController {
 	    	            CartItemController cartItemController = fxmlLoader.getController();
 	    	            cartItemController.setData(d,cartItemListener);
 	    	            cart_items_vbox.getChildren().add(anchorPane);
-	    	            total_price_label.setText(Double.toString(Globals.newOrder.getPrice()));
+	    	            String sum=String.format("%.2f %s",Globals.newOrder.getPrice(),Globals.currency);
+	    	            total_price_label.setText(sum);
 	    		    	 } 
 	    		    	 catch (IOException e) 
 	    		    	 {

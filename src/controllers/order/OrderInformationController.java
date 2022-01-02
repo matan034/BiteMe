@@ -1,6 +1,8 @@
 package order;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -124,6 +126,16 @@ public class OrderInformationController {
     	
     	plus_btn.setOnAction(new peopleCounter(1));
     	minus_btn.setOnAction(new peopleCounter(-1));
+    	if(Globals.newOrder.getOrder_time()!=null)
+    	{
+    		String[] split_date=Globals.newOrder.getOrder_time().split(" ");
+    		hour_input.setText(split_date[0]);
+    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    		  //convert String to LocalDate
+    		LocalDate localDate = LocalDate.parse(split_date[1], formatter);
+    		date_input.setValue(localDate);
+    		
+    	}
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
     		delivery_details.setVisible(true);
@@ -360,6 +372,7 @@ public class OrderInformationController {
     		date_tooltip.setText("Cant select past date");
     		return false;
     	}
+    	if(!hour_input.getText().equals("")) verifyHour();
     	date_tooltip.setText("");
     	return true;
 	}
@@ -441,24 +454,29 @@ public class OrderInformationController {
 	}
 	private boolean verifyCompany()
 	{
-		if(!company_input.getText().isEmpty())
-    	{
-    		if(company_input.getText().length()>=2)
+		if(!company_input.getText().equals(""))
+		{
+			if(!company_input.getText().equals(" "))
     		{
-	    		if(!namePattern.matcher(company_input.getText()).matches())
-	    		{
-	    			company_tooltip.setText("Company name must contain only abc chars");
-	    			return false;
-	    		}
+    			if(company_input.getText().length()>=2)
+    			{
+    				if(!namePattern.matcher(company_input.getText()).matches())
+    				{
+    					company_tooltip.setText("Company name must contain only abc chars");
+    					return false;
+    				}
+    			}
+    			else {
+    				company_tooltip.setText("Company name must be at least 2 chars long");
+    				return false;
+    			}
     		}
-    		else {
-    			company_tooltip.setText("Company name must be at least 2 chars long");
-    			return false;
-        	}
-    	}
+		}
 		company_tooltip.setText("");
 		return true;
-	}
+		}
+				
+	
 	private boolean verifyStreet()
 	{
 		if(street_input.getText().equals("")) 
@@ -514,9 +532,9 @@ public class OrderInformationController {
 	{
 		Calendar c = Calendar.getInstance();
 		String []request=hour_input.getText().split(":");
-		 
-		return c.get(Calendar.HOUR)>Integer.parseInt(request[0])||
-				(c.get(Calendar.HOUR)==Integer.parseInt(request[0])&&c.get(Calendar.MINUTE)>Integer.parseInt(request[1]));
+		
+		return c.get( Calendar.HOUR_OF_DAY)>Integer.parseInt(request[0])||
+				(c.get( Calendar.HOUR_OF_DAY)==Integer.parseInt(request[0])&&c.get(Calendar.MINUTE)>Integer.parseInt(request[1]));
 		
 	}
     
