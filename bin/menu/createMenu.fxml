@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.CreateNewMenuController">
+<VBox prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.CreateNewMenuController">
    <children>
       <AnchorPane prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
          <children>
@@ -22,7 +22,7 @@
                   <String fx:value="lbl" />
                </styleClass></Button>
             <ListView fx:id="DishesList" layoutX="301.0" layoutY="142.0" onMouseClicked="#setDishFields" prefHeight="134.0" prefWidth="169.0" AnchorPane.topAnchor="142.0" />
-            <Label fx:id="createMessageLabel" layoutX="658.0" layoutY="548.0" prefHeight="18.0" prefWidth="185.0" />
+            <Label fx:id="createMessageLabel" layoutX="446.0" layoutY="606.0" prefHeight="18.0" prefWidth="185.0" textFill="RED" />
             <ComboBox fx:id="ChooseMenuTypeComboBox" layoutX="383.0" layoutY="68.0" onAction="#chooseType" prefHeight="29.0" prefWidth="245.0" promptText="Dish Type" stylesheets="@../general/GeneralStyleSheet.css">
                <styleClass>
                   <String fx:value="comboBox" />

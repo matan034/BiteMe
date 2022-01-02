@@ -221,7 +221,12 @@ public class IndexControllerD {
                     Globals.loadInsideFXML(Globals.changeuserstatusFXML);
                 }});
             
-            ///3--> update menu Muhamad
+            BranchManagerOption3.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Globals.loadInsideFXML(Globals.MenuFXML);
+                }});
+            
             
             BranchManagerOption4.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

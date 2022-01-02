@@ -209,6 +209,7 @@ public class CreateNewMenuController {
     
     @FXML
     void setDishFields(MouseEvent event) {
+    	if(DishesList.getSelectionModel().isEmpty()) return;
     	if(DishesList.getSelectionModel().getSelectedItem().isEmpty())
     		return;
     	edit_btn.setVisible(false);
@@ -243,6 +244,7 @@ public class CreateNewMenuController {
     }
     @FXML
     void displayDish(MouseEvent event) {
+    	if(dishesToAdd.getSelectionModel().isEmpty()) return;
     	if(dishesToAdd.getSelectionModel().getSelectedItem().isEmpty())
     		return;
     	setDishFieldsVisibility(false);
@@ -353,7 +355,8 @@ public class CreateNewMenuController {
     	dishToChoose.add(currentDishToAdd.getName());
     	
     	setDishFieldsVisibility(true);
-    	
+    	edit_btn.setVisible(false);
+    	save.setVisible(false);
     	dishToAdd.remove(currentDishToAdd.getName()); 
     	
     	toDelete.add(currentDishToAdd);
