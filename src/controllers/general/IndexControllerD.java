@@ -65,31 +65,20 @@ public class IndexControllerD {
             Button CEOOption1= new Button ("View Reports");
             
             
-            /////////////////////////////////////
+            /*
             Button CEOOption2= new Button ("View Employers");
             Button CEOOption3= new Button ("View Users");
             Button CEOOption4= new Button ("Edit Menu ");
             Button CEOOption5= new Button ("Register Employer");
             Button CEOOption6= new Button ("Approve Account");
-            /////////////////////////////////////////
+            */
             
             Button CEOOption7= new Button ("Log out");
             
-            
             setDeginButton (CEOOption1);
-            setDeginButton (CEOOption2);
-            setDeginButton (CEOOption3);
-            setDeginButton (CEOOption4);
-            setDeginButton (CEOOption5);
-            setDeginButton (CEOOption6);
             setDeginButton (CEOOption7);            
             
             options_grid1.add(CEOOption1,0,0);
-            options_grid1.add(CEOOption2,0,1);
-            options_grid1.add(CEOOption3,0,2);
-            options_grid1.add(CEOOption4,0,3);
-            options_grid1.add(CEOOption5,0,4);
-            options_grid1.add(CEOOption6,0,5);
             options_grid1.add(CEOOption7,0,8);
             
                
@@ -99,38 +88,6 @@ public class IndexControllerD {
                     	   Globals.loadInsideFXML(Globals.reportFXML);
                     }});
                 
-                CEOOption2.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.view_employersFXML);
-                    }});
-                
-                CEOOption3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.changeuserstatusFXML);
-                    }});
-        
-              CEOOption4.setOnAction(new EventHandler<ActionEvent>() {
-                  @Override
-                  public void handle(ActionEvent e) {
-                      Globals.loadInsideFXML(Globals.MenuFXML);
-                  }});
-              
-                
-                CEOOption5.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        Globals.loadInsideFXML(Globals.regnewemployerFXML);
-                    }});
-
-                
-              CEOOption6.setOnAction(new EventHandler<ActionEvent>() {
-                  @Override
-                  public void handle(ActionEvent e) {
-                      Globals.loadInsideFXML(Globals.approveUserFXML);
-                  }});
-
               CEOOption7.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {

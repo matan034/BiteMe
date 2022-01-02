@@ -376,8 +376,9 @@ public class BranchMenuController {
 		public Button defineButton(String str)
 		{
 			Button temp=new Button(str);
-			temp.getStyleClass().add("ViewBtn");
+			temp.getStyleClass().add("ViewBtnOrange");
 			temp.setMaxWidth(Double.MAX_VALUE);
+			temp.getStyleClass().add("lbl");
 			
 			temp.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

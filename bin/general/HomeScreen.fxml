@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="705.0" prefWidth="1010.0">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
          <children>
-            <Label layoutX="491.0" layoutY="317.0" text="HOME" />
+            <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
+               <children>
+                  <HBox alignment="CENTER" layoutX="280.0" layoutY="196.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #fff;">
+                     <children>
+                        <ImageView fitHeight="217.0" fitWidth="546.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/4304086_orig.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="409.0" fitWidth="290.0" layoutX="7.0" layoutY="34.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/images.jfif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="258.0" fitWidth="269.0" layoutX="738.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/images.jfif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="61.0" fitWidth="368.0" layoutX="339.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="99.0" fitWidth="107.0" layoutX="482.0" layoutY="399.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/green-tick.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </HBox>
    </children>
 </VBox>

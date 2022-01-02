@@ -28,7 +28,10 @@
                </styleClass></Button>
             <HBox alignment="CENTER" layoutX="22.0" layoutY="91.0" prefHeight="191.0" prefWidth="561.0">
                <children>
-                  <Label fx:id="status_txt" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="status_txt" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Levenim MT" size="12.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
