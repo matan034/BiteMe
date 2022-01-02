@@ -1,31 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.CreateReportsController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.CreateReportsController">
    <children>
-      <Pane prefHeight="650.0" prefWidth="1010.0">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <children>
-            <Label alignment="CENTER" layoutX="371.0" layoutY="32.0" text="Create Report">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Button fx:id="backButton" layoutX="50.0" layoutY="569.0" mnemonicParsing="false" onAction="#backToReportScreen" text="back" />
-            <Button fx:id="create" layoutX="511.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToSpecificQuarterReport" text="create" />
-            <Label layoutX="73.0" layoutY="115.0" text="Choose branch:" />
-            <Label layoutX="62.0" layoutY="216.0" text="Choose quarter:" />
-            <Label layoutX="50.0" layoutY="296.0" text="Choose type of report:" />
-            <ComboBox fx:id="branchCombox" layoutX="255.0" layoutY="111.0" prefWidth="150.0" promptText="branch" visibleRowCount="3" />
-            <ComboBox fx:id="quarterCombox" layoutX="255.0" layoutY="211.0" prefWidth="150.0" promptText="months" visibleRowCount="4" />
-            <ComboBox fx:id="typeCombox" layoutX="255.0" layoutY="291.0" prefWidth="150.0" promptText="type" visibleRowCount="3" />
+            <Pane prefHeight="650.0" prefWidth="1010.0">
+               <children>
+                  <Button fx:id="backButton" layoutX="51.0" layoutY="571.0" mnemonicParsing="false" onAction="#backToReportScreen" prefHeight="42.0" prefWidth="73.0" stylesheets="@../general/GeneralStyleSheet.css" text="back">
+                     <styleClass>
+                        <String fx:value="ViewBtn" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="create" layoutX="464.0" layoutY="304.0" mnemonicParsing="false" onAction="#goToSpecificQuarterReport" prefHeight="42.0" prefWidth="82.0" stylesheets="@../general/GeneralStyleSheet.css" text="create">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+                  <Label layoutX="63.0" layoutY="115.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Choose branch:" />
+                  <Label layoutX="67.0" layoutY="185.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Choose quarter:" />
+                  <Label layoutX="67.0" layoutY="254.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Choose type of report:" />
+                  <ComboBox fx:id="branchCombox" layoutX="255.0" layoutY="109.0" prefWidth="150.0" promptText="branch" stylesheets="@../general/GeneralStyleSheet.css" visibleRowCount="3">
+                     <styleClass>
+                        <String fx:value="comboBox" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </ComboBox>
+                  <ComboBox fx:id="quarterCombox" layoutX="255.0" layoutY="179.0" prefWidth="150.0" promptText="months" stylesheets="@../general/GeneralStyleSheet.css" visibleRowCount="4">
+                     <styleClass>
+                        <String fx:value="comboBox" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </ComboBox>
+                  <ComboBox fx:id="typeCombox" layoutX="255.0" layoutY="249.0" prefWidth="150.0" promptText="type" stylesheets="@../general/GeneralStyleSheet.css" visibleRowCount="3">
+                     <styleClass>
+                        <String fx:value="comboBox" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </ComboBox>
+                  <ImageView fitHeight="294.0" fitWidth="400.0" layoutX="596.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/undraw_Data_re_80ws.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </HBox>
    </children>
 </VBox>

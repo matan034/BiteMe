@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,14 +9,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.IntakeReportController">
    <children>
       <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <ComboBox fx:id="year_cmb" layoutX="71.0" layoutY="204.0" prefWidth="150.0" promptText="Year" styleClass="comboBox" />
-            <ComboBox fx:id="month_cmb" layoutX="71.0" layoutY="260.0" prefWidth="150.0" promptText="Month" styleClass="comboBox" />
-            <Button fx:id="view_btn" layoutX="120.0" layoutY="325.0" mnemonicParsing="false" onAction="#viewBill" styleClass="ViewBtn" text="View" />
+            <ComboBox fx:id="year_cmb" layoutX="71.0" layoutY="81.0" prefWidth="150.0" promptText="Year" stylesheets="@../general/GeneralStyleSheet.css">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <ComboBox fx:id="month_cmb" layoutX="71.0" layoutY="138.0" prefWidth="150.0" promptText="Month">
+               <styleClass>
+                  <String fx:value="comboBox" />
+                  <String fx:value="lbl" />
+               </styleClass></ComboBox>
+            <Button fx:id="view_btn" layoutX="104.0" layoutY="198.0" mnemonicParsing="false" onAction="#viewBill" prefHeight="36.0" prefWidth="75.0" text="View">
+               <styleClass>
+                  <String fx:value="ViewBtnOrange" />
+                  <String fx:value="lbl" />
+               </styleClass></Button>
             <TableView fx:id="payment_tbl" layoutX="307.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
               <columns>
                 <TableColumn fx:id="orderCol" prefWidth="123.0" text="Order" />

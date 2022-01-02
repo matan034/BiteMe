@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.IncomeReportController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.IncomeReportController">
    <children>
-      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="14.0" layoutY="117.0" text="Branch:" />
-            <Label layoutX="14.0" layoutY="171.0" text="Month:" />
-            <Label fx:id="whichBranch" layoutX="75.0" layoutY="118.0" prefHeight="21.0" prefWidth="100.0" />
-            <Label fx:id="whichMonth" layoutX="75.0" layoutY="171.0" prefHeight="21.0" prefWidth="100.0" />
-            <TableView fx:id="IncomeTable" layoutX="201.0" layoutY="127.0" prefHeight="397.0" prefWidth="725.0">
-              <columns>
-                <TableColumn fx:id="restaurantCol" prefWidth="324.0" text="restaurant" />
-                <TableColumn fx:id="sumOfIncomeCol" prefWidth="400.0" text="total income (NIS)" />
-              </columns>
-            </TableView>
-            <Button fx:id="backBtn" layoutX="54.0" layoutY="563.0" mnemonicParsing="false" onAction="#goBack" text="back" />
+            <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
+               <children>
+                  <Label layoutX="14.0" layoutY="117.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Branch:" />
+                  <Label layoutX="14.0" layoutY="171.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" text="Month:" />
+                  <Label fx:id="whichBranch" layoutX="75.0" layoutY="118.0" prefHeight="21.0" prefWidth="100.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
+                  <Label fx:id="whichMonth" layoutX="75.0" layoutY="171.0" prefHeight="21.0" prefWidth="100.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
+                  <TableView fx:id="IncomeTable" layoutX="201.0" layoutY="127.0" prefHeight="397.0" prefWidth="725.0">
+                    <columns>
+                      <TableColumn fx:id="restaurantCol" prefWidth="324.0" text="restaurant" />
+                      <TableColumn fx:id="sumOfIncomeCol" prefWidth="400.0" text="total income (NIS)" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="backBtn" layoutX="45.0" layoutY="569.0" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="70.0" stylesheets="@../general/GeneralStyleSheet.css" text="back">
+                     <styleClass>
+                        <String fx:value="ViewBtn" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </HBox>
    </children>
 </VBox>

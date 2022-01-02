@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewEmployerController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managment.RegNewEmployerController">
    <children>
-      <AnchorPane stylesheets="@../general/GeneralStyleSheet.css">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1010.0" style="-fx-background-color: #fff;">
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0">
                <children>
-                  <TextField fx:id="name_lbl" layoutX="429.0" layoutY="186.0" promptText="Name" />
-                  <TextField fx:id="address_lbl" layoutX="430.0" layoutY="248.0" promptText="Address" />
-                  <TextField fx:id="number_lbl" layoutX="431.0" layoutY="313.0" promptText="Phone Number" />
-                  <Button layoutX="470.0" layoutY="396.0" mnemonicParsing="false" onAction="#RegisterEmployer" styleClass="btn" text="Register" />
+                  <TextField fx:id="name_lbl" layoutX="429.0" layoutY="186.0" promptText="Company name" stylesheets="@../general/GeneralStyleSheet.css">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="address_lbl" layoutX="430.0" layoutY="248.0" promptText="Address" stylesheets="@../general/GeneralStyleSheet.css">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <TextField fx:id="number_lbl" layoutX="431.0" layoutY="313.0" promptText="Phone Number" stylesheets="@../general/GeneralStyleSheet.css">
+                     <styleClass>
+                        <String fx:value="text-box" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </TextField>
+                  <Button layoutX="470.0" layoutY="394.0" mnemonicParsing="false" onAction="#RegisterEmployer" prefHeight="36.0" prefWidth="86.0" stylesheets="@../general/GeneralStyleSheet.css" text="Register">
+                     <styleClass>
+                        <String fx:value="ViewBtnOrange" />
+                        <String fx:value="lbl" />
+                     </styleClass>
+                  </Button>
                   <ImageView fitHeight="25.0" fitWidth="35.0" layoutX="394.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/EmployerIcon.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="res_lbl" layoutX="319.0" layoutY="371.0" prefHeight="17.0" prefWidth="394.0" />
+                  <Label fx:id="res_lbl" layoutX="386.0" layoutY="448.0" prefHeight="27.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" />
                   <ImageView fitHeight="25.0" fitWidth="78.0" layoutX="394.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/PhoneIcon.png" />
@@ -36,22 +56,16 @@
                         <Image url="@../img/locationIcon.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="61.0" layoutY="583.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="55.0" styleClass="btn" text="Back" />
-                  <Label layoutX="235.0" layoutY="66.0" text="Register new employer">
-                     <font>
-                        <Font name="Levenim MT Bold" size="48.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="266.0" fitWidth="367.0" layoutX="586.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="266.0" fitWidth="367.0" layoutX="679.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/RegisterEmployeeImage.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="name_error_lbl" layoutX="586.0" layoutY="190.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
-                  <Label fx:id="number_error_lbl" layoutX="592.0" layoutY="317.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
+                  <Label fx:id="name_error_lbl" layoutX="592.0" layoutY="196.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
+                  <Label fx:id="number_error_lbl" layoutX="592.0" layoutY="323.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
                </children>
-            </Pane>
+            </AnchorPane>
          </children>
-      </AnchorPane>
+      </HBox>
    </children>
 </VBox>
