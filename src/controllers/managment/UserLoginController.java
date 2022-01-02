@@ -64,7 +64,7 @@ public class UserLoginController {
         		Globals.loadFXML(null,Globals.indexFXML, event,null);
         		if(OrderClient.user.getType().equals("Customer"))
         			Globals.loadInsideFXML(Globals.homePageCustomer);
-        		else 
+        		if(OrderClient.user.getType().equals("CEO"))
         			Globals.loadInsideFXML(Globals.homePageCeo);
         		  }
         		

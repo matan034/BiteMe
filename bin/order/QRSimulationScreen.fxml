@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -36,12 +37,20 @@
                         <Separator prefHeight="8.0" prefWidth="1299.0" style="-fx-background-color: #F7C665;" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ComboBox fx:id="w4c_cards" prefWidth="150.0" styleClass="comboBox" stylesheets="@../general/GeneralStyleSheet.css" translateY="30.0" />
+                              <ComboBox fx:id="w4c_cards" prefWidth="150.0" promptText="Choose QR" stylesheets="@../general/GeneralStyleSheet.css" translateY="30.0">
+                                 <styleClass>
+                                    <String fx:value="comboBox" />
+                                    <String fx:value="lbl" />
+                                 </styleClass></ComboBox>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insert" styleClass="ViewBtnOrange" stylesheets="@../general/GeneralStyleSheet.css" text="Insert" />
+                              <Button fx:id="insert_btn" mnemonicParsing="false" onAction="#insert" prefHeight="36.0" prefWidth="60.0" stylesheets="@../general/GeneralStyleSheet.css" text="Insert">
+                                 <styleClass>
+                                    <String fx:value="ViewBtnOrange" />
+                                    <String fx:value="lbl" />
+                                 </styleClass></Button>
                            </children>
                         </HBox>
                      </children>
