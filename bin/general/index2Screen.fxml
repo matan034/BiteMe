@@ -62,9 +62,9 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="comboBoxBranch" editable="true" layoutX="120.0" layoutY="91.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="131.0" promptText="Change branch" style="-fx-background-color: #F7C665;" />
-                              <ImageView fx:id="home_page" fitHeight="42.0" fitWidth="125.0" layoutX="120.0" layoutY="43.0" onMouseClicked="#setHomePage" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="home_page" fitHeight="68.0" fitWidth="75.0" layoutX="161.0" layoutY="8.0" onMouseClicked="#setHomePage" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/homepage-button.gif" />
+                                    <Image url="@../img/home-button-black--modified.png" />
                                  </image>
                               </ImageView>
                            </children>

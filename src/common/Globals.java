@@ -141,6 +141,7 @@ public class Globals {
 		 put(homePageCustomer,"Welcome to BiteME");
 		 put(homePageCeo,"Welcome to BiteME");
 		 put(MenuFXML,"Edit menu");
+		 put(regnewemployerFXML,"Register new employer");
 	 }};
 	 
 	 public static HostServices host_service;
