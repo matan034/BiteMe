@@ -49,7 +49,13 @@ import ocsf.client.AbstractClient;
  * @param account_reg_errors= map of what error happened while creating an account for instance an error in ID field or telephone field
  * @param employer_reg_erros= map of errors that happened while creating an employer for instance name
  * @param OrderIsBranch = orders in a specific restaurant
- * @param IsOrderApproved = mapping of an order to it's is approved status   
+ * @param IsOrderApproved = mapping of an order to it's is approved status IE order #5 = 1 (approved) 
+ * @param String messagess such as update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish,dishId all used to set a label back to user after DB result whether it's success or error
+ * @param w4cList = list of W4c cards 
+ * @param ordersInBranch= array list of orders in a restaurant
+ * @param found_order = a specific order we search for
+ * @param usersToApprove = list of accounts that need to be approved
+ * @param branch_customers= list of all customers in a branch
  */
 public class OrderClient extends AbstractClient {
 
