@@ -6,16 +6,28 @@ import java.util.List;
 import clients.StartClient;
 import entity.User;
 
+
+/**
+ * Class to use for importing users utility this class simulates an outer system importing users to our DB users table
+ * @param all_users = a list of all users that we wish to import
+ * @author      daniel aibinder
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
 public class UserImportUtility {
 	
 	private List<User> all_users=new ArrayList<>();
 	
+	/**
+	 * func that activates CreateUsers and Import we use this func outside the class for an easy 1 func actiavtion of import utility*/
 	public void ImportUsers() {
 		CreateUsers();
 		Import();
 	}
 	
-	
+	/**
+	 * this func creates new users and adds them to all_users list*/
 	private void CreateUsers() {
 		//ceo
 		all_users.add(new User("313603367","Dorin","Bacher","Dorinbenhur20@gmail.com","0546545155","CEO","dorin","321",0, "Active",2, "Center Branch"));
@@ -52,7 +64,8 @@ public class UserImportUtility {
 		
 
 	}
-	
+	/**
+	 * func to send users to import to database, it also maps certified employes to the restuarant they work in */
 	private void Import() {
 		for(User u: all_users) {
 			StartClient.order.accept("Import_users~"+u.toString2());

@@ -23,6 +23,20 @@ import javafx.stage.Stage;
 import order.QRSimulationController;
 
 
+/**
+ * Class for viewing a restuarants new orders that have been recived, or orders that are in the making , or orders that have already been completed
+ * we do this with 3 accordions we move between to display to the user the orders status (new,ready to deliver,history)
+ * @param neworders_accordion accordion for holding new orders
+ * @param historyaccordion accordion to hold orders already completed
+ * @param orders_to_deliver_accordion accordion to hold orders that are waiting to get delivered
+ * @param no_history_lbl label hidden by default and shown when there is no history
+ * @param no_orders_lbl label hidden by default and shown when here is no orders
+ * @param No_delivery_lbllabel hidden by default and shown when here is no orders to deliver
+ * @author      dorin bahar
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
 public class NewOrderScreenController {
 	
 	
@@ -45,6 +59,10 @@ public class NewOrderScreenController {
     @FXML
     private Label No_delivery_lbl;
     
+    
+    /**
+     * func to initalize our controller, here we load all orders by a specific customer
+     * when regonize the orders status and set it to the correct accordion */
     public void initialize() {
     	StartClient.order.accept("Load_orders~"+OrderClient.user.getID());
     	if(OrderClient.OrdersInBranch.size()!=0) {
@@ -89,7 +107,14 @@ public class NewOrderScreenController {
     	}
     		
     }
-    
+    /**
+     * define our button to have the correct action accordion to t he pane it is in 
+     * if the order is in new orders we set the button to approve the order, send an sms to user and move the order to waiting for delivery
+     * if the order is waiting for delivery the button will set the order to be out for delivery and move the order to history accordion
+     * @param str value of button 
+     * @param Order O current order the button is mapped to
+     * @param pane the pane we remove and add once we move between accordions
+     * @param vbox = vbox we remove the button from*/
 	private Button defineButton(String str,Order o,TitledPane pane,VBox vbox)
 	{
 		Button temp=new Button(str);
@@ -138,6 +163,9 @@ public class NewOrderScreenController {
 		return temp;
 	}
 
+	/**
+	 * this func simulates an sms message to the using by loading a popup that shows in the users screen once an order has been confirmed
+	 * @param msg the msg we set in the popup label*/
 	private void createPopUp(String msg)
 	{
 		FXMLLoader fxmlLoader = new FXMLLoader();

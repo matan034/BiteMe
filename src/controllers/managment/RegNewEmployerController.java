@@ -10,6 +10,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+
+/**
+ *Class for registering a new employer in this class BM inputs an employer to register and approves that employer 
+ *@param name_lbl = employer name text area
+ *@param address_lbl = employer address text area
+ *@param number_lbl = employer phone number text area
+ *@param res_lbl = label to display messages to user
+ *@param name_error_lbl = error label for name input
+ *@param number_error_lbl = error label for phone input
+ *@param employer = new employer that we create and send to server
+ *@param namePattern = regex pattern to verify a valid name
+ *@param phonePattern = regex pattern to verify a valid phone number
+ * @author      matan weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
+
 public class RegNewEmployerController {
 
     @FXML
@@ -34,6 +52,10 @@ public class RegNewEmployerController {
 
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
     private Pattern phonePattern = Pattern.compile("\\d+");
+    
+    /**
+     * func for registering the employeer activated on register button press. this takes text areas fields and creates an employer and sends it to server to be registered
+     * @param event Action event for event details*/
     @FXML
     void RegisterEmployer(ActionEvent event) {
     		
@@ -43,7 +65,11 @@ public class RegNewEmployerController {
         	res_lbl.setText(OrderClient.employer_reg_msg);
     	}
     }
-    
+    /**
+     * function for checking correct input using our regexes and other checks like valid length and so on 
+     * also check in data base if the employer already exists
+     * returns true if all input is ok 
+     * returns false if theres an error*/
     private boolean CheckInput() {
     	number_error_lbl.setText("");
     	name_error_lbl.setText("");
@@ -72,12 +98,23 @@ public class RegNewEmployerController {
     	return flag;
     	}
     
+    /**
+     *checks for valid name via regex pattern
+     *@param name = name that we check
+     *return true if valid
+     *return valse if invalid*/
 	private boolean isValidName(String name) {
  		 if (name == null) {
   	        return false; 
   	    }
   	    return namePattern.matcher(name).matches();
  	}
+	
+	 /**
+     *func to check if string is numeric using regex
+     *@param strNum = string we check
+     *return true if strNum is a number
+     *returns false if not a number */
 	private boolean isNumeric(String strNum) {
   	    if (strNum == null) {
   	        return false; 

@@ -16,6 +16,18 @@ import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is used for approving employers by BM, here he can view all employers that he has approved along with employer that still need to be approved
+ * @param waiting_for_approv_vbox used to hold our waiting for approval accordion
+ * @param waiting_for_approval_accordion accordion holding titled panes with the employer to approve
+ * @param approved_vbox holds our approved_accordion
+ * @param approved_accordion all employers that have been approved are moved here 
+ * @author      matan weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
+
 public class MyEmployersController {
 
     @FXML
@@ -31,7 +43,13 @@ public class MyEmployersController {
     private Accordion approved_accordion;
     
     private MyListener approveEmployer;
-
+    
+    
+    /**
+     * initialize func for loading all employers in currect users branch
+     * 
+     * we set a MyListener from MyListener interface to have an onclickListener where we approve an employer via the database
+     * this interface will help us transfer data to EmployerRecord controller to handle moving user between catogories(waiting for approval and approved)*/
     public void initialize()
     {
     	int branchnumber=OrderClient.user.getHomeBranch();
