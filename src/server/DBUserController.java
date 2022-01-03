@@ -11,6 +11,16 @@ import entity.Supplier;
 import entity.User;
 import ocsf.server.ConnectionToClient;
 
+
+/**
+ * This class is used for all functions relating to users, such as login, creating an account , logout, adding users to their relative DB (hr to hr table), loading of users, and checking of input
+ * Used in src/gui/branch_manager, src/gui/hr,  src/gui/restaurant with the controllers in src/controllers/managment 
+ * @author      danny aibi <address @ example.com>
+ * @version     1.0                
+ * @since       01.01.2022         
+ */
+
+
 public class DBUserController {
 	
 	/**

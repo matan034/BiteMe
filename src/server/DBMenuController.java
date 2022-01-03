@@ -26,12 +26,29 @@ import entity.clientData;
 import javafx.scene.image.Image;
 import ocsf.server.ConnectionToClient;
 
+
+/**
+ * This class is used for all functions relating to updating menus, deleting dishes from menus, creating new menus and adding dishes to a restaurants specific menu
+ * Used in src/gui/menu with the controllers in src/controllers/menu 
+ * @author      muhamad abu assad
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class DBMenuController {
 	
 	
 	
-	
-	
+
+	/*
+	   * This method loads all dishes in a specific restaurant, not all dishes in restaurant are in the restaurant menu
+	   *
+	   * @param  res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]=load_all_dish_in_restaurant,
+	   * @param res[1]=RestaurantID 
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void loadAllDishInRestaurant(String []res,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		Statement stmt;
@@ -78,6 +95,17 @@ public class DBMenuController {
 			db.sendToClient("load_all_dishes_msg~Error happened while loading your menu",client);
 		}
 	}
+	
+	/*
+	   * This method loads all dishes in a menu that a specific restaurant holds
+	   *
+	   * @param  res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]=load_dishes_in_menu,
+	   * @param res[1]=RestaurantID 
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void loadAllDishsInMenu(String []res,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		Statement stmt;
@@ -139,6 +167,16 @@ public class DBMenuController {
 			db.sendToClient("load_all_dishes_msg~Error happened while loading your menu",client);
 		}
 	}
+	
+	/*
+	   * This method loads all dishes in our database used in menu
+	   *
+	   * @param  res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]=load_all_dishes,
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void loadAllDishs(String []res,ConnectionToClient client,Connection myCon,DBController db) 
 	{
 		Statement stmt;
@@ -166,6 +204,14 @@ public class DBMenuController {
 			db.sendToClient("load_all_dishes_msg~Error happened while loading your menu",client);
 		}
 	}
+	/*
+	   * This method inserts a dish to restaurant used in edit menu, if there is no menu create a new one else update the existing one.
+	   *
+	   * @param  ArrayList<DishInRestaurant> dishes = dish we wish to add to Restaurant
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void insertDishesToRestaurant(ArrayList<DishInRestaurant> dishes,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		Statement stmt;
@@ -224,6 +270,12 @@ public class DBMenuController {
 		}
 	}
 	
+	/*
+	   * This method creates a new empty menu for a specific restaurant, called by InsertDishesToRestaurant
+	   *
+	   * @param  restaurantNum restaurant we create a menu for
+	   * @param myCon the connection to mySql DB
+	   */
 	protected int createNewEmptyMenu(int restaurantNum,Connection myCon) 
 	{
 		Statement stmt;
@@ -254,6 +306,14 @@ public class DBMenuController {
 			  return -1;
 		}
 	}
+	
+	/*
+	   * This method edits a dish used when editing a dish in edit menu likee setting a new price etc
+	   *
+	   * @param  DishInRestaurant Dish = dish we update and it's data we insert
+	   * @param myCon the connection to mySql DB
+	   */
+	
 	protected boolean editDish(DishInRestaurant Dish,Connection myCon,int menuId)
 	{
 		String editDish;
@@ -279,6 +339,15 @@ public class DBMenuController {
 		}
 		return true;
 	}
+	
+	/*
+	   * This method inserts a new dish into dishinrestaurant
+	   *
+	   * @param  DishInRestaurant dish = dish to insert along with it's data (price etc)
+	   * @param int addToMenu is a flag we use if it's 1 we add to menu else we dont
+	   * @param int meunId= menu ID that we add the dish to
+	   * @param myCon the connection to mySql DB
+	   */
 	protected boolean insertDish(DishInRestaurant dish,int addToMenu,int menuId,Connection myCon)
 	{
 		  Statement stmt;
@@ -311,6 +380,14 @@ public class DBMenuController {
 		  }
 		  return true;
 	}
+	
+	/*
+	   * This method inserts a new dish into a menu
+	   *
+	   * @param  restNum = restaurant number we use to find it's menu 
+	   * @param int dishID = the dish we add to menu
+	   * @param myCon the connection to mySql DB
+	   */
 	protected boolean addDishToMenu(int restNum,int dishID,Connection myCon)
 	{
 		  PreparedStatement preparedStmt;
@@ -327,7 +404,19 @@ public class DBMenuController {
 		  return true;
 	}
 	
-
+	/*
+	   * This method inserts a dish to restaurant used in edit menu, if there is no menu create a new one else update the existing one.
+	   * 
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param  res[0]=Create_New_Menu
+	   * @param res[1]=Amount of dishes
+	   * @param res[2]=menuType
+	   * @param res[3]=RestaurantNum
+	   * @param res[[4]=menuID 
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void createNewMenu(String []res,ConnectionToClient client,Connection myCon,DBController db) 
 	{
 		Statement stmt;
@@ -369,6 +458,12 @@ public class DBMenuController {
 		}
 		
 	}
+	/*
+	   * This method creates a new empty menu for a specific restaurant, called by InsertDishesToRestaurant
+	   *
+	   * @param  restaurantNum restaurant we create a menu for
+	   * @param myCon the connection to mySql DB
+	   */
 	protected int createNewEmptyMenu(int restaurantNum,String menuType,Connection myCon) 
 	{
 		Statement stmt;
@@ -401,6 +496,18 @@ public class DBMenuController {
 		}
 	}
 
+
+	/*
+	   * This method adds a new dish to our dish menu which you can later add to your menu or your restaurant
+	   * 
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param  res[0]=Add_Dish
+	   * @param res[1]=Dish name 
+	   * @param res[2]=Dish type
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void addDish(String []res,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		  Statement stmt;
@@ -436,6 +543,16 @@ public class DBMenuController {
 		  }
 	}
 	
+	
+	/*
+	   * This method adds inserts a new dish to dish in restaurant
+	   * 
+	   * @param DishInRestaurant dish = dish to insert inside the dish Entity holds all dish data like price etc
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */	
+	
 	protected void insertDishToRestaurant(DishInRestaurant dish,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		  Statement stmt;
@@ -470,10 +587,19 @@ public class DBMenuController {
 		  }
 	}
 	
-	
+	/*
+	   * This method adds a new dish to our dish to a restaurants specific menu (main,sides,etc)
+	   * 
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param  res[0]=Add_to_rest_menu
+	   * @param res[1]=MenuID
+	   * @param res[2]=DishID
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void addDishToRestMenu(String []res,ConnectionToClient client,Connection myCon,DBController db)
 	{
-		//maybe check if its already in menu?
 		  PreparedStatement preparedStmt;
 		  try {
 			
@@ -488,6 +614,15 @@ public class DBMenuController {
 			  db.sendToClient("Add_dish_to_menu~"+e,client);
 		  }
 	}
+	
+	/*
+	   * This method removes a dish from a restaurants menu
+	   * 
+	   * @param ArrayList<DishInRestaurant>dishes = dish we wish to delete 
+	   * @param client The connection from which the message originated.
+	   * @param myCon the connection to mySql DB
+	   * @param db the main database controller used in order to send message back to client
+	   */
 	protected void removeDishes(ArrayList<DishInRestaurant> dishes,ConnectionToClient client,Connection myCon,DBController db)
 	{
 		 PreparedStatement stmt;
