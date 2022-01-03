@@ -32,7 +32,7 @@
                         <String fx:value="lbl" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="viewBranchPdfReport" layoutX="613.0" layoutY="224.0" mnemonicParsing="false" onAction="#ViewPdf" text="Branch Manager Quartely Reports">
+                  <Button fx:id="viewBranchPdfReport" layoutX="614.0" layoutY="217.0" mnemonicParsing="false" onAction="#ViewPdf" text="Branch Manager Quartely Reports">
                      <styleClass>
                         <String fx:value="ViewBtnOrange" />
                         <String fx:value="lbl" />

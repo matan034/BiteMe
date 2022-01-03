@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 
 
 public class ViewPdfController {
@@ -34,16 +35,24 @@ public class ViewPdfController {
     @FXML
     private Button open_btn;
 
-    
+    @FXML
+    private Button backBtn;
+
+
+    @FXML
+    private Label error_lbl;
+    @FXML
+    void back(ActionEvent event) {
+    	Globals.loadInsideFXML(Globals.reportFXML);
+    }
     
     
 
     
     private ObservableList<String> quarters= FXCollections.observableArrayList("Q1", "Q2","Q3","Q4");
-    private ObservableList<String> years= FXCollections.observableArrayList("2021");
     public void initialize() {
     	quater_cmb.setItems(quarters);
-    	year_cmb.setItems(years);
+    	year_cmb.setItems(Globals.years);
     	branch_cmb.setItems(Globals.branches);
     	open_btn.setDisable(true);
     	quater_cmb.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>)defineListener(1));
@@ -60,6 +69,7 @@ public class ViewPdfController {
 			public void changed(ObservableValue arg0, String arg1, String arg2) {
 				 if(arg2!=null)
     	    	    {
+					 error_lbl.setText("");
     	    	    	validate_input();
     	    	    }
 			}
@@ -69,6 +79,7 @@ public class ViewPdfController {
   			public void changed(ObservableValue arg0, Branch arg1, Branch arg2) {
   				 if(arg2!=null)
       	    	    {
+  					 error_lbl.setText("");
       	    	    	validate_input();
       	    	    }
   			}
@@ -87,8 +98,9 @@ public class ViewPdfController {
     @FXML
     void openPdf(ActionEvent event) {
     	StartClient.order.accept("Open_pdf~"+quater_cmb.getSelectionModel().getSelectedItem().substring(1)+"~"+year_cmb.getSelectionModel().getSelectedItem()+"~"+branch_cmb.getSelectionModel().getSelectedItem().getBranchID());
-
-    	Globals.host_service.showDocument(OrderClient.loaded_file.getAbsolutePath());
+    	if(OrderClient.loaded_file!=null)
+    		Globals.host_service.showDocument(OrderClient.loaded_file.getAbsolutePath());
+    	else error_lbl.setText("No Matching Report");
     	
     }
 

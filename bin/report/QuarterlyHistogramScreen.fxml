@@ -97,6 +97,7 @@
                         <Image url="@../img/undraw_Task_re_wi3v.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="back_btn" layoutX="79.0" layoutY="568.0" mnemonicParsing="false" onAction="#back" styleClass="ViewBtnOrange" text="Back" />
                </children>
             </Pane>
          </children>

@@ -134,8 +134,8 @@ public class DBUserController {
 				}
 			} else {// business_account
 				flagReg = stmt.executeUpdate(String.format(
-						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ('%d',(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%d');",
-						newAccountNum, res[6], Integer.parseInt(res[7])));
+						"INSERT INTO biteme.businessaccount (AccountNum, EmployerNum, MonthlyLimit) VALUES ('%d',(SELECT EmployerNum from biteme.employer WHERE Name='%s'), '%f');",
+						newAccountNum, res[6], Double.parseDouble(res[7])));
 				
 				rs = stmt.executeQuery(String.format("SELECT * FROM biteme.customers WHERE ID='%s'",res[3]));
 				if(rs.next()) {
@@ -152,8 +152,8 @@ public class DBUserController {
 						"UPDATE biteme.users SET Type = 'Customer' WHERE ID='%s';",
 						res[3]));
 				flagReg = stmt.executeUpdate(String.format(
-						"UPDATE biteme.w4c_cards SET BuisinessAccount = '%d' WHERE CardNum=(SELECT W4C FROM biteme.account WHERE AccountNum='%d');",
-						newAccountNum,newAccountNum));
+						"UPDATE biteme.w4c_cards SET BuisinessAccount = '%d' , EmployerCode = (SELECT EmployerNum from biteme.employer WHERE Name='%s')  WHERE CardNum=(SELECT W4C FROM biteme.account WHERE AccountNum='%d');",
+						newAccountNum,res[6],newAccountNum));
 			}
 
 			if (flagReg > 0) {
@@ -863,7 +863,7 @@ public class DBUserController {
 				  		  stmt = myCon.createStatement();
 				  		  rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
 				  		  if(rs.next())employernum=rs.getInt(1);
-				  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET EmployerNum = '%d',MonthlyLimit='%d' WHERE AccountNum = '%d';",employernum,Integer.parseInt(res[2]),Integer.parseInt(res[3])));
+				  		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET EmployerNum = '%d',MonthlyLimit='%f' WHERE AccountNum = '%d';",employernum,Double.parseDouble(res[2]),Integer.parseInt(res[3])));
 				  		  System.out.println("Business account updated");
 				  		  db.sendToClient("Business account updated~",client);
 				  			stmt.close();

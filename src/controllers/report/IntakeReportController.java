@@ -48,11 +48,11 @@ public class IntakeReportController {
     private Label total_commission;
 
     private ObservableList<String> month= FXCollections.observableArrayList("1", "2","3","4","5","6","7","8","9","10","11","12");
-    private ObservableList<String> years= FXCollections.observableArrayList("2021");
+   
     public void initialize()
     {
     
-    	year_cmb.setItems(years);
+    	year_cmb.setItems(Globals.years);
     	month_cmb.setItems(month);
     }
     @FXML

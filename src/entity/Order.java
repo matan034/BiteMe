@@ -33,7 +33,7 @@ public class Order implements Serializable{
 	private PrivateAccount pAccount;
 	private BusinessAccount bAccount;
 	private Customer customer;
-	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived;
+	private int order_num,is_early_order=0,people_in_delivery=1,is_approved,is_arrived,outForDeliver,supplierNum,customerNum;
 	private Double price=0.0;
 	private String supplierName;
 	private Map<String,Integer> items_by_type=new HashMap<String,Integer>()
@@ -54,7 +54,7 @@ public class Order implements Serializable{
 		this.pAccount=paccount;
 	}
 
-	public Order(int order_num,String order_type,String order_time,int isApproved,int is_arrived,String supplierName)
+	public Order(int order_num,String order_type,String order_time,int isApproved,int is_arrived,int outForDeliver,String supplierName)
 	{
 		this.order_num = order_num;
 		this.order_type = order_type;
@@ -62,12 +62,30 @@ public class Order implements Serializable{
 		this.is_arrived=is_arrived;
 		this.is_approved=isApproved;
 		this.supplierName=supplierName;
-		
+		this.outForDeliver=outForDeliver;
 	}
 	public Order() {}
 	
 	
 
+	public int getCustomerNum() {
+		return customerNum;
+	}
+	public void setCustomerNum(int customerNum) {
+		this.customerNum = customerNum;
+	}
+	public int getSupplierNum() {
+		return supplierNum;
+	}
+	public void setSupplierNum(int supplierNum) {
+		this.supplierNum = supplierNum;
+	}
+	public int getOutForDeliver() {
+		return outForDeliver;
+	}
+	public void setOutForDeliver(int outForDeliver) {
+		this.outForDeliver = outForDeliver;
+	}
 	public String getMail() {
 		return mail;
 	}

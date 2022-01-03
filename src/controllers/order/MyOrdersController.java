@@ -28,7 +28,7 @@ public class MyOrdersController {
     @FXML
     private Accordion wating_supplier_approval_accordion;
     
-    private MyListener approveArrival;
+    private MyListener approveArrival,changeAccordion;
 
     public void initialize()
     {
@@ -48,9 +48,20 @@ public class MyOrdersController {
 				StartClient.order.accept(update_recieve_time);
 				if(OrderClient.orderLateFlag==1)
 				{
-					StartClient.order.accept("Refund Account~"+order.getCustomer().getpAccount()+"~"+order.getPrice()*0.5);
-					StartClient.order.accept("Update Supplier Late Cnt~"+order.getSupplier().getSupplierNum());
+					StartClient.order.accept("Refund Account~"+order.getCustomerNum()+"~"+order.getPrice()*0.5+"~"+order.getSupplierNum());
+					StartClient.order.accept("Update Supplier Late Cnt~"+order.getSupplierNum());
 				}
+				
+				
+			}
+		};
+		changeAccordion = new MyListener() {
+			
+			@Override
+			public void onClickListener(Object object) {
+				TitledPane pane=(TitledPane)object;
+				new_orders_accordion.getPanes().remove(pane);
+				history_accordion.getPanes().add(pane);
 				
 			}
 		};
@@ -62,23 +73,24 @@ public class MyOrdersController {
 	            AnchorPane anchorPane;
 	            anchorPane = fxmlLoader.load();       
 	            OrderRecordController orderRecordController = fxmlLoader.getController();
-	            orderRecordController.setData(o,approveArrival);
+	           
 	            TitledPane pane = new TitledPane("Order #"+o.getOrder_num()+" From "+o.getSupplierName(), anchorPane);
+	            orderRecordController.setData(o,approveArrival,pane,changeAccordion);
 	            pane.getStyleClass().add("accordion_panel");
 	           
 	    		if(o.getIs_arrived()==1)
 	    		{
 	    			history_accordion.getPanes().add(pane);
 	    		}
-	    		if(o.getIs_approved()==1)
-	    		{
-	    			orderRecordController.setApproval();
-	    			new_orders_accordion.getPanes().add(pane);
-	    		}
-	    		else
-	    		{
-	    			wating_supplier_approval_accordion.getPanes().add(pane);
-	    		}
+	    		else if(o.getOutForDeliver()==1)
+	    			{
+	    				orderRecordController.setApproval();
+	    				new_orders_accordion.getPanes().add(pane);
+	    			}
+	    			else
+	    			{
+	    				wating_supplier_approval_accordion.getPanes().add(pane);
+	    			}
     		}
     		catch (Exception e) {
 				// TODO: handle exception

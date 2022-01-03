@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrdersByComponentsController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" stylesheets="@../general/GeneralStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="report.OrdersByComponentsController">
    <children>
       <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="22.0" layoutY="103.0" text="Branch:" />
-            <Label layoutX="22.0" layoutY="144.0" text="Month:" />
+            <Label layoutX="22.0" layoutY="103.0" styleClass="lbl" text="Branch:" />
+            <Label layoutX="22.0" layoutY="144.0" styleClass="lbl" text="Month:" />
             <TableView fx:id="ratingTable" layoutX="215.0" layoutY="132.0" prefHeight="421.0" prefWidth="752.0">
               <columns>
                   <TableColumn fx:id="restaurantName" editable="false" prefWidth="227.0" text="restaurant" />
@@ -23,7 +23,7 @@
                 <TableColumn fx:id="mainsColumn" editable="false" prefWidth="123.0" text="mains" />
               </columns>
             </TableView>
-            <Button fx:id="backToViewReports" layoutX="38.0" layoutY="581.0" mnemonicParsing="false" onAction="#back_to_view_reports" text="back" />
+            <Button fx:id="backToViewReports" layoutX="38.0" layoutY="581.0" mnemonicParsing="false" onAction="#back_to_view_reports" styleClass="ViewBtnOrange" text="back" />
             <Label fx:id="branchName_lbl" layoutX="81.0" layoutY="103.0" prefHeight="21.0" prefWidth="78.0" />
             <Label fx:id="monthNum_lbl" layoutX="81.0" layoutY="145.0" prefHeight="13.0" prefWidth="78.0" />
          </children>

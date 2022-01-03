@@ -104,10 +104,12 @@ public class Globals {
 	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
 	private static String[] types1={"Salad","Appetizer","Main","Dessert","Drink"};
 	public static String dishType;
+	
 	public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
 	public static ObservableList<String> dishesTypes1=FXCollections.observableArrayList(types1);
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
+	 public static ObservableList<String> years=FXCollections.observableArrayList("2018","2019","2020","2021","2022");
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);
 	 public static String AccountInfoArr[];
 	 

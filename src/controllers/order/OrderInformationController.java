@@ -1,6 +1,5 @@
 package order;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -99,6 +98,17 @@ public class OrderInformationController {
     private Pattern phone=Pattern.compile("^\\d{10}$");
     private Pattern address=Pattern.compile("^.{2,40}$");
     private Pattern zip=Pattern.compile("^\\d{7}$");
+    //private String dayAndMonthOneDigit="^\\d{1}.\\d{1}.\\d{4}$";
+    //private String dayOneDigit="^\\d{1}.\\d{2}.\\d{4}$";
+    //private String MonthOneDigit="^\\d{2}.\\d{1}.\\d{4}$";
+   //private String dayAndMonthTwoDigits="^\\d{2}.\\d{2}.\\d{4}$";
+    private String xxxx= "^([1-9]|1[0-9]|2[0-9]|3[0-1]).([1-9]|1[0-2]).(19|20)\\d{2}$";
+ 
+    //private  Pattern DATE_PATTERN = Pattern.compile( dayAndMonthOneDigit+"|"+dayOneDigit+"|"+MonthOneDigit+"|"+dayAndMonthTwoDigits);
+    private  Pattern DATE_PATTERN = Pattern.compile( xxxx);
+   
+    
+
     public void initialize()
     {
     	
@@ -367,14 +377,25 @@ public class OrderInformationController {
     		date_tooltip.setText("Please Choose Supply Date");
     		return false;
     	}
-    	else if( date_input.getValue().compareTo(today) < 0 )
+    	else
     	{
-    		date_tooltip.setText("Cant select past date");
-    		return false;
+    		if(!DATE_PATTERN.matcher(date_input.getEditor().getText()).matches())
+    		{
+    			date_tooltip.setText("Date must be in dd.MM.yyyy format");
+    			return false;
+    		} 
+    		date_input.setValue(date_input.getConverter()
+    			    .fromString(date_input.getEditor().getText()));
+    		if( date_input.getValue().compareTo(today) < 0 )
+        	{
+        		date_tooltip.setText("Cant select past date");
+        		return false;
+        	}
+        	if(!hour_input.getText().equals("")) verifyHour();
+        	date_tooltip.setText("");
+        	return true;
     	}
-    	if(!hour_input.getText().equals("")) verifyHour();
-    	date_tooltip.setText("");
-    	return true;
+    		
 	}
 	private boolean verifyHour()
 	{

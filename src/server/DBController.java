@@ -139,8 +139,13 @@ public class DBController extends AbstractServer {
 				case "Refund Account" : dbOrder.refundAccount(res,client,myCon,this);break;
 				case "Update_recieve_time": dbOrder.updateRecieveTime(res,client,myCon,this);break;
 				case "Deliver_order":dbOrder.DeliverOrder(res,client,myCon,this);break;
+				case "Check_refund": dbOrder.checkRefund(res,client,myCon,this);break;
+				case "Update_BaccountBalance": dbOrder.updateBusinessAccountBalnce(res,client,myCon,this);break;
+				case "Update_refund" : dbOrder.updateRefund(res,client,myCon,this);break;
+				case "Check_employer_w4c" : dbOrder.checkEmployerW4C(res,client,myCon,this);break;
 				
-
+				
+				
 				case "Get_connection": getClientInfo(client); break;
 
 				//cases for DB user control

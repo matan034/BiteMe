@@ -142,7 +142,7 @@ public class BranchMenuController {
 	            @Override
 	            public void handle(WorkerStateEvent workerStateEvent) {
 	            	borderPane.setDisable(false);
-	            	 borderPane.setStyle( "-fx-background-color: #fff");
+	            	 borderPane.setStyle( "-fx-background-color: #fff;");
 	    	    	appetizer_btn=defineButton("Appetizer");
 	    	    	salad_btn=defineButton("Salad");
 	    	    	main_dish_btn=defineButton("Main");

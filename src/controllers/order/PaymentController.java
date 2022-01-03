@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
+import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import entity.DishInOrder;
 import general.MyListener;
+import general.VerifyListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -71,7 +73,17 @@ public class PaymentController {
     private boolean approve;
     public void initialize()
     {
-    	if(Globals.newOrder.getbAccount()==null) buisness_btn.setDisable(true);
+    	if(Globals.newOrder.getbAccount()==null) buisness_btn.setDisable(true);	
+    	else
+    	{
+    		if(Globals.newOrder.getbAccount().getIsApproved()==0)
+    			buisness_btn.setDisable(true);
+    		else buisness_btn.setDisable(false);
+    	}
+    	
+    	if(Globals.newOrder.getpAccount()==null) private_btn.setDisable(true);
+    	else private_btn.setDisable(false);
+    	
     	payment_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     		
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -81,8 +93,7 @@ public class PaymentController {
     	        	 employer_w4c_input.setDisable(false);
     	        	 if(Globals.newOrder.getbAccount().getIsApproved()==1)
     	        	 {
-    	        		 employer_name_input.setText(Globals.newOrder.getbAccount().getEmployerName());
-        	        	// employer_w4c_input.setText();
+    	        		 employer_name_input.setText(Globals.newOrder.getbAccount().getEmployerName());	
     	        	 }
     	         }
     	         if (payment_type.getSelectedToggle().equals(private_btn)) {
@@ -154,6 +165,24 @@ public class PaymentController {
 				approve=(boolean)object;	
 			}		
     	};
+    	
+    	Globals.VerifyInputListener(employer_w4c_input, new VerifyListener() {
+			
+			@Override
+			public boolean verify() {
+				StartClient.order.accept("Check_employer_w4c~"+Globals.newOrder.getW4c().getCardNum()+"~"+employer_w4c_input.getText());
+				if(OrderClient.employerW4cVerify)
+				{
+					pay_btn.setDisable(false);
+					return true;
+				}
+				else {
+					pay_btn.setDisable(true);
+					return false;
+				}
+			
+			}
+		});
     }
     
     
@@ -173,9 +202,38 @@ public class PaymentController {
     void payAndCompleteOrder(ActionEvent event) {
     	verifyPayment(event);
     	
-
-				if(approve)
+    			if(approve)
 	    		{
+
+    					double price=Globals.newOrder.getPrice(),refund=OrderClient.refund;
+    					
+    					 if (payment_type.getSelectedToggle().equals(buisness_btn)) {
+    						 double monthlyLimit=Globals.newOrder.getbAccount().getBalance(),lefttoPay=0;
+    						 String chargeBAccount="Update_BaccountBalance~"+Globals.newOrder.getbAccount().getAccountNum()+"~";
+    						 if(refund>0)
+    						 {
+    							 if(price>refund) 
+    							 {
+    								 lefttoPay=(price-refund);
+    								 if(monthlyLimit>lefttoPay) chargeBAccount+=(monthlyLimit-lefttoPay);
+    								 else chargeBAccount+=monthlyLimit;	
+    							 }
+    						 }
+    						 else
+    						 {
+    							 if(monthlyLimit>price) chargeBAccount+=price;
+								 else chargeBAccount+=monthlyLimit;	
+    						 }  						 
+    						StartClient.order.accept(chargeBAccount);
+    						
+    					 }
+    			if(refund>0) {
+    				String updateRefund="Update_refund~"+Globals.newOrder.getCustomer().getCustomerNumber()+"~"+Globals.newOrder.getSupplier().getSupplierNum()+"~";
+    				if(price>refund) updateRefund+=refund;
+    				else updateRefund+=(refund-price);
+    				StartClient.order.accept(updateRefund);//implement
+    			}
+    				
 	    			String createOrder="Insert_order~"+Globals.newOrder.toString();
 	            	StartClient.order.accept(createOrder);
 	            	String insertAmount="Insert_quantity~"+Globals.newOrder.getSupplier().getSupplierNum();
@@ -209,28 +267,54 @@ public class PaymentController {
 	        popUp = fxmlLoader.load();
 	        PaymentStatusController cont = fxmlLoader.getController();
 	        double orderPrice=Globals.newOrder.getPrice();
-			 if (payment_type.getSelectedToggle().equals(private_btn))
+	        double toPay;
+	        StartClient.order.accept("Check_refund~"+Globals.newOrder.getCustomer().getCustomerNumber()+"~"+Globals.newOrder.getSupplier().getSupplierNum());
+			double refund=OrderClient.refund;
+			if(refund<orderPrice) {
+				toPay=orderPrice-refund;
+			}
+			else toPay=0;
+	        if (payment_type.getSelectedToggle().equals(private_btn))
 			 {
 				 String number =Globals.newOrder.getpAccount().getCreditCardNumber();
 				 String mask = number.replaceAll("\\w(?=\\w{4})", "*");
-
-				 cont.setData("Your credit card Number: "+mask+",\n Will be Charged by "+orderPrice+Globals.currency,approveListener);
+				 if(refund>0)
+				 {
+					 
+					 if(toPay>0)
+						 cont.setData("You got credit in store by: "+refund+"\nYour credit card Number: "+mask+"\n Will be Charged by "+toPay+Globals.currency,approveListener); 
+					 else 
+						 cont.setData("You got credit in store by: "+refund+"\nYou Will not be charged. ",approveListener);
+				 }
+				 else cont.setData("Your credit card Number: "+mask+"\n Will be Charged by "+orderPrice+Globals.currency,approveListener);
+				 
+				 
 				
 			 }
 			 if (payment_type.getSelectedToggle().equals(buisness_btn))
 			 {
-				 double account_balance=Globals.newOrder.getbAccount().getBalance();
-				 if(orderPrice<=account_balance)
+				 double account_balance=Globals.newOrder.getbAccount().getBudget();
+				 if(refund>0)
 				 {
-					 Globals.newOrder.getbAccount().setBalance(account_balance-orderPrice);
-					 //need to sent to DB
-					 cont.setData("Your business account will charged by: "+orderPrice+Globals.currency+",\n You updated balance will be: "+(account_balance-orderPrice)+Globals.currency,approveListener);
-				
+					 if(toPay>0)
+						 cont.setData("You got credit in store by: "+refund+"\nYour business account will charged by: "+toPay+Globals.currency,approveListener); 
+					 else 
+						 cont.setData("You got credit in store by: "+refund+"\nYou Will not be charged. ",approveListener);
 				 }
-				 else {
-					 cont.setData("You dont have sufficient balance.\n Your balance: " +account_balance+Globals.currency+
-							 "\n You can proceed with your order by charging your remainder with your private account by:  "+(orderPrice-account_balance)+Globals.currency,approveListener);
-				 } 
+				 else
+				 {
+					if(orderPrice<=account_balance)	 
+					 {
+						 Globals.newOrder.getbAccount().setBalance(account_balance-orderPrice);
+						 //need to sent to DB
+						 cont.setData("Your business account will charged by: "+orderPrice+Globals.currency+"\n You updated balance will be: "+(account_balance-orderPrice)+Globals.currency,approveListener);
+					
+					 }
+					 else {
+						 cont.setData("You dont have sufficient balance.\n Your balance: " +account_balance+Globals.currency+
+								 "\n You can proceed with your order by charging your remainder with your private account by:  "+(orderPrice-account_balance)+Globals.currency,approveListener);
+					 }
+				 }
 			 }
 			
 	        

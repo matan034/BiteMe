@@ -94,14 +94,14 @@ public class OrderClient extends AbstractClient {
 	public static BusinessAccount baccount;
 	public int branchID;
 	public static File loaded_file;
-
+	public static boolean employerW4cVerify;
 	// for reports
 	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
 	public static ObservableList<TotalIncomesOfRestaurants> totalIncomesOfRestaurant = FXCollections.observableArrayList();
 	public static ObservableList<MonthlyPerformance> monthlyPerformance = FXCollections.observableArrayList();
 	public static ObservableList<IntakeOrder> monthIntake;
 	public static ObservableList<Dish> allDishes=FXCollections.observableArrayList();
-	
+	public static double refund;
 	//muhammad
 		public static Map<String, ArrayList<Dish>> all_dishes=new HashMap<String, ArrayList<Dish>>();
 		//muhammad
@@ -156,7 +156,11 @@ public class OrderClient extends AbstractClient {
 			if (arr[0] instanceof Branch)
 				Globals.branches = FXCollections.observableArrayList((ArrayList<Branch>) msg);
 			if (arr[0] instanceof Supplier)
+			{
+				
 				Globals.suppliers = FXCollections.observableArrayList((ArrayList<Supplier>) msg);
+			}
+				
 			if (arr[0] instanceof IntakeOrder)
 				monthIntake = FXCollections.observableArrayList((ArrayList<IntakeOrder>) msg);
 			if (arr[0] instanceof String) {
@@ -339,11 +343,11 @@ public class OrderClient extends AbstractClient {
 				break;
 			case "private account load":
 				paccount =new PrivateAccount(res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[1]),res[7]) ;
-				//Globals.newOrder.setpAccount(paccount);
+				
 				break;
 			case "business account load":
-				 baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Integer.parseInt(res[8]),Integer.parseInt(res[9]),res[10]) ;
-				//Globals.newOrder.setbAccount(baccount);
+				 baccount =new BusinessAccount(Integer.parseInt(res[1]),res[2],res[3],res[4],res[5],res[6],Integer.parseInt(res[7]),Double.parseDouble(res[8]),Integer.parseInt(res[9]),res[10]) ;
+				
 				break;
 			case "Customer load":
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
@@ -382,6 +386,13 @@ public class OrderClient extends AbstractClient {
 					else supplier=new Supplier(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]),res[4],
 					res[5], res[6],res[7], res[8]);
 					break;
+			case "Check_refund": 
+				refund=Double.parseDouble(res[1]);
+				break;
+				
+			case "Check_employer_w4c_code": 
+				if(res[1].equals("true")) employerW4cVerify=true;
+				if(res[1].equals("false")) employerW4cVerify=false;
 			}
 
 		}
@@ -479,13 +490,17 @@ public class OrderClient extends AbstractClient {
 			 branch_menu.put(dish.getType(),temp );
 		 }
 	  }
-	  private void getMyOrders(ArrayList<String> myOrders)
+	  private void getMyOrders(ArrayList<String> myOrdersAsString)
 	  {
 		  this.myOrders.clear();
-		  for(String order:myOrders)
+		  for(String order:myOrdersAsString)
 		  {
 			  String[]temp=order.split("~");
-			  this.myOrders.add(new Order(Integer.parseInt(temp[0]),temp[1],temp[2],Integer.parseInt(temp[3]),Integer.parseInt(temp[4]),temp[5]));
+			  Order o=new Order(Integer.parseInt(temp[0]),temp[1],temp[2],Integer.parseInt(temp[3]),Integer.parseInt(temp[4]),Integer.parseInt(temp[5]),temp[6]);
+			 o.setSupplierNum(Integer.parseInt(temp[7]));
+			 o.setCustomerNum(Integer.parseInt(temp[8]));
+			 o.setPrice(Double.parseDouble(temp[9]));
+			  myOrders.add(o);
 			
 		  }
 	  }

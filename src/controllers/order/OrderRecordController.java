@@ -8,8 +8,10 @@ import general.MyListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -31,12 +33,13 @@ public class OrderRecordController {
 
     
     private Order order;
-
-    private MyListener approveOrder;
-    public void setData(Order order,MyListener approveOrder)
+    private TitledPane pane;
+    private MyListener approveOrder,changeAccordion;
+    public void setData(Order order,MyListener approveOrder,TitledPane pane,MyListener changeAccordion)
     {
     	StartClient.order.accept("Load_orderDishes~"+order.getOrder_num());
-    	
+    	this.pane=pane;
+    	this.changeAccordion=changeAccordion;
     	for(DishInOrder dish: Globals.order_dishes)
     	{
     		Label dish_details=new Label(dish.getDishInOrderNum()+" "+dish.getDish_name()+" "+dish.getSize()+" "+dish.getCooking_lvl()+" "+dish.getExtras()+" "+dish.getPrice()+Globals.currency);
@@ -55,12 +58,15 @@ public class OrderRecordController {
 		    @Override
 		    public void handle(ActionEvent e) {
 		    	approveOrder.onClickListener(order);
+		    	changeAccordion.onClickListener(pane);
 		    	order_details_hbox.getChildren().remove(approve);
 		    	order_details_hbox.getChildren().add(approved);	
 		    }});
     	
-    	order_details_hbox.getChildren().add(approve);	
-    	
-    			
+    	order_details_hbox.getChildren().add(approve);		
+    }
+    public TitledPane getPane()
+    {
+    	return pane;
     }
 }

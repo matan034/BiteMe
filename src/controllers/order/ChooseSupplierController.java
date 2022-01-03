@@ -43,7 +43,9 @@ public class ChooseSupplierController {
 	    	    if(newValue!=null)
 	    	    {
 	    	    	StartClient.order.accept("Load_suppliers~"+newValue.getBranchID());
-	    	    	choose_branch_combo_box.getSelectionModel().clearSelection();// need to make prompt text appear!!
+	    	    	choose_branch_combo_box.getSelectionModel().clearSelection();
+	    	    	if(choose_branch_combo_box.getItems()!=null)
+	    	    		choose_branch_combo_box.getItems().clear();
 	    	    	choose_branch_combo_box.setItems(Globals.suppliers);
 	    	    	
 	    	    }
@@ -61,7 +63,6 @@ public class ChooseSupplierController {
 	    void delivery(ActionEvent event) {
 	    	Globals.newOrder=new Order("Delivery",OrderClient.w4c_card,OrderClient.customer,OrderClient.paccount,OrderClient.baccount);
 	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
-	    	//StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem().getSupplierNum());
 	    	
 	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
 	    }
@@ -70,8 +71,6 @@ public class ChooseSupplierController {
 	    void takeAway(ActionEvent event) {
 	    	Globals.newOrder=new Order("Take-Away",OrderClient.w4c_card,OrderClient.customer,OrderClient.paccount,OrderClient.baccount);
 	    	Globals.newOrder.setSupplier(choose_branch_combo_box.getSelectionModel().getSelectedItem());
-	    	//StartClient.order.accept("Load_dishes~"+choose_branch_combo_box.getSelectionModel().getSelectedItem().getSupplierNum());
-	    	
 	    	Globals.loadInsideFXML(Globals.branch_menuFXML);
 
 	    }

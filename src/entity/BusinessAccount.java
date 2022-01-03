@@ -3,14 +3,14 @@ package entity;
 public class BusinessAccount extends Account{
 
 	private String EmployerName;
-	private int budget;
+	private double budget;
 	private int isApproved,employerNum;
 	
-	public int getBudget() {
+	public double getBudget() {
 		return budget;
 	}
 
-	public void setBudget(int budget) {
+	public void setBudget(double budget) {
 		this.budget = budget;
 	}
 
@@ -18,7 +18,7 @@ public class BusinessAccount extends Account{
 		super(account);
 	}
 	public BusinessAccount(int accountnum,String firstName,String lastName,String ID,String phone,String mail,int employerNum,
-			int monthlyLimit,int isApproved,String EmployerName) {
+			double monthlyLimit,int isApproved,String EmployerName) {
 		super(firstName,lastName,ID,phone,mail,accountnum);
 		this.budget=monthlyLimit;
 		this.employerNum=employerNum;

@@ -63,21 +63,23 @@ public class QuarterlyHistogramController {
     private NumberAxis yAxis;
 
     @FXML
+    private Button back_btn;
+    @FXML
     private Button show_branch_btn;
 
     private ObservableList<String> quarters= FXCollections.observableArrayList("Q1", "Q2","Q3","Q4");
-    private ObservableList<String> years= FXCollections.observableArrayList("2021");
+  
     private ObservableList<String> types= FXCollections.observableArrayList("Income","Order Amount");
     public void initialize()
     {
     	show_branch_btn.setDisable(true);
     	branch_select_combo.setItems(Globals.branches);
     	quarter_comboBox.setItems(quarters);
-    	year_comboBox1.setItems(years);
+    	year_comboBox1.setItems(Globals.years);
     	type_select_combo.setItems(types);
     	branch_select_combo1.setItems(Globals.branches);
     	quarter_comboBox1.setItems(quarters);
-    	year_comboBox11.setItems(years);
+    	year_comboBox11.setItems(Globals.years);
     	compare_ceckbox.selectedProperty().addListener((obs, oldSelection, newSelection) -> {
     		if(newSelection!=null) {
     			try {
@@ -166,40 +168,53 @@ public class QuarterlyHistogramController {
     private XYChart.Series updateSeries( ComboBox <String>quarter,ComboBox <String>year,ComboBox<String> type,ComboBox<Branch>branch)
     {
     
-    		StartClient.order.accept("Load_suppliers~"+branch.getSelectionModel().getSelectedItem().getBranchID());   	
-        	int start=0,end=0;
-        	switch(quarter.getSelectionModel().getSelectedItem())
-        	{
-        	case "Q1": start=1;end=3;break;
-        	case "Q2":start=4;end=6;break;
-        	case "Q3":start=7;end=9;break;
-        	case "Q4":start=10;end=12;break;
-        		
-        	}
+    		StartClient.order.accept("Load_suppliers~"+branch.getSelectionModel().getSelectedItem().getBranchID());  
+    		if(Globals.suppliers==null) {
+    			xAxis.setLabel("No Restaurants");
+    			return  new XYChart.Series<>();
+    		}
+    		else {
+    			xAxis.setLabel("Restaurants");
+    			int start=0,end=0;
+            	switch(quarter.getSelectionModel().getSelectedItem())
+            	{
+            	case "Q1": start=1;end=3;break;
+            	case "Q2":start=4;end=6;break;
+            	case "Q3":start=7;end=9;break;
+            	case "Q4":start=10;end=12;break;
+            		
+            	}
 
-    	
-    	XYChart.Series series1 = new XYChart.Series<>();
-    	series1.setName(year.getSelectionModel().getSelectedItem()+" "+ quarter.getSelectionModel().getSelectedItem()+" "+branch.getSelectionModel().getSelectedItem());
-   
-   	 for(Supplier s:Globals.suppliers)
-   	 {
-   		  
-   		 StartClient.order.accept("Load_quarter_data~"+start+"~"+end+"~"+year.getSelectionModel().getSelectedItem()+"~"+s.getSupplierNum()); 
-   		 if(type.getSelectionModel().getSelectedItem().equals("Income"))
-   		 {
-   			 yAxis.setLabel("Income("+Globals.currency+")");
-   			 series1.getData().add(new XYChart.Data(s.getName(), Double.parseDouble(OrderClient.income)));
-   		 }
-   		 if(type.getSelectionModel().getSelectedItem().equals("Order Amount"))
-   		 {
-   			 yAxis.setLabel("Orders Amount");
-   			  series1.getData().add(new XYChart.Data(s.getName(), Integer.parseInt(OrderClient.orderAmount)));
-   		 }		 
-   		 
-   		
-   	 }
-   	return series1;
+        	
+        	XYChart.Series series1 = new XYChart.Series<>();
+        	series1.setName(year.getSelectionModel().getSelectedItem()+" "+ quarter.getSelectionModel().getSelectedItem()+" "+branch.getSelectionModel().getSelectedItem());
+       
+       	 for(Supplier s:Globals.suppliers)
+       	 {
+       		  
+       		 StartClient.order.accept("Load_quarter_data~"+start+"~"+end+"~"+year.getSelectionModel().getSelectedItem()+"~"+s.getSupplierNum()); 
+       		 if(type.getSelectionModel().getSelectedItem().equals("Income"))
+       		 {
+       			 yAxis.setLabel("Income("+Globals.currency+")");
+       			 series1.getData().add(new XYChart.Data(s.getName(), Double.parseDouble(OrderClient.income)));
+       		 }
+       		 if(type.getSelectionModel().getSelectedItem().equals("Order Amount"))
+       		 {
+       			 yAxis.setLabel("Orders Amount");
+       			  series1.getData().add(new XYChart.Data(s.getName(), Integer.parseInt(OrderClient.orderAmount)));
+       		 }		 
+       		 
+       		
+       	 }
+       	return series1;
+    		}
+        
    	 
+    }
+    
+    @FXML
+    void back(ActionEvent event) {
+    	Globals.loadInsideFXML(Globals.reportFXML);
     }
    
 }

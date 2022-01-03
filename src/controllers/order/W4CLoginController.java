@@ -37,7 +37,7 @@ public class W4CLoginController {
 			
 			@Override
 			public void onClickListener(Object qr) {
-				// TODO Auto-generated method stub
+				
 				qr_alternative_input.setText((String)qr);
 			}
 		};
@@ -54,6 +54,7 @@ public class W4CLoginController {
     }
     @FXML
     void verifyW4C(ActionEvent event) {
+    
     	String msg="W4C_verify~"+qr_alternative_input.getText()+"~"+OrderClient.customer.getpAccount()+"~"+OrderClient.customer.getbAccount();
     	StartClient.order.accept(msg);
     	if(OrderClient.w4c_card!=null)
@@ -62,7 +63,10 @@ public class W4CLoginController {
         		StartClient.order.accept("Load private Account~"+OrderClient.customer.getpAccount());
         	if(OrderClient.customer.getbAccount()!=0) 
         		StartClient.order.accept("Load business Account~"+OrderClient.customer.getbAccount());
-    		Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
+        	if(OrderClient.customer.getpAccount()==0 && OrderClient.baccount.getIsApproved()==0) 
+        		error_msg.setText("Please arrange your payment method\nNo Private Account And Your Business Account Not Yet Approved");
+        	else
+        		Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
     	}
     	else error_msg.setText(OrderClient.w4c_msg);
     }

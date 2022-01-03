@@ -14,7 +14,6 @@ import javafx.scene.control.ComboBox;
 public class ViewReportsController {
 	ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
 	ObservableList<String> monthList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-	ObservableList<String> yearList = FXCollections.observableArrayList("2021");
 	ObservableList<String> typeList = FXCollections.observableArrayList("Order report by components", "Performance report",
 			"Income Report by restaurants");
 
@@ -46,7 +45,7 @@ public class ViewReportsController {
 			branchCombox.setItems(branchList);
 			monthCombox.setItems(monthList);
 			typeCombox.setItems(typeList);
-			YearComboBox.setItems(yearList);
+			YearComboBox.setItems(Globals.years);
 
 			viewBtn.setDisable(true);
 			YearComboBox.getSelectionModel().selectedItemProperty().addListener(defineListener());

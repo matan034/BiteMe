@@ -191,19 +191,23 @@ public class DBOrderController {
 	 			stmt = myCon.createStatement();
 	 			rs = stmt.executeQuery(
 	 					"Select x.*,restaurant.Name\r\n"
-	 					+ "From (SELECT OrderID,ResturantNumber, SupplyWay,RequestOrderTime,IsApproved,IsArrived FROM biteme.order WHERE CustomerNumber="+ res[1]+") as x\r\n"
+	 					+ "From (SELECT OrderID,ResturantNumber,CustomerNumber ,SupplyWay,Price,RequestOrderTime,IsApproved,IsArrived,OutForDelivery FROM biteme.order WHERE CustomerNumber="+ res[1]+") as x\r\n"
 	 					+ "Inner Join restaurant \r\n"
 	 					+ "On restaurant.Number=x.ResturantNumber");
 	 			ArrayList<String> myOrders = new ArrayList<>();
 	 			myOrders.add("load my orders");
 	 			while (rs.next()) {
 	 				int orderNum = rs.getInt(1);
-	 				String orderType = rs.getString(3);
-	 				String orderTime = rs.getString(4);
-	 				int isApproved = rs.getInt(5);
-	 				int isArrived=rs.getInt(6);
-	 				String name=rs.getString(7);
-	 				String temp = orderNum + "~" + orderType + "~" + orderTime + "~" + isApproved + "~" + isArrived + "~"+ name;
+	 				int restaurantNum= rs.getInt(2);
+	 				int customerNum= rs.getInt(3);
+	 				String orderType = rs.getString(4);
+	 				Double Price=rs.getDouble(5);
+	 				String orderTime = rs.getString(6);
+	 				int isApproved = rs.getInt(7);
+	 				int isArrived=rs.getInt(8);
+	 				int outForDeliver=rs.getInt(9);
+	 				String name=rs.getString(10);
+	 				String temp = orderNum + "~" + orderType + "~" + orderTime + "~" + isApproved + "~" + isArrived + "~" + outForDeliver + "~"+ name + "~" + restaurantNum + "~" + customerNum + "~" + Price;
 	 				myOrders.add(temp);
 	 			}
 
@@ -552,25 +556,29 @@ public class DBOrderController {
 	 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.order SET CustomerReciveTime = '%s' WHERE OrderID = '%d';", curr_time ,Integer.parseInt(res[1])));
 	 		  if(flag==1)
 	 		  {
-	 			  rs = stmt.executeQuery("SELECT IsEarlyOrder,RecivedOrderTime,CustomerReciveTime FROM biteme.order WHERE OrderID="+res[1]);
+	 			  rs = stmt.executeQuery("SELECT IsEarlyOrder,RequestOrderTime,RecivedOrderTime,CustomerReciveTime FROM biteme.order WHERE OrderID="+res[1]);
 	 			  if(rs.next())
 	 			  {
 	 				  int isEarlyOrder,getCredit=0;
-	 				  String supplierRecieve,CustomerRecievd;
+	 				  String supplierRecieve,CustomerRecievd,request;
 	 				  isEarlyOrder=rs.getInt(1);
-	 				  supplierRecieve=rs.getString(2);
-	 				  CustomerRecievd=rs.getString(3);
-	 				  Date CustomerRecievdTime=new Date(CustomerRecievd);
-	 				  Date supplierRecieveTime=new Date(supplierRecieve);
-	 				  long diff =supplierRecieveTime.getTime()-CustomerRecievdTime.getTime();
+	 				  request=rs.getString(2);
+	 				  supplierRecieve=rs.getString(3);
+	 				 CustomerRecievd=rs.getString(4);
+	 				 Date CustomerRecievdTime=new SimpleDateFormat("HH:mm yyyy-MM-dd").parse(CustomerRecievd);  
+	 				 Date requsetTime=new SimpleDateFormat("HH:mm yyyy-MM-dd").parse(request);  
+	 				 Date supplierRecieveTime=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(supplierRecieve);  
+	 				  
 	 			 
 	 				  if(isEarlyOrder==1)
 	 				  {
+	 					  	long diff =CustomerRecievdTime.getTime()-requsetTime.getTime();
 	 					     long twenty_minutes=1200000;
 	 					     if(diff>twenty_minutes) getCredit=1;
 	 				  }
 	 				  else
 	 				  {
+	 					 long diff =CustomerRecievdTime.getTime()-supplierRecieveTime.getTime();
 	 					  long one_hour=3600000;
 	 					  if(diff>one_hour)  getCredit=1;
 	 				  }
@@ -609,6 +617,7 @@ public class DBOrderController {
 			  int flag;
 				try {
 					stmt = myCon.createStatement();
+					
 					flag=stmt.executeUpdate(String.format("UPDATE biteme.order SET IsApproved = '1', RecivedOrderTime=CURRENT_TIMESTAMP WHERE OrderID = %d;",Integer.parseInt(res[1])));
 					
 					if(flag>0)	db.sendToClient("OrderApproved~Updated Successfuly", client);
@@ -623,8 +632,9 @@ public class DBOrderController {
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
 		   * @param res[0]=Refund Account, 
-		   * @param res[1]=refund amount ,
-		   * @param res[2] account
+		   * @param res[1]=customer num ,
+		   * @param res[2] =refund amount
+		   * @param res[3]=restaurant num
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -632,15 +642,29 @@ public class DBOrderController {
 	 	protected void refundAccount(String[]res,ConnectionToClient  client,Connection myCon,DBController db)
 	 	{
 	 		  Statement stmt;
-	 		  int flag;
+	 		  ResultSet rs;
+	 		  int flag=0;
+	 		  
 	 		  try {
+	 			  
 	 		  stmt = myCon.createStatement();
-	 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.account SET Balance =Balnce + '%f' WHERE AccountNum = '%d';",Double.parseDouble(res[1]) ,Integer.parseInt(res[2])));
-	 		  db.sendToClient("refund updated~Updated Successfully",client);
+	 		 rs = stmt.executeQuery(String.format("SELECT * FROM biteme.refund Where CustomerID='%d' AND RestaurantNum='%d' ;",Integer.parseInt(res[1]),Integer.parseInt(res[3])));
+	 		  if(rs.isBeforeFirst())
+	 		  {
+	 			 flag=stmt.executeUpdate(String.format("UPDATE biteme.refund SET Refund = Refund + '%f'  WHERE CustomerID='%d' AND RestaurantNum='%d';",
+	 					 Double.parseDouble(res[2]),Integer.parseInt(res[1]),Integer.parseInt(res[3])));
+	 		  }
+	 		  else
+	 		  {
+	 			 flag=stmt.executeUpdate(String.format("INSERT INTO biteme.refund (CustomerID, RestaurantNum, Refund)   VALUES ('%d','%d','%f');",
+	 					Integer.parseInt(res[1]),Integer.parseInt(res[3]),Double.parseDouble(res[2])));
+	 		  }
+	 		  if(flag>0) db.sendToClient("refund updated~Updated Successfully",client);
+	 		  else db.sendToClient("refund updated~refund error",client);
 	 			stmt.close();
 	 		  }
 	 		  catch (Exception e) {
-	 			
+	 			 db.sendToClient("refund updated~"+e,client);
 	 		}
 	 		  
 	 	}
@@ -667,8 +691,131 @@ public class DBOrderController {
 	 			
 	 		}
 	 	}
+
 	 	
-	 	
-	 	
-	 	
+	 	/*
+		   * This method checks if customer got refund in a specific restaurant
+		   *
+		   * @param  res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]=Check_refund,
+		   * @param res[1]=customer number
+		   * @param res[2]=supplier number 
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
+		public void checkRefund(String[] res, ConnectionToClient client, Connection myCon, DBController db) {
+			  Statement stmt;
+	 		  ResultSet rs;
+
+	 		  try {
+	 			  stmt = myCon.createStatement();
+	 			  rs = stmt.executeQuery(String.format("SELECT Refund FROM biteme.refund Where CustomerID='%d' AND RestaurantNum='%d' ;",Integer.parseInt(res[1]),Integer.parseInt(res[2])));
+	 			  if(rs.next())
+	 			  {
+	 				 db.sendToClient("Check_refund~"+rs.getDouble(1),client);
+	 			  }
+	 			  else
+	 				  db.sendToClient("Check_refund~0",client);
+	 		  }
+	 		  catch (Exception e) {
+	 			 db.sendToClient("Check_refund_sql error"+e,client);
+			}
+	 		  
+	 		  
+	 	}
+
+		/*
+		   * This method updates balance of business account
+		   *
+		   * @param  res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]=Update_BaccountBalance,
+		   * @param res[1]=business account
+		   * @param res[2]=ammount to sub
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
+		public void updateBusinessAccountBalnce(String[] res, ConnectionToClient client, Connection myCon,
+				DBController db) {	
+		 		Statement stmt;
+		 		  int flag;
+		 		  try {
+		 		  stmt = myCon.createStatement();
+		 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.businessaccount SET MonthlyLimit =MonthlyLimit-'%f' WHERE AccountNum = '%d';",Double.parseDouble(res[2]),Integer.parseInt(res[1])));
+		 		  db.sendToClient("updated business account balance~Updated Successfully",client);
+		 			stmt.close();
+		 		  }
+		 		  catch (Exception e) {
+		 			 db.sendToClient("updated business account balance~"+e,client);
+		 		}
+		 	}
+		/*
+		   * This method updates balance of refund for customer
+		   *
+		   * @param  res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]=Update_BaccountBalance,
+		   * @param res[1]=customer number
+		   * @param res[2]=supplier number
+		   * @param res[3]=amount to sub
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
+		public void updateRefund(String[] res, ConnectionToClient client, Connection myCon, DBController db) {
+			Statement stmt;
+	 		  int flag;
+	 		  try {
+	 		  stmt = myCon.createStatement();
+	 		  flag =stmt.executeUpdate(String.format("UPDATE biteme.refund SET Refund = Refund -'%f' WHERE CustomerID = '%d' AND RestaurantNum = '%d';",
+	 				  Double.parseDouble(res[3]),Integer.parseInt(res[1]),Integer.parseInt(res[2])));
+	 		  db.sendToClient("updated refund~Updated Successfully",client);
+	 			stmt.close();
+	 		  }
+	 		  catch (Exception e) {
+	 			 db.sendToClient("updated refund~"+e,client);
+	 		}
+			
+		}
+
+		/*
+		   * This method checks if customer inserted correct employer w4c
+		   *
+		   * @param  res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]=Check_employer_w4c,
+		   * @param res[1]=w4c_num
+		   * @param res[2]=user input w4c employer code
+		   * @param client The connection from which the message originated.
+		   * @param myCon the connection to mySql DB
+		   * @param db the main database controller used in order to send message back to client
+		   */
+		public void checkEmployerW4C(String[] res, ConnectionToClient client, Connection myCon,
+				DBController db) {
+			  Statement stmt;
+	 		  ResultSet rs;
+	 		  try {
+	 			  stmt = myCon.createStatement();
+	 			  rs = stmt.executeQuery(String.format("SELECT EmployerCode FROM biteme.w4c_cards Where CardNum='%d' ;",Integer.parseInt(res[1])));
+	 			  if(rs.next())
+	 			  {
+	 				  int employerCode=rs.getInt(1);
+	 				  if(employerCode==Integer.parseInt(res[2]))
+	 					  db.sendToClient("Check_employer_w4c_code~true",client);
+	 				  else
+	 					 db.sendToClient("Check_employer_w4c_code~false",client);
+	 			  }
+	 			  else
+	 				  db.sendToClient("Check_employer_w4c_code~w4c not found",client);
+	 		  }
+	 		  catch (Exception e) {
+	 			 db.sendToClient("Check_employer_w4c_code"+e,client);
+			}
+			
+		}
+			
 }
+	 	
+	 	
+	 	
+	 	
+
