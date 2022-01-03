@@ -1,11 +1,4 @@
 
-/**
-*Controller class for our login screen we use it to interact with UI events in login screen
-*@param ip string to save ip address user inputs
-*@param ip_address textfield for user to input
-*@param login_btn button for loging in
-*
-*/
 
 package general;
 
@@ -19,6 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
+/**
+*Controller class for our login screen we use it to interact with UI events in login screen
+*
+* @author      muhamad abu assad
+* @version     1.0               
+ * @since       01.01.2022     
+*@param ip string to save ip address user inputs
+*@param ip_address textfield for user to input
+*@param login_btn button for loging in
+*
+*/
 
 public class ClientStartController {
 	public static String ip;
@@ -27,6 +31,10 @@ public class ClientStartController {
 
     @FXML
     private Button login_btn;
+    
+    /**
+     * this func initializes our client to listen for a value in ip address text once we press enter it checks if the input is valid and if it it is it logins to server
+	   */
 	
     public void initialize() {
     	ip_address.textProperty().addListener((obs,oldValue, newValue)-> {
@@ -55,7 +63,7 @@ public class ClientStartController {
     	}
     }
 	/**
-	*LoginToServer func loads our IndexScreen after user logs in to server also saves ip address in our param ip
+	*LoginToServer func loads our login scrren we display to user after user logs in to server also saves ip address in our param ip
 	*/
     @FXML
     void LoginToServer(Event event) {

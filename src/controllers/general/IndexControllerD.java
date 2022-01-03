@@ -15,6 +15,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
 
+
+/**
+ * This class is used as our index giving users access to their respective actions in our system. 
+ * Each action (ordering food for example) gets loaded inside a pane in the index controller screen 
+ * This screen is different for each user according to thier types in our DB
+ * @author      dorin bahar
+ * @version     1.0               
+ * @since       01.01.2022        
+ * @param options_grid1 = grid that holds our buttons in the sidebar menu 
+ * @param hello_label = label that greets user according to his name
+ * @param welcome_lbl = label to says welcome to BiteMe we change this label according to the screen we are currently in
+ * @param pane_in_vbox = this is the pane where we load all screens into for instance creating a new account screen will be loaded here 
+ * @param comboBoxBranch= combo box for changing which branch the user is in
+ * @param home_page = home page icon that user can click to go back to his home page
+ * @param tempTypeUser = holds the current users type
+ */
+
+
 public class IndexControllerD {
 
     @FXML
@@ -45,7 +63,17 @@ public class IndexControllerD {
     private ImageView home_page;
 
     static String tempTypeUser; 
+    
+    
 
+    
+    /*
+	   * This method initializes our index, it loads all branches in DB, recognised which user is logged in and the users type to correctly display the functions the user can perform
+	   * for instance a customer can order food but cannot create accounts 
+	   * We use a switch case on tempTypeUser to map each user to his correct functions 
+	   *
+	   */
+    
 	public void initialize()
     {
 
@@ -360,32 +388,42 @@ public class IndexControllerD {
     	   break; 
         }
     }
-
+	/**
+	 * getter function for returning pane_in_vbox*/
 	public VBox getPane_in_vbox() {
 		return pane_in_vbox;
 	}
-	
+	/**
+	 * setter function for setting pane_in_vbox*/
 	public void setPane_in_vbox(VBox pane_in_vbox) {
 		this.pane_in_vbox = pane_in_vbox;
 	}
 
+	/**
+	 * getter function for returning welcome_lbl*/
 	public Label getWelcome_label() {
 		return welcome_label;
 	}
 
+	/**
+	 * setter function for setting welcome label*/
 	public void setWelcome_label(String str) {
 		this.welcome_label.setText(str);
 	}
 
-	
+	/**
+	 * getter function for returning comboBoxBranch*/
 	public ComboBox<Branch> getComboBoxBranch() {
 		return comboBoxBranch;
 	}
 
+	/**
+	 * setter function for setting  comboBoxBranch*/
 	public void setComboBoxBranch(ComboBox<Branch> comboBoxBranch) {
 		this.comboBoxBranch = comboBoxBranch;
 	}
 
+	/** function to set home page according to each user type*/
 	public void setHomePage(){
 		
 		if(tempTypeUser=="Customer")
@@ -397,7 +435,7 @@ public class IndexControllerD {
 	     if(tempTypeUser=="Base User")
 	    	 Globals.loadInsideFXML(Globals.homePageBaseUser); 
 }
-	
+	/** function to set a class and styling to a button*/
 	public void setDeginButton(Button b) {
 		
 		b.getStyleClass().add("ViewBtn");

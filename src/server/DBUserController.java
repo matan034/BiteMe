@@ -15,7 +15,7 @@ import ocsf.server.ConnectionToClient;
 /**
  * This class is used for all functions relating to users, such as login, creating an account , logout, adding users to their relative DB (hr to hr table), loading of users, and checking of input
  * Used in src/gui/branch_manager, src/gui/hr,  src/gui/restaurant with the controllers in src/controllers/managment 
- * @author      danny aibi <address @ example.com>
+ * @author      danny aibi 
  * @version     1.0                
  * @since       01.01.2022         
  */
@@ -25,7 +25,9 @@ public class DBUserController {
 	
 	/**
 	Func for logging user in , when user logs in we update IsLoggedIn to 1
-	 * @param res res[0] used to start function, rest of res for details we need for queries,  res[0]=""User_login"" ,res[1...]= user name and password from user
+	 * @param res res[0] used to start function, rest of res for details we need for queries, 
+	 * @param res[0]=""User_login"" ,
+	 * @param res[1...]= user name and password from user
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -69,7 +71,8 @@ public class DBUserController {
 	}
 	/**
 	Func for loading users for when we need to view users. Used in approve users screen, change user premission screen
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]=""Load_users"";
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]=""Load_users"";
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -91,8 +94,10 @@ public class DBUserController {
 	}
 		
 	/**
-	Func for registering either a private account or business account
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Business_account" res[1..]=Business account toString  OR res[0]="Private_account res[1...]=Private account toString "
+	Func for registering either a private account or business account here we call account reg for account details and than create private or business account according to res[0]
+	* @param res  res[0] used to start function, rest of res for details we need for queries,
+	* @param res[0]="Business_account" OR res[0]="Private_account 
+	* @param res[1..]=Business account toString  OR res[1...]=Private account toString"
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -165,8 +170,13 @@ public class DBUserController {
 		stmt.close();
 	}
 	/**
-	Func for registering Account details 
-	* @param res  res[1]=FirstName,res[2]=LastName,res[3]=ID,res[4]=Telephone,res[5]=Email"
+	Func for registering Account details func is called from private or business account reg to register account details 
+	* @param res  res[0] used to start function, rest of res for details we need for queries,
+	* @param  res[1]=FirstName,
+	* @param res[2]=LastName,
+	* @param res[3]=ID,
+	* @param res[4]=Telephone,
+	* @param res[5]=Email"
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -206,7 +216,8 @@ public class DBUserController {
 	}
 	/**
 	Func for checking valid Account details inputted by user during account registration
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]=Check_account_input"
+	* @param res  res[0] used to start function, rest of res for details we need for queries,
+	* @param res[0]=Check_account_input"
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -244,7 +255,9 @@ public class DBUserController {
 	
 	/**
 	Func for checking if Employed is Approved and if Employer name is in the database
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Check_employer",res[1]=Employer name.
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Check_employer",
+	* @param res[1]=Employer name.
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -273,7 +286,11 @@ public class DBUserController {
 	}
 	/**
 	Func for registering an employer to DB
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Reg_employer",res[1..]=employer details by employer.Tostring.,res[4]=branchID,res[5]=hr_id
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Reg_employer",
+	* @param res[1..3]=employer details by employer.Tostring.,
+	* @param res[4]=branchID,
+	* @param res[5]=hr_id
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -329,7 +346,10 @@ public class DBUserController {
 	}
 	/**
 	Func for updating customer Status
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_user",res[1]=Status to update, res[2]=User ID
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Update_user",
+	* @param res[1]=Status to update, 
+	* @param res[2]=User ID
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -356,7 +376,9 @@ public class DBUserController {
 	
 	 /**
 	Func for importing users to DB from outside "USER IMPORT utility"
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Import_user",res[1..]=User details from ToString
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Import_user",
+	* @param res[1..]=User details from ToString like firstname,last name ,email and so on
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -376,8 +398,9 @@ public class DBUserController {
 	  
 	  
 	  /**
-		Func for loading a specific customer
-		* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="ID"
+		Func for loading a specific customer from DB
+		* @param res  res[0] used to start function, rest of res for details we need for queries, 
+		* @param res[0]="ID"
 		 * @param client The connection from which the message originated.
 		 * @param myCon the connection to mySql DB
 		 * @param db the main database controller used in order to send message back to client */
@@ -404,7 +427,9 @@ public class DBUserController {
 	
 	 /**
 	Func for getting a specific private account by it's accout num
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load private Account",res[1..]=AccountNum
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Load private Account",
+	* @param res[1]=AccountNum
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -433,7 +458,9 @@ public class DBUserController {
 	
 	 /**
 	Func for getting a specific supplier by it's Branch num who have dishes to customer
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_suppliers",res[1..]=BranchNum
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Load_suppliers",
+	* @param res[1]=BranchNum
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -470,8 +497,10 @@ public class DBUserController {
 	
 	
 	/**
-	Func for getting a specific supplier
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_supplier",res[1]=manager ID
+	Func for getting a specific supplier from DB 
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Load_supplier",
+	* @param res[1]=manager ID
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -505,7 +534,9 @@ public class DBUserController {
 	
 	/**
 	Func for getting loading all business accounts that need to be approved for s specific employer
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_business_account" , res[1] = hr id
+	* @param res  res[0] used to start function, rest of res for details we need for queries,
+	* @param  res[0]="Load_business_account" , 
+	* @param res[1] = hr id
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -541,7 +572,9 @@ public class DBUserController {
 	  }
 	/**
 	Func for getting a specific business account details 
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load business Account",res[1]=AccountNum
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Load business Account",
+	* @param res[1]=AccountNum
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -572,7 +605,9 @@ public class DBUserController {
 	
 	/**
 	Func for loading all eployers in specific branch
-	* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_myEmployers",res[1]=BranchID
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Load_myEmployers",
+	* @param res[1]=BranchID
 	 * @param client The connection from which the message originated.
 	 * @param myCon the connection to mySql DB
 	 * @param db the main database controller used in order to send message back to client */
@@ -609,7 +644,10 @@ public class DBUserController {
 
 	  	/**
 		Func for approving new employer 
-		* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Employer_approved res[1]=1 res[2] =employer num
+		* @param res  res[0] used to start function, rest of res for details we need for queries,
+		* @param res[0]=Employer_approved 
+		* @param res[1]=1
+		* @param res[2] =employer num
 		 * @param client The connection from which the message originated.
 		 * @param myCon the connection to mySql DB
 		 * @param db the main database controller used in order to send message back to client */
@@ -631,7 +669,9 @@ public class DBUserController {
 		
 		/**
 		Func for cheking if order is approved
-		* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Check_approved res[1]=OrderID
+		* @param res  res[0] used to start function, rest of res for details we need for queries,
+		* @param res[0]=Check_approved 
+		* @param res[1]=OrderID
 		 * @param client The connection from which the message originated.
 		 * @param myCon the connection to mySql DB
 		 * @param db the main database controller used in order to send message back to client */
@@ -656,7 +696,9 @@ public class DBUserController {
 		 
 		 /**
 			Func for approving a business account
-			* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Approve_account res[1]=AccountNum
+			* @param res  res[0] used to start function, rest of res for details we need for queries,
+			* @param res[0]=Approve_account
+			* @param res[1]=AccountNum
 			 * @param client The connection from which the message originated.
 			 * @param myCon the connection to mySql DB
 			 * @param db the main database controller used in order to send message back to client */
@@ -678,7 +720,9 @@ public class DBUserController {
 			 
 			 /**
 				Func for logging a user out
-				* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=logout res[1]=ID
+				* @param res  res[0] used to start function, rest of res for details we need for queries,
+				* @param res[0]=logout 
+				* @param res[1]=ID
 				 * @param client The connection from which the message originated.
 				 * @param myCon the connection to mySql DB
 				 * @param db the main database controller used in order to send message back to client */
@@ -700,7 +744,9 @@ public class DBUserController {
 				 
 				 /**
 					Func getting all restaurants in a branch
-					* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Get_restaurants res[1]=BranchID
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]=Get_restaurants 
+					* @param res[1]=BranchID
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -732,7 +778,13 @@ public class DBUserController {
 			 
 			 /**
 				Func for registering a restaurant as a supplier
-				* @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Approve_restaurant res[1]=BranchNum,res[2]=Name,res[3]=Address,res[4]=City,res[5]=Type
+				* @param res  res[0] used to start function, rest of res for details we need for queries,
+				* @param res[0]=Approve_restaurant 
+				* @param res[1]=BranchNum,
+				* @param res[2]=Name,
+				* @param res[3]=Address,
+				* @param res[4]=City,
+				* @param res[5]=Type
 				 * @param client The connection from which the message originated.
 				 * @param myCon the connection to mySql DB
 				 * @param db the main database controller used in order to send message back to client */
@@ -761,7 +813,9 @@ public class DBUserController {
 			 
 				/**
 				Func for loading all customers in a branch
-				* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Load_branch_customers",res[1]=HomeBranch;
+				* @param res  res[0] used to start function, rest of res for details we need for queries, 
+				* @param res[0]="Load_branch_customers",
+				* @param res[1]=HomeBranch;
 				 * @param client The connection from which the message originated.
 				 * @param myCon the connection to mySql DB
 				 * @param db the main database controller used in order to send message back to client */
@@ -787,7 +841,10 @@ public class DBUserController {
 					
 					/**
 					Func for checking if account information like phone,email,id already exists so we dont allow duplicates
-					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Check_account_info",res[1]=Field to check,res[2]=Field data;
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param  res[0]="Check_account_info",
+					* @param res[1]=Field to check,
+					* @param res[2]=Field data;
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -808,7 +865,9 @@ public class DBUserController {
 					
 					/**
 					Func for checking if the account we are trying to create has a user 
-					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Check_user",res[1]=ID ;
+					* @param res  res[0] used to start function, rest of res for details we need for queries, 
+					* @param res[0]="Check_user",
+					* @param res[1]=ID ;
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -829,7 +888,10 @@ public class DBUserController {
 					
 					/**
 					Func for updating private account information
-					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_private_account",res[1]=credit card number ,res[2]=AccountNum ;
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]="Update_private_account",
+					* @param res[1]=credit card number ,
+					* @param res[2]=AccountNum ;
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -850,7 +912,11 @@ public class DBUserController {
 					}
 					/**
 					Func for updating business account information
-					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Update_business_account",res[1]=Employer name ,res[2]=Monthlylimit,res[3]=accountnum ;
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]="Update_business_account",
+					* @param res[1]=Employer name ,
+					* @param res[2]=Monthlylimit,
+					* @param res[3]=accountnum ;
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -876,7 +942,9 @@ public class DBUserController {
 					
 					/**
 					Func for updating deleting an account
-					* @param res  res[0] used to start function, rest of res for details we need for queries, res[0]="Delete_account",res[1]=ID ;
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]="Delete_account",
+					* @param res[1]=ID ;
 					 * @param client The connection from which the message originated.
 					 * @param myCon the connection to mySql DB
 					 * @param db the main database controller used in order to send message back to client */
@@ -898,31 +966,16 @@ public class DBUserController {
 				  		}
 					}
 					
-					//res[1]=order number res[2]=is delivery
-					protected void getContactForDelivery(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
-						 Statement stmt;
-						 ResultSet rs;
-						 stmt = myCon.createStatement();
-				  		  try {
-				  			  if(res[2].equals("Take-away"))
-				  			  {
-				  				rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
-				  			  }
-				  			  if(res[2].equals("Delivery"))
-				  			  {
-				  				rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
-				  			  }
-				  		 
-				  		
-				  		  System.out.println("account deleted");
-				  		  db.sendToClient("account deleted~",client);
-				  			stmt.close();
-				  		  }
-				  		  catch (Exception e) {
-				  			 db.sendToClient("account deleted~fail",client);
-				  		}
-					}
-					//res[1]=id res[2]=supplier id
+					
+					/**
+					Func for creating a certified employee used in import users utility to attach a supplier to an employee
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]="Create_certifies_employee",
+					* @param res[1]=ID ;
+					* @param res[2]=supplier id
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					public void createCertifiedEmployee(String[] res, ConnectionToClient client, Connection myCon,
 							DBController db) {
 						Statement stmt;
@@ -941,7 +994,14 @@ public class DBUserController {
 						
 					}
 					
-					//res[1]=user id
+					/**
+					Func for getting which supplier certified employee works for
+					* @param res  res[0] used to start function, rest of res for details we need for queries,
+					* @param res[0]="Get_my_supplier",
+					* @param res[1]=EmployeeID ;
+					 * @param client The connection from which the message originated.
+					 * @param myCon the connection to mySql DB
+					 * @param db the main database controller used in order to send message back to client */
 					public void getMySupplier(String[] res, ConnectionToClient client, Connection myCon,
 							DBController db) {
 						Statement stmt;

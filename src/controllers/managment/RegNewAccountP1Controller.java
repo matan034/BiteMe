@@ -25,6 +25,36 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import order.QRSimulationController;
 
+
+/**
+ *Controller for registering an account , in this controller we register account details and later move on to RegNewAccountP2 to complete the registration process
+ *@param last_name_lbl = textfield to enter last name
+ *@param first_name_lbl = text field to etner last name
+ *@param id_lbl = text field to enter id
+ *@param telephone_lbl = text field to enter telephone
+ *@param email_lbl = text field to enter email
+ *@param confriM_email_lbl = text field to enter email confirmation 
+ *@param before_btn =button to go back to index page
+ *@param next_btn = button to move to P2 of registretion 
+ *@param res_lbl = display messages to user about errors
+ *@param id_error_lbl = display errors in id via label
+ *@param phone_error_lbl = display errors phone  via label
+ *@param email_error_lbl = display errors email  via label
+ *@param confirm_email_error_lbl = display errors confirm email id  label
+ *@param first_error_lbl = display errors in first name via labelx
+ *@param last_error_lbl = display errors in last name via label
+ *@param UserHasAccount_lbl = hyper link that takes you to a popup where you can input account id and move to P2 controller incase user already has an account(this allows you to edit account details to existing accounts)
+ *@param new_account new account we are creating via info user inputted  we P2 controller uses this data
+ *@param namePattern =regex pattern to validate valid names'
+ *@param VALID_EMAIL_ADDRESS_REGEX = regex pattern to validate email input
+ *@param pattern = regex pattern to validate integers
+ * @author      daniel aibinder
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
+
+
 public class RegNewAccountP1Controller {
 
     @FXML
@@ -84,7 +114,10 @@ public class RegNewAccountP1Controller {
   
     private Pattern pattern = Pattern.compile("\\d+");
     
-    
+    /**
+     *This func initializes our controller, if we went back to this screen from P2 we initalizes text fields with data the user has already inputted
+     *We also initalizes Listeners to verify input in text areas
+     **/
    public void initialize() {
 	   
 	   
@@ -271,7 +304,8 @@ public class RegNewAccountP1Controller {
    }
 
     /**
-     * Function to go to next page, account details in this page are saved to new_account*/
+     * Function to go to next page, account details in this page are saved to new_account
+     * @param event ActionEvent class to get event details*/
     @FXML
     void NextPage(ActionEvent event) {
     	String phone="0";
@@ -393,18 +427,24 @@ public class RegNewAccountP1Controller {
     		return flag;
     }
     /**
-     * Function to validate correct email address (ending with shtrudol and .com and so on)*/
+     * Function to validate correct email address (ending with shtrudol and .com and so on) using a regex pattarn
+     * @param emailStr email string we check*/
   	private boolean validateEmail(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
 }
-
+  	/**
+     * Function to check if a string is numbers using a regex pattern
+     * @param strNum string we check */
   	private boolean isNumeric(String strNum) {
   	    if (strNum == null) {
   	        return false; 
   	    }
   	    return pattern.matcher(strNum).matches();
   	}
+  	/**
+     * Function to validate names we check using a regex pattern
+     * @param name string we check */
   	private boolean isValidName(String name) {
 
   		
@@ -414,7 +454,10 @@ public class RegNewAccountP1Controller {
    	    return namePattern.matcher(name).matches();
   	}
   	
-  	
+ 	/**
+     * function on hyper link press event, opening a popup to userlareadyhasanaccountscreen.fxml 
+     * Opens when user pressed "user already has an account?"
+     * @param event Action event for event details */
     @FXML
     void openReg2(ActionEvent event) {
     	try {

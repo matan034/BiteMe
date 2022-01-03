@@ -13,6 +13,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is used to Approve accounts by BM manager 
+ * The controller loads all business account sto approve 
+ * if theres users to approve he adds them to an accordion 
+ * once a user has been approved he is removed from that accordion
+ * if there are no users to approve the message no business accounts to approve will be displayed
+ * @param user_accordion =accordion where we set titled panes to display accounts to approve
+ * @param msglbl = lbl to set if theres no users to approve
+ * @author      daniel aibinder
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
+
 public class ApproveAcountController {
 
     @FXML
@@ -21,6 +35,9 @@ public class ApproveAcountController {
     @FXML
     private Label msglbl;
     
+    /**
+     * this fucn initializes our our class by querying business accounts to approve from server which pulls from db
+     * for each user we receive we set a title pane to hold the account along with a button to approve the account*/
     public void initialize() {
     	StartClient.order.accept("Load_business_account~"+OrderClient.user.getID());
     	

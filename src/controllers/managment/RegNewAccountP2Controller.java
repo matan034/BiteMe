@@ -20,6 +20,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ *Class for the second part of user registration here the user entersr private account details or business account details, once user presses create the account is created
+ *data for account is taken from P1 Controller. user has an option between private account,business account or both.
+ *@param cc_lbl = text field for creditcard
+ *@param employer_name_lbl = employer name text field 
+ *@param back_btn = back button to return to P1 controller
+ *@param reg_btn = button to register the account
+ *@param res_lbl = result label to display messages to user
+ *@param cc_error_lbl = error label for creditcarad input errors
+ *@param employer_name_error_lbl = error label for employer name errors
+ *@param budget_lbl = text area for entering budget
+ *@param budget_error_lbl = error label for budget errors
+ *@param BusinessCheckBox = checkbox to select create a business account
+ *@param PrivateCheckBox = checkbox to create private account
+ *@param pattern = pattern to confirm an integer
+
+ * @author      daniel aibinder
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
+
+
 public class RegNewAccountP2Controller {
 
 	 @FXML
@@ -60,6 +83,13 @@ public class RegNewAccountP2Controller {
 	    
 	    private Pattern pattern = Pattern.compile("\\d+");
 	    
+	    
+	    /**
+	     * initialzes our controller, by setting text areas to be disabled unless the correct check box is ticked 
+	     * also sets listeners to verify input
+	     * checks if user already has an account in that case we update the account data
+	     * if user doesnt have an account we create a new account using our private or business entitys which we send to server using 
+	     * the entitys to string*/
 	    public void initialize() {
 	    	cc_lbl.setText("");
 	    	employer_name_lbl.setText("");
@@ -162,7 +192,8 @@ public class RegNewAccountP2Controller {
 	    	 
 	    	 
 	    }
-
+	    /**
+	     * disable and enable credit card text area when user clicks the private account checkbox */
 	    private void PrivateCheckOnChange() {
 	    	if(cc_lbl.isDisable()) {
 	    		cc_lbl.setDisable(false);
@@ -173,7 +204,8 @@ public class RegNewAccountP2Controller {
 	    	}
 	    		
 	    }
-	    
+	    /**
+	     * disable and enable employer name text area and budget according to when user clicks business account checkbox */
 	    private void BusinessCheckOnChange() {
 	    	if(employer_name_lbl.isDisable() && budget_lbl.isDisable()) {
 	    		employer_name_lbl.setDisable(false);
@@ -186,13 +218,20 @@ public class RegNewAccountP2Controller {
 	    		budget_lbl.setDisable(true);
 	    	}
 	    }
+	    
+	    /**
+	     * func to go back to P1 controller page on back button click
+	     * @param event ActionEvent for event details */
 	    @FXML
 	    void BackPage(ActionEvent event) {
 	    	Globals.loadInsideFXML(Globals.regnewaccountp1FXML);
 	    }
 	
 	
-	
+	    /**
+	     * function where we check which checkboxes the user has selcted and make an account with our entitys accordingly 
+	     * that account we create we send to another func that transfers the account to server to be added to database
+	     * @param event Actionevent for event details  */
 	   @FXML
 	    void RegisterAccount(ActionEvent event) {
 		   budget_error_lbl.setText("");
@@ -264,6 +303,10 @@ public class RegNewAccountP2Controller {
 	    	
 	    	
 	    }
+	   
+	   /**
+	     * func for checking if an employer name is valid we do so by checking in the server that the employer is registered and approved
+	     * @param employer_name name of employer that we check */
 	   private boolean CheckEmployer(String employer_name) {
 		   employer_name_error_lbl.setText("");
 		   StartClient.order.accept("Check_employer~"+employer_name);
@@ -278,12 +321,19 @@ public class RegNewAccountP2Controller {
 		   }
 		   return true;
 	   }
+	   
+	   /**
+	     * this func checks if a string is numeric
+	     * @param strNum string that we check */
 	   private boolean isNumeric(String strNum) {
 	  	    if (strNum == null) {
 	  	        return false; 
 	  	    }
 	  	    return pattern.matcher(strNum).matches();
 	  	}
+	   
+	   /**
+	     * function to check if budget has been inputted correctly using regex */
 	   private boolean checkBudget() {
 		   if(budget_lbl.getText().isEmpty()) {
 				budget_error_lbl.setText("Must input a budget");
@@ -299,6 +349,10 @@ public class RegNewAccountP2Controller {
 				return true;
 			}
 	   }
+	   
+	   /**
+	     * this function sends a private account to the server to be created or updated
+	     * @param pAccount PrivateAccount entity the account that we create or update  */
 	   private void createPaccount(PrivateAccount pAccount) {
 		   if(pAccount!=null) {
 	    		if(OrderClient.customer.getpAccount()==0)
@@ -306,12 +360,15 @@ public class RegNewAccountP2Controller {
 	    		else
 	    			StartClient.order.accept("Update_private_account~"+pAccount.getCreditCardNumber()+"~"+pAccount.getAccountNum());
 	    		Globals.AccountInfoArr=null;
-		    	/*PauseTransition pause = new PauseTransition(Duration.seconds(1));
-		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
-		    	pause.play();*/
+	
 		    	
 	    	}
 	   }
+	   
+	   
+	   /**
+	     * this function sends a business account to the server to be created or updated
+	     * @param bAccount businessAccount entity the account that we create or update */
 	   private void createBaccount(BusinessAccount bAccount) {
 		   if(bAccount!=null) {
 	    		if(OrderClient.customer.getbAccount()==0)
@@ -319,9 +376,7 @@ public class RegNewAccountP2Controller {
 	    		else
 	    			StartClient.order.accept("Update_business_account~"+bAccount.getEmployerName()+"~"+bAccount.getBudget()+"~"+bAccount.getAccountNum());
 	    		Globals.AccountInfoArr=null;
-	    		/*PauseTransition pause = new PauseTransition(Duration.seconds(1));
-		    	pause.setOnFinished(e -> green_v_img.setVisible(false));
-		    	pause.play();*/
+
 	    	}
 	   }
 }

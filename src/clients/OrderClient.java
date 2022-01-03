@@ -42,6 +42,7 @@ import ocsf.client.AbstractClient;
  * @author      dorin bahar 
  * @version     1.0                
  * @since       01.01.2022      
+ * 
  * @param awaitResponse part of OCSF we wait for server response
  * @param AccountInfo flag to check correct user info in user table
  * @param branch_menu maps a restaurant to its menu
@@ -51,11 +52,32 @@ import ocsf.client.AbstractClient;
  * @param OrderIsBranch = orders in a specific restaurant
  * @param IsOrderApproved = mapping of an order to it's is approved status IE order #5 = 1 (approved) 
  * @param String messagess such as update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish,dishId all used to set a label back to user after DB result whether it's success or error
+ * @param String messages such as system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg,orderAmount,insert_dishes_to_restaurant_msg used for setting of labels according to db result
  * @param w4cList = list of W4c cards 
  * @param ordersInBranch= array list of orders in a restaurant
  * @param found_order = a specific order we search for
  * @param usersToApprove = list of accounts that need to be approved
  * @param branch_customers= list of all customers in a branch
+ * @param w4c_card= details on a w4c card from current user
+ * @param supplier= used to get details on currenct supplier that is connected or is being accessed 
+ * @param customer= used to get details on the customer that is currently operating in the system 
+ * @param user = used to get details on the current user that is logged in 
+ * @param myorders= Observable list that we use to update logged in customers orders
+ * @param myRestaurants= observable list we use to update current restaurants displayed in places like combo boxes
+ * @param myEmployers= obeservable list we usee to update current employes displayed in places like combo boxes
+ * @param dishes_by_type_list a list of dishes orginized by it's type (main,second) and so on
+ * @param account= details on an account that's loaded such as first name and so on
+ * @param paccount= details on private account thats loaded(customer thats logged in with that private account) or a private we search for and update in functions like deleting
+ * @param baccount= details on business account thats loaded(customer thats logged in with that business account) or a business account we search for and update in functions like deleting
+ * @param branchId = current branch id number
+ * @param loaded_file = image thats currently being loaded
+ * @param componentsOfDishes= observable list that we update to display in table where we report number of dishes ordered by type
+ * @param totalIncomesOfRestaurant = observable list that we update to display in table where we report a restuarants income
+ * @param monthlyPerformance = observable list that we update to display in table where we report a restaurants monthly income 
+ * @param monthIntake = observable list that we update to display in table where a restaurants sees the amount of money it owes biteme for using it's systems
+ * @param allDishes = observable list of all dishes
+ * @param all_dishes = a mapping of all dishes to it's specific type for instance Main= hamburger,chicken , Side=fires,rice
+ * @param dishes_in_menu = a mapping of all dishes in a menu(we can have a dish not in a menu currently) to a specific type type for instance Main= hamburger,chicken , Side=fires,rice
  */
 public class OrderClient extends AbstractClient {
 
@@ -124,7 +146,7 @@ public class OrderClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		System.out.println("Msg: " + msg + " recieved");
 		awaitResponse = false;
-		if(msg instanceof MyFile)
+		if(msg instanceof MyFile) 
 		{
 			MyFile out=(MyFile)msg;
 			 loaded_file=out.getFile();

@@ -13,6 +13,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import utility.UserImportUtility;
 
+/**
+ * Controller for user login screen here we allow users to log in via username and password only after accounts have been imported by outside user import
+ * @param username_lbl = text area for username
+ * @param password_lbl = text area for password
+ * @param login_btn = button for logging in
+ * @param login_res_lbl = label for displaying login result to user incase of failure
+ **/
 public class UserLoginController {
 
     @FXML
@@ -36,6 +43,8 @@ public class UserLoginController {
     	importUsers.ImportUsers();
     }
     
+    /**
+     * func to initialize our text areas to allow ENTER presses to attempt to login*/
     public void initialize()
     {
     	username_lbl.setOnKeyPressed( event -> {
@@ -50,6 +59,11 @@ public class UserLoginController {
   		} );
     }
     
+    
+    /**
+     * Activates on button press we check for correct input by user if the username and password are correct we get the user information and log in the user showing him a home screen that fits that user type
+     * if input is incorrect we dispaly the correct error message 
+     * @param event Action event for event details*/
     @FXML
     void login_action(Event event) {
     	if(username_lbl.getText().trim().isEmpty())login_res_lbl.setText("Please Input User Name");
