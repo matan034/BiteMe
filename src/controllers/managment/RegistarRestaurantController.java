@@ -2,6 +2,7 @@ package managment;
 
 import clients.OrderClient;
 import clients.StartClient;
+import common.Globals;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,6 +60,7 @@ public class RegistarRestaurantController {
     	
     	String res=OrderClient.user.getHomeBranch()+"~"+restaurant_cmb.getSelectionModel().getSelectedItem()+"~"+address_lbl.getText()+"~"+city_lbl.getText()+"~"+type_cmb.getSelectionModel().getSelectedItem();
     	StartClient.order.accept("Approve_restaurant~"+res);
+    	Globals.loadInsideFXML(Globals.homeScreen);
     }
 
 }

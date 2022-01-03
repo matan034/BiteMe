@@ -127,7 +127,7 @@ public class DBOrderController {
 		  flag=stmt.executeUpdate("CREATE TEMPORARY TABLE biteme.CustomersInOrders\r\n"
 		  		+ "		  		SELECT DISTINCT *\r\n"
 		  		+ "		  		FROM(\r\n"
-		  		+ "		  		SELECT account.FirstName, account.LastName,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
+		  		+ "		  		SELECT account.FirstName, account.LastName,account.Telephone,account.Email,CustomerOrderJoin.SupplyWay, CustomerOrderJoin.RequestOrderTime,CustomerOrderJoin.OrderID\r\n"
 		  		+ "		  		FROM biteme.account\r\n"
 		  		+ "		  		INNER JOIN (SELECT biteme.order.SupplyWay, biteme.order.RequestOrderTime, customers.PrivateAccount,customers.BusinessAccount,biteme.order.OrderID\r\n"
 		  		+ "		  		FROM biteme.order\r\n"
@@ -135,7 +135,7 @@ public class DBOrderController {
 		  		+ "		  		ON biteme.order.CustomerNumber=customers.CustomerNumber)AS CustomerOrderJoin\r\n"
 		  		+ "		  		ON account.AccountNum=CustomerOrderJoin.PrivateAccount OR account.AccountNum=CustomerOrderJoin.businessaccount)AS y;");
 		  
-		  rs=stmt.executeQuery("SELECT DishesInOrders.DishName, CustomersInOrders.FirstName,CustomersInOrders.LastName,CustomersInOrders.SupplyWay,CustomersInOrders.RequestOrderTime,CustomersInOrders.OrderID\r\n"
+		  rs=stmt.executeQuery("SELECT DishesInOrders.DishName, CustomersInOrders.FirstName,CustomersInOrders.LastName,CustomersInOrders.SupplyWay,CustomersInOrders.RequestOrderTime,CustomersInOrders.OrderID,CustomersInOrders.Email,CustomersInOrders.Telephone\r\n"
 		  		+ "FROM biteme.DishesInOrders\r\n"
 		  		+ "INNER JOIN biteme.CustomersInOrders\r\n"
 		  		+ "ON CustomersInOrders.OrderID=DishesInOrders.OrderNumber;\r\n"
@@ -144,7 +144,7 @@ public class DBOrderController {
 		  while(rs.next())
 		  {
 			  
-			  String new_order=rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6);
+			  String new_order=rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+rs.getString(5)+"~"+rs.getString(6)+"~"+rs.getString(7)+"~"+rs.getString(8);
 			  orders.add(new_order);
 		  }
 		  flag=stmt.executeUpdate("DROP TABLE biteme.CustomersInOrders;");

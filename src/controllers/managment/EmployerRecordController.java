@@ -6,8 +6,10 @@ import general.MyListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 
 public class EmployerRecordController {
@@ -30,7 +32,7 @@ public class EmployerRecordController {
     	address_lbl.setText(emp.getAddress());
     	telephone_lbl.setText(emp.getPhone());
     }
-    public void setApproval()
+    public void setApproval(Accordion waiting_for_approval_accordion,Accordion approved_accordion,TitledPane pane )
     {
     	Button approve = new Button("Approve");
     	Label approved = new Label("Approved");
@@ -40,6 +42,8 @@ public class EmployerRecordController {
 		    	approveEmployer.onClickListener(emp);
 		    	employer_details_hbox.getChildren().remove(approve);
 		    	employer_details_hbox.getChildren().add(approved);	
+		    	waiting_for_approval_accordion.getPanes().remove(pane);
+    			approved_accordion.getPanes().add(pane);
 		    }});
     	
     	employer_details_hbox.getChildren().add(approve);	

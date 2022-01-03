@@ -170,6 +170,7 @@ public class OrderClient extends AbstractClient {
 	
 				
 				if (((String) arr[0]).equals("Order")){
+					OrdersInBranch.clear();
 					for(int i=1;i<arr.length;i++) {
 						String [] res = ((String)arr[i]).split("~");
 						if(OrdersInBranch.containsKey(Integer.parseInt(res[5]))) {
@@ -182,6 +183,8 @@ public class OrderClient extends AbstractClient {
 							 new_order.setOrder_type(res[3]);
 							 new_order.setOrder_time(res[4]);
 							 new_order.setOrder_num(Integer.parseInt(res[5]));
+							 new_order.setPhone(res[7]);
+							 new_order.setMail(res[6]);
 							 OrdersInBranch.put(Integer.parseInt(res[5]), new_order);
 						}
 					}
@@ -198,6 +201,7 @@ public class OrderClient extends AbstractClient {
 					}
 				}
 				if(((String) arr[0]).equals("LoadRestaurants")){
+					myRestaurants.clear();
 					for(int i=1;i<arr.length;i++) {
 						myRestaurants.add((String) arr[i]);
 					}
@@ -351,6 +355,12 @@ public class OrderClient extends AbstractClient {
 					AccountInfo=false;
 				break;
 			case "insert_dishes_to_restaurant_msg":insert_dishes_to_restaurant_msg=res[1];break;
+			case "get my supplier":
+				
+					if(res[1].equals("-1")) {}
+					else supplier=new Supplier(Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]),res[4],
+					res[5], res[6],res[7], res[8]);
+					break;
 			}
 
 		}

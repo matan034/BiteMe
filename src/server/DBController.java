@@ -119,6 +119,8 @@ public class DBController extends AbstractServer {
 				case "Get_connection": getClientInfo(client); break;
 
 				//cases for DB user control
+				case "Get_my_supplier": dbUser.getMySupplier(res,client,myCon,this); break;
+				case "Create_certifies_employee": dbUser.createCertifiedEmployee(res,client,myCon,this); break;
 				case "Load_branch_customers": dbUser.loadBranchCustomers(res,client,myCon,this); break;
 				case "Load_users": dbUser.loadUsers(res,client,myCon,this); break;
 				case "User_login":dbUser.userLogin(res,client,myCon,this);break;
@@ -147,6 +149,7 @@ public class DBController extends AbstractServer {
 				case "Update_business_account":dbUser.UpdateBusinessAccount(res, client, myCon, this);break;
 				case "Delete_account":dbUser.deleteAccount(res, client, myCon, this);break;
 				case "Logout" :dbUser.logout(res, client, myCon, this);break;
+				case "Get_Contact_info": dbUser.getContactForDelivery(res, client, myCon, this);break;
 				
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;

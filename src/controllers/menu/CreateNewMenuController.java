@@ -119,8 +119,8 @@ public class CreateNewMenuController {
 	    private Label remove_lbl;
 
 
-
-	int restaurentNumber=OrderClient.supplier.getSupplierNum(); 
+	    int restaurentNumber;
+	
     byte[]Imagebytearray=null;
     String dishType;
     Dish currentDish;
@@ -135,6 +135,13 @@ public class CreateNewMenuController {
     ArrayList<DishInRestaurant> toDelete=new ArrayList<DishInRestaurant>();
     private MyListener getAddedDish;
     public void initialize() {
+    	
+    	setListViewFieldsVisibility(false);
+    	setDishFieldsVisibility(false);
+    	if(OrderClient.supplier==null) error_lbl.setText("Your Restaurant Is Not Approved Yet");
+    	else {
+    	restaurentNumber=OrderClient.supplier.getSupplierNum(); 
+    	
     	ChooseMenuTypeComboBox.setItems(Globals.dishesTypes1);
     	setToolTips();
     	dishesToAdd.setPlaceholder(new Label("No Dishes At This Category"));
@@ -142,8 +149,7 @@ public class CreateNewMenuController {
     	selected_image.setStyle(" -fx-border-color: black;\r\n"
     			+ "    -fx-border-style: solid;\r\n"
     			+ "    -fx-border-width: 5;");
-    	setListViewFieldsVisibility(false);
-    	setDishFieldsVisibility(false);
+    	
     	getAddedDish=new MyListener() {
 			
 			@Override
@@ -168,6 +174,7 @@ public class CreateNewMenuController {
     	dishes_to_add.put("Main",OrderClient.dishes_in_menu.get("Main"));
     	dishes_to_add.put("Dessert",OrderClient.dishes_in_menu.get("Dessert"));
     	dishes_to_add.put("Drink",OrderClient.dishes_in_menu.get("Drink"));
+    	}
     }
 
     @FXML
@@ -332,7 +339,8 @@ public class CreateNewMenuController {
 	    	{
 	    		dishName=currentDishToAdd.getName();
 	    		dishId=currentDishToAdd.getDishID();
-	    		currentDishToAdd.setMyImegebytearray(Imagebytearray);
+	    		if(Imagebytearray!=null)
+	    			currentDishToAdd.setMyImegebytearray(Imagebytearray);
 	    		DIR=new DishInRestaurant(dishId,dishName,dishType,price,chooseSize,chooseCookingLvl,
 	    				chooseExtras,imageName,currentDishToAdd.getMyImagebytearray(),1,restaurentNumber);
 	    		Dishes_in_menu.remove(currentDishToAdd);

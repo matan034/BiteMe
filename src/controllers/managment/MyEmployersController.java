@@ -34,7 +34,7 @@ public class MyEmployersController {
 
     public void initialize()
     {
-    	int branchnumber=1;
+    	int branchnumber=OrderClient.user.getHomeBranch();
     	String str="Load_myEmployers~"+branchnumber;
     	StartClient.order.accept(str);
     	approveEmployer=new MyListener() {
@@ -45,6 +45,7 @@ public class MyEmployersController {
 				emp.setIs_approved(1);
 				String emp_approved="Employer_approved~"+"1~"+emp.getEmployerNum();
 				StartClient.order.accept(emp_approved);
+				
 				
 			}
 		};
@@ -64,8 +65,9 @@ public class MyEmployersController {
 	    		}
 	    		else
 	    		{
-	    			employerRecordController.setApproval();
+	    			employerRecordController.setApproval(waiting_for_approval_accordion,approved_accordion,pane);
 	    			waiting_for_approval_accordion.getPanes().add(pane);
+	    			
 	    		}
     		}catch (Exception e) {
 				// TODO: handle exception

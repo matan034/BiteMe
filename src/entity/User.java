@@ -8,7 +8,7 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status,StringHomeBranch;
+	private String ID,FirstName,LastName,Email,Phone,Type,UserName,Password,FullName,Status,StringHomeBranch,supplier;
 	private int IsLoggedIn=0,homeBranch;
 	public User(String iD, String firstName, String lastName, String email, String phone, String type, String userName,
 			String password,String status) {
@@ -39,7 +39,30 @@ public class User implements Serializable {
 		this.Password=password;
 		
 	}
+	public User(String id,String firstName, String lastName,String mail, String phone,String type,String userName,
+			String password,int IsLoggedIn,String status,int homeBranch,String HomeBranch,String supplier) {
+		this.ID=id;
+		this.FirstName = firstName;
+		this.LastName = lastName;
+		this.Email=mail;
+		this.Phone=phone;
+		this.Type = type;
+		this.IsLoggedIn=IsLoggedIn;
+		this.Status=status;
+		this.homeBranch=homeBranch;
+		this.StringHomeBranch=HomeBranch;
+		this.UserName=userName;
+		this.Password=password;
+		this.supplier=supplier;
+		
+	}
 	
+	public String getSupplier() {
+		return supplier;
+	}
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
 	public String getStringHomeBranch() {
 		return StringHomeBranch;
 	}

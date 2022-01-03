@@ -61,8 +61,8 @@
                         <Image url="@../img/RegisterEmployeeImage.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="name_error_lbl" layoutX="592.0" layoutY="175.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
-                  <Label fx:id="number_error_lbl" layoutX="592.0" layoutY="323.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
+                  <Label fx:id="name_error_lbl" layoutX="608.0" layoutY="175.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
+                  <Label fx:id="number_error_lbl" layoutX="608.0" layoutY="332.0" prefHeight="17.0" prefWidth="255.0" styleClass="lbl" stylesheets="@../general/GeneralStyleSheet.css" textFill="RED" />
                </children>
             </AnchorPane>
          </children>

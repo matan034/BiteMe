@@ -14,7 +14,7 @@ public class Order implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time,dish_name;
+	private String order_type,delivery_method,phone,recieving_name,buisness_name,street,city,zip,order_time,dish_name,mail;
 
 	
 	private W4C w4c;
@@ -68,6 +68,12 @@ public class Order implements Serializable{
 	
 	
 
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 	public String getSupplierName() {
 		return supplierName;
 	}

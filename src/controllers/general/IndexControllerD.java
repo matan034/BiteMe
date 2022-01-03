@@ -218,7 +218,7 @@ public class IndexControllerD {
             break;      
            
        case "HR":
-    	
+    	 
     	   comboBoxBranch.setVisible(false);
     	   
            Button HROption1= new Button ("Register Employer");
@@ -258,7 +258,7 @@ public class IndexControllerD {
                 break;
 
        case "Certified Employee":
-    	   
+    	   StartClient.order.accept("Get_my_supplier~"+OrderClient.user.getID());
     	   comboBoxBranch.setVisible(false);
             
            Button CEOption1= new Button ("Edit Menu");

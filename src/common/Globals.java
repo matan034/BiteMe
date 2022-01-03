@@ -96,7 +96,8 @@ public class Globals {
 	        homePageCustomer="/general/homePageCustomer.fxml",
 	        homePageCeo="/general/homePageCeo.fxml",
 	        homePageBaseUser="/general/homePageBaseUser.fxml",
-	        homePageSupplier="/general/homePageSupplier.fxml";
+	        homePageSupplier="/general/homePageSupplier.fxml",
+	        smsSimulationFXML="/branch_manager/SMSSimulationScreen.fxml";
 	
 	
 

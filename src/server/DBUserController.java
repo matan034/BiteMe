@@ -699,19 +699,21 @@ public class DBUserController {
 				  stmt = myCon.createStatement();
 				  ResultSet rs;
 				  ArrayList<String> restaurants=new ArrayList<>();
-				  rs=stmt.executeQuery(String.format("SELECT FirstName FROM biteme.users WHERE LastName='Company' AND HomeBranch='%d'",Integer.parseInt(res[1])));
+				  rs=stmt.executeQuery(String.format("SELECT FirstName FROM biteme.users WHERE LastName='Company' AND HomeBranch='%d' AND Type='Base User' ",Integer.parseInt(res[1])));
 				  try {
 					  restaurants.add("LoadRestaurants");
+					  	if(!rs.isBeforeFirst()) {
+					  		System.out.println("No resturants found"); 
+					  		db.sendToClient("No Restaurants", client);
+					  	}
 					  while(rs.next())
 						{
 							System.out.println("Restaurant found"); 
 							restaurants.add(rs.getString(1));
-							db.sendToClient(restaurants,client);
+							
 						} 
-					  if(!rs.next()) {
-						  System.out.println("No resturants found"); 
-						  db.sendToClient("No Restaurants", client);
-					  }
+					
+					  db.sendToClient(restaurants,client);
 						rs.close();
 						stmt.close();
 						
@@ -886,7 +888,74 @@ public class DBUserController {
 				  		}
 					}
 					
+					//res[1]=order number res[2]=is delivery
+					protected void getContactForDelivery(String[] res, ConnectionToClient client,Connection myCon,DBController db) throws SQLException {
+						 Statement stmt;
+						 ResultSet rs;
+						 stmt = myCon.createStatement();
+				  		  try {
+				  			  if(res[2].equals("Take-away"))
+				  			  {
+				  				rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
+				  			  }
+				  			  if(res[2].equals("Delivery"))
+				  			  {
+				  				rs = stmt.executeQuery(String.format("SELECT EmployerNum FROM biteme.employer WHERE Name='%s'",res[1]));
+				  			  }
+				  		 
+				  		
+				  		  System.out.println("account deleted");
+				  		  db.sendToClient("account deleted~",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			 db.sendToClient("account deleted~fail",client);
+				  		}
+					}
+					//res[1]=id res[2]=supplier id
+					public void createCertifiedEmployee(String[] res, ConnectionToClient client, Connection myCon,
+							DBController db) {
+						Statement stmt;
+						int flag;					
+				  		  try {
+				  			 stmt = myCon.createStatement();
+				  			 flag = stmt.executeUpdate(
+									String.format("INSERT INTO biteme.certifiedemployee (EmployeeID, SupplierID) VALUES ('%s','%s');",res[1], res[2]));
+				  			 
+				  			 db.sendToClient("Certifies employee registered",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			 db.sendToClient("Certifies employee registered~failed",client);
+				  		}
+						
+					}
 					
+					//res[1]=user id
+					public void getMySupplier(String[] res, ConnectionToClient client, Connection myCon,
+							DBController db) {
+						Statement stmt;
+						 ResultSet rs;
+						
+				  		  try { 
+				  			  stmt = myCon.createStatement();
+				  			rs = stmt.executeQuery(String.format("SELECT * FROM biteme.restaurant Where Manager=(SELECT SupplierID FROM biteme.certifiedemployee Where EmployeeID='%s');"
+				  					,res[1]));
+				  			if(rs.next())
+				  			{
+				  				String supplier=rs.getString(1)+"~"+rs.getString(2)+"~"+rs.getString(3)+"~"+rs.getString(4)+"~"+
+				  			rs.getString(5)+"~"+rs.getString(6)+"~"+rs.getString(7)+"~"+rs.getString(8);
+				  				 db.sendToClient("get my supplier~"+supplier,client);
+				  			}
+				  			else
+				  				db.sendToClient("get my supplier~-1",client);
+				  			stmt.close();
+				  		  }
+				  		  catch (Exception e) {
+				  			 db.sendToClient("get my supplier~fail",client);
+				  		}
+						
+					}
 					
 					
 					
