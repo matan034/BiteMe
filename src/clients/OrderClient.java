@@ -36,6 +36,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ocsf.client.AbstractClient;
 
+/**
+ * This class is used to receive back data and messages from server, we save that dat in static params for controllers to later on access 
+ * Used by all controllers
+ * @author      dorin bahar 
+ * @version     1.0                
+ * @since       01.01.2022      
+ * @param awaitResponse part of OCSF we wait for server response
+ * @param AccountInfo flag to check correct user info in user table
+ * @param branch_menu maps a restaurant to its menu
+ * @param all_users array list of all users in DB
+ * @param account_reg_errors= map of what error happened while creating an account for instance an error in ID field or telephone field
+ * @param employer_reg_erros= map of errors that happened while creating an employer for instance name
+ * @param OrderIsBranch = orders in a specific restaurant
+ * @param IsOrderApproved = mapping of an order to it's is approved status IE order #5 = 1 (approved) 
+ * @param String messagess such as update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish,dishId all used to set a label back to user after DB result whether it's success or error
+ * @param w4cList = list of W4c cards 
+ * @param ordersInBranch= array list of orders in a restaurant
+ * @param found_order = a specific order we search for
+ * @param usersToApprove = list of accounts that need to be approved
+ * @param branch_customers= list of all customers in a branch
+ */
 public class OrderClient extends AbstractClient {
 
 	public static boolean awaitResponse = false;

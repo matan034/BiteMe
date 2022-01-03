@@ -13,7 +13,20 @@ import entity.clientData;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
+/**
+ * This class is used to route all server DB calls into their specific controller, it splits the msg into key word and uses cases to call upon the corresponding function
+ * @param myCon connection to DB
+ * @param dbUser class instance of dbUser which holds db calls specific for users
+ * @param dbOrder class instance of dbUser which holds db calls specific for orders
+ * @param dbReport class instance of dbUser which holds db calls specific for reports
+ * @param dbMenu class instance of dbUser which holds db calls specific for menu
+ * @author      Dorin bahar
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
+
 public class DBController extends AbstractServer {
+	
 	private static Connection myCon;
 	// private static BiteMeServer single_instance = null;
 
@@ -26,6 +39,16 @@ public class DBController extends AbstractServer {
 		super(port);
 	}
 
+	
+	/*
+	   * This method connects us to DB 
+	   * @param ip=ip to connect to
+	   * @param port =port to connect 
+	   * @param db_name =data base nameto connect to
+	   * @param db_user = user to connect
+	   * @param db_password = password to connect 
+	   * 
+	   */
 	public static String connectToDB(String ip, String port, String db_name, String db_user, String db_password) {
 
 		try {
@@ -58,6 +81,8 @@ public class DBController extends AbstractServer {
 	/**
 
 	   * This method handles any messages received from the client.
+	   * It splits the msg into res and check res[0] to route to correct function
+	   * we also check msg to be an instance of an entity to route to a a specific function
 	   *
 	   * @param msg The message received from the client.
 	   * @param client The connection from which the message originated.
@@ -130,7 +155,7 @@ public class DBController extends AbstractServer {
 				case "Check_user":dbUser.checkUser(res, client, myCon, this);break;
 				case "Check_account_input":dbUser.checkAccountInput(res,client,myCon,this);break;
 				case "Check_employer":dbUser.checkEmployer(res,client,myCon,this);break;
-				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;
+				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;	
 				case "Update_customer":dbUser.updateCustomer(res,client,myCon,this);break;
 				case "Import_users":dbUser.importUsers(res,client,myCon,this);break;
 				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;
@@ -188,6 +213,7 @@ public class DBController extends AbstractServer {
 
 		}
 
+	
 	  protected void serverStopped()  {
 		
 	    System.out.println ("Server has stopped listening for connections.");
@@ -217,7 +243,10 @@ public class DBController extends AbstractServer {
 	
 	  
 
-
+	  /**
+		 * Func for getting clients info such as host name , ip and so on
+		 * 
+		 */
 	protected void getClientInfo(ConnectionToClient client) {
 		Thread[] clientThreadList = getClientConnections();
 		String connectionflag;

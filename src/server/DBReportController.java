@@ -21,6 +21,14 @@ import entity.IntakeOrder;
 import entity.MyFile;
 import ocsf.server.ConnectionToClient;
 
+/**
+ * This class is used for all functions relating to reports, creating a report, loading an existing report, sending a pdf on so on
+ * Used in src/gui/report  with the controllers in src/controllers/report 
+ * @author      Yeela Malka 
+ * @version     1.0                 
+ * @since       01.01.2022         
+ */
+
 public class DBReportController {
 	
 	
@@ -30,7 +38,11 @@ public class DBReportController {
  	/*
    * This method loads data on a restaurants amount of items ordered in a specific restaurant in a specific branch,month,year
    *
-   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=Load_components res[1]=branchID,res[2]=month,res[3]=year
+   * @param res  res[0] used to start function, rest of res for details we need for queries 
+   * @param res[0]=Load_components
+   * @param res[1]=branchID
+   * @param res[2]=month
+   * @param res[3]=year
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -66,7 +78,11 @@ public class DBReportController {
 	
 	/*
 	   *
-	   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=Load_components res[1]=branchID,res[2]=month,res[3]=year
+	   * @param res  res[0] used to start function, rest of res for details we need for queries
+	   * @param res[0]=Load_components 
+	   * @param res[1]=branchID 
+	   * @param res[2]=month 
+	   * @param res[3]=year
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -114,7 +130,14 @@ public class DBReportController {
  	/*
    * This method updates data for report, each time a dish is ordered we update the counters we later pull to display for amount ordered by type
    *
-   * @param res res[0] used to start function, rest of res for details we need for queries res[0]=Insert_quantity,res[1]=ordertype,res[2]=amount starters ordered,res[3]=amount main ordered,res[4]=amount salad ordered,res[5]=amount desert ordered,res[6]=amount drinks ordered
+   * @param res res[0] used to start function, rest of res for details we need for queries 
+   * @param res[0]=Insert_quantity
+   * @param res[1]=ordertype
+   * @param res[2]=amount starters ordered,
+   * @param res[3]=amount main ordered,
+   * @param res[4]=amount salad ordered,
+   * @param res[5]=amount desert ordered,
+   * @param res[6]=amount drinks ordered
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -143,7 +166,12 @@ public class DBReportController {
  	/*
    * This method loads monthly perforamance or income report for a specific restaurant in a specific branch,month and year
    *
-   * @param res  res[0] used to start function, rest of res for details we need for queries,res[0]=Load_monthly_performance,res[1]=string to choose if we want performance or income report,res[2]=branchNum,res[3]=month,res[4]=year
+   * @param res  res[0] used to start function, rest of res for details we need for queries,
+   * @param res[0]=Load_monthly_performance,
+   * @param res[1]=string to choose if we want performance or income report,
+   * @param res[2]=branchNum,
+   * @param res[3]=month,
+   * @param res[4]=year
    * @param client The connection from which the message originated.
    * @param myCon the connection to mySql DB
    * @param db the main database controller used in order to send message back to client
@@ -188,7 +216,10 @@ public class DBReportController {
 	/*
 	   * This method updates restaurant data for income, amount of orders
 	   *
-	   * @param res  res[0] used to start function, rest of res for details we need for queries res[0]=updateRestaurantData res[1]=income,res[2]=restaurantnum
+	   * @param res  res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]=updateRestaurantData 
+	   * @param res[1]=income,@param 
+	   * res[2]=restaurantnum
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -217,7 +248,9 @@ public class DBReportController {
 	/*
 	   * This method is used to update amount of late orders delivered
 	   *
-	   * @param res[0] used to start function, rest of res for details we need for queries res[0]=Update Supplier Late Cnt res[1]=restaurantnum   
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]=Update Supplier Late Cnt 
+	   * @param res[1]=restaurantnum   
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -240,7 +273,12 @@ public class DBReportController {
 	/*
 	   * This method is used to get quarterly data for reports
 	   *
-	   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Load_quarter_data res[1]=quarter start, res[2]=quarter end ,res[3]=year,res[4]=restaurantNum   
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0]= Load_quarter_data 
+	   * @param res[1]=quarter start, 
+	   * @param res[2]=quarter end ,
+	   * @param res[3]=year,
+	   * @param res[4]=restaurantNum   
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -308,7 +346,11 @@ public class DBReportController {
 		/*
 		   * This method is used to get our report pdf and display it to CEO
 		   *
-		   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Open_pdf res[1]=quarter, res[2]=year ,res[3]=branchID 
+		   * @param res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]= Open_pdf
+		   * @param res[1]=quarter, 
+		   * @param res[2]=year ,
+		   * @param res[3]=branchID 
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
@@ -356,7 +398,11 @@ public class DBReportController {
 		/*
 		   * This method is used to get how much a supplier made during a specific month and year 
 		   *
-		   * @param res[0] used to start function, rest of res for details we need for queries res[0]= Load_myIntake res[1]=restaurantnum, res[2]= year from user ,res[3]=month from user
+		   * @param res[0] used to start function, rest of res for details we need for queries 
+		   * @param res[0]= Load_myIntake 
+		   * @param res[1]=restaurantnum,
+		   * @param res[2]= year from user ,
+		   * @param res[3]=month from user
 		   * @param client The connection from which the message originated.
 		   * @param myCon the connection to mySql DB
 		   * @param db the main database controller used in order to send message back to client
