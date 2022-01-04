@@ -18,17 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * this class is used to display a table where we can change a users status from active to frozen to deleted and so on 
- * @param table main table that holds data
- * @param name_col in table for names
- * @param id_col in table for ids
- * @param pAccount_col col for displaying private account number
- * @param bAccount_col col for displaying private account number 
- * @param status_col col for displaying accounts status(frozen,active)
- * @param status_cmb combo box for selecting status we want to change to
- * @param selected_lbl shows which user is selcted in the table
- * @param update_btn button user pressed to update the account
- * @param back_btn back button to return to previous screen
- * @param branch_customer observable list of customers the table usees to update correctly
+
  * @author      daniel aibinder
  * @version     1.0               
  * @since       01.01.2022        
@@ -37,37 +27,39 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ChangeUserStatusController {
 
+	/**table main table that holds data*/
     @FXML
     private TableView<Customer> table;
     
-
+    /**name_col in table for names*/
     @FXML
     private TableColumn<Customer, String> name_col;
-
+    /**id_col in table for ids*/
     @FXML
     private TableColumn<Customer, String> id_col;
-
+    /**pAccount_col col for displaying private account number*/
     @FXML
     private TableColumn<Customer, String> pAccount_col;
+    /**bAccount_col col for displaying private account number */
     @FXML
     private TableColumn<Customer, String> bAccount_col;
-
+    /**status_col col for displaying accounts status(frozen,active)*/
     @FXML
     private TableColumn<Customer, String> status_col;
 
-    
+    /**status_cmb combo box for selecting status we want to change to*/
     @FXML
     private ComboBox<String> status_cmb= new ComboBox<String>();;
-
+    /**selected_lbl shows which user is selcted in the table*/
     @FXML
     private Label selected_lbl;
-
+    /**update_btn button user pressed to update the account*/
     @FXML
     private Button update_btn;
-
+    /**back_btn back button to return to previous screen*/
     @FXML
     private Button back_btn;
-    
+    /**branch_customer observable list of customers the table usees to update correctly*/
     private ObservableList<Customer> branch_customer;
     
     /**

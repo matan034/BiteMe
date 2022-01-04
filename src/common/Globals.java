@@ -40,27 +40,7 @@ import javafx.stage.WindowEvent;
 import server.ServerStart;
 
 /**
- * This class save Global data needs to be used in all the project
-
- * @param IndexControllerD save the index controller
- * @param companyCommission company commission
- * @param currency Company Currency (currently NIS)
- * @param types1 list of dish types
- * @param dishType save dishType
- * @param dishesTypes1 observable list for dishes types
- * @param supply_options observable list for supply options
- * @param years observable list for years
- * @param delivery_options observable list for delivery options
- * @param AccountInfoArr used for saving registration fields in register Account
- * @param branches observable list for branches
- * @param suppliers observable list for loaded suppliers
- * @param order_dishes observable list for an order dishes
- * @param selected_dish selected Dish
- * @param newOrder  an order instance created and used while insert new order
- * @param delivery_fee map for delivery fees
- * @param titles map for fxml titles
- * @param host_service used for displaying PDF report
- 
+ * This class save Global data needs to be used in all the project 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -68,11 +48,13 @@ import server.ServerStart;
  */
 public class Globals {
 	
-	
+	/**save the index controller*/
 	public static IndexControllerD index_controller;
+	/** company commission*/
 	public static double companyCommission=0.12;
+	/**Company Currency (currently NIS)*/
 	public static String currency="₪";
-	/*
+	/**
 	 * all FXML of the project
 	 */
 	public static String insertFXML="/order/InsertScreen.fxml",
@@ -131,28 +113,40 @@ public class Globals {
 	
 	
 
-	
+	/**list of dish types*/
 	private static String[] types1={"Salad","Appetizer","Main","Dessert","Drink"};
+	/**save dishType*/
 	public static String dishType;
-
+	/**observable list for dishes types*/
 	public static ObservableList<String> dishesTypes1=FXCollections.observableArrayList(types1);
+	/**delivery types string*/
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
+	/*observable list for supply options**/
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
+	 /**observable list for years*/
 	 public static ObservableList<String> years=FXCollections.observableArrayList("2018","2019","2020","2021","2022");
+	 /**observable list for delivery options*/
 	 public static ObservableList<String> delivery_options=FXCollections.observableArrayList(regularDelivery,sharedDelivery,robotDelivery);
+	 /**used for saving registration fields in register Account*/
 	 public static String AccountInfoArr[];
-	 
+	 /** observable list for branches*/
 	 public static ObservableList<Branch> branches;
+	 /**observable list for loaded suppliers*/
 	 public static ObservableList<Supplier> suppliers;
+	 /**observable list for an order dishes*/
 	 public static ArrayList<DishInOrder> order_dishes;
+	 /**selected Dish*/
 	 public static Dish selected_dish;
+	 /**an order instance created and used while insert new order*/
 	 public static Order newOrder;
-
+	 /**int values for delivery types*/
 	 public static int regular_delivery_fee=25,robot_delivery_fee=0;
+	 /**map for delivery fees*/
 	 public static Map<String,Integer> delivery_fee=new HashMap<String,Integer>() {{
 		 put(regularDelivery,regular_delivery_fee);
 		 put(robotDelivery,robot_delivery_fee);
 	 }};
+	 /**map for fxml titles*/
 	 public static Map<String,String> titles=new HashMap<String,String>() {{
 		 put(W4CLoginFXML,"W4C Login");
 		 put(ChooseSupplierFXML,"Restaurant");
@@ -180,7 +174,7 @@ public class Globals {
 		 put(create_reportsFXML,"Create report");
 		 put(regRestaurant,"Approve Suppliers");
 	 }};
-	 
+	 /**used for displaying PDF report*/
 	 public static HostServices host_service;
 	 
 	 

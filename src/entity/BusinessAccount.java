@@ -3,10 +3,7 @@ package entity;
 
 
 /**Entity for a business account inherits account details from account
- * @param EmployerName= business accounts employer the account is registered to
- * @param budget= the accounts budget
- * @param isApproved= flag to check if the business account is approved
- * @param employerNum= employers num according to DB
+
  * @author      Daniel Aibinder
  * @version     1.0                 
  * @since       01.01.2022  */

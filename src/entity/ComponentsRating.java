@@ -2,12 +2,7 @@ package entity;
 
 
 /**Entity for components rating here we save counters for how many each of each component was ordered
- * @param restaurant = restuarant name
- * @param starts = amount of starters ordered
- *  @param drinks = amount of drinks ordered
- *   @param desserts = amount of desserts ordered
- *    @param salads = amount of salads ordered
- *     @param mains = amount of mains ordered
+
   * @author      Yeela malka
  * @version     1.0                 
  * @since       01.01.2022  */

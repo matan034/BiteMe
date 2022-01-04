@@ -27,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 /**
  * This class is used to order information inputs for the user
  * if the selected order is for delivery screen will require extra delivery fields
@@ -297,6 +298,8 @@ public class OrderInformationController {
     	         }
     	     } 
     	});
+    	
+    
     }
     
     

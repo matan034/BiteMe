@@ -66,7 +66,7 @@ public class DishController {
     	 image = new Image(getClass().getResourceAsStream("/dishPics/"+d.getImageName()));
     	 this.img.setImage(image);    
     	} catch (Exception e) {
-			// TODO: handle exception
+    		System.out.println(e);
 		}
 		
 		       

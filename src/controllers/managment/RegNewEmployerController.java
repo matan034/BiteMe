@@ -13,15 +13,7 @@ import javafx.scene.control.TextField;
 
 /**
  *Class for registering a new employer in this class BM inputs an employer to register and approves that employer 
- *@param name_lbl = employer name text area
- *@param address_lbl = employer address text area
- *@param number_lbl = employer phone number text area
- *@param res_lbl = label to display messages to user
- *@param name_error_lbl = error label for name input
- *@param number_error_lbl = error label for phone input
- *@param employer = new employer that we create and send to server
- *@param namePattern = regex pattern to verify a valid name
- *@param phonePattern = regex pattern to verify a valid phone number
+
  * @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022        
@@ -30,27 +22,29 @@ import javafx.scene.control.TextField;
 
 public class RegNewEmployerController {
 
+	/** employer name text area*/
     @FXML
     private TextField name_lbl;
-
+    /**employer address text area*/
     @FXML
     private TextField address_lbl;
-
+    /**employer phone number text area*/
     @FXML
     private TextField number_lbl;
-    
+    /**label to display messages to user*/
     @FXML
     private Label res_lbl;
-    
+    /**error label for name input*/
     @FXML
     private Label name_error_lbl;
-
+    /** error label for phone input*/
     @FXML
     private Label number_error_lbl;
-    
+    /**new employer that we create and send to server*/
     public static Employer employer;
-
+    /**regex pattern to verify a valid name*/
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+    /**regex pattern to verify a valid phone number*/
     private Pattern phonePattern = Pattern.compile("\\d+");
     
     /**

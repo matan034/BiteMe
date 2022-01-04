@@ -23,18 +23,6 @@ import javafx.util.Duration;
 /**
  *Class for the second part of user registration here the user entersr private account details or business account details, once user presses create the account is created
  *data for account is taken from P1 Controller. user has an option between private account,business account or both.
- *@param cc_lbl = text field for creditcard
- *@param employer_name_lbl = employer name text field 
- *@param back_btn = back button to return to P1 controller
- *@param reg_btn = button to register the account
- *@param res_lbl = result label to display messages to user
- *@param cc_error_lbl = error label for creditcarad input errors
- *@param employer_name_error_lbl = error label for employer name errors
- *@param budget_lbl = text area for entering budget
- *@param budget_error_lbl = error label for budget errors
- *@param BusinessCheckBox = checkbox to select create a business account
- *@param PrivateCheckBox = checkbox to create private account
- *@param pattern = pattern to confirm an integer
 
  * @author      daniel aibinder
  * @version     1.0               
@@ -45,42 +33,43 @@ import javafx.util.Duration;
 
 public class RegNewAccountP2Controller {
 
+	/**text field for creditcard*/
 	 @FXML
 	    private TextField cc_lbl;
-
+	 /** employer name text field */
 	    @FXML
 	    private TextField employer_name_lbl;
-
+	    /**back button to return to P1 controller*/
 	    @FXML
 	    private Button back_btn;
-
+	    /**button to register the account*/
 	    @FXML
 	    private Button reg_btn;
-	    
+	    /**result label to display messages to user*/
 	    @FXML
 	    private Label res_lbl;
-	    
+	    /**error label for creditcarad input errors*/
 	    @FXML
 	    private Label cc_error_lbl;
-
+	    /**error label for employer name errors*/
 	    @FXML
 	    private Label employer_name_error_lbl;
-	    
+	    /**text area for entering budget*/
 	    @FXML
 	    private TextField budget_lbl;
-	    
+	    /**error label for budget errors*/
 	    @FXML
 	    private Label budget_error_lbl;
-	    
+	    /**checkbox to select create a business account*/
 	    @FXML
 	    private CheckBox BusinessCheckBox;
-
+	    /**checkbox to create private account*/
 	    @FXML
 	    private CheckBox PrivateCheckBox;
-	    
+	    /**pattern to confirm an integer*/
 	    @FXML
 	    private ImageView green_v_img;
-	    
+	    /**patern for validate string as integer*/
 	    private Pattern pattern = Pattern.compile("\\d+");
 	    
 	    

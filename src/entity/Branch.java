@@ -5,8 +5,7 @@ import java.io.Serializable;
 
 
 /**Entity for an our branches(south,center,north)
- * @param branchId= branch id from data base
- * @param branch_name = branch name (south center or north)
+ 
  *  * @author      Daniel Aibinder
  * @version     1.0                 
  * @since       01.01.2022  */

@@ -1,4 +1,9 @@
 package entity;
+/**Entity for a W4C Card details
+
+ *  * @author      Daniel Aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
 
 public class W4C {
 	private int cardNum,privateAccount,businessAccount;

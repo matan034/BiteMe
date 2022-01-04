@@ -497,16 +497,18 @@ public class DBOrderController {
 
 			try {
 				stmt = myCon.createStatement();
-				rs = stmt.executeQuery(
-						"Select *\r\n"
-						+ "From\r\n"
-						+ "(Select x.*,dishinrestaurant.Price\r\n"
-						+ "From\r\n"
-						+ "(SELECT OrderNumber,DishInOrder,DishID,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber="+res[1]+") as x\r\n"
-						+ "inner join dishinrestaurant\r\n"
-						+ "On dishinrestaurant.DishID=x.DishID) as dishes_without_name\r\n"
-						+ "Inner Join dishes\r\n"
-						+ "On dishes.DishID=dishes_without_name.DishID");
+				rs = stmt.executeQuery(String.format(
+						"Select  DISTINCT *\r\n" + 
+						"From\r\n" + 
+						"(Select x.*,dishinrestaurant.Price\r\n" + 
+						"From\r\n" + 
+						"(SELECT  OrderNumber,DishInOrder,DishID,Size,CookingLevel,Extras FROM biteme.dishinorder WHERE OrderNumber='%d') as x\r\n" + 
+						"inner join dishinrestaurant\r\n" + 
+						"On dishinrestaurant.DishID=x.DishID\r\n" + 
+						"Where dishinrestaurant.restaurantNumber=(SELECT ResturantNumber FROM biteme.order Where OrderID='%d'))\r\n" + 
+						" as dishes_without_name\r\n" + 
+						"Inner Join dishes\r\n" + 
+						"On dishes.DishID=dishes_without_name.DishID",Integer.parseInt(res[1]),Integer.parseInt(res[1])));
 				ArrayList<DishInOrder> myOrders = new ArrayList<>();
 
 				while (rs.next()) {

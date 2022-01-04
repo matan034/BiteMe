@@ -1,5 +1,11 @@
 package entity;
 
+/**Entity for restaurant data
+
+ *  * @author      Daniel Aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
+
 public class OrdersByComponents {
 	private String restaurant, starters, drinks, desserts, salads, mains;
 

@@ -3,13 +3,7 @@ package entity;
 import java.io.Serializable;
 
 /**Entity dishInOrder used to recognise what dishes the customer currently is ordering we do so by saving details about each dish thats been orderd like size,cooking level and so on
- * @param size dish chosen size
- * @param cooking_lvl dishes chosen cooking level
- * @param extra= dishes chosen extras
- * @param dish_name = dishes name
- * @param dishId dishes id from database
- * @param orderNum the current order the dish is in
- * @param dishInOrderNum number of dish inside the order(for instance to see a difference between 2 different fries orders)
+
   * @author      daniel aibinder
  * @version     1.0                 
  * @since       01.01.2022  */

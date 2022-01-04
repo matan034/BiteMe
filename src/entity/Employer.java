@@ -3,11 +3,7 @@ package entity;
 
 
 /**Entity employer used to save details about an employer 
- * @param name employer name
- * @param adress= employer adress
- * @param phone= employer phone number
- * @param employerNum employers number from DB
- * @param is_approved = is the employer approved flag 1 for approved 0 for not approved
+
   * @author      Muhamad abu assad
  * @version     1.0                 
  * @since       01.01.2022  */

@@ -1,5 +1,9 @@
 package entity;
+/**Entity for private account Extends Account
 
+ *  * @author      Daniel Aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
 public class PrivateAccount extends Account {
 
 	private String CreditCardNumber;

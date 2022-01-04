@@ -8,12 +8,12 @@ import javafx.scene.control.Label;
 /**
  * Class for simulating sms We simply set the label in our SMS screen to be the message we send 
  * from other conotrollers 
- * @param deliver msg= label that displays message
  *  * @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022  */
 public class SMSSimulationController {
 
+	/**label that displays message*/
     @FXML
     private Label deliver_msg;
     

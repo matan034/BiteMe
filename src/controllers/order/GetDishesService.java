@@ -61,8 +61,11 @@ public class GetDishesService extends Service<DishInRestaurant> {
         							File out=new File("..\\BiteMe\\src\\gui\\dishPics\\"+dish.getImageName());
         							String suffix=dish.getImageName().split("\\.")[1];
         							ImageIO.write(bi, suffix, out);   
-        						 } catch (Exception e) {
+        							bis.close();
+        							bi.flush();
         							
+        						 } catch (Exception e) {
+        							System.out.println(e);
         						}					
         				 }
         			 }

@@ -18,10 +18,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * This class is used for approving employers by BM, here he can view all employers that he has approved along with employer that still need to be approved
- * @param waiting_for_approv_vbox used to hold our waiting for approval accordion
- * @param waiting_for_approval_accordion accordion holding titled panes with the employer to approve
- * @param approved_vbox holds our approved_accordion
- * @param approved_accordion all employers that have been approved are moved here 
+
  * @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022        
@@ -29,19 +26,19 @@ import javafx.scene.layout.VBox;
 
 
 public class MyEmployersController {
-
+	/**used to hold our waiting for approval accordion*/
     @FXML
     private VBox waiting_for_approval_vbox;
-
+    /**accordion holding titled panes with the employer to approve*/
     @FXML
     private Accordion waiting_for_approval_accordion;
-
+    /** holds our approved_accordion*/
     @FXML
     private VBox approved_vbox;
-
+    /**all employers that have been approved are moved here */
     @FXML
     private Accordion approved_accordion;
-    
+    /**listener for approving employer*/
     private MyListener approveEmployer;
     
     

@@ -1,4 +1,9 @@
 package entity;
+/**Entity for restaurant income data from DB
+
+ *  * @author      Daniel Aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
 
 public class TotalIncomesOfRestaurants {
 	private String restaurant,total_income;

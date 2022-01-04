@@ -2,8 +2,7 @@ package entity;
 
 
 /**Entity DishInMenu connects a certain dish to a certain menu
- * @param dishId = dish id from DB
- * @param menuID = the menus ID from DB
+
   * @author      Muhamad abu assad
  * @version     1.0                 
  * @since       01.01.2022  */
