@@ -77,6 +77,9 @@ public class IntakeReportController {
 
     private ObservableList<String> month= FXCollections.observableArrayList("1", "2","3","4","5","6","7","8","9","10","11","12");
    
+    /**shows error messages*/
+    @FXML
+    private Label error_lbl;
     /**
      * Func initializes our combo boxes*/
     public void initialize()
@@ -92,12 +95,13 @@ public class IntakeReportController {
     @FXML
     void viewBill(ActionEvent event) {
     	StartClient.order.accept("Load_myIntake~"+OrderClient.supplier.getSupplierNum()+"~"+year_cmb.getSelectionModel().getSelectedItem()+"~"+month_cmb.getSelectionModel().getSelectedItem());
-    	if(OrderClient.monthIntake.isEmpty())
+    	if(OrderClient.monthIntake== null)
     	{
-    		
+    		error_lbl.setText("No Data For Requested Month");
     	}
     	else
     	{
+    		error_lbl.setText("");
     		showTable();
         	int total_payment = 0 ,total_commission=0;
         	

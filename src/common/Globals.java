@@ -173,6 +173,8 @@ public class Globals {
 		 put(regnewemployerFXML,"Register new employer");
 		 put(create_reportsFXML,"Create report");
 		 put(regRestaurant,"Approve Suppliers");
+		 put(intakeReport,"Monthly Intake");
+		 put(NewOrdersFXML,"My Orders");
 	 }};
 	 /**used for displaying PDF report*/
 	 public static HostServices host_service;

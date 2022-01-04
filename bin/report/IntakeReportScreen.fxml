@@ -40,6 +40,7 @@
             <Label layoutX="814.0" layoutY="187.0" styleClass="lbl" text="Commission Charged:" />
             <Label fx:id="total_payment" layoutX="814.0" layoutY="158.0" />
             <Label fx:id="total_commission" layoutX="821.0" layoutY="221.0" />
+            <Label fx:id="error_lbl" layoutX="132.0" layoutY="296.0" textFill="RED" />
          </children>
       </Pane>
    </children>

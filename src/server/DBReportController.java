@@ -410,13 +410,17 @@ public class DBReportController {
 			  ResultSet rs;
 			  try {
 				  stmt = myCon.createStatement();
+				  int orderMonth,orderYear,requestMonth=Integer.parseInt(res[3]),
+				  requsetYear=Integer.parseInt(res[2]);
+				  
 				  rs = stmt.executeQuery("SELECT OrderID,Price,RequestOrderTime FROM biteme.order Where ResturantNumber="+res[1]);
 				  while(rs.next())
 				  {
 					  String [] temp=rs.getString(3).split("-");
-					  //temp[1]=month from db,res[3]=month from user
-					  //temp[0].split(" ")[1]=year from db, res[2]= year from user
-					  if(temp[1].equals(res[3])&&temp[0].split(" ")[1].equals(res[2]))
+					  orderMonth=Integer.parseInt(temp[1]);
+					  orderYear=Integer.parseInt(temp[0].split(" ")[1]);
+					  
+					  if(orderMonth==requestMonth&&orderYear==requsetYear)
 					  {
 						  orders.add(new IntakeOrder(rs.getInt(1), rs.getDouble(2)));
 					  }	
