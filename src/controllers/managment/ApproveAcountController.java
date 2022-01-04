@@ -19,8 +19,7 @@ import javafx.scene.layout.VBox;
  * if theres users to approve he adds them to an accordion 
  * once a user has been approved he is removed from that accordion
  * if there are no users to approve the message no business accounts to approve will be displayed
- * @param user_accordion =accordion where we set titled panes to display accounts to approve
- * @param msglbl = lbl to set if theres no users to approve
+ *
  * @author      daniel aibinder
  * @version     1.0               
  * @since       01.01.2022        
@@ -29,9 +28,10 @@ import javafx.scene.layout.VBox;
 
 public class ApproveAcountController {
 
+	/**user_accordion =accordion where we set titled panes to display accounts to approve */
     @FXML
     private Accordion user_accordion;
-    
+    /**msglbl = lbl to set if theres no users to approve*/
     @FXML
     private Label msglbl;
     

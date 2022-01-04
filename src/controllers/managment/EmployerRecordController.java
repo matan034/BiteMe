@@ -18,26 +18,24 @@ import javafx.scene.layout.HBox;
  * @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022   
- * @param employer_details_hbox = hbox where we hold employer details
- * @param address_lbl = label  for employers address
- * @param telephne_lbl = label for employers telephone
- * @param emp = Our employee that we recieve
- * @param approveEmployer = Listener we recieve when setting data from MyEmployersController
+ 
  */
 
 
 
 public class EmployerRecordController {
-
+	/** hbox where we hold employer details*/
     @FXML
     private HBox employer_details_hbox;
-
+    /**label  for employers address*/
     @FXML
     private Label address_lbl;
-
+    /**label for employers telephone*/
     @FXML
     private Label telephone_lbl;
+    /**Our employee that we recieve*/
     private Employer emp;
+    /**Listener we recieve when setting data from MyEmployersController*/
     private MyListener approveEmployer;
     
     /**

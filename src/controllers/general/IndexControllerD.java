@@ -218,7 +218,7 @@ public class IndexControllerD {
            if(OrderClient.customer.getStatus().equals("Frozen"))
            {
         	   CustomerOption1.setDisable(true);
-        	   msg_label.setText("Customer frozen");
+        	   Globals.loadInsideFXML(Globals.homePageBaseUser);
            }
            
          
