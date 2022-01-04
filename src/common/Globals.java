@@ -42,11 +42,25 @@ import server.ServerStart;
 /**
  * This class save Global data needs to be used in all the project
 
- * @param IndexControllerD = suppliers combobox
- * @param companyCommission = back button to get back to last screen(qr w4c)
- * @param currency = button available to presses after selecting supplier, for take away order
- * 
- * 
+ * @param IndexControllerD save the index controller
+ * @param companyCommission company commission
+ * @param currency Company Currency (currently NIS)
+ * @param types1 list of dish types
+ * @param dishType save dishType
+ * @param dishesTypes1 observable list for dishes types
+ * @param supply_options observable list for supply options
+ * @param years observable list for years
+ * @param delivery_options observable list for delivery options
+ * @param AccountInfoArr used for saving registration fields in register Account
+ * @param branches observable list for branches
+ * @param suppliers observable list for loaded suppliers
+ * @param order_dishes observable list for an order dishes
+ * @param selected_dish selected Dish
+ * @param newOrder  an order instance created and used while insert new order
+ * @param delivery_fee map for delivery fees
+ * @param titles map for fxml titles
+ * @param host_service used for displaying PDF report
+ 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -117,11 +131,10 @@ public class Globals {
 	
 	
 
-	//private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
+	
 	private static String[] types1={"Salad","Appetizer","Main","Dessert","Drink"};
 	public static String dishType;
-	
-	//public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
+
 	public static ObservableList<String> dishesTypes1=FXCollections.observableArrayList(types1);
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
@@ -171,9 +184,10 @@ public class Globals {
 	 public static HostServices host_service;
 	 
 	 
-	    /*@param Func for load Vbox inside Vbox  
-		/*@param  input: name of the fxml file we want to load into the main fxml file*/
-	 
+	 /**
+	     *This func loads fxml inside our main window
+	     *@param fxml_name the fxml to load
+	     **/
 	 public static void loadInsideFXML(String fxml_name)
 	 {
 		 try {
@@ -185,13 +199,19 @@ public class Globals {
 			    VBox.setVgrow( newVbox, Priority.ALWAYS);
 			    index_controller.getPane_in_vbox().getChildren().add(newVbox);
 			    index_controller.setWelcome_label(titles.get(fxml_name));
-			   
-
 	            }
 	    	catch(Exception e1) {}
 	 }
 
-	 
+	 /**
+	     *This func loads fxml as a main window
+	     *sets a listener for close action to logout or close server
+	     *
+	     *@param stage used for the first screen to be loaded
+	     *@param fxml_name the fxml to be loaded
+	     *@event used to hide current window
+	     *@param hostServices if clientStartFXML is loaded saves it
+	     **/
 	public static void loadFXML(Stage stage,String fxml_name,Event event,HostServices hostServices)
 	{
 		String window_name=fxml_name.split("/")[2].split("\\.")[0];
@@ -240,7 +260,15 @@ public class Globals {
 		}
 	}
 	
-	
+	/**
+     *This func sets a listener for a textfield to validate the input when focuse is out
+     *if verify is true textfield is verified and will be colores green,else red
+     *
+     *
+     *@param textfield the textfield to be listen
+     *@param verify the function usesd to do the verifying
+
+     **/
 	public static void VerifyInputListener(TextField textfield,VerifyListener verify)
     {
     	textfield.focusedProperty().addListener((obs,oldValue, newValue)-> {
