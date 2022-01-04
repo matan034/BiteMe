@@ -308,7 +308,6 @@ public class DBMenuController {
 	   * @param Dish dish we update and it's data we insert
 	   * @param myCon the connection to mySql DB
 	   */
-	
 	protected boolean editDish(DishInRestaurant Dish,Connection myCon,int menuId)
 	{
 		String editDish;
@@ -335,13 +334,14 @@ public class DBMenuController {
 		return true;
 	}
 	
-	/*
+	/**
 	   * This method inserts a new dish into dishinrestaurant
 	   *
-	   * @param  DishInRestaurant dish = dish to insert along with it's data (price etc)
-	   * @param int addToMenu is a flag we use if it's 1 we add to menu else we dont
-	   * @param int meunId= menu ID that we add the dish to
+	   * @param dish dish to insert along with it's data (price etc)
+	   * @param addToMenu is a flag we use if it's 1 we add to menu else we dont
+	   * @param menuId menu ID that we add the dish to
 	   * @param myCon the connection to mySql DB
+	   * @return true if dish was inserted, false else
 	   */
 	protected boolean insertDish(DishInRestaurant dish,int addToMenu,int menuId,Connection myCon)
 	{
@@ -376,12 +376,13 @@ public class DBMenuController {
 		  return true;
 	}
 	
-	/*
+	/**
 	   * This method inserts a new dish into a menu
 	   *
-	   * @param  restNum = restaurant number we use to find it's menu 
-	   * @param int dishID = the dish we add to menu
+	   * @param restNum restaurant number we use to find it's menu 
+	   * @param dishID the dish we add to menu
 	   * @param myCon the connection to mySql DB
+	   * 
 	   */
 	protected boolean addDishToMenu(int restNum,int dishID,Connection myCon)
 	{
@@ -399,7 +400,7 @@ public class DBMenuController {
 		  return true;
 	}
 	
-	/*
+	/**
 	   * This method inserts a dish to restaurant used in edit menu, if there is no menu create a new one else update the existing one.
 	   * 
 	   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -453,7 +454,7 @@ public class DBMenuController {
 		}
 		
 	}
-	/*
+	/**
 	   * This method creates a new empty menu for a specific restaurant, called by InsertDishesToRestaurant
 	   *
 	   * @param  restaurantNum restaurant we create a menu for
@@ -492,7 +493,7 @@ public class DBMenuController {
 	}
 
 
-	/*
+	/**
 	   * This method adds a new dish to our dish menu which you can later add to your menu or your restaurant
 	   * 
 	   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -539,10 +540,10 @@ public class DBMenuController {
 	}
 	
 	
-	/*
+	/**
 	   * This method adds inserts a new dish to dish in restaurant
 	   * 
-	   * @param DishInRestaurant dish = dish to insert inside the dish Entity holds all dish data like price etc
+	   * @param dish dish to insert inside the dish Entity holds all dish data like price etc
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -582,7 +583,7 @@ public class DBMenuController {
 		  }
 	}
 	
-	/*
+	/**
 	   * This method adds a new dish to our dish to a restaurants specific menu (main,sides,etc)
 	   * 
 	   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -610,10 +611,10 @@ public class DBMenuController {
 		  }
 	}
 	
-	/*
+	/**
 	   * This method removes a dish from a restaurants menu
 	   * 
-	   * @param ArrayList<DishInRestaurant>dishes = dish we wish to delete 
+	   * @param dishes = dish we wish to delete 
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client

@@ -35,7 +35,7 @@ public class DBReportController {
 	
 	
 	
- 	/*
+ 	/**
    * This method loads data on a restaurants amount of items ordered in a specific restaurant in a specific branch,month,year
    *
    * @param res  res[0] used to start function, rest of res for details we need for queries 
@@ -76,16 +76,13 @@ public class DBReportController {
 		}
 	}
 	
-	/*
+	/**
 	   *
-	   * @param res  res[0] used to start function, rest of res for details we need for queries
-	   * @param res[0]=Load_components 
-	   * @param res[1]=branchID 
-	   * @param res[2]=month 
-	   * @param res[3]=year
-	   * @param client The connection from which the message originated.
+	  *This method check insert into DB for reports a new row when new month
+	   * @param RestaurantNum 
 	   * @param myCon the connection to mySql DB
-	   * @param db the main database controller used in order to send message back to client
+	   * @param Type flag to check which table to get
+
 	   */
 
 	protected void CheckMonthYear(int RestaurantNum,Connection myCon,String Type) throws SQLException {
@@ -127,7 +124,7 @@ public class DBReportController {
 	
 	
 	
- 	/*
+ 	/**
    * This method updates data for report, each time a dish is ordered we update the counters we later pull to display for amount ordered by type
    *
    * @param res res[0] used to start function, rest of res for details we need for queries 
@@ -163,7 +160,7 @@ public class DBReportController {
 		}
 	}
 	
- 	/*
+ 	/**
    * This method loads monthly perforamance or income report for a specific restaurant in a specific branch,month and year
    *
    * @param res  res[0] used to start function, rest of res for details we need for queries,
@@ -213,7 +210,7 @@ public class DBReportController {
 
 	}
 	
-	/*
+	/**
 	   * This method updates restaurant data for income, amount of orders
 	   *
 	   * @param res  res[0] used to start function, rest of res for details we need for queries 
@@ -245,7 +242,7 @@ public class DBReportController {
 		}
 	}
 	
-	/*
+	/**
 	   * This method is used to update amount of late orders delivered
 	   *
 	   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -270,7 +267,7 @@ public class DBReportController {
 		}
 	}
 		  
-	/*
+	/**
 	   * This method is used to get quarterly data for reports
 	   *
 	   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -305,7 +302,7 @@ public class DBReportController {
 				
 			}
 		}
-		/*
+		/**
 		   * This method is used to upload a report branch manager sends to CEO
 		   *
 		   * @param msg our report using Entity MyFile 
@@ -343,7 +340,7 @@ public class DBReportController {
 		}  
 		
 		
-		/*
+		/**
 		   * This method is used to get our report pdf and display it to CEO
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -395,7 +392,7 @@ public class DBReportController {
 				  db.sendToClient("PdfPath~"+e, client);
 			}
 			  }
-		/*
+		/**
 		   * This method is used to get how much a supplier made during a specific month and year 
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 

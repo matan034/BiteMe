@@ -28,7 +28,7 @@ import ocsf.server.ConnectionToClient;
 
 public class DBOrderController {
 	
-	  /*
+	  /**
 	   * This method insert a new order to DB
 	   *
 	   * @param res[0] used to start function, rest of res for details we need for queries  order information 
@@ -106,7 +106,7 @@ public class DBOrderController {
 		  stmt.close();
 	  }
 
-	  /*
+	  /**
 	   * This method loads all orders of specified restaurant
 	   *
 	   * @param res[0] used to start function, rest of res for details we need for queries  restaurant number 
@@ -174,7 +174,7 @@ public class DBOrderController {
 	  }
 
 
-		  /*
+		  /**
 		   * This method loads all orders of a specified customer
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  customer number 
@@ -219,7 +219,7 @@ public class DBOrderController {
 	 		}
 	 	}
 	 	 
-	 	 /*
+	 	 /**
 		   * This method finds a w4c number in the database
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  w4c card number 
@@ -260,7 +260,7 @@ public class DBOrderController {
 			}
 		}
 	 	
-	 	/*
+	 	/**
 		   * This method loads w4c card number for a given customer for the qr simulation
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  
@@ -297,7 +297,7 @@ public class DBOrderController {
 			}
 		}
 	 	  
-	 	/*
+	 	/**
 		   * This method loads all dishes in a selected restaurant
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -365,7 +365,7 @@ public class DBOrderController {
 		}
 	 	
 	 	
-	 	/*
+	 	/**
 		   * This method loads all dishes in database
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  
@@ -391,7 +391,7 @@ public class DBOrderController {
 				db.sendToClient("Cant Load Dishes " + e, client);
 			}
 	 	}
-	 	/*
+	 	/**
 		   * This method loads all company branches
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -422,7 +422,7 @@ public class DBOrderController {
 			}
 		}
 	 	
-	 	/*
+	 	/**
 		   * This method adds a dish in order to dishinorder table in DB
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -456,7 +456,7 @@ public class DBOrderController {
 			}
 		}
 	 	
-	 	/*
+	 	/**
 		   * This method update that a orders has arrived to customer
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -481,7 +481,7 @@ public class DBOrderController {
 			}
 		}
 
-	 	/*
+	 	/**
 		   * This method load all the dishes of a selected order
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  
@@ -534,7 +534,7 @@ public class DBOrderController {
 		}
 	 
 
-	 	/*
+	 	/**
 		   * This method updates customer recieve time and check if it was late
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries  
@@ -604,7 +604,7 @@ public class DBOrderController {
 	 	
 	 	
 
-	 	/*
+	 	/**
 		   * This method updates that the supplier has recieved the order
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -629,7 +629,7 @@ public class DBOrderController {
 				
 		  }
 	 	 
-		 	/*
+		 	/**
 		   * This method refund customer at a specified restaurant for being late
 		   *
 		   * @param res[0] used to start function, rest of res for details we need for queries 
@@ -670,7 +670,7 @@ public class DBOrderController {
 	 		}
 	 		  
 	 	}
-	 	/*
+	 	/**
 		   * This method sets an order to be out for delivery 
 		   *
 		   * @param  res[0] used to start function, rest of res for details we need for queries 
@@ -695,7 +695,7 @@ public class DBOrderController {
 	 	}
 
 	 	
-	 	/*
+	 	/**
 		   * This method checks if customer got refund in a specific restaurant
 		   *
 		   * @param  res[0] used to start function, rest of res for details we need for queries 
@@ -727,7 +727,7 @@ public class DBOrderController {
 	 		  
 	 	}
 
-		/*
+		/**
 		   * This method updates balance of business account
 		   *
 		   * @param  res[0] used to start function, rest of res for details we need for queries 
@@ -752,7 +752,7 @@ public class DBOrderController {
 		 			 db.sendToClient("updated business account balance~"+e,client);
 		 		}
 		 	}
-		/*
+		/**
 		   * This method updates balance of refund for customer
 		   *
 		   * @param  res[0] used to start function, rest of res for details we need for queries 
@@ -780,7 +780,7 @@ public class DBOrderController {
 			
 		}
 
-		/*
+		/**
 		   * This method checks if customer inserted correct employer w4c
 		   *
 		   * @param  res[0] used to start function, rest of res for details we need for queries 
