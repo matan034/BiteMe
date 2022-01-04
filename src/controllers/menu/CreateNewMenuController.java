@@ -576,6 +576,7 @@ public class CreateNewMenuController {
 			ImageIO.write(bi, suffix, out);   
 			Image image = new Image(getClass().getResourceAsStream("/dishPics/"+currentDishToAdd.getImageName()));
 			 selected_image.setImage(image);
+			 bis.close();
     	}catch (Exception e) {
 			System.out.println("image failed");
 		}

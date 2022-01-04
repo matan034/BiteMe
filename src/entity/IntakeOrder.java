@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import common.Globals;
 
@@ -27,6 +28,10 @@ public IntakeOrder(int order_num, Double price) {
 	this.price = price;
 	this.commission=price*Globals.companyCommission;
 	this.payment=this.price-this.commission;
+	 DecimalFormat df = new DecimalFormat("#.##");      
+     this.price = Double.valueOf(df.format(this.price));
+     this.commission=Double.valueOf(df.format(this.commission));
+     this.payment=Double.valueOf(df.format(this.payment));
 }
 public int getOrder_num() {
 	return order_num;

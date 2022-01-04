@@ -381,6 +381,7 @@ public class OrderClient extends AbstractClient {
 				
 				break;
 			case "Customer load":
+				customer=new Customer(0,0,0, null, null);
 				customer.setCustomerNumber(Integer.parseInt(res[1]));
 				customer.setId(res[2]);
 				if(!res[4].equals("null")) 

@@ -52,7 +52,7 @@ public class OrderConfirmedController {
     	order_number_output.setText(order_number_output.getText()+Globals.newOrder.getOrder_num());
     	supply_method_output.setText(Globals.newOrder.getOrder_type());
     	supply_time_output.setText(Globals.newOrder.getOrder_time());
-    	total_payment_label.setText(total_payment_label.getText()+Globals.newOrder.getPrice());
+    	total_payment_label.setText(String.format(total_payment_label.getText()+"%.2f"+Globals.currency,Globals.newOrder.getPrice()));
     }
     /**
      *This func is for getting back to home screen

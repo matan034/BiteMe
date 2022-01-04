@@ -85,6 +85,8 @@ public class DBMenuController {
 				  if(checkIfDishInMenu.next())
 					  d.setInMenu(1);
 				  dishes.add(d);
+				  bis.close();
+				  imageData.close();
 			}
 			clientData data=new clientData(dishes,"load_all_dish_in_menu");
 			db.sendToClient(data,client);
@@ -154,7 +156,10 @@ public class DBMenuController {
 					  dishes.add(new DishInRestaurant(dishID,DishName,DishType,price,chooseSize,
 							  chooseCookLvl,chooseExtras,DishImage,myByteArray,
 							  1,restaurantID));
+					  imageData.close();
+					  bis.close();
 				}
+			
 			
 			clientData data=new clientData(dishes,"load_all_dish_in_menu");
 			db.sendToClient(data,client);
@@ -328,6 +333,7 @@ public class DBMenuController {
 			  preparedStmt.setInt(7,Dish.getDishID());
 			  preparedStmt.execute();
 			  preparedStmt.close();
+			  targetStream.close();
 		}catch(Exception e) {
 			  return false;
 		}
@@ -364,6 +370,7 @@ public class DBMenuController {
 			  preparedStmt.execute();
 			  stmt.close();
 			  preparedStmt.close();
+			  targetStream.close();
 			  if(addToMenu==1)
 			  {
 				  result=addDishToMenu(dish.getRestaurantNumber(),dish.getDishID(),myCon);
@@ -573,6 +580,7 @@ public class DBMenuController {
 			  preparedStmt.setBinaryStream(7, targetStream);
 			  preparedStmt.setString(8,dish.getImageName());  
 			  preparedStmt.execute();
+			  targetStream.close();
 			  db.sendToClient("Add_dish_to_rest~Dish was added successfuly", client);		
 			 }
 			  stmt.close();

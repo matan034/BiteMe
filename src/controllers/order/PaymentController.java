@@ -1,6 +1,7 @@
 package order;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -187,7 +188,7 @@ public class PaymentController {
     		extra_fees_vbox.getChildren().addAll(sep,discount,early_order);
     	}
     	
-    	total_price_label.setText(Globals.newOrder.getPrice()+Globals.currency);
+    	total_price_label.setText(String.format("%.2f"+Globals.currency,Globals.newOrder.getPrice()));
     	
     	
     	approveListener=new MyListener(){
@@ -312,9 +313,12 @@ public class PaymentController {
 	        popUp = fxmlLoader.load();
 	        PaymentStatusController cont = fxmlLoader.getController();
 	        double orderPrice=Globals.newOrder.getPrice();
+	        DecimalFormat df = new DecimalFormat("#.##");      
+	        orderPrice = Double.valueOf(df.format(orderPrice));
 	        double toPay;
 	        StartClient.order.accept("Check_refund~"+Globals.newOrder.getCustomer().getCustomerNumber()+"~"+Globals.newOrder.getSupplier().getSupplierNum());
 			double refund=OrderClient.refund;
+			refund = Double.valueOf(df.format(refund));
 			if(refund<orderPrice) {
 				toPay=orderPrice-refund;
 			}
