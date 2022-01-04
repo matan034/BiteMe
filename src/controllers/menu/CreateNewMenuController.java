@@ -388,6 +388,8 @@ public class CreateNewMenuController {
 				
 				//Setting image to the image view
 		         selected_image.setImage(image);
+		         bis.close();
+		         fis.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
