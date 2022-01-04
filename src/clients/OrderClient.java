@@ -112,6 +112,8 @@ public class OrderClient extends AbstractClient {
 	public static File loaded_file;
 	/**verify employer if w4c is valid true if it is false if not valid*/
 	public static boolean employerW4cVerify;
+	/**Flag to know if report has been uploaded true if upload sucess false if not*/
+	public static boolean upload_pdf_flag;
 	
 	// for reports
 	/**observable list that we update to display in table where we report number of dishes ordered by type*/
@@ -422,6 +424,8 @@ public class OrderClient extends AbstractClient {
 			case "Check_employer_w4c_code": 
 				if(res[1].equals("true")) employerW4cVerify=true;
 				if(res[1].equals("false")) employerW4cVerify=false;
+			case "Uploaded sucescully":
+				upload_pdf_flag=true;
 			}
 
 		}

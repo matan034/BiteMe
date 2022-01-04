@@ -175,6 +175,7 @@ public class DBController extends AbstractServer {
 				case "Update_business_account":dbUser.UpdateBusinessAccount(res, client, myCon, this);break;
 				case "Delete_account":dbUser.deleteAccount(res, client, myCon, this);break;
 				case "Logout" :dbUser.logout(res, client, myCon, this);break;
+				case "Load_supplier_by_branch":dbUser.loadAllSuppliersByBranch(res, client, myCon, this);break;
 				
 				//cases for DB report control
 				case "Load_components":dbReport.loadComponentsOfOrder(res, client,myCon,this);break;

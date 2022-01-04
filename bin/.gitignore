@@ -1,7 +1,14 @@
-/general/
+/clients/
+/entity/
+/common/
 /managment/
-/menu/
 /ocsf/
+/dishPics/
+/general/
+/menu/
 /order/
 /report/
-/dishPics/
+/resturant/
+/server/
+/utility/
+/quartelyreports/

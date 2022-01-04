@@ -145,8 +145,8 @@ public class DBUserController {
 				rs = stmt.executeQuery(String.format("SELECT * FROM biteme.customers WHERE ID='%s'",res[3]));
 				if(rs.next()) {
 					flagReg = stmt.executeUpdate(String.format(
-							"UPDATE biteme.customers SET BusinessAccount='%d';",
-							newAccountNum));
+							"UPDATE biteme.customers SET BusinessAccount='%d' WHERE ID='%s';",
+							newAccountNum,res[3]));
 				}
 				else {
 				flagReg = stmt.executeUpdate(String.format(
@@ -474,6 +474,45 @@ public class DBUserController {
 
 		}
 	}
+	
+	
+	 /**
+		Func for getting a all suppliers by branch num
+		* @param res  res[0] used to start function, rest of res for details we need for queries, 
+		* @param res[0]="Load_suppliers",
+		* @param res[1]=BranchNum
+		 * @param client The connection from which the message originated.
+		 * @param myCon the connection to mySql DB
+		 * @param db the main database controller used in order to send message back to client */
+		protected void loadAllSuppliersByBranch(String[] res, ConnectionToClient client,Connection myCon,DBController db) {
+			Statement stmt;
+			ResultSet rs;
+
+			try {
+				stmt = myCon.createStatement();
+				rs = stmt.executeQuery("SELECT * FROM biteme.restaurant WHERE BranchNum ="+res[1]);
+				ArrayList<Supplier> suppliers = new ArrayList<>();
+				while (rs.next()) {
+					int supplierNum = rs.getInt(1);
+					int branchNum = rs.getInt(2);
+					int isApproved = rs.getInt(3);
+					String name = rs.getString(4);
+					String address = rs.getString(5);
+					String city = rs.getString(6);
+					String type = rs.getString(7);
+					String manager = rs.getString(8);
+					suppliers.add(new Supplier(supplierNum, branchNum, isApproved, name, address, city, type, manager));
+				}
+
+				db.sendToClient(suppliers, client);
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+
+			}
+		}
+		
+	
 	
 	
 	/**

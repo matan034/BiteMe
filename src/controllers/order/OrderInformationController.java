@@ -145,7 +145,7 @@ public class OrderInformationController {
     /**pattern to match zip input*/
     private Pattern zip=Pattern.compile("^\\d{7}$");
     /**string for pattern DATE_PATTERN*/
-    private String timeFormat= "^([1-9]|1[0-9]|2[0-9]|3[0-1]).([1-9]|1[0-2]).(19|20)\\d{2}$";
+    private String timeFormat= "^(0[1-9]|1[0-9]|2[0-9]|3[0-1]).(0[1-9]|1[0-2]).(19|20)\\d{2}$";
     /**pattern to match date input*/
     private  Pattern DATE_PATTERN = Pattern.compile( timeFormat);
    
@@ -286,7 +286,28 @@ public class OrderInformationController {
 			}
 		});
     	
-	
+    	date_input.setConverter(new StringConverter<LocalDate>()
+    	{
+    	    private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    	    @Override
+    	    public String toString(LocalDate localDate)
+    	    {
+    	        if(localDate==null)
+    	            return "";
+    	        return dateTimeFormatter.format(localDate);
+    	    }
+
+    	    @Override
+    	    public LocalDate fromString(String dateString)
+    	    {
+    	        if(dateString==null || dateString.trim().isEmpty())
+    	        {
+    	            return null;
+    	        }
+    	        return LocalDate.parse(dateString,dateTimeFormatter);
+    	    }
+    	});
     	delivery_type.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
 

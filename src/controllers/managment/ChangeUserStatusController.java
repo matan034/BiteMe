@@ -132,6 +132,7 @@ public class ChangeUserStatusController {
     			branch_customer.remove(toRemove);
 
     	}
+    	OrderClient.customer=null;
     	table.refresh();
     }
 

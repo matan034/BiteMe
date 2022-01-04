@@ -8,12 +8,15 @@ import clients.OrderClient;
 import clients.StartClient;
 import common.Globals;
 import entity.MyFile;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 
@@ -50,12 +53,17 @@ public class ReportController {
     @FXML
     private Button viewBranchPdfReport;
     
+    /**Image for green V for user feedback*/
+    @FXML
+    private ImageView green_v;
     
     /**
      * initializes our controller to hide and show buttons according to user type CEO doesnt see view uploads
      * BM only sees UploadReports and View reports button*/
     public void initialize()
     {
+    	OrderClient.upload_pdf_flag=false;
+    	green_v.setVisible(false);
     	if(!OrderClient.user.getType().equals("CEO"))
     	{
     		viewQuarterIncome.setVisible(false);
@@ -116,7 +124,15 @@ public class ReportController {
     			      
     			      bis.read(filePath.getMybytearray(),0,mybytearray.length);
     			      filePath.setBranchID(OrderClient.user.getHomeBranch());
-    			      StartClient.order.accept(filePath);		      
+    			      StartClient.order.accept(filePath);	
+    			      fis.close();
+    			      bis.close();
+    			      if(OrderClient.upload_pdf_flag==true) {
+    			    	  green_v.setVisible(true);
+    			    	  PauseTransition pause = new PauseTransition(Duration.seconds(2));
+    				    	pause.setOnFinished(e -> green_v.setVisible(false));
+    				    	pause.play();
+    			      }
     			    }
     			catch (Exception e) {
     				System.out.println("Error send (Files)msg) to Server");}

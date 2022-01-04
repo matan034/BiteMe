@@ -59,7 +59,7 @@ public class IncomeReportController {
 	@FXML
 	private Button backBtn;
 
-	
+	private int BranchID=0;
 	/**event activated by pressing backBtn goes back to previous screen
 	 * @param event Action event for event details*/
 	@FXML
@@ -73,8 +73,8 @@ public class IncomeReportController {
 	/**initializes our controller by calling database to pull relevant data on the branch getting all its restaurants and it's income calls display table to populate our table*/
 	public void initialize() {
 
-		int BranchID;
-		if(OrderClient.user.equals("CEO")) {
+		//int BranchID;
+		if(OrderClient.user.getType().equals("CEO")) {
 			whichBranch.setText(ViewReportsController.branchName);
 			// the parameter that will be passed to server for access the relevant data in
 			// the DB
@@ -88,8 +88,11 @@ public class IncomeReportController {
 			
 		}
 		else {
-			BranchID=OrderClient.user.getHomeBranch();
-			whichBranch.setText(OrderClient.user.getStringHomeBranch());
+			if(!OrderClient.user.getType().equals("CEO")) {
+				BranchID=OrderClient.user.getHomeBranch();
+				whichBranch.setText(OrderClient.user.getStringHomeBranch());}
+			else
+				whichBranch.setText(ViewReportsController.branchName);
 			}
 		whichMonth.setText(ViewReportsController.monthNumber);
 		

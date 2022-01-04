@@ -213,6 +213,7 @@ public class RegNewAccountP2Controller {
 	     * @param event ActionEvent for event details */
 	    @FXML
 	    void BackPage(ActionEvent event) {
+	    	UserAlreadyHasAccountController.account_id=null;
 	    	Globals.loadInsideFXML(Globals.regnewaccountp1FXML);
 	    }
 	
@@ -233,12 +234,15 @@ public class RegNewAccountP2Controller {
 		    		if(cc_lbl.getText().length()!=16)//
 		    			cc_error_lbl.setText("Must input 16 digits");
 		    		else {//if its valid create a private account entity
-		    			if(UserAlreadyHasAccountController.account_id==null) 
+		    			if(UserAlreadyHasAccountController.account_id==null) //does not have an account create a new account
 				    		pAccount=new PrivateAccount(RegNewAccountP1Controller.new_account);
-		    			else
+		    			else if(OrderClient.customer.getpAccount()!=0)//THERE IS A p account
 		    				pAccount=OrderClient.paccount;
-		    			
-		    			pAccount.setCreditCardNumber(cc_lbl.getText());
+		    			else {
+		    				pAccount=new PrivateAccount(OrderClient.baccount.getFirstName(),OrderClient.baccount.getLastName(),OrderClient.baccount.getID(),OrderClient.baccount.getTelephone(),OrderClient.baccount.getEmail(),0,"");
+		    			}
+		    			if(pAccount!=null)
+		    				pAccount.setCreditCardNumber(cc_lbl.getText());
 		    		}	
 		    			
 		    	}
@@ -262,20 +266,26 @@ public class RegNewAccountP2Controller {
 	    	}
 	    	if(PrivateCheckBox.isSelected() && (!BusinessCheckBox.isSelected())) {
 		    	createPaccount(pAccount);
-		    	if(pAccount!=null)
+		    	if(pAccount!=null) {
+		    		UserAlreadyHasAccountController.account_id=null;
 		    		Globals.loadInsideFXML(Globals.homeScreen);
+		    	}
 		    	
 	    	}
 	    	if(!PrivateCheckBox.isSelected() && BusinessCheckBox.isSelected()) {
 	    		createBaccount(bAccount);
-	    		if(bAccount!=null)
+	    		if(bAccount!=null) {
+	    			UserAlreadyHasAccountController.account_id=null;
 	    			Globals.loadInsideFXML(Globals.homeScreen);
+	    		}
 	    	}
 	    	if(PrivateCheckBox.isSelected() && BusinessCheckBox.isSelected()) {
 	    		createPaccount(pAccount);
 	    		createBaccount(bAccount);
-	    		if(bAccount!=null && pAccount!=null)
+	    		if(bAccount!=null && pAccount!=null) {
+	    			UserAlreadyHasAccountController.account_id=null;
 	    			Globals.loadInsideFXML(Globals.homeScreen);
+	    			}
 	    	}
 	    	
 	    	if(!PrivateCheckBox.isSelected() && !BusinessCheckBox.isSelected()) res_lbl.setText("Please selected an account option");
@@ -344,10 +354,15 @@ public class RegNewAccountP2Controller {
 	     * @param pAccount PrivateAccount entity the account that we create or update  */
 	   private void createPaccount(PrivateAccount pAccount) {
 		   if(pAccount!=null) {
-	    		if(OrderClient.customer.getpAccount()==0)
-	    			StartClient.order.accept(pAccount.toString());
-	    		else
-	    			StartClient.order.accept("Update_private_account~"+pAccount.getCreditCardNumber()+"~"+pAccount.getAccountNum());
+			   if(UserAlreadyHasAccountController.account_id!=null) {//USER ALREADY HAS AN ACCOUNT
+		    		if(OrderClient.customer.getpAccount()==0) {
+		    			StartClient.order.accept(pAccount.toString());}
+		    		else
+		    			StartClient.order.accept("Update_private_account~"+pAccount.getCreditCardNumber()+"~"+pAccount.getAccountNum());
+		    	}
+			   else
+				   StartClient.order.accept(pAccount.toString());
+	    		
 	    		Globals.AccountInfoArr=null;
 	
 		    	
@@ -360,10 +375,14 @@ public class RegNewAccountP2Controller {
 	     * @param bAccount businessAccount entity the account that we create or update */
 	   private void createBaccount(BusinessAccount bAccount) {
 		   if(bAccount!=null) {
-	    		if(OrderClient.customer.getbAccount()==0)
-	    			StartClient.order.accept(bAccount.toString());
-	    		else
-	    			StartClient.order.accept("Update_business_account~"+bAccount.getEmployerName()+"~"+bAccount.getBudget()+"~"+bAccount.getAccountNum());
+			   if(UserAlreadyHasAccountController.account_id!=null) { 
+		    		if(OrderClient.customer.getbAccount()==0)
+		    			StartClient.order.accept(bAccount.toString());
+		    		else
+		    			StartClient.order.accept("Update_business_account~"+bAccount.getEmployerName()+"~"+bAccount.getBudget()+"~"+bAccount.getAccountNum());
+			   }
+			   else
+				   StartClient.order.accept(bAccount.toString());
 	    		Globals.AccountInfoArr=null;
 
 	    	}

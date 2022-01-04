@@ -221,7 +221,7 @@ public class QuarterlyHistogramController {
     	
     
     /**
-     * Function for getting data according to users comboBoxes we do this by calling server with Load_suppliers to first check if the restaurant exists
+     * Function for getting data according to users comboBoxes we do this by calling server with Load_suppliers_by_branch to first check if the restaurant exists
      * if it doesnt we return an empty series
      * if it does we get the rest of the combo box inputs calling for each supplier the server with Load_quater_data along this gets information from DB
      * and inputs it into OrderClient.income if it's income report or OrderClient.orderAmount of it's an amount of order report
@@ -234,7 +234,7 @@ public class QuarterlyHistogramController {
     private XYChart.Series updateSeries( ComboBox <String>quarter,ComboBox <String>year,ComboBox<String> type,ComboBox<Branch>branch)
     {
     
-    		StartClient.order.accept("Load_suppliers~"+branch.getSelectionModel().getSelectedItem().getBranchID());  
+    		StartClient.order.accept("Load_supplier_by_branch~"+branch.getSelectionModel().getSelectedItem().getBranchID());  
     		if(Globals.suppliers==null) {
     			xAxis.setLabel("No Restaurants");
     			return  new XYChart.Series<>();

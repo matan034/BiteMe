@@ -79,13 +79,13 @@ public class OrdersByComponentsController {
 	@FXML
 	private Button backToViewReports;
 
-	
+	private int BranchID=0;
 	
 	/**
 	 * initalizes our controller by calling database to get information about a branch the restaurants in it and the amount of orderes for each type, we wcall the displatable function in order to populate our table*/
 	public void initialize() {
-		int BranchID;
-		if(OrderClient.user.equals("CEO")) {
+		//int BranchID;
+		if(OrderClient.user.getType().equals("CEO")) {
 			branchName_lbl.setText(ViewReportsController.branchName);
 			// the parameter that will be passed to server for access the relevant data in
 			// the DB
@@ -99,8 +99,11 @@ public class OrdersByComponentsController {
 			
 		}
 		else {
+			if(!OrderClient.user.getType().equals("CEO")) {
 			BranchID=OrderClient.user.getHomeBranch();
-			branchName_lbl.setText(OrderClient.user.getStringHomeBranch());
+			branchName_lbl.setText(OrderClient.user.getStringHomeBranch());}
+			else {
+				branchName_lbl.setText(ViewReportsController.branchName);}
 			}
 		monthNum_lbl.setText(ViewReportsController.monthNumber);
 
