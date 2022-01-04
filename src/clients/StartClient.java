@@ -1,5 +1,4 @@
-/**
-*This class launches our LoginScreenUI, the screen where we input ip to connect to server*/
+
 
 package clients;
 
@@ -11,7 +10,12 @@ import general.OrderClientController;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
-
+/**
+*This class launches our LoginScreenUI, the screen where we input ip to connect to server
+*@author      dorin bahar 
+ * @version     1.0                
+ * @since       01.01.2022  
+**/
 public class StartClient extends Application{
 	
 	public static OrderClientController order; //only one instance

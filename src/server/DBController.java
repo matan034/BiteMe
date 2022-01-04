@@ -17,11 +17,7 @@ import ocsf.server.ConnectionToClient;
 
 /**
  * This class is used to route all server DB calls into their specific controller, it splits the msg into key word and uses cases to call upon the corresponding function
- * @param myCon connection to DB
- * @param dbUser class instance of dbUser which holds db calls specific for users
- * @param dbOrder class instance of dbUser which holds db calls specific for orders
- * @param dbReport class instance of dbUser which holds db calls specific for reports
- * @param dbMenu class instance of dbUser which holds db calls specific for menu
+
  * @author      Dorin bahar
  * @version     1.0               
  * @since       01.01.2022        
@@ -220,11 +216,10 @@ public class DBController extends AbstractServer {
 	 /**
 	Func for importing users to DB from outside "USER IMPORT utility"
 	* @param res  res[0] used to start function, rest of res for details we need for queries, 
-	* @param res[0]="Import_user",
-	* @param res[1..]=User details from ToString like firstname,last name ,email and so on
-	 * @param client The connection from which the message originated.
-	 * @param myCon the connection to mySql DB
-	 * @param db the main database controller used in order to send message back to client */
+	* @param res[0] "Import_user",
+	* @param res[1..] User details from ToString like firstname,last name ,email and so on
+	* 
+	  */
 
 	  public void importUsers(String []res) throws SQLException{
 		  Statement stmt;
@@ -245,12 +240,10 @@ public class DBController extends AbstractServer {
 		/**
 		Func for creating a certified employee used in import users utility to attach a supplier to an employee
 		* @param res  res[0] used to start function, rest of res for details we need for queries,
-		* @param res[0]="Create_certifies_employee",
-		* @param res[1]=ID ;
-		* @param res[2]=supplier id
-		 * @param client The connection from which the message originated.
-		 * @param myCon the connection to mySql DB
-		 * @param db the main database controller used in order to send message back to client */
+		* @param res[0] "Create_certifies_employee",
+		* @param res[1] ID ;
+		* @param res[2] supplier id
+		  */
 		public void createCertifiedEmployee(String[] res) {
 			Statement stmt;
 			  ResultSet rs;

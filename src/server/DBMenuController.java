@@ -39,12 +39,12 @@ public class DBMenuController {
 	
 	
 
-	/*
+	/**
 	   * This method loads all dishes in a specific restaurant, not all dishes in restaurant are in the restaurant menu
 	   *
-	   * @param  res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0]=load_all_dish_in_restaurant,
-	   * @param res[1]=RestaurantID 
+	   * @param res[0] used to start function, rest of res for details we need for queries 
+	   * @param res[0] load_all_dish_in_restaurant,
+	   * @param res[1] RestaurantID 
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -96,12 +96,12 @@ public class DBMenuController {
 		}
 	}
 	
-	/*
+	/**
 	   * This method loads all dishes in a menu that a specific restaurant holds
 	   *
 	   * @param  res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0]=load_dishes_in_menu,
-	   * @param res[1]=RestaurantID 
+	   * @param res[0] load_dishes_in_menu,
+	   * @param res[1] RestaurantID 
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -168,11 +168,11 @@ public class DBMenuController {
 		}
 	}
 	
-	/*
+	/**
 	   * This method loads all dishes in our database used in menu
 	   *
 	   * @param  res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0]=load_all_dishes,
+	   * @param res[0] load_all_dishes,
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
