@@ -15,6 +15,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+
+/**
+ * controller for IncomeReport.fxml here we see the restaurant in branch and it's total income for a specific month 
+ * Uses a table that uses TotalIncomesOfRestaurants entity to display it's data
+ * 
+ * @param whichBranch label for showing what branch the restaurant is in
+ * @param whichMonth label for showing what month the report is for
+ * @param IncomeTable table that shows us our data
+ * @param restaurantCol column in table for restaurant name
+ * @param sumOfIncomeCol column in table for restaurants income
+ * @param backbtn button to return to previous page
+ *  @author      Yeela Malka
+ * @version     1.0               
+ * @since       01.01.2022  */
+
+
+
 public class IncomeReportController {
 
 	@FXML
@@ -36,6 +53,9 @@ public class IncomeReportController {
 	@FXML
 	private Button backBtn;
 
+	
+	/**event activated by pressing backBtn goes back to previous screen
+	 * @param event Action event for event details*/
 	@FXML
 	void goBack(ActionEvent event) {
 		OrderClient.totalIncomesOfRestaurant.clear();
@@ -43,6 +63,8 @@ public class IncomeReportController {
 		Globals.loadInsideFXML( Globals.view_reportsFXML);
 	}
 
+	
+	/**initializes our controller by calling database to pull relevant data on the branch getting all its restaurants and it's income calls display table to populate our table*/
 	public void initialize() {
 
 		int BranchID;
@@ -73,7 +95,7 @@ public class IncomeReportController {
 		
 	
 	
-	
+	/**initialzes our table setting each column a newcell factory and also setting the tables setItems using totalIncomesOfRestaurants variable from OrderClient*/
 	void display_table() {
 		System.out.println(OrderClient.totalIncomesOfRestaurant.toString());
 		restaurantCol.setCellValueFactory(new PropertyValueFactory<TotalIncomesOfRestaurants, String>("restaurant"));

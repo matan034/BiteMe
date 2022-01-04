@@ -2,6 +2,15 @@ package entity;
 
 import java.io.Serializable;
 
+/**Entity dish used to hold the dishes name string and type
+ * @param dishId = dish id from DB
+ * @param name = dish name 
+ * @param type= dishes type(main,salad etc..)
+  * @author      Muhamad abu assad
+ * @version     1.0                 
+ * @since       01.01.2022  */
+
+
 public class Dish implements Serializable {
 	/**
 	 * 

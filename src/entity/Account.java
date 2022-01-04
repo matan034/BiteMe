@@ -1,5 +1,16 @@
 package entity;
 
+
+/**Entity for an Account used for private account and business account to inherit from
+ * @param FirstName = Accounts first name
+ * @param LastName= Accounts last name
+ * @param Telephone= Accounts telephone
+ * @param Email = Accounts Email
+ * @param Balace = Accounts Balance
+ * @param w4cNum = accounts w4C 
+ * @param acccountNum = accounts Num according to database*/
+
+
 public class Account {
 	
 	private String FirstName,LastName,ID,Telephone,Email;

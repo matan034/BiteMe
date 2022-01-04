@@ -15,6 +15,26 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+
+/**
+ * Controller for choosing report the user wants to view or if the BM is connected to upload a PDF report
+ * Controls reportsScreen.fxml 
+ * Ceo has options monthly report , quarter report,Branch manger quarterly reports
+ * BM has options MonthlyReports Upload Reports
+ * 
+ * @param viewReportButton button to go to monthly reports
+ * @param uploadReportsBtn button to upload a pdf report
+ * @param viewQuarterIncome button to go to quarterlyIncome
+ * @param viewBranchPdfReport button to view the pdf report branch manager sent
+ *      
+ *  @author      Daniel Aibinder
+ * @version     1.0               
+ * @since       01.01.2022  
+ **/
+
+
+
 public class ReportController {
 
     @FXML
@@ -29,6 +49,10 @@ public class ReportController {
     @FXML
     private Button viewBranchPdfReport;
     
+    
+    /**
+     * initializes our controller to hide and show buttons according to user type CEO doesnt see view uploads
+     * BM only sees UploadReports and View reports button*/
     public void initialize()
     {
     	if(!OrderClient.user.getType().equals("CEO"))
@@ -46,7 +70,10 @@ public class ReportController {
     	
     }
     
-    
+    /**
+     * loads ViewPdfScreen on pressing view quarterly BM  reports button
+     * loads the pdf the BM has uploaded
+     * @param event actionevent containing event details*/
     @FXML
     void ViewPdf(ActionEvent event) {
     	Globals.loadInsideFXML( Globals.viewPdf);
@@ -55,12 +82,17 @@ public class ReportController {
     
     
     
-    
+    /**
+     * loads QuarterlyHistogramScreen.fxml on pressing view quarterly report button 
+     * @param event actionevent containing event details*/
     @FXML
     void goToChooseQuarterAndBranch(ActionEvent event) {
     	Globals.loadInsideFXML( Globals.quarterlyHistogram);
     }
-
+    
+    /**
+     * Activates on pressing upload report button opens a file chooser for user where he can select a pdf to upload 
+     * @param event action event containing event details*/
     @FXML
     void goToCreateReports(ActionEvent event) {
     	Stage stage=(Stage)((Node) event.getSource()).getScene().getWindow();
@@ -90,6 +122,9 @@ public class ReportController {
     		}
     }
 
+    /**
+     * Activates on pressing  monthly reports button opens the ViewReports.fxml page
+     * @param event action event containing event details*/
     @FXML
     void goToViewReports(ActionEvent event) {
     	Globals.loadInsideFXML(Globals.view_reportsFXML);
