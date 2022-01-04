@@ -52,42 +52,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * presseing Right arrow adds a dish to menu
  * Pressing left arrow removes a dish from menu
  * to edit an existing dish user presses on dish from menu and presses edit to open the dishes settings 
- * @param save_edit_btn button to save edits to a dish
- * @param DishesList List view for dishes (left)
- * @param ChooseMenuTypeComboBox combo box for the menu type(main,side,etc...)
- * @param chooseDishMessage label above dishesList list view
- * @param edit_btn when clicking an existing dish open the edit button to enable editing the dish
- * @param dishPrice text area to input dish price
- * @param price_lbl label next to price
- * @param hasMultipleSizes checkbox for selecting multiple sizes
- * @param hasMultipleCoockingLvls checkbox for choosing if a dish has cooking levels
- * @param canAddExtras check box for if user can add extras to the dish
- * @param ImageName textfield for user to enter an image
- * @param ChooseImege button that opens file explorer to choose an image
- * @param dishesToAdd list of dishes in menu (Right side)
- * @param dishesToAddMessage label above dishesToAdd 
- * @param fileChooserMsg msg for errors in choosing a file
- * @param selected_image shows image of selected dish or image uploaded by user
- * @param rightarrw_img user clicks this to move dish between left list to right list
- * @param leftarrow_img user clicks this to move dish between right to left list
- * @param plus_img opens a popup to AddDishScreen that uses addDishController here user adds new dishes 
- * @param error_lbl label for displaying errors
- * @param add_lbl label above right arrow saying add
- * @param remove_lbl label aboe left arrow saying remove
- * @param restaurentNumber save our restaurant number by the user thats logged in
- * @param Imagebytearray byte array for images
- * @param dishType saves the dishes type (main,side)
- * @param currentDish the current this the user selected
- * @param currentDishToAdd dish that we wish to add to menu(in right side)
- * @param dishToChoose observableList that we use to update our left list 
- * @param dishToAdd observablelist we use to update our right list
- * @param dishes_to_choose an array list of dishes from leftlist
- * @param dishes_in_menu = an array list of dishes from right list
- * @param toUpdate = an array list of all dishes we wish to update
- * @param toDelete= an arraylist of all dishes we wish to delete
- * @param getAddedDish an event listener we define to communicate with adddishcontroller when user inputs a new dish
  * 
-
  *  @author     muhamad abu assad
  * @version     1.0               
  * @since       01.01.2022  
@@ -97,93 +62,105 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 
 public class CreateNewMenuController {
+	/**save_edit_btn button to save edits to a dish*/
 	  @FXML
 	    private Button saveEdit_btn;
 
+	  /**DishesList List view for dishes (left)*/
 	 @FXML
 	 private ListView<String> DishesList;
 
 
-
+	 /**ChooseMenuTypeComboBox combo box for the menu type(main,side,etc...)*/
 	 @FXML
 	 private ComboBox<String> ChooseMenuTypeComboBox;
-
+	 /**chooseDishMessage label above dishesList list view*/
 	 @FXML
 	 private Label chooseDishMessage;
-
+	 /** when clicking an existing dish open the edit button to enable editing the dish*/
 	 @FXML
 	    private Button edit_btn;
-
+	 /**dishPrice text area to input dish price*/
 	 @FXML
 	 private TextField dishPrice;
-
+	 /** label next to price*/
 	    @FXML
 	    private Label price_lbl;
-
+	    /**checkbox for selecting multiple sizes*/
 	 @FXML
 	 private CheckBox hasMultipleSizes;
-
+	 /** checkbox for choosing if a dish has cooking levels*/
 	 @FXML
 	 private CheckBox hasMultipleCockingLvls;
-
+	 /** check box for if user can add extras to the dish*/
 	 @FXML
 	 private CheckBox canAddExtras;
 
-
+	 /** textfield for user to enter an image*/
 	 @FXML
 	 private TextField ImageName;
-
+	 /** button that opens file explorer to choose an image*/
 	 @FXML
 	 private Button ChooseImege;
 
 	
-
+	 /** list of dishes in menu (Right side)*/
 	 @FXML
 	 private ListView<String> dishesToAdd;
-
+	 /**label above dishesToAdd */
 	 @FXML
 	 private Label dishesToAddMessage;
-	 
+	 /**msg for errors in choosing a file*/
 	 @FXML
 	 private Label fileChooserMsg;
 	 
-
+	 /**shows image of selected dish or image uploaded by user*/
 	    @FXML
 	    private ImageView selected_image;
-
+	    /** user clicks this to move dish between left list to right list*/
 	  @FXML
 	    private ImageView rightarrw_img;
-
+	  /** user clicks this to move dish between right to left list*/
 	    @FXML
 	    private ImageView leftarrow_img;
-
+	    /**opens a popup to AddDishScreen that uses addDishController here user adds new dishes */
 	    @FXML
 	    private ImageView plus_img;
-
+	    /** label for displaying errors*/
 	    @FXML
 	    private Label error_lbl;
-	    
+	    /**above right arrow saying add*/
 	    @FXML
 	    private Label add_lbl;
-
+	    /**label aboe left arrow saying remove*/
 	    @FXML
 	    private Label remove_lbl;
 
-
+	    /** save our restaurant number by the user thats logged in*/
 	    int restaurentNumber;
-	
+	    /** byte array for images*/
     byte[]Imagebytearray=null;
+    /**saves the dishes type (main,side)*/
     String dishType;
+    /**the current this the user selected*/
     Dish currentDish;
+    /**dish that we wish to add to menu(in right side)*/
     DishInRestaurant currentDishToAdd;
+    /**observableList that we use to update our left list*/
     ObservableList<String> dishToChoose;
+    /**observablelist we use to update our right list*/
     ObservableList<String> dishToAdd;
+    /**choose an array list of dishes from leftlist*/
     ArrayList<Dish> Dishes_to_choose=new ArrayList<Dish>();
+    /** an array list of dishes from right list*/
     ArrayList<DishInRestaurant> Dishes_in_menu=new ArrayList<DishInRestaurant>();
+    /***/
     Map<String, ArrayList<DishInRestaurant>> dishes_to_add=new HashMap<String, ArrayList<DishInRestaurant>>();
-    
+    /** an array list of all dishes we wish to update*/
     ArrayList<DishInRestaurant> toUpdate=new ArrayList<DishInRestaurant>();
+    /**  arraylist of all dishes we wish to delete*/
     ArrayList<DishInRestaurant> toDelete=new ArrayList<DishInRestaurant>();
+    /**an event listener we define to communicate with adddishcontroller when user inputs a new dish*/
     private MyListener getAddedDish;
     
     

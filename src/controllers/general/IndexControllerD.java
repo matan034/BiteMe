@@ -19,17 +19,10 @@ import javafx.event.EventHandler;
 /**
  * This class is used as our index giving users access to their respective actions in our system. 
  * Each action (ordering food for example) gets loaded inside a pane in the index controller screen 
- * This screen is different for each user according to thier types in our DB
+ * This screen is different for each user according to their types in our DB
  * @author      dorin bahar
  * @version     1.0               
  * @since       01.01.2022        
- * @param options_grid1 = grid that holds our buttons in the sidebar menu 
- * @param hello_label = label that greets user according to his name
- * @param welcome_lbl = label to says welcome to BiteMe we change this label according to the screen we are currently in
- * @param pane_in_vbox = this is the pane where we load all screens into for instance creating a new account screen will be loaded here 
- * @param comboBoxBranch= combo box for changing which branch the user is in
- * @param home_page = home page icon that user can click to go back to his home page
- * @param tempTypeUser = holds the current users type
  */
 
 
@@ -40,28 +33,28 @@ public class IndexControllerD {
 
     @FXML
     private AnchorPane paneOfGrid;
-
+    /**grid that holds our buttons in the sidebar menu */
     @FXML
     private GridPane options_grid1;
-
+    /**label that greets user according to his name*/
     @FXML
     private Label hello_label;
-
+    /**label to says welcome to BiteMe we change this label according to the screen we are currently in*/
     @FXML
     private Label welcome_label;
-
+    /**this is the pane where we load all screens into for instance creating a new account screen will be loaded here */
     @FXML
     private VBox pane_in_vbox;
-    
+    /**this is the pane where we load all screens into for instance creating a new account screen will be loaded here */
     @FXML
     private ComboBox <Branch> comboBoxBranch;
-        
+    /**home page icon that user can click to go back to his home page*/
     @FXML
     private Label msg_label;
-    
+    /***/
     @FXML
     private ImageView home_page;
-
+    /** holds the current users type*/
     static String tempTypeUser; 
     
     

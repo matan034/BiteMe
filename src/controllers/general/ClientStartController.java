@@ -18,17 +18,20 @@ import javafx.scene.input.KeyCode;
 * @author      muhamad abu assad
 * @version     1.0               
  * @since       01.01.2022     
-*@param ip string to save ip address user inputs
-*@param ip_address textfield for user to input
-*@param login_btn button for loging in
 *
 */
 
 public class ClientStartController {
+	/**
+	 * ip string to save ip address user inputs*/
 	public static String ip;
+	/**
+	 * ip_address textfield for user to input*/
     @FXML
     private TextField ip_address;
 
+    /**
+     * login_btn button for loging in*/
     @FXML
     private Button login_btn;
     
@@ -50,7 +53,9 @@ public class ClientStartController {
   		  }
   		} );
     }
-    	
+    /**
+     * function to validate login if the ip adress is not inputted we set the login button to be false
+     * @return true if user entered ip false if not*/	
     public boolean validate_login()
     {
     	if(ip_address.getText()!="") {
