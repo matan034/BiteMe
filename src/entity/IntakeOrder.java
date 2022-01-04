@@ -4,6 +4,16 @@ import java.io.Serializable;
 
 import common.Globals;
 
+
+/**Entity inTakeOrder how much the supplier gets at the end of the month after bite me takes a commision for using it's service
+ * @param order_num= number of orders the supplier got
+ * @param price = total price the orders cost
+ * @param payment= the suppliers final bill
+  * @author      daniel aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
+
+
 public class IntakeOrder implements Serializable{
 /**
 	 * 

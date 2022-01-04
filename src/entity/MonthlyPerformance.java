@@ -1,5 +1,17 @@
 package entity;
 
+
+/**Entity employer used to save details about an employer 
+ * @param name employer name
+ * @param adress employer adress
+ * @param phone employer phone number
+ * @param employerNum employers number from DB
+ * @param is_approved is the employer approved flag 1 for approved 0 for not approved
+  * @author      daniel aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
+
+
 public class MonthlyPerformance {
 	private String restaurant,amount_of_orders, delay_supply;;
 
