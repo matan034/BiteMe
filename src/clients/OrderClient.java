@@ -43,91 +43,97 @@ import ocsf.client.AbstractClient;
  * @version     1.0                
  * @since       01.01.2022      
  * 
- * @param awaitResponse part of OCSF we wait for server response
- * @param AccountInfo flag to check correct user info in user table
- * @param branch_menu maps a restaurant to its menu
- * @param all_users array list of all users in DB
- * @param account_reg_errors map of what error happened while creating an account for instance an error in ID field or telephone field
- * @param employer_reg_erros map of errors that happened while creating an employer for instance name
- * @param OrderIsBranch orders in a specific restaurant
- * @param IsOrderApproved mapping of an order to it's is approved status IE order #5 = 1 (approved) 
- * @param w4cList list of W4c cards 
- * @param ordersInBranch array list of orders in a restaurant
- * @param found_order a specific order we search for
- * @param usersToApprove list of accounts that need to be approved
- * @param branch_customers list of all customers in a branch
- * @param w4c_card details on a w4c card from current user
- * @param supplier used to get details on currenct supplier that is connected or is being accessed 
- * @param customer used to get details on the customer that is currently operating in the system 
- * @param user used to get details on the current user that is logged in 
- * @param myorders Observable list that we use to update logged in customers orders
- * @param myRestaurants observable list we use to update current restaurants displayed in places like combo boxes
- * @param myEmployers obeservable list we usee to update current employes displayed in places like combo boxes
- * @param dishes_by_type_list a list of dishes orginized by it's type (main,second) and so on
- * @param account details on an account that's loaded such as first name and so on
- * @param paccount details on private account thats loaded(customer thats logged in with that private account) or a private we search for and update in functions like deleting
- * @param baccount details on business account thats loaded(customer thats logged in with that business account) or a business account we search for and update in functions like deleting
- * @param branchId current branch id number
- * @param loaded_file image thats currently being loaded
- * @param componentsOfDishes observable list that we update to display in table where we report number of dishes ordered by type
- * @param totalIncomesOfRestaurant observable list that we update to display in table where we report a restuarants income
- * @param monthlyPerformance observable list that we update to display in table where we report a restaurants monthly income 
- * @param monthIntake observable list that we update to display in table where a restaurants sees the amount of money it owes biteme for using it's systems
- * @param allDishes observable list of all dishes
- * @param all_dishes a mapping of all dishes to it's specific type for instance Main= hamburger,chicken , Side=fires,rice
- * @param dishes_in_menu a mapping of all dishes in a menu(we can have a dish not in a menu currently) to a specific type type for instance Main= hamburger,chicken , Side=fires,rice
  */
 public class OrderClient extends AbstractClient {
 
+	/**
+	 *part of OCSF we wait for server response */
 	public static boolean awaitResponse = false;
+	/**flag to check correct user info in user table*/
 	public static boolean AccountInfo;
-
+	/**flag to know when an order is late 1 means late order 0 means not late*/
 	public static int orderLateFlag=0;
+	/**menu maps a restaurant to its menu*/
+	/**map for mapping Dish Type (main ,sides) to menus in a specific branch*/
 	public static Map<String, ArrayList<DishInRestaurant>> branch_menu = new HashMap<String, ArrayList<DishInRestaurant>>();
-
+	/**string messages for displaying connection status*/
 	public static String connection_ip="",connection_host="",connection_status="",employer_reg_msg="";
+	/**array list of all users in DB*/
 	public static ArrayList<User> all_users=new ArrayList<>();
+	/** param account_reg_errors map of what error happened while creating an account for instance an error in ID field or telephone field*/
 	public static Map<String,Boolean> account_reg_errors=new HashMap<>();
+	/** map of errors that happened while creating an employer for instance name*/
 	public static Map<String,Boolean> employer_reg_errors=new HashMap<>();
+	/** orders in a specific restaurant*/
 	public static Map<Integer,Order> OrdersInBranch=new HashMap<>();
+	/** mapping of an order to it's is approved status IE order #5 = 1 (approved) */
 	public static Map<Integer,ArrayList<Integer>> IsOrderApproved=new HashMap<>();
-
+	/**string messages for displaying database results back to user like "user inserted" or "user insert failed" and so on*/
 	public static String update_msg,insert_msg,user_login_msg="",account_reg_msg,w4c_status,user_import_msg,income,addDish,dishId;
+	/**list of W4c cards */
 	public static ObservableList<String> w4cList=FXCollections.observableArrayList();
+	/** array list of orders in a restaurant*/
 	public static ArrayList<Order> ordersInBranch=new ArrayList<>(); 
+	/**a specific order we search for*/
 	public static Order found_order = new Order(null,null,null,null,null);
-	
+	/**list of accounts that need to be approved*/
 	public static ArrayList<BusinessAccount> usersToApprove=new ArrayList<>();
+	/**list of all customers in a branch*/
 	public static ArrayList<Customer> branch_customers=new ArrayList<>();
+	/** details on a w4c card from current user*/
 	public static W4C w4c_card;
+	/**used to get details on currenct supplier that is connected or is being accessed */
 	public static Supplier supplier;
+	/**used to get details on the customer that is currently operating in the system */
 	public static Customer customer=new Customer(0,0,0, null, null);
+	/** used to get details on the current user that is logged in */
 	public static User user;
+	/** Observable list that we use to update logged in customers orders*/
 	public static ObservableList<Order> myOrders=FXCollections.observableArrayList();
+	/**observable list we use to update current restaurants displayed in places like combo boxes*/
 	public static ObservableList<String> myRestaurants=FXCollections.observableArrayList();
+	/**obeservable list we usee to update current employes displayed in places like combo boxes*/
 	public static ObservableList<Employer> myEmployers=FXCollections.observableArrayList();
+	/**observable list of connection info*/
 	public static ObservableList<String> connection_info = FXCollections.observableArrayList(connection_ip,connection_host,connection_status);
+	/**string messages for displaying database results back to user like "user inserted" or "user insert failed" and so on*/
 	public static String system_error_msg,load_Dishes_msg,Insert_Menu,insert_New_Dish_msg,w4c_msg,orderAmount,insert_dishes_to_restaurant_msg;
+	/**dishes_by_type_list a list of dishes orginized by it's type (main,second) and so on*/
 	public static ArrayList<Dish> dishes_by_type_list=new ArrayList<>();
+	/** details on an account that's loaded such as first name and so on*/
 	public static Account account =new Account(null,null,null,null,null);
+	/**details on private account thats loaded(customer thats logged in with that private account) or a private we search for and update in functions like deleting*/
 	public static PrivateAccount paccount;
+	/** details on business account thats loaded(customer thats logged in with that business account) or a business account we search for and update in functions like deleting*/
 	public static BusinessAccount baccount;
+	/**current branch id number*/
 	public int branchID;
+	/**image thats currently being loaded*/
 	public static File loaded_file;
+	/**verify employer if w4c is valid true if it is false if not valid*/
 	public static boolean employerW4cVerify;
-	// for reports
-	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
-	public static ObservableList<TotalIncomesOfRestaurants> totalIncomesOfRestaurant = FXCollections.observableArrayList();
-	public static ObservableList<MonthlyPerformance> monthlyPerformance = FXCollections.observableArrayList();
-	public static ObservableList<IntakeOrder> monthIntake;
-	public static ObservableList<Dish> allDishes=FXCollections.observableArrayList();
-	public static double refund;
-	//muhammad
-		public static Map<String, ArrayList<Dish>> all_dishes=new HashMap<String, ArrayList<Dish>>();
-		//muhammad
-		public static Map<String, ArrayList<DishInRestaurant>> dishes_in_menu=new HashMap<String, ArrayList<DishInRestaurant>>();
 	
-
+	// for reports
+	/**observable list that we update to display in table where we report number of dishes ordered by type*/
+	public static ObservableList<OrdersByComponents> componentsOfDishes = FXCollections.observableArrayList();
+	/**observable list that we update to display in table where we report a restuarants income*/
+	public static ObservableList<TotalIncomesOfRestaurants> totalIncomesOfRestaurant = FXCollections.observableArrayList();
+	/**observable list that we update to display in table where we report a restaurants monthly income */
+	public static ObservableList<MonthlyPerformance> monthlyPerformance = FXCollections.observableArrayList();
+	/**observable list that we update to display in table where a restaurants sees the amount of money it owes biteme for using it's systems*/
+	public static ObservableList<IntakeOrder> monthIntake;
+	/**observable list of all dishes*/
+	public static ObservableList<Dish> allDishes=FXCollections.observableArrayList();
+	/***/
+	public static double refund;
+	/** a mapping of all dishes to it's specific type for instance Main= hamburger,chicken , Side=fires,rice*/
+	public static Map<String, ArrayList<Dish>> all_dishes=new HashMap<String, ArrayList<Dish>>();
+	/** a mapping of all dishes in a menu(we can have a dish not in a menu currently) to a specific type type for instance Main= hamburger,chicken , Side=fires,rice*/
+	public static Map<String, ArrayList<DishInRestaurant>> dishes_in_menu=new HashMap<String, ArrayList<DishInRestaurant>>();
+	
+	/**generate a OrderClient with host and ip port calls super function from OCSF
+	 * @param host host name
+	 * @param port host port*/
 	public OrderClient(String host, int port) throws IOException {
 		super(host, port);
 		// TODO Auto-generated constructor stub
@@ -139,6 +145,8 @@ public class OrderClient extends AbstractClient {
 	 * @param msg Msg received from server. The msg is constructed with ~. We split
 	 *             according to ~ to enter correct switch case to update the correct
 	 *             variable with our message
+	 *             To see all cases you must enter the .java file and see each case 
+	 *           	
 	 */
 	@Override
 	protected void handleMessageFromServer(Object msg) {
@@ -421,6 +429,8 @@ public class OrderClient extends AbstractClient {
 
 	}
 
+	/**function to verify is w4c input back from DB is correct if it is we insert new w4c entity into w4c_card if its not 
+	 * we display the servers error message back to user*/
 	private void w4cVerify(String[] res) {
 		w4c_card=null;
 		if(res.length==4)
@@ -429,7 +439,7 @@ public class OrderClient extends AbstractClient {
 			w4c_msg=res[1];
 	}
 		
-				
+	/**checks if order is late by DB result if its late change orderLateFlag to 1*/			
 	private void checkIfWasLate(String[]res)
 	{
 		try {
@@ -443,6 +453,7 @@ public class OrderClient extends AbstractClient {
 		}
 	}
 
+	/**adds card to list of w4c cards (w4cList) used to display w4c options to user when scanning QR code*/
 	private void w4cList(String[] res) {
 		if (res.length > 1) {
 			for (int i = 1; i < res.length; i++) {
@@ -491,11 +502,17 @@ public class OrderClient extends AbstractClient {
 	    }
 	  }
 	  
+		/**sets connection info to be offline when server is disconnected
+		 * @param res[] array with string message from server*/
 	  public void serverOffline(String[]res)
 	  {
 		  connection_info.set(2, res[0]);
 	  }
 	  
+	  /**
+	   * function to map dish to it's branch menu used when loading and editing menus 
+	   * saves to static branch_menu
+	   * @param all_dishes an arraylist of all dishes we recieved back from database*/
 	  private void loadBranchMenu(ArrayList<DishInRestaurant> all_dishes)
 	  {
 		  branch_menu.put("Appetizer",new ArrayList<DishInRestaurant>());
@@ -510,6 +527,10 @@ public class OrderClient extends AbstractClient {
 			 branch_menu.put(dish.getType(),temp );
 		 }
 	  }
+	  /**
+	   * function for getting all orders to display back to user his orders
+	   * saves to static myOrders
+	   * @param myOrdersAsString a string of order details that came back from DB*/
 	  private void getMyOrders(ArrayList<String> myOrdersAsString)
 	  {
 		  this.myOrders.clear();
@@ -524,6 +545,11 @@ public class OrderClient extends AbstractClient {
 			
 		  }
 	  }
+	  
+	  /**
+	   * function to get a business accounts employer gets all employer details back from DB
+	   * saves to static myEmployers
+	   * @param myEmployers the employer details that DB found for specific user*/
 	  private void getMyEmployers(ArrayList<String> myEmployers)
 	  {
 		  this.myEmployers.clear();
@@ -538,7 +564,9 @@ public class OrderClient extends AbstractClient {
 
 	
 
-	
+	/**
+	 * funtion for getting amount of orders each dish type had and save it in componentsofDishes to be displayed in componentofdishesReport
+	 * @param res an arraylist with numbers for each type( 0 - starters, 1- drinks, ... for example)*/
 	private void ordersByComponents(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
@@ -565,6 +593,10 @@ public class OrderClient extends AbstractClient {
 		}
 	}
 
+	/**
+	 * function for getting if a dish has been served in time or not and save it in monthlyPerformance 
+	 * used to display data in table for MonthlyPerforamnce report
+	 * @param res array list containing amount of orders and amount of late orders*/
 	private void wellServedOrDelaySupply(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
@@ -573,7 +605,9 @@ public class OrderClient extends AbstractClient {
 		}
 	}
 	
-	
+	/**
+	 * function for getting monthly income of a restuarant saves it in totalIncomesOfRestaurants
+	 * @param res arraylist with a restuarant number and its total income*/
 	private void monthlyIncomesOfSuppliers(ArrayList<String> res) {
 		for (String restaurant : res) {
 			String[] temp = restaurant.split("~");
@@ -582,6 +616,10 @@ public class OrderClient extends AbstractClient {
 
 		}
 	}
+	
+	/**
+	 * function for loading all dishes in DB inserts into allDishes
+	 * @param res an array list containing all dishes*/
 	private void loadAllDishes(ArrayList<String> res) {
 		for (String dish : res) {
 			String[] temp = dish.split("~");
@@ -591,7 +629,10 @@ public class OrderClient extends AbstractClient {
 		}
 	}
 	
-	//muhammad
+	/**
+	 * Function to map an list of dishes in a menu to it's type used in EditMenu to get a map of dishes to insert into list of items that can be added to menu
+	 * @param all_dishes an array list of all dishes in menu
+	 * @return Map a map of dishes to a type (a menu)*/
 	  private Map<String,ArrayList<Dish>> fromListToMenu(ArrayList<? extends Dish> all_dishes) {
 		  Map<String,ArrayList<Dish>> menu=new HashMap<String,ArrayList<Dish>>();
 		  menu.put("Appetizer",new ArrayList<Dish>());
@@ -607,7 +648,10 @@ public class OrderClient extends AbstractClient {
 		 }
 		 return menu;
 	  }
-	  //muhammad
+	  /**
+	   * Function to map dishes in a restaurant to to it's type creating a menu for a restaurant (type refers to appetaizer,salad,main etc...)
+	   * @param all_dishes an array list of all dishes in the restaurants DB
+	   * @return Map a menu for a specific restuarant*/
 	  private Map<String,ArrayList<DishInRestaurant>> MenuOfDishInRestaurant(ArrayList<DishInRestaurant> all_dishes) {
 		  Map<String,ArrayList<DishInRestaurant>> menu=new HashMap<String,ArrayList<DishInRestaurant>>();
 		  menu.put("Appetizer",new ArrayList<DishInRestaurant>());
