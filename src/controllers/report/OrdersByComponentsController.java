@@ -18,19 +18,9 @@ import javafx.scene.text.Text;
 
 /**
  * this controller is for ordercomponentrating.fxml it displays each branches restaurants and the summary for how many orders a customer made from each dish type(main,side,salds,etc...)
- * The controller does this by populating a table with information from database
- * @param branchName_lbl label to display a branches name
- * @param monthNum_lbl label to display selected month
- * @param ratingTable table that holds our data
- * @param restaurantName column for restaurants name
- * @param startersColumn column for amount of starts ordered
- * @param mainsColumn column for amount of mains ordered
- * @param salads column for amount of salads ordered
- * @param desert column for amount of deserts ordered
- * @param drinks column for amount of drinks ordered
- * @param backToViewReports button to go back to view reports
+ * The controller does this by populating a table with information from database using key word Load_components
  * 
- *      
+ * 
  *  @author      Yeela Malka
  * @version     1.0               
  * @since       01.01.2022  
@@ -39,33 +29,53 @@ import javafx.scene.text.Text;
 
 public class OrdersByComponentsController {
 
+	/**
+	 *branchName_lbl label to display a branches name */
 	@FXML
 	private Label branchName_lbl;
 
+	/**
+	 *monthNum_lbl label to display selected month */
 	@FXML
 	private Label monthNum_lbl;
 
+	/**
+	 * ratingTable table that holds our data*/
 	@FXML
 	private TableView<OrdersByComponents> ratingTable;
 
+	/**
+	 *restaurantName column for restaurants name */
 	@FXML
 	private TableColumn<OrdersByComponents, String> restaurantName;
 
+	/**
+	 *startersColumn column for amount of starts ordered */
 	@FXML
 	private TableColumn<OrdersByComponents, String> startersColumn;
 
+	/**
+	 * mainsColumn column for amount of mains ordered*/
 	@FXML
 	private TableColumn<OrdersByComponents, String> mainsColumn;
 
+	/**
+	 *salads column for amount of salads ordered */
 	@FXML
 	private TableColumn<OrdersByComponents, String> saladsColumn;
 
+	/**
+	 * desert column for amount of deserts ordered*/
 	@FXML
 	private TableColumn<OrdersByComponents, String> dessertsColumn;
 
+	/**
+	 * drinks column for amount of drinks ordered*/
 	@FXML
 	private TableColumn<OrdersByComponents, String> drinksColumn;
 
+	/**
+	 * backToViewReports button to go back to view reports*/
 	@FXML
 	private Button backToViewReports;
 
@@ -118,7 +128,7 @@ public class OrdersByComponentsController {
 	
 	/**
 	 * activates on button back press to go back to view reports menu 
-	 * @param event= action event containing event details*/
+	 * @param event action event containing event details*/
 	@FXML
 	void back_to_view_reports(ActionEvent event) {
 		OrderClient.componentsOfDishes.clear();

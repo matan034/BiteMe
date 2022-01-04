@@ -13,14 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 /**
  * This class is used to show a single dish item in cart screen
-
- * @param dish_name_lbl = lbl to set dish name
- * @param dish_price_label = lbl to set dish price
- * @param chosen_dish_options_vbox = vbox used for dispalying relevant dish options
- * @param remove_btn = button for removing dish from cart thru listener
- * @param item = saves what dish this class will represant 
- * @param cartItemListener = listener for removing item from cart in cart controller
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -28,19 +20,30 @@ import javafx.scene.layout.VBox;
  */
 public class CartItemController {
 
+	/**
+	 * lbl to set dish name*/
     @FXML
     private Label dish_name_lbl;
 
+    /**
+     * lbl to set dish price*/
     @FXML
     private Label dish_price_label;
 
+    /**
+     * vbox used for dispalying relevant dish options*/
     @FXML
     private VBox chosen_dish_options_vbox;
+    /**
+     * button for removing dish from cart thru listener*/
     @FXML
     private Button remove_btn;
 
-
+    /**
+     *  saves what dish this class will represant */
     private DishInOrder item;
+    /**
+     * listener for removing item from cart in cart controller*/
     private MyListener cartItemListener;
     
     /**

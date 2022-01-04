@@ -20,11 +20,6 @@ import javafx.scene.layout.VBox;
  * This class is used to show our cart screen
  *loads a list of all dishes in order
  * user can remove items from cart
-
- * @param cart_items_vbox = main vbox used to load each dish in order
- * @param total_price_label = lbl sets the price of all items
- * @param checkout_btn = button for proceeding to checkout
- * @param cartItemListener = used for remove item option
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -33,15 +28,21 @@ import javafx.scene.layout.VBox;
 public class CartController {
 
 
+	/**
+	 *cart_items_vbox = main vbox used to load each dish in order */
 	    @FXML
 	    private VBox cart_items_vbox;
-
+	    /**
+	     *total_price_label = lbl sets the price of all items */
 	    @FXML
 	    private Label total_price_label;
 
+	    /**
+	     * checkout_btn = button for proceeding to checkout*/
 	    @FXML
 	    private Button checkout_btn;
-
+	    /**
+	     * cartItemListener = used for remove item option*/
 	    private MyListener cartItemListener;
 	    
 	    

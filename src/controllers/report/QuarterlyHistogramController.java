@@ -25,26 +25,8 @@ import javafx.scene.layout.GridPane;
 /**
  * Controller for quarterlyHistogramScreen.fxml this controller handles viewing amount of orders or amount of income in a specific year,branch,quarter
  * The ceo is able to view this quartely report and also compare the data to another year,branch,quarter
- * To handle this the class uses XYChart.Series to display data in a BarChart 
+ * To handle this the class uses XYChart.Series to display data in a BarChart we get data using keyword Load_quarter_data 
  * 
- * @param branch_histogram BarChart that holds our data in a histogram fashion
- * @param branch_selected_combo combo box for selecting a branch
- * @param quarter_comboBox comboBox for selecting a quarter
- * @param year_combobox comboBox for selecting a year
- * @param compare_ceckbox checkbox used if user wants to ompare between reports
- * @param compare_lbl lbl next to checkbox
- * @param type_selected_combo combobox for selecting type of report
- * @param grid_options grid holding options to select the second report shown once ceckbox is marked
- * @param branch_select_combo1 combobox for selecting branch on second report
- * @param quarter_combobox1 combo box for choosing quarter in second report
- * @param year_comboBox11 combobox for choosing year in second report
- * @param xAxis histograms x axis
- * @param yAxis histograms yAxis
- * @param back_btn button to go back to previous page
- * @param show_branch_btn button to show the report data
- * @param observable list to display available quarters
- * @param types observable list to display types of reports
- *      
  *  @author      Yeela Malka
  * @version     1.0               
  * @since       01.01.2022  
@@ -55,53 +37,75 @@ import javafx.scene.layout.GridPane;
 
 
 public class QuarterlyHistogramController {
-
+	
+	
+	/**branch_histogram BarChart that holds our data in a histogram fashion*/
     @FXML
     private BarChart<String, Number> branch_histogram;
-
+    /**
+     * branch_selected_combo combo box for selecting a branch*/
     @FXML
     private ComboBox<Branch> branch_select_combo;
+    /**
+     * quarter_comboBox comboBox for selecting a quarter*/
     @FXML
     private ComboBox<String> quarter_comboBox;
-    
+    /**
+     * year_combobox comboBox for selecting a year*/
     @FXML
     private ComboBox<String> year_comboBox1;
-    
+    /**
+     * compare_ceckbox checkbox used if user wants to ompare between reports*/
     @FXML
     private CheckBox compare_ceckbox;
 
+    /**
+     * compare_lbl lbl next to checkbox*/
     @FXML
     private Label compareTo_lbl;
 
+    /**
+     * type_selected_combo combobox for selecting type of report*/
     @FXML
     private ComboBox<String> type_select_combo;
 
-
+    /**
+     *grid_options grid holding options to select the second report shown once ceckbox is marked */
     @FXML
     private GridPane grid_options;
-
+    /**
+     *branch_select_combo1 combobox for selecting branch on second report */
     @FXML
     private ComboBox<Branch> branch_select_combo1;
-
+    /**
+     *quarter_combobox1 combo box for choosing quarter in second report */
     @FXML
     private ComboBox<String> quarter_comboBox1;
-
+    /**
+     * year_comboBox11 combobox for choosing year in second report*/
     @FXML
     private ComboBox<String> year_comboBox11;
-
+    /**
+     * xAxis histograms x axis*/
     @FXML
     private CategoryAxis xAxis;
-
+    /**
+     * yAxis histograms yAxis*/
     @FXML
     private NumberAxis yAxis;
-
+    /**
+     * back_btn button to go back to previous page*/
     @FXML
     private Button back_btn;
+    /**
+     *show_branch_btn button to show the report data */
     @FXML
     private Button show_branch_btn;
-
+    /**
+     *  observable list to display available quarters*/
     private ObservableList<String> quarters= FXCollections.observableArrayList("Q1", "Q2","Q3","Q4");
-  
+    /**
+     *types observable list to display types of reports */
     private ObservableList<String> types= FXCollections.observableArrayList("Income","Order Amount");
     
     
@@ -141,6 +145,13 @@ public class QuarterlyHistogramController {
     	
     	
     }
+    /**
+     * Method creates a Listener to validate input using the validate_input method we use this to set listeners for validation on our comboboxes
+     * @param flag flag 1 for a listener on strings
+     * 			   flag 2 for listener on branch(entity)
+     * 
+     * @return ChangeListener
+     * @see #validate_input()*/
     private ChangeListener<?> defineListener(int flag)
     {
     	if(flag==1)
@@ -215,6 +226,10 @@ public class QuarterlyHistogramController {
      * if it does we get the rest of the combo box inputs calling for each supplier the server with Load_quater_data along this gets information from DB
      * and inputs it into OrderClient.income if it's income report or OrderClient.orderAmount of it's an amount of order report
      * once we have the data we set it to a series and we return that series
+     * @param quarter ComboBox for choosing quarter
+     * @param year ComboBox for choosing year
+     * @param type ComboBox for choosing type or report(income, amount of orders)
+     * @param branch ComboBox for choosing a branch
      * @return XYChar.series*/
     private XYChart.Series updateSeries( ComboBox <String>quarter,ComboBox <String>year,ComboBox<String> type,ComboBox<Branch>branch)
     {

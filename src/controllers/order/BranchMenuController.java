@@ -87,62 +87,78 @@ import javafx.util.Duration;
  */
 public class BranchMenuController {
 
+	/** @param back_btn = button to return to last screen (choose supplier)*/
 	    @FXML
 	    private Button back_btn;
+	 /** @param add_btn = add a dish to cart after fill dish details*/
 	    @FXML
 	    private Button add_btn;
-
+	 /**selected_item_label = lbl to set the selected dish*/
 	    @FXML
 	    private Label selected_item_label;
-	    
+	 /**cart_img = cart img using as a button to open the cart,only available when cart has items*/
 	    @FXML
 	    private ImageView cart_img;
-	    
+	    /**cart_count = lbl to set the amount of items in cart*/
 	    @FXML
 	    private Label cart_count;
-
+	    /**items_grid = grid pain containing all dishes in the category*/
 	    @FXML
 	    private GridPane items_grid;
-	    
+	    /**selected_dish_name = lbl to set selected dish name*/
 	    @FXML
 	    private Label selected_dish_name;
-
+	    /** selected_dish_price = lbl to set selected dish pric*/
 	    @FXML
 	    private Label selected_dish_price;
-
+	    /** selected_dish_img = image view showing current dish*/
 	    @FXML
 	    private ImageView selected_dish_img;
-
+	    /** dish_options_vbox = vbox loading each dish options*/
 	    @FXML
 	    private VBox dish_options_vbox;
+	    /**m cart_items_vbox = vbox loading all dishes in cart*/
 	    @FXML
 	    private VBox cart_items_vbox;
+	    /**lbl to set the total price of items in car*/
 	    @FXML
 	    private Label total_price_label;
 	 
-
+	    /**img of a green v, appears when a dish is added to the cart*/
 	    @FXML
 	    private ImageView green_v_img;
+	    /** vbox containing all the cart details, appears when clickin cart img*/
 	    @FXML
 	    private VBox cart_vbox;
-
+	    /**back image to get back to last screen*/
 	    @FXML
 	    private ImageView back_image;
-
+	    /**the pane of all the menu, when loading the screen used to disable the menu until load is complete*/
 	    @FXML
 	    private BorderPane borderPane;
+	    /**uses to get all the button for menu categories*/
 	    @FXML
 	    private HBox menu_categories;
+	    /**shows progress when loading screen*/
 	    @FXML
 	    private ProgressIndicator pi;
+	    /**listen to what dish was chosen and set it */
 	    private MyListener menuListener;
+	    /**saves the selected size, saves the selected cookin lvl ,saves the selected extras */
 	    private String currentSize,currentLvl,extras;
+	    /**toggle group for size options*/
 	    private ToggleGroup sizes=new ToggleGroup();
+	    /**textfield to input dish extras*/
 	    private TextField extra_input=new TextField();
+	    /**save the selected dishInMenu*/
 	    private DishInRestaurant selected_dish;
+	    /**group of buttons in hbox each button takes you to the menu type*/
 	    private Button appetizer_btn,salad_btn,main_dish_btn,dessert_btn,drinks_btn;
+	    /**combobox for selecting cookinglvl*/
 	    private ComboBox<String> r=new ComboBox<>();
+	    /**used to count the selectes dish options*/
 	    private int i=0;
+	    /**used for showing cart screem*/
 	    private Boolean firstClick=true;
 	    
 	    
@@ -150,6 +166,7 @@ public class BranchMenuController {
 	    
 	    /**
 	     *This func open cart screen when cart img is pressed
+	     *@param event MouseEvent for event details
 	     **/
 	    @FXML
 	    void goCart(MouseEvent event) {
@@ -469,8 +486,10 @@ public class BranchMenuController {
 		}
 		
 	    /**
-	     *This func sets up a buttos
+	     *This func sets up a buttons giving each button an action event according to it's type 
+	     *for example appetizer button will show appetizer and so on
 	     *@param str - the category name to be displayed and action is according to
+	     *@return button the button we defined in the class 
 	     **/
 		public Button defineButton(String str)
 		{

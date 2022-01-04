@@ -14,50 +14,61 @@ import javafx.scene.control.ComboBox;
 
 /**
  * Controller for sending a user to the report that that he wishes, User can choose which branch and which month he wants to see along with if he wants to view a report
- * of amount of orders by components or a report for the branches perfroamnce
+ * of amount of orders by components or a report for the branches performance
  * 
- * @param branchList list of branches
- * @param monthList list of months
- * @param typeList list of types or available orders
- * @param branchName name of branch
- * @param MonthNumber month selected
- * @param YearNumber year selected
- * @param banchCombox combo box for selecting a branch
- * @param monthCombobox combo box for selecting a month
- * @param typeCombox combo box for selecting a type
- * @param yearCombobox combo box for selecting a year
- * @param viewBtn button for entering a report
- * @param backButton button to go back a screen
- *  @author     Daniel Aibinder
  * @version     1.0               
  * @since       01.01.2022  */
 
 
 
 public class ViewReportsController {
+	/**
+	 * branchList list of branches*/
 	ObservableList<String> branchList = FXCollections.observableArrayList("North", "Center", "South");
+	/**
+	 * monthList list of months*/
 	ObservableList<String> monthList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+	/**
+	 * typeList list of types or available orders*/
 	ObservableList<String> typeList = FXCollections.observableArrayList("Order report by components", "Performance report",
 			"Income Report by restaurants");
 
+	/**
+	 * branchName name of branch*/
 	public static String branchName;
+	/**
+	 *  MonthNumber month selected*/
 	public static String monthNumber;
+	/**
+	 * YearNumber year selected*/
 	public static String YearNumber;
-
+	
+	/**
+	 * banchCombox combo box for selecting a branch*/
 	@FXML
 	private ComboBox<String> branchCombox = new ComboBox<String>();
 
+	/**
+	 * monthCombobox combo box for selecting a month*/
 	@FXML
 	private ComboBox<String> monthCombox;
 
+	/**
+	 * typeCombox combo box for selecting a type*/
 	@FXML
 	private ComboBox<String> typeCombox;
 
+	/**
+	 * yearCombobox combo box for selecting a year*/
 	@FXML
 	private ComboBox<String> YearComboBox;
+	/**
+	 * viewBtn button for entering a report*/
 	@FXML
 	private Button viewBtn;
 	
+	/**
+	 * backButton button to go back a screen*/
 	 @FXML
 	    private Button backButton;
 	 
@@ -81,7 +92,7 @@ public class ViewReportsController {
 		
 		/**
 		 * function to set listeners we call this on comboboxes to set an event listener that validates input whenever a change has been detected
-		 * @return ChangeListener<String>*/
+		 * @return ChangeListener*/
 	    private ChangeListener<String> defineListener()
 	    {
 	    	return new ChangeListener() {   	 

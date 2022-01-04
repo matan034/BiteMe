@@ -19,13 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * controller for IncomeReport.fxml here we see the restaurant in branch and it's total income for a specific month 
  * Uses a table that uses TotalIncomesOfRestaurants entity to display it's data
- * 
- * @param whichBranch label for showing what branch the restaurant is in
- * @param whichMonth label for showing what month the report is for
- * @param IncomeTable table that shows us our data
- * @param restaurantCol column in table for restaurant name
- * @param sumOfIncomeCol column in table for restaurants income
- * @param backbtn button to return to previous page
+ * <p>
+ * Class gets table data DB using keyword Load_monthly_performance
  *  @author      Yeela Malka
  * @version     1.0               
  * @since       01.01.2022  */
@@ -34,22 +29,33 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class IncomeReportController {
 
+	/**
+	 * label for showing what branch the restaurant is in*/
 	@FXML
 	private Label whichBranch;
-
+	
+	/**
+	 * label for showing what month the report is for*/
 	@FXML
 	private Label whichMonth;
 	
-
+	/**
+	 * IncomeTable table that shows us our data*/
 	@FXML
 	private TableView<TotalIncomesOfRestaurants> IncomeTable;
-
+	
+	/**
+	 * restaurantCol column in table for restaurant name*/
 	@FXML
 	private TableColumn<TotalIncomesOfRestaurants, String> restaurantCol;
 
+	/**
+	 * sumOfIncomeCol column in table for restaurants income*/
 	@FXML
 	private TableColumn<TotalIncomesOfRestaurants, String> sumOfIncomeCol;
 
+	/**
+	 * backbtn button to return to previous page*/
 	@FXML
 	private Button backBtn;
 

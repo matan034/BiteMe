@@ -25,13 +25,6 @@ import javafx.scene.control.Label;
  * Controller for viewing a pdf used by ViewPdfScreen.fxml used by CEO to view pdf report sent by Branch manager
  * We do this by pulling a blob from database to display the report back to CEO
  * 
- * @param branch_cmb combo box for choosing a branch
- * @param quarter_cmb combo box for choosing a quarter
- * @param year_cmb bombo box for choosing a year
- * @param open_btn button for opening the pdf report
- * @param backBtn button for going back to previous screen
- * @param error_lbl label to display error to user
- * @param quarters observable list with quarters to choose from
  *  @author     Dorin bahar
  * @version     1.0               
  * @since       01.01.2022  */
@@ -39,27 +32,39 @@ import javafx.scene.control.Label;
 
 public class ViewPdfController {
 
+	/**
+	 * branch_cmb combo box for choosing a branch*/
     @FXML
     private ComboBox<Branch> branch_cmb;
 
+    /**
+     * quarter_cmb combo box for choosing a quarter*/
     @FXML
     private ComboBox<String> quater_cmb;
 
+    /**
+     * year_cmb bombo box for choosing a year*/
     @FXML
     private ComboBox<String> year_cmb;
 
+    /**
+     * open_btn button for opening the pdf report*/
     @FXML
     private Button open_btn;
 
+    /**
+     * backBtn button for going back to previous screen*/
     @FXML
     private Button backBtn;
 
-
+    /**
+     * error_lbl label to display error to user*/
     @FXML
     private Label error_lbl;
     
     /**
-     * activates on pressing back button to send user back to reportsScreen.fxml*/
+     * activates on pressing back button to send user back to reportsScreen.fxml
+     * @param event actionevent for event details*/
     @FXML
     void back(ActionEvent event) {
     	Globals.loadInsideFXML(Globals.reportFXML);
@@ -67,7 +72,8 @@ public class ViewPdfController {
     
     
 
-    
+    /**
+     * quarters observable list with quarters to choose from*/
     private ObservableList<String> quarters= FXCollections.observableArrayList("Q1", "Q2","Q3","Q4");
     
     
@@ -87,9 +93,10 @@ public class ViewPdfController {
     
     /**
      * this func returns a change listener according to the flag we send
-     * if flag=1 we create a listener for combo box that uses string
-     * if flag!= creates a listener for combo box that uses branches 
-     * @return ChangeListener<?>*/
+     * @param flag 	
+     * <ul><li>if flag=1 we create a listener for combo box that uses string</li>
+     * <li> if flag!= creates a listener for combo box that uses branches</li></ul> 
+     * @return ChangeListener*/
     private ChangeListener<?> defineListener(int flag)
     {
     	if(flag==1)

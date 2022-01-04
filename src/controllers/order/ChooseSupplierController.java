@@ -13,28 +13,27 @@ import javafx.scene.control.ComboBox;
 /**
  * This class is for showing available supplier for the user according to his home brnach
  * user can choose in upper left screen a different branch to get the supplier from that branch
-
- * @param choose_branch_combo_box = suppliers combobox
- * @param back_btn = back button to get back to last screen(qr w4c)
- * @param take_away_btn = button available to presses after selecting supplier, for take away order
- * @param delivery_btn = button available to presses after selecting supplier, for delivery order
- * 
- * 
  * @author      Matan Weisberg
  * @version     1.0               
  * @since       01.01.2022        
  */
 public class ChooseSupplierController {
 
+	/**
+	 * = suppliers combobox*/
 	    @FXML
 	    private ComboBox<Supplier> choose_branch_combo_box;
+	    /**
+	     *  back button to get back to last screen(qr w4c)*/
 	    @FXML
 	    private Button back_btn;
 
-	    
+	    /**
+	     * button available to presses after selecting supplier, for take away order*/
 	    @FXML
 	    private Button take_away_btn;
 
+	    /**delivery_btn = button available to presses after selecting supplier, for delivery order*/
 	    @FXML
 	    private Button delivery_btn;
 	    

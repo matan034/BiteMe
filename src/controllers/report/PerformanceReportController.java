@@ -17,16 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * controller class for PerformanceReport.fxml this class gets all restaurants in a branch and displays the amount of total orders from each restaurants and how many of those orders where late
- * The controller does this by populating a table with information from database
- * @param performanceTable table holding all the data
- * @param restaurantCol column for restaurant name
- * @param amtofOrderCol column of amount of orders
- * @param delaySupplyCol column for amount of late orders
- * @param backButton button to go back to previous screen
- * @param whichBranch label to show which branch you are in 
- * @param whichMonth label to show which month you are in
- * @param whichYear label to show which year you are in
- *      
+ * The controller does this by populating a table with information from database using keyword Load_monthly_performance
+ *     
  *  @author      Yeela Malka
  * @version     1.0               
  * @since       01.01.2022  
@@ -34,28 +26,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PerformanceReportController {
 
+	/**
+	 * performanceTable table holding all the data*/
 	  @FXML
 	    private TableView<MonthlyPerformance> performanceTable;
-
+	  /**
+		 * restaurantCol column for restaurant name*/
 	    @FXML
 	    private TableColumn<MonthlyPerformance, String> restaurantCol;
-
+	    /**
+		 *amtofOrderCol column of amount of order */
 	    @FXML
 	    private TableColumn<MonthlyPerformance, String> amtOfOrdersCol;
-
+	    /**
+		 *delaySupplyCol column for amount of late orders */
 	    @FXML
 	    private TableColumn<MonthlyPerformance, String> delaySupplyCol;
 
-
-	@FXML
-	private Button backButton;
-
+	    /**
+		 * backButton button to go back to previous screen*/
+		@FXML
+		private Button backButton;
+	/**
+	 *whichBranch label to show which branch you are in  */
 	@FXML
 	private Label whichBranch;
-
+	/**
+	 * whichMonth label to show which month you are in*/
 	@FXML
 	private Label whichMonth;
-	
+	/**
+	 *whichYear label to show which year you are in */
 	@FXML
 	private Label whichYear;
 

@@ -22,12 +22,7 @@ import javafx.stage.Stage;
  * Controls reportsScreen.fxml 
  * Ceo has options monthly report , quarter report,Branch manger quarterly reports
  * BM has options MonthlyReports Upload Reports
- * 
- * @param viewReportButton button to go to monthly reports
- * @param uploadReportsBtn button to upload a pdf report
- * @param viewQuarterIncome button to go to quarterlyIncome
- * @param viewBranchPdfReport button to view the pdf report branch manager sent
- *      
+ *    
  *  @author      Daniel Aibinder
  * @version     1.0               
  * @since       01.01.2022  
@@ -36,16 +31,22 @@ import javafx.stage.Stage;
 
 
 public class ReportController {
-
+	
+	/**
+	 * viewReportButton button to go to monthly reports*/
     @FXML
     private Button viewReportButton;
-
+    /**
+     * uploadReportsBtn button to upload a pdf report*/
     @FXML
     private Button UploadReportsBtn;
     
+    /**
+     * viewQuarterIncome button to go to quarterlyIncome*/
     @FXML
     private Button viewQuarterIncome;
-
+    /**
+     * viewBranchPdfReport button to view the pdf report branch manager sent*/
     @FXML
     private Button viewBranchPdfReport;
     
