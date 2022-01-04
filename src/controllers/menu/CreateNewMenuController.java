@@ -45,6 +45,57 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 
+/**
+ * Controller for updating a menu or creating a new menu here the user can view the restaurants menu and add dishes to it along with it's price its photo and the dishes options
+ * if the menu is empty the user views the menu as empty and can add to it creating a new menu for it's restaurant 
+ * each dish is also filtered by types (main,side etc)
+ * presseing Right arrow adds a dish to menu
+ * Pressing left arrow removes a dish from menu
+ * to edit an existing dish user presses on dish from menu and presses edit to open the dishes settings 
+ * @param save_edit_btn button to save edits to a dish
+ * @param DishesList List view for dishes (left)
+ * @param ChooseMenuTypeComboBox combo box for the menu type(main,side,etc...)
+ * @param chooseDishMessage label above dishesList list view
+ * @param edit_btn when clicking an existing dish open the edit button to enable editing the dish
+ * @param dishPrice text area to input dish price
+ * @param price_lbl label next to price
+ * @param hasMultipleSizes checkbox for selecting multiple sizes
+ * @param hasMultipleCoockingLvls checkbox for choosing if a dish has cooking levels
+ * @param canAddExtras check box for if user can add extras to the dish
+ * @param ImageName textfield for user to enter an image
+ * @param ChooseImege button that opens file explorer to choose an image
+ * @param dishesToAdd list of dishes in menu (Right side)
+ * @param dishesToAddMessage label above dishesToAdd 
+ * @param fileChooserMsg msg for errors in choosing a file
+ * @param selected_image shows image of selected dish or image uploaded by user
+ * @param rightarrw_img user clicks this to move dish between left list to right list
+ * @param leftarrow_img user clicks this to move dish between right to left list
+ * @param plus_img opens a popup to AddDishScreen that uses addDishController here user adds new dishes 
+ * @param error_lbl label for displaying errors
+ * @param add_lbl label above right arrow saying add
+ * @param remove_lbl label aboe left arrow saying remove
+ * @param restaurentNumber save our restaurant number by the user thats logged in
+ * @param Imagebytearray byte array for images
+ * @param dishType saves the dishes type (main,side)
+ * @param currentDish the current this the user selected
+ * @param currentDishToAdd dish that we wish to add to menu(in right side)
+ * @param dishToChoose observableList that we use to update our left list 
+ * @param dishToAdd observablelist we use to update our right list
+ * @param dishes_to_choose an array list of dishes from leftlist
+ * @param dishes_in_menu = an array list of dishes from right list
+ * @param toUpdate = an array list of all dishes we wish to update
+ * @param toDelete= an arraylist of all dishes we wish to delete
+ * @param getAddedDish an event listener we define to communicate with adddishcontroller when user inputs a new dish
+ * 
+
+ *  @author     muhamad abu assad
+ * @version     1.0               
+ * @since       01.01.2022  
+ **/
+
+
+
+
 public class CreateNewMenuController {
 	  @FXML
 	    private Button saveEdit_btn;
@@ -134,6 +185,12 @@ public class CreateNewMenuController {
     ArrayList<DishInRestaurant> toUpdate=new ArrayList<DishInRestaurant>();
     ArrayList<DishInRestaurant> toDelete=new ArrayList<DishInRestaurant>();
     private MyListener getAddedDish;
+    
+    
+    /**
+     * initialize our controller hidinhg fields we dont want the user to see yet, we also get the restuarants number and check that the restuarant is indeed approved
+     * we also load all the dishes the restuarant currently has in menu and any dishes that are in the restaurant but not in the menu so the user can add them
+     * we also define MyListener func to add new dish to observable list once a user has inputted a  new name*/
     public void initialize() {
     	
     	setListViewFieldsVisibility(false);
@@ -177,6 +234,9 @@ public class CreateNewMenuController {
     	}
     }
 
+    /**
+     * Function for opening addDishScreen as a popup, opens on the PLUS image click in this screen user can input a new dish name we recieve data back using MyListener
+     * @param event A mouse event containing details about the event*/
     @FXML
     void AddDish(MouseEvent event) {
     	FXMLLoader fxmlLoader = new FXMLLoader();
@@ -200,7 +260,11 @@ public class CreateNewMenuController {
         
         
     }
-    
+    /**
+     * This function is an event for choosing a dish type in the combo box 
+     * once a dish type has been chosen we open visibility for the list and the labels 
+     * we also update set our lists to contain the items in our observable list
+     * @param event actionevent containings details about the event*/
     @FXML
     void chooseType(ActionEvent event) {
     	dishType=ChooseMenuTypeComboBox.getSelectionModel().getSelectedItem();
@@ -231,6 +295,12 @@ public class CreateNewMenuController {
 		
     }
     
+    
+    /**
+     *function for initialzing a chosen dishes fields, event happens on clicking an item in left list 
+     *the function goes over the dish if it has been in the menu before it remembers the that the dish has the ability to choose sides
+     *cooking levels and so on this shows the user the dishes price and image aswell  if the dish is a new one the fields remain empty
+     *@param event holds details about the mouse event*/
     @FXML
     void setDishFields(MouseEvent event) {
     	if(DishesList.getSelectionModel().isEmpty()) return;
@@ -267,6 +337,10 @@ public class CreateNewMenuController {
         	}
     	
     }
+    
+    /**
+     *function for displaying a dish that has been selected form the right list opens the edit button to the user so he can select the dish to be edited
+     *@param event moust event for event details*/
     @FXML
     void displayDish(MouseEvent event) {
     	if(dishesToAdd.getSelectionModel().isEmpty()) return;
@@ -287,6 +361,10 @@ public class CreateNewMenuController {
     		}
     	}
     }
+    /**
+     *function for choosing an image once an image has been chosen we convert it into byte array we also display the image chosen back to the user 
+     *@param event action event details about the event
+     */
     @FXML
     void ChooseImege(ActionEvent event) {
     	
@@ -316,6 +394,11 @@ public class CreateNewMenuController {
     	else {error_lbl.setText("File is not valid choose another one");}
 
     }
+    /**
+     *Function for saving a dish activated on pressing the right arrow user visually sees the dish move from left list to right list thus showing the item has been added to the menu
+     * we take all the users input about the dish and save the dish to the restaurants menu 
+     * @param event MouseEvent for event details
+     */
     @FXML
     void saveDish(MouseEvent event) {
     	DishInRestaurant DIR;
@@ -377,6 +460,10 @@ public class CreateNewMenuController {
     	else error_lbl.setText("Please fill price and choose image");
     }
 
+    /**
+     *Function for deleting a dish from menu activated on left arrow press, removes an item from right list and adds it to left list
+     *@param event Mouseevent containing event details
+     */
     @FXML
     void deleteDishFromMenu(MouseEvent event) {
     	if(dishesToAdd.getSelectionModel().getSelectedItem()==null)
@@ -396,7 +483,11 @@ public class CreateNewMenuController {
     }
 
     
-    
+    /**
+     *function to save data into database
+     *we take all dishes that we want to update 
+     *and all dishes we wish to delete and sends them to their respective function in server where it updates in DB
+     */
     private void save() {
    
     	clientData data;
@@ -418,6 +509,10 @@ public class CreateNewMenuController {
     	
     }
 
+    /**
+     *function to set visibility on fields relating to user input for a dish
+     *@param setting = boolean value true for enabling false for disable
+     */
     void setDishFieldsVisibility(boolean setting) 
     {
     	
@@ -430,7 +525,10 @@ public class CreateNewMenuController {
     	selected_image.setVisible(setting);
     	price_lbl.setVisible(setting);
     }
-    
+    /**
+     *function to set visibility on fields relating to lists
+     *@param setting = boolean value true for enabling false for disable
+     */
     void setListViewFieldsVisibility(boolean setting) 
     {
     	DishesList.setVisible(setting);
@@ -447,6 +545,10 @@ public class CreateNewMenuController {
     	
     }
     
+    /**
+     *function to set visibility on fields relating to lists
+     *@param setting = boolean value true for enabling false for disable
+     */
     void resetDishFields()
     {
     	Imagebytearray=null;
@@ -459,12 +561,23 @@ public class CreateNewMenuController {
     	ImageName.setText("");
     	fileChooserMsg.setText("");
     }
-
+    
+    /**
+     *function to save edits to a dish we activate saveDish function here, saveDish knows to update the dish
+     *@param event action event containing event details
+     */
     @FXML
     void saveEdit(ActionEvent event) {    	 
     	saveDish(null);
     	saveEdit_btn.setVisible(false);   	  	
     }
+    
+    
+    /**
+     *event for when user presses the edit button, it gets the currenct selected dish details and sets the fields shown to user accordingly(if it has multiple cooking levels the dishes price and name and so on)
+     *it also displays the dishes image to the viewer and hides and shows relevant fields
+     *@param event Action event containing event details
+     */
     @FXML
     void edit(ActionEvent event) {
     	if(currentDishToAdd.getChooseSize()==1)
@@ -490,6 +603,9 @@ public class CreateNewMenuController {
     	saveEdit_btn.setVisible(true);   
     	
     }
+    /**
+     *sets tooltip to plus image, rightarrow_img, and leftarrow_img 
+     */
     private void setToolTips()
     {
     	  setToolTip("Add new dish to the category",plus_img);
@@ -497,6 +613,9 @@ public class CreateNewMenuController {
     	  setToolTip("Remove selected dish from your menu",leftarrow_img);
 
     }
+    /**
+     *creates a new tooltip with a custom message
+     */
     private void setToolTip(String msg,ImageView img)
     {
     	Tooltip tooltip = new Tooltip(msg);

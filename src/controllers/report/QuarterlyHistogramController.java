@@ -21,6 +21,39 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+
+/**
+ * Controller for quarterlyHistogramScreen.fxml this controller handles viewing amount of orders or amount of income in a specific year,branch,quarter
+ * The ceo is able to view this quartely report and also compare the data to another year,branch,quarter
+ * To handle this the class uses XYChart.Series to display data in a BarChart 
+ * 
+ * @param branch_histogram BarChart that holds our data in a histogram fashion
+ * @param branch_selected_combo combo box for selecting a branch
+ * @param quarter_comboBox comboBox for selecting a quarter
+ * @param year_combobox comboBox for selecting a year
+ * @param compare_ceckbox checkbox used if user wants to ompare between reports
+ * @param compare_lbl lbl next to checkbox
+ * @param type_selected_combo combobox for selecting type of report
+ * @param grid_options grid holding options to select the second report shown once ceckbox is marked
+ * @param branch_select_combo1 combobox for selecting branch on second report
+ * @param quarter_combobox1 combo box for choosing quarter in second report
+ * @param year_comboBox11 combobox for choosing year in second report
+ * @param xAxis histograms x axis
+ * @param yAxis histograms yAxis
+ * @param back_btn button to go back to previous page
+ * @param show_branch_btn button to show the report data
+ * @param observable list to display available quarters
+ * @param types observable list to display types of reports
+ *      
+ *  @author      Yeela Malka
+ * @version     1.0               
+ * @since       01.01.2022  
+ **/
+
+
+
+
+
 public class QuarterlyHistogramController {
 
     @FXML
@@ -70,6 +103,12 @@ public class QuarterlyHistogramController {
     private ObservableList<String> quarters= FXCollections.observableArrayList("Q1", "Q2","Q3","Q4");
   
     private ObservableList<String> types= FXCollections.observableArrayList("Income","Order Amount");
+    
+    
+    
+    /**
+     * initalizes our controller by setting all the combobox, hiding fields not relevant till user checks compare checkbox,
+     * also disables show_branch_btn until the user has inputted all data nessecary we validate using an event listener that calls validate_input function */
     public void initialize()
     {
     	show_branch_btn.setDisable(true);
@@ -124,7 +163,9 @@ public class QuarterlyHistogramController {
   			}
       	    };  
     }
-    
+
+   /**
+    * validates user input counts if all the nesaccery combo boxes have been selected, if user compares reports he must input 7 combo boxes else he must input 4 comboboxes*/
  private void validate_input()
  {
 	 int i=0;
@@ -143,7 +184,11 @@ public class QuarterlyHistogramController {
 
 	 else if(i==4) show_branch_btn.setDisable(false);
  }
-    
+    /**
+     * function for showing histogram to user activates on show_branch_btn press 
+     * here here we define a series using the data from users combobox inputs
+     * we call updateSeries to get data from DB from each users selection
+     * @param event Action event for action details*/
     @FXML
     void showBranch(ActionEvent event) {
     	branch_histogram.setTitle("Orders Summary");
@@ -164,7 +209,13 @@ public class QuarterlyHistogramController {
     	}
     	
     
-    
+    /**
+     * Function for getting data according to users comboBoxes we do this by calling server with Load_suppliers to first check if the restaurant exists
+     * if it doesnt we return an empty series
+     * if it does we get the rest of the combo box inputs calling for each supplier the server with Load_quater_data along this gets information from DB
+     * and inputs it into OrderClient.income if it's income report or OrderClient.orderAmount of it's an amount of order report
+     * once we have the data we set it to a series and we return that series
+     * @return XYChar.series*/
     private XYChart.Series updateSeries( ComboBox <String>quarter,ComboBox <String>year,ComboBox<String> type,ComboBox<Branch>branch)
     {
     
@@ -212,6 +263,11 @@ public class QuarterlyHistogramController {
    	 
     }
     
+    
+    
+    /**
+     *activates on back back button press to return to previous report screen
+     *@param event Action event for event details*/
     @FXML
     void back(ActionEvent event) {
     	Globals.loadInsideFXML(Globals.reportFXML);

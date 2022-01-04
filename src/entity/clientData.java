@@ -2,6 +2,15 @@ package entity;
 
 import java.io.Serializable;
 
+
+/**Entity clientData wrapper for entitys to send to server where the object is the entity we wrapped
+ * @param operation = key word for server to know which operation to activate
+ * @param data= object thats been wrapped by the clientData
+  * @author      Muhamad abu assad
+ * @version     1.0                 
+ * @since       01.01.2022  */
+
+
 public class clientData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String operation;

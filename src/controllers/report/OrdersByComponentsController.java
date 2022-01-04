@@ -15,6 +15,28 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+
+/**
+ * this controller is for ordercomponentrating.fxml it displays each branches restaurants and the summary for how many orders a customer made from each dish type(main,side,salds,etc...)
+ * The controller does this by populating a table with information from database
+ * @param branchName_lbl label to display a branches name
+ * @param monthNum_lbl label to display selected month
+ * @param ratingTable table that holds our data
+ * @param restaurantName column for restaurants name
+ * @param startersColumn column for amount of starts ordered
+ * @param mainsColumn column for amount of mains ordered
+ * @param salads column for amount of salads ordered
+ * @param desert column for amount of deserts ordered
+ * @param drinks column for amount of drinks ordered
+ * @param backToViewReports button to go back to view reports
+ * 
+ *      
+ *  @author      Yeela Malka
+ * @version     1.0               
+ * @since       01.01.2022  
+ **/
+
+
 public class OrdersByComponentsController {
 
 	@FXML
@@ -47,6 +69,10 @@ public class OrdersByComponentsController {
 	@FXML
 	private Button backToViewReports;
 
+	
+	
+	/**
+	 * initalizes our controller by calling database to get information about a branch the restaurants in it and the amount of orderes for each type, we wcall the displatable function in order to populate our table*/
 	public void initialize() {
 		int BranchID;
 		if(OrderClient.user.equals("CEO")) {
@@ -74,6 +100,9 @@ public class OrdersByComponentsController {
 		display_table();
 	}
 
+	
+	/**
+	 * function to populate table we set each column a cell value and populate the table using componentsofDishes from OrderClient after the server has made a db call*/
 	void display_table() {
 
 		restaurantName.setCellValueFactory(new PropertyValueFactory<OrdersByComponents, String>("restaurant"));
@@ -86,6 +115,10 @@ public class OrdersByComponentsController {
 		ratingTable.setItems(OrderClient.componentsOfDishes);
 	}
 
+	
+	/**
+	 * activates on button back press to go back to view reports menu 
+	 * @param event= action event containing event details*/
 	@FXML
 	void back_to_view_reports(ActionEvent event) {
 		OrderClient.componentsOfDishes.clear();

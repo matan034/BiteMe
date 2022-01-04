@@ -19,6 +19,9 @@ import utility.UserImportUtility;
  * @param password_lbl = text area for password
  * @param login_btn = button for logging in
  * @param login_res_lbl = label for displaying login result to user incase of failure
+ *  @author      matan weisberg
+ * @version     1.0               
+ * @since       01.01.2022  
  **/
 public class UserLoginController {
 
