@@ -58,15 +58,23 @@ public class IntakeReportController {
     @FXML
     void viewBill(ActionEvent event) {
     	StartClient.order.accept("Load_myIntake~"+OrderClient.supplier.getSupplierNum()+"~"+year_cmb.getSelectionModel().getSelectedItem()+"~"+month_cmb.getSelectionModel().getSelectedItem());
-    	showTable();
-    	int total_payment = 0 ,total_commission=0;
-    	
-    	for (IntakeOrder row : payment_tbl.getItems()) {
-    		total_payment += row.getPayment();
-    		total_commission += row.getCommission();
+    	if(OrderClient.monthIntake.isEmpty())
+    	{
+    		
     	}
-    	this.total_commission.setText(Integer.toString(total_commission)+Globals.currency);
-    	this.total_payment.setText(Integer.toString(total_payment)+Globals.currency);
+    	else
+    	{
+    		showTable();
+        	int total_payment = 0 ,total_commission=0;
+        	
+        	for (IntakeOrder row : payment_tbl.getItems()) {
+        		total_payment += row.getPayment();
+        		total_commission += row.getCommission();
+        	}
+        	this.total_commission.setText(Integer.toString(total_commission)+Globals.currency);
+        	this.total_payment.setText(Integer.toString(total_payment)+Globals.currency);
+    	}
+    	
     
     }
     private void showTable()

@@ -377,13 +377,14 @@ public class CreateNewMenuController {
     	if(selectedFile!=null)
     	{
     		ImageName.setText(selectedFile.getName());
-    		file=new File (selectedFile.getAbsolutePath());
+    		//file=new File (selectedFile.getAbsolutePath());
 			try {
-				FileInputStream fis = new FileInputStream(file);
+				FileInputStream fis = new FileInputStream(selectedFile);
 				BufferedInputStream bis = new BufferedInputStream(fis);
-				Imagebytearray=new byte[(int)file.length()];
+				Imagebytearray=new byte[(int)selectedFile.length()];
 				bis.read(Imagebytearray,0,Imagebytearray.length);	
-				Image image = new Image(file.getAbsolutePath());
+				String filepath="file:\\"+selectedFile.getAbsolutePath();
+				Image image = new Image(filepath);
 				
 				//Setting image to the image view
 		         selected_image.setImage(image);

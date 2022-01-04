@@ -165,6 +165,7 @@ public class OrderClient extends AbstractClient {
 				 dishes_in_menu=MenuOfDishInRestaurant((ArrayList<DishInRestaurant>)message.getData());
 			}
 		}
+	
 		if (msg instanceof ArrayList) {
 			Object[] arr = ((ArrayList) msg).toArray();
 			if (arr[0] instanceof User)

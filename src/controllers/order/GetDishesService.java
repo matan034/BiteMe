@@ -68,7 +68,7 @@ public class GetDishesService extends Service<DishInRestaurant> {
         							String suffix=dish.getImageName().split("\\.")[1];
         							ImageIO.write(bi, suffix, out);   
         						 } catch (Exception e) {
-        							
+        							System.out.println(e);
         						}					
         				 }
         			 }
