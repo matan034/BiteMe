@@ -28,26 +28,7 @@ import order.QRSimulationController;
 
 /**
  *Controller for registering an account , in this controller we register account details and later move on to RegNewAccountP2 to complete the registration process
- *@param last_name_lbl = textfield to enter last name
- *@param first_name_lbl = text field to etner last name
- *@param id_lbl = text field to enter id
- *@param telephone_lbl = text field to enter telephone
- *@param email_lbl = text field to enter email
- *@param confriM_email_lbl = text field to enter email confirmation 
- *@param before_btn =button to go back to index page
- *@param next_btn = button to move to P2 of registretion 
- *@param res_lbl = display messages to user about errors
- *@param id_error_lbl = display errors in id via label
- *@param phone_error_lbl = display errors phone  via label
- *@param email_error_lbl = display errors email  via label
- *@param confirm_email_error_lbl = display errors confirm email id  label
- *@param first_error_lbl = display errors in first name via labelx
- *@param last_error_lbl = display errors in last name via label
- *@param UserHasAccount_lbl = hyper link that takes you to a popup where you can input account id and move to P2 controller incase user already has an account(this allows you to edit account details to existing accounts)
- *@param new_account new account we are creating via info user inputted  we P2 controller uses this data
- *@param namePattern =regex pattern to validate valid names'
- *@param VALID_EMAIL_ADDRESS_REGEX = regex pattern to validate email input
- *@param pattern = regex pattern to validate integers
+
  * @author      daniel aibinder
  * @version     1.0               
  * @since       01.01.2022        
@@ -57,61 +38,63 @@ import order.QRSimulationController;
 
 public class RegNewAccountP1Controller {
 
+	/**textfield to enter last name*/
     @FXML
     private TextField last_name_lbl;
-
+    /**text field to etner last name*/
     @FXML
     private TextField first_name_lbl;
-
+    /**text field to enter id*/
     @FXML
     private TextField id_lbl;
-
+    /**text field to enter telephone*/
     @FXML
     private TextField telephone_lbl;
-
+    /**text field to enter email*/
     @FXML
     private TextField email_lbl;
-
+    /**text field to enter email confirmation */
     @FXML
     private TextField confirm_email_lbl;
-
+    /**button to go back to index page*/
     @FXML
     private Button before_btn;
-
+    /** button to move to P2 of registretion*/
     @FXML
     private Button next_btn;
-
+    /** display messages to user about errors*/
     @FXML
     private Label res_lbl;
-    
+    /**display errors in id via label*/
     @FXML
     private Label id_error_lbl;
-
+    /**display errors phone  via label*/
     @FXML
     private Label phone_error_lbl;
-
+    /**display errors email  via label*/
     @FXML
     private Label email_error_lbl;
-    
+    /**display errors confirm email id  label*/
     @FXML
     private Label confirm_email_error_lbl;
-    
+    /**display errors in first name via labelx*/
     @FXML
     private Label first_error_lbl;
-
+    /**display errors in last name via label*/
     @FXML
     private Label last_error_lbl;
-    
+    /**hyper link that takes you to a popup where you can input account id and move to P2 controller incase user already has an account(this allows you to edit account details to existing accounts)*/
     @FXML
     private Hyperlink UserHasAccount_lbl;
-    
+    /**new account we are creating via info user inputed  we P2 controller uses this data*/
     public static Account new_account;
     
-    
+    /**regex pattern to validate valid names'*/
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+    /** regex pattern to validate email input*/
     private Pattern VALID_EMAIL_ADDRESS_REGEX = 
     	    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-  
+    /**regex pattern to validate integers*/
     private Pattern pattern = Pattern.compile("\\d+");
     
     /**

@@ -1,6 +1,11 @@
 package entity;
 
 import java.io.Serializable;
+/**Entity for a supplier
+
+ *  * @author      Daniel Aibinder
+ * @version     1.0                 
+ * @since       01.01.2022  */
 
 public class Supplier implements Serializable{
 	/**

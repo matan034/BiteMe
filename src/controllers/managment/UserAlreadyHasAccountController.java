@@ -18,22 +18,21 @@ import javafx.scene.control.TextField;
  * controller for Useralreadyhasaccountscreen we get to this screen via hpyer link in RegNewAccountP1
  * here a user inputs ID for an account that already exists if the id is linked to an account user can move to RegNewAccountP2
  * without reentering account details 
- * @param id_lbl = text area to input id
- * @param next_btn = button to confirm input
- * @param id_error_lbl = display error in id to user
- * @param account_id = static variable that we move to regNewAccountP2 containing the users inputted id*/
-public class UserAlreadyHasAccountController {
 
+ * 
+ */
+public class UserAlreadyHasAccountController {
+	/**text area to input id*/
     @FXML
     private TextField id_lbl;
-
+    /**button to confirm input*/
     @FXML
     private Button next_btn;
    
-
+    /** display error in id to user*/
     @FXML
     private Label id_error_lbl;
-    
+    /**static variable that we move to regNewAccountP2 containing the users inputted id*/
     public static String account_id;
     
     /**

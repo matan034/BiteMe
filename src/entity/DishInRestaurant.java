@@ -4,16 +4,7 @@ import java.io.Serializable;
 
 
 /**Entity dishinrestaurants shows us all dishes in a specific restaurant inherits from dish 
- * @param chosenSize dish chosen size
- * @param ChosenCookingLevel dishes chosen cooking level
- * @param ChosenExtras dishes chosen extras
- * @param restaurantNumber= restaurants number
- * @param imagesize= the dishes image size
- * @param inmenu= flag to know if the dish is in the restaurants menu
- * @param price the dishes price
- * @param imageName the dishes image name
- * @param dbSetting = a keyword string to send to DB
- * @param myImagebyteArray = an array of bytes for the dishes image
+
   * @author      Muhamad abu assad
  * @version     1.0                 
  * @since       01.01.2022  */

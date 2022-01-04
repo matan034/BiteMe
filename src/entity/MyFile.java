@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 
+/**Entity Used for sending a file between server and client
+
+ * @author      daniel aibinder
+* @version     1.0                 
+* @since       01.01.2022  */
 public class MyFile implements Serializable {
 	
 	private String Description=null;

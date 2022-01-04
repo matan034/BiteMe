@@ -9,6 +9,11 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**Entity for order saves all order details
+ * 
+ * @author      daniel aibinder
+* @version     1.0                 
+* @since       01.01.2022  */
 public class Order implements Serializable{
 	/**
 	 * 

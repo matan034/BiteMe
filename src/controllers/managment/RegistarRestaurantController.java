@@ -13,12 +13,7 @@ import javafx.scene.control.TextField;
 /**
  * Class for registering a supplier, BM registers the restaurant by inputting it's address,city and type 
  * You can only register a supplier that is in the users table from import users by outer function
- * @param restarant_cmb combo box to choose available  suppliers to register
- * @param address_lbl textfield for inputting address
- * @param city_lbl textfiled for inputting city
- * @param type_cmb combobox for choosing restaurants type
- * @param approve_cmb button for saving inputted data
- * @param cnt used to disable button if not all the information that is not optional has been inputted, enable the button if all iput is valid
+ *
  * @author      daniel aibinder
  * @version     1.0               
  * @since       01.01.2022        
@@ -26,22 +21,23 @@ import javafx.scene.control.TextField;
 
 public class RegistarRestaurantController {
 
+	/**combo box to choose available  suppliers to register*/
     @FXML
     private ComboBox<String> restaurant_cmb;
-
+    /**textfield for inputting address*/
     @FXML
     private TextField address_lbl;
-
+    /**textfiled for inputting city*/
     @FXML
     private TextField city_lbl;
 
-
+    /**combobox for choosing restaurants type*/
     @FXML
     private ComboBox<String> type_cmb;
-
+    /**button for saving inputed data*/
     @FXML
     private Button approve_cmb;
-    
+    /**used to disable button if not all the information that is not optional has been inputted, enable the button if all iput is valid*/
     private int cnt=0;
     
     /**

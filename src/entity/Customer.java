@@ -4,14 +4,7 @@ import java.io.Serializable;
 
 /**Customer Entity a customer is composed of a customer number a private accoount a business account an id and status 
  * we use custoemr entities for easy access to an accounts private and business account aswell as the ability to freeze/ unfreeze custoemrs
- * @param customerNumber = number from DB
- * @param pAccount = private account number
- * @param bAccount= business account number
- * @param id = customers ID
- * @param status= customers status
- * @param name = customers name
- * @param stringPAccount = private account number in string
- * @param stringBAccount= business account number in string
+
   * @author      Muhamad abu assad
  * @version     1.0                 
  * @since       01.01.2022  */

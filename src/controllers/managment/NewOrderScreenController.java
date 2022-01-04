@@ -26,12 +26,7 @@ import order.QRSimulationController;
 /**
  * Class for viewing a restuarants new orders that have been recived, or orders that are in the making , or orders that have already been completed
  * we do this with 3 accordions we move between to display to the user the orders status (new,ready to deliver,history)
- * @param neworders_accordion accordion for holding new orders
- * @param historyaccordion accordion to hold orders already completed
- * @param orders_to_deliver_accordion accordion to hold orders that are waiting to get delivered
- * @param no_history_lbl label hidden by default and shown when there is no history
- * @param no_orders_lbl label hidden by default and shown when here is no orders
- * @param No_delivery_lbllabel hidden by default and shown when here is no orders to deliver
+
  * @author      dorin bahar
  * @version     1.0               
  * @since       01.01.2022        
@@ -39,23 +34,24 @@ import order.QRSimulationController;
 
 public class NewOrderScreenController {
 	
-	
+	/**accordion for holding new orders*/
     @FXML
     private Accordion neworders_accordion;
-
+    /**accordion to hold orders already completed*/
     @FXML
     private Accordion historyaccordion;
     
+    /**label hidden by default and shown when there is no history*/
     @FXML
     private Label no_history_lbl;
-    
+    /**label hidden by default and shown when here is no orders*/
     @FXML
     private Label no_orders_lbl;
 
-
+    /**accordion to hold orders that are waiting to get delivered*/
     @FXML
     private Accordion orders_to_deliver_accordion;
-
+    /**label hidden by default and shown when here is no orders to deliver*/
     @FXML
     private Label No_delivery_lbl;
     

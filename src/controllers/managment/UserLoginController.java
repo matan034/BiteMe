@@ -15,25 +15,23 @@ import utility.UserImportUtility;
 
 /**
  * Controller for user login screen here we allow users to log in via username and password only after accounts have been imported by outside user import
- * @param username_lbl = text area for username
- * @param password_lbl = text area for password
- * @param login_btn = button for logging in
- * @param login_res_lbl = label for displaying login result to user incase of failure
+
  *  @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022  
  **/
 public class UserLoginController {
 
+	/**text area for username*/
     @FXML
     private TextField username_lbl;
-
+    /**text area for password*/
     @FXML
     private PasswordField password_lbl;
-
+    /**button for logging in*/
     @FXML
     private Button login_btn;
-    
+    /**label for displaying login result to user incase of failure*/
     @FXML
     private Label login_res_lbl;
     
