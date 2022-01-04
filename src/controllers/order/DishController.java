@@ -43,7 +43,7 @@ public class DishController {
     /**
      *This func is for activate listener when pressing the image pane
      *set the current dish in branchMenuController
-     *@param event - mouse event for pressing dish pane
+     *@param mouseEvent - mouse event for pressing dish pane
      **/
     @FXML
     private void click(MouseEvent mouseEvent) {

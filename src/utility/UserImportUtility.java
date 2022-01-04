@@ -11,7 +11,6 @@ import server.ServerStart;
 
 /**
  * Class to use for importing users utility this class simulates an outer system importing users to our DB users table
- * @param all_users a list of all users that we wish to import
  * @author      daniel aibinder
  * @version     1.0               
  * @since       01.01.2022        
@@ -19,6 +18,7 @@ import server.ServerStart;
 
 public class UserImportUtility {
 	
+	/** a list of all users that we wish to import*/
 	private List<User> all_users=new ArrayList<>();
 	
 	/**

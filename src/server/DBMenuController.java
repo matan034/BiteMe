@@ -42,9 +42,7 @@ public class DBMenuController {
 	/**
 	   * This method loads all dishes in a specific restaurant, not all dishes in restaurant are in the restaurant menu
 	   *
-	   * @param res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0] load_all_dish_in_restaurant,
-	   * @param res[1] RestaurantID 
+	   * @param res  used to start function, rest of res for details we need for queries res[0] load_all_dish_in_restaurant,res[1] RestaurantID
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -99,9 +97,7 @@ public class DBMenuController {
 	/**
 	   * This method loads all dishes in a menu that a specific restaurant holds
 	   *
-	   * @param  res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0] load_dishes_in_menu,
-	   * @param res[1] RestaurantID 
+	   * @param res used to start function, rest of res for details we need for queries res[0] load_dishes_in_menu,res[1] RestaurantID 
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -171,8 +167,7 @@ public class DBMenuController {
 	/**
 	   * This method loads all dishes in our database used in menu
 	   *
-	   * @param  res[0] used to start function, rest of res for details we need for queries 
-	   * @param res[0] load_all_dishes,
+	   * @param  res used to start function, rest of res for details we need for queries res[0] load_all_dishes
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -204,10 +199,10 @@ public class DBMenuController {
 			db.sendToClient("load_all_dishes_msg~Error happened while loading your menu",client);
 		}
 	}
-	/*
+	/**
 	   * This method inserts a dish to restaurant used in edit menu, if there is no menu create a new one else update the existing one.
 	   *
-	   * @param  ArrayList<DishInRestaurant> dishes = dish we wish to add to Restaurant
+	   * @param dishes  dish we wish to add to Restaurant
 	   * @param client The connection from which the message originated.
 	   * @param myCon the connection to mySql DB
 	   * @param db the main database controller used in order to send message back to client
@@ -270,10 +265,10 @@ public class DBMenuController {
 		}
 	}
 	
-	/*
+	/**
 	   * This method creates a new empty menu for a specific restaurant, called by InsertDishesToRestaurant
 	   *
-	   * @param  restaurantNum restaurant we create a menu for
+	   * @param restaurantNum restaurant we create a menu for
 	   * @param myCon the connection to mySql DB
 	   */
 	protected int createNewEmptyMenu(int restaurantNum,Connection myCon) 
@@ -307,10 +302,10 @@ public class DBMenuController {
 		}
 	}
 	
-	/*
+	/**
 	   * This method edits a dish used when editing a dish in edit menu likee setting a new price etc
 	   *
-	   * @param  DishInRestaurant Dish = dish we update and it's data we insert
+	   * @param Dish dish we update and it's data we insert
 	   * @param myCon the connection to mySql DB
 	   */
 	

@@ -527,7 +527,7 @@ public class CreateNewMenuController {
     
     /**
      *function to set visibility on fields relating to lists
-     *@param setting = boolean value true for enabling false for disable
+     *
      */
     void resetDishFields()
     {

@@ -66,7 +66,7 @@ public class CartItemController {
     /**
      *This func is setting the controller with the current dish and listener uses to remove dish
      *@param d the current dish to be used in this class
-     *@param cartItemLisener listener to use to remove item in cart screen
+     *@param cartItemListener listener to use to remove item in cart screen
      **/
     public void setData(DishInOrder d, MyListener cartItemListener)
     {

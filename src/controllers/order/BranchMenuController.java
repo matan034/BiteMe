@@ -46,39 +46,6 @@ import javafx.util.Duration;
  * user can choose dish from menu, than select the dish details and add it to the cart
  * when there are dishes in the cart user can view the cart and remove dishes or continue to checkout
  * 
- * @param back_btn = button to return to last screen (choose supplier)
- * @param add_btn = add a dish to cart after fill dish details
- * @param selected_item_label = lbl to set the selected dish
- * @param cart_img = cart img using as a button to open the cart,only available when cart has items
- * @param cart_count = lbl to set the amount of items in cart
- * @param items_grid = grid pain containing all dishes in the category
- * @param selected_dish_name = lbl to set selected dish name
- * @param selected_dish_price = lbl to set selected dish price
- * @param selected_dish_img = image view showing current dish
- * @param dish_options_vbox = vbox loading each dish options
- * @param cart_items_vbox = vbox loading all dishes in cart
- * @param total_price_label = lbl to set the total price of items in cart
- * @param green_v_img = img of a green v, appears when a dish is added to the cart
- * @param cart_vbox = vbox containing all the cart details, appears when clickin cart img
- * @param back_image = back image to get back to last screen
- * @param borderPane = the pane of all the menu, when loading the screen used to disable the menu until load is complete
- * @param menu_categories = uses to get all the button for menu categories
- * @param pi = shows progress when loading screen
- * @param menuListener = listen to what dish was chosen and set it 
- * @param currentSize = saves the selected size
- * @param currentLvl = saves the selected cookin lvl
- * @param extras = saves the selected extras
- * @param sizes = toggle group for size options
- * @param extra_input = textfield to input dish extras
- * @param selected_dish = save the selected dishInMenu
- * @param appetizer_btn = button for showing appetizer dishes
- * @param salad_btn =  button for showing salad dishes
- * @param main_dish_btn =  button for showing main dishes
- * @param dessert_btn =  button for showing dessert dishes
- * @param drinks_btn =  button for showing drinks dishes
- * @param r = combobox for selecting cookinglvl
- * @param i = used to count the selectes dish options
- * @param firstClick = usesd for showing cart screen
  * 
  * 
  * @author      Matan Weisberg
@@ -87,10 +54,10 @@ import javafx.util.Duration;
  */
 public class BranchMenuController {
 
-	/** @param back_btn = button to return to last screen (choose supplier)*/
+	/**  back_btn = button to return to last screen (choose supplier)*/
 	    @FXML
 	    private Button back_btn;
-	 /** @param add_btn = add a dish to cart after fill dish details*/
+	 /** add_btn = add a dish to cart after fill dish details*/
 	    @FXML
 	    private Button add_btn;
 	 /**selected_item_label = lbl to set the selected dish*/

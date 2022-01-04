@@ -108,7 +108,7 @@ public class NewOrderScreenController {
      * if the order is in new orders we set the button to approve the order, send an sms to user and move the order to waiting for delivery
      * if the order is waiting for delivery the button will set the order to be out for delivery and move the order to history accordion
      * @param str value of button 
-     * @param Order O current order the button is mapped to
+     * @param o current order the button is mapped to
      * @param pane the pane we remove and add once we move between accordions
      * @param vbox = vbox we remove the button from*/
 	private Button defineButton(String str,Order o,TitledPane pane,VBox vbox)

@@ -324,10 +324,10 @@ public class DBUserController {
 		
 		/**
 		Func for adding HR into hr table
-		* @param employerNum= which employer the hr belongs to, hr_id= which user to make an hr
-		 * @param client The connection from which the message originated.
+		* @param employerNum= which employer the hr belongs to
+		 * @param hr_id which user to make an hr
 		 * @param myCon the connection to mySql DB
-		 * @param db the main database controller used in order to send message back to client */	
+		 * */	
 	private boolean addHr(int employerNum ,String hr_id, Connection myCon) throws SQLException {
 		Statement stmt;
 		ResultSet rs;

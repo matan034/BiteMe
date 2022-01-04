@@ -454,7 +454,9 @@ public class OrderClient extends AbstractClient {
 		}
 	}
 
-	/**adds card to list of w4c cards (w4cList) used to display w4c options to user when scanning QR code*/
+	/**adds card to list of w4c cards (w4cList) used to display w4c options to user when scanning QR code
+	 * @param res list of w4c from DB
+	 * */
 	private void w4cList(String[] res) {
 		if (res.length > 1) {
 			for (int i = 1; i < res.length; i++) {
@@ -477,7 +479,7 @@ public class OrderClient extends AbstractClient {
 	/**
 	 * This method handles all data coming from the UI
 	 *
-	 * @param message The message from the UI.
+	 * @param msg The message from the UI.
 	 */
 
 	public void handleMessageFromClientUI(Object msg) {

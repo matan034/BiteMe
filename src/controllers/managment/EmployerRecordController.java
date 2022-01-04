@@ -56,7 +56,7 @@ public class EmployerRecordController {
      * @param waiting_for_approval_accordion accordion we remove the employer from
      * @param approved_accordion acoordion we move the used to once he is approved
      * @param pane Pane we remove from waiting_for_approval and move to approved_accordion
-     * @param approveEmployer a listener from EmployerController that is set to approves the Employee on approve button click*/
+     * */
     public void setApproval(Accordion waiting_for_approval_accordion,Accordion approved_accordion,TitledPane pane )
     {
     	Button approve = new Button("Approve");

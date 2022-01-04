@@ -203,7 +203,7 @@ public class Globals {
 	     *
 	     *@param stage used for the first screen to be loaded
 	     *@param fxml_name the fxml to be loaded
-	     *@event used to hide current window
+	     *@param event used to hide current window
 	     *@param hostServices if clientStartFXML is loaded saves it
 	     **/
 	public static void loadFXML(Stage stage,String fxml_name,Event event,HostServices hostServices)

@@ -9,12 +9,6 @@ import javafx.scene.control.Label;
 /**
  * This class is for showing order confirmation screen 
  * showing order summary info
-
- * @param order_number_output = outputs the order number
- * @param supply_method_output = outputs the supply method
- * @param supply_time_output = outputs the supply time
- * @param home_btn = button for getting back to home screen
- * @param total_payment_label = outputs the total payment
  * 
  * 
  * @author      Matan Weisberg
@@ -62,7 +56,7 @@ public class OrderConfirmedController {
     }
     /**
      *This func is for getting back to home screen
-     *@param evetn action event for pressing home button
+     *@param event action event for pressing home button
      *set a listner for suppliers comobobox for enabling take away and delivery buttons
      **/
     @FXML
