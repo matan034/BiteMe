@@ -355,7 +355,7 @@ public class BranchMenuController {
 	    	for(int i=0;i<OrderClient.branch_menu.get(type).size();i++)
 	    	{
 	    		try {
-	    		if(col==3) {
+	    		if(col==2) {
 	    			row+=1;
 	    			col=0;
 	    		}

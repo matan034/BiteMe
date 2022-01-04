@@ -363,7 +363,9 @@ public class OrderInformationController {
     	int flag=0;
 
     	if(!verifyDate()) flag++;
-    	if(isToday() && isEarlyFromNow()) flag++;
+    	if(date_input.getValue()==null)
+    		flag++;
+    	else if(isToday() && isEarlyFromNow()) flag++;
     	if(!verifyHour()) flag++;
     	if(Globals.newOrder.getOrder_type().equals("Delivery"))
     	{
@@ -457,7 +459,7 @@ public class OrderInformationController {
 	private boolean verifyDate()
 	{
 		LocalDate today = LocalDate.now();
-    	if(date_input.getEditor().getText().equals(""))
+    	if(date_input.getEditor().getText().equals("")||date_input.getValue()==null)
     	{
     		date_tooltip.setText("Please Choose Supply Date");
     		return false;
@@ -504,7 +506,7 @@ public class OrderInformationController {
     		} 
     		else 
     		{
-    			if(date_input.getEditor().getText().equals(""))
+    			if(date_input.getEditor().getText().equals("")||date_input.getValue()==null)
     			{
     				hour_tooltip.setText("Please select date");
         			return false;
