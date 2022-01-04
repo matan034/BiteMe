@@ -31,46 +31,6 @@ import javafx.scene.layout.VBox;
  * This class is used to order information inputs for the user
  * if the selected order is for delivery screen will require extra delivery fields
  * input for time and date for all order types
-
- * @param hour_input = hour input from user, must be in HH:mm format
- * @param hour_tooltip = displayes hour input errors
- * @param date_input = date picker, can choose date from table or input manually need to be in dd.MM.yyyy format
- * @param date_tooltip = displayes date input errors
- * @param first_tooltip = displayes first name input errors
- * @param last_tooltip = displayes last name input errors
- * @param phone_tooltip = displayes phone input errors
- * @param company_tooltip = displayes company input errors
- * @param street_tooltip = displayes street input errors
- * @param city_tooltip = displayes city input errors
- * @param zip_tooltip =  displayes zip input errors
- * @param order_summary = lbl to set the total price of items in cart
- * @param delivery_pane = vbox showing order summary
- * @param continue_btn = button for continue to payment, only after validation
- * @param back_btn = back to menu screen
- * @param delivery_details = showing delivery price 
- * @param first_name_input = first name input from user
- * @param last_name_input = last name input from user
- * @param phone_input = phone input from user
- * @param company_input = company input from user,optional
- * @param street_input = street input from user
- * @param city_input = city input from user
- * @param zip_input = zip input from user
- * @param private_btn = radio button, selecting private delivery
- * @param delivery_type = toggle group for all delivery options
- * @param shared_btn =  radio button, selecting shared delivery
- * @param robot_btn =  radio button, selecting robot delivery - TBD
- * @param people_cnt =  counter for people in shared delivery
- * @param plus_btn =  add people to shared delivery
- * @param minus_btn = remove people from shred delivery
- * @param shared_options = hbox for all shared delivery option, for enable and disable
- * @param time = pattern to match hour input
- * @param namePattern = pattern to match name input
- * @param phone = pattern to match phone input
- * @param address = pattern to match street input
- * @param zip = pattern to match zip input
- * @param timeFormat = string for pattern DATE_PATTERN
- * @param DATE_PATTERN = pattern to match date input
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -78,76 +38,114 @@ import javafx.scene.layout.VBox;
  */
 public class OrderInformationController {
 
+	/** hour input from user, must be in HH:mm format*/
     @FXML
     private TextField hour_input;
+    
+    /**displayes hour input errors*/
     @FXML
     private Tooltip hour_tooltip;
+    /** date picker, can choose date from table or input manually need to be in dd.MM.yyyy format
+*/
     @FXML
     private DatePicker date_input;
+    /**displayes date input errors*/
     @FXML
     private Tooltip date_tooltip;
+    /**displayes first name input errors*/
     @FXML
     private Tooltip first_tooltip;
+    /**displayes last name input errors*/
     @FXML
     private Tooltip last_tooltip;
+    /**displayes phone input errors*/
     @FXML
     private Tooltip phone_tooltip;
+    /** displayes company input errors*/
     @FXML
     private Tooltip company_tooltip;
+    /** displayes street input errors*/
     @FXML
     private Tooltip street_tooltip;
+    /**displayes city input errors*/
     @FXML
     private Tooltip city_tooltip;
+    /**displayes zip input errors*/
     @FXML
     private Tooltip zip_tooltip;
+    /**lbl to set the total price of items in cart*/
     @FXML
     private VBox order_summary;
+    /**vbox showing order summary*/
     @FXML
     private Pane delivery_pane;
+    /**button for continue to payment, only after validation*/
     @FXML
     private Button continue_btn;
+    /**back to menu screen*/
     @FXML
     private Button back_btn;
+    /**showing delivery price*/
     @FXML
     private GridPane delivery_details;
+    /**first name input from user*/
     @FXML
     private TextField first_name_input;
+    /**last name input from user*/
     @FXML
     private TextField last_name_input;
+    /**phone input from user*/
     @FXML
     private TextField phone_input;
+    /**company input from user,optional*/
     @FXML
     private TextField company_input;
+    /**street input from user*/
     @FXML
     private TextField street_input;
+    /**city input from user*/
     @FXML
     private TextField city_input;
+    /**zip input from user*/
     @FXML
     private TextField zip_input;
+    /**radio button, selecting private delivery*/
     @FXML
     private RadioButton private_btn;
+    /** toggle group for all delivery options*/
     @FXML
     private ToggleGroup delivery_type;
+    /** radio button, selecting shared delivery*/
     @FXML
     private RadioButton shared_btn;
+    /** radio button, selecting robot delivery - TBD*/
     @FXML
     private RadioButton robot_btn;
+    /** counter for people in shared delivery*/
     @FXML
     private Label people_cnt;
+    /**add people to shared delivery*/
     @FXML
     private Button plus_btn;
+    /** remove people from shred delivery*/
     @FXML
     private Button minus_btn;
+    /**hbox for all shared delivery option, for enable and disable*/
     @FXML
     private HBox shared_options;
-    
+    /** pattern to match hour input*/
     private Pattern time=Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
+    /** pattern to match name input*/
     private Pattern namePattern=Pattern.compile("^(?=.{2,40}$)[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+    /**pattern to match phone input*/
     private Pattern phone=Pattern.compile("^\\d{10}$");
+    /** pattern to match street input*/
     private Pattern address=Pattern.compile("^.{2,40}$");
+    /**pattern to match zip input*/
     private Pattern zip=Pattern.compile("^\\d{7}$");
+    /**string for pattern DATE_PATTERN*/
     private String timeFormat= "^([1-9]|1[0-9]|2[0-9]|3[0-1]).([1-9]|1[0-2]).(19|20)\\d{2}$";
-
+    /**pattern to match date input*/
     private  Pattern DATE_PATTERN = Pattern.compile( timeFormat);
    
     

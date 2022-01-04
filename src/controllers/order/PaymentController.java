@@ -38,22 +38,6 @@ import javafx.stage.Stage;
  * and business pay - only if he has approved business account
  * when selecting shard delivery payment must be from business account
  * when pay is from business account user need to input employer code
-
- * @param buisness_btn = radio button for selecting business payment
- * @param payment_type = toggleGroup for payment radiobuttons
- * @param private_btn = radio button for selecting private payment
- * @param employer_name_input = input for employer name, loads automaticly if user have approved business account
- * @param employer_w4c_input = input for employer w4c code
- * @param back_btn = button for getting back to last screen (Order Information)
- * @param pay_btn = button for payment
- * @param order_items = vbox for displaying order items and final paymnet
- * @param extra_fees_vbox = vbox containing all extra fee(delivery..)
- * @param total_price_label = lbl to display final price
- * @param early_discount = the discount to be applied if early order
- * @param delivery_pay = the delivery fee to add accroding to delivery method
- * @param approveListener = sets a listener for gettin user confirmation from PaymentStatusController
- * @param approve = boolean sets to true if user approves payment
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -61,42 +45,55 @@ import javafx.stage.Stage;
  */
 public class PaymentController {
 
+	/**radio button for selecting business payment*/
     @FXML
     private RadioButton buisness_btn;
 
+    /**toggleGroup for payment radiobuttons*/
     @FXML
     private ToggleGroup payment_type;
 
+    /**radio button for selecting private payment*/
     @FXML
     private RadioButton private_btn;
 
+    /**input for employer name, loads automaticly if user have approved business account*/
     @FXML
     private TextField employer_name_input;
 
+    /**input for employer w4c code*/
     @FXML
     private TextField employer_w4c_input;
 
+    /** button for getting back to last screen (Order Information)*/
     @FXML
     private Button back_btn;
 
+    /** button for payment*/
     @FXML
     private Button pay_btn;
     
+    /** vbox for displaying order items and final paymnet*/
     @FXML
     private VBox order_items;
 
+    /**vbox containing all extra fee(delivery..)*/
     @FXML
     private VBox extra_fees_vbox;
+    /** lbl to display final price*/
     @FXML
     private Label total_price_label;
-    
+    /***/
     @FXML
     private ImageView back_screen;
 
-
+    /**the delivery fee to add accroding to delivery method*/
     private int delivery_pay;
+    /** the discount to be applied if early order*/
     private double early_discount;
+    /**sets a listener for gettin user confirmation from PaymentStatusController*/
     private MyListener approveListener;
+    /**boolean sets to true if user approves payment*/
     private boolean approve;
     
     

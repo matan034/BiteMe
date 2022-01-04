@@ -23,25 +23,34 @@ import javafx.scene.control.Label;
  */
 public class OrderConfirmedController {
 
+	/**
+	 * outputs the order number*/
     @FXML
     private Label order_number_output;
 
+    /**
+     *  outputs the supply method*/
     @FXML
     private Label supply_method_output;
 
+    /**
+     *  outputs the supply method*/
     @FXML
     private Label supply_time_output;
 
+    /**
+     * button for getting back to home screen*/
     @FXML
     private Button home_btn;
 
+    /**
+     * outputs the total payment*/
     @FXML
     private Label total_payment_label;
 
     /**
      *This func initializes our controller
      *loads all order data to screen
-
      **/
     @FXML
     void initialize()

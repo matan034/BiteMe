@@ -13,11 +13,6 @@ import javafx.scene.layout.AnchorPane;
  * This class is for representing a dish in the branch menu controller
  * each dish load its image and set label according to dish details
  * 
- * @param dish = the pane for single dish
- * @param dish_name_label = lbl to set dish name
- * @param dish_price_label = lbl to set price 
- * @param d = saves the given dish
- * @param myListener = listener for recognize click on the dish
  * 
  * 
  * @author      Matan Weisberg
@@ -26,19 +21,23 @@ import javafx.scene.layout.AnchorPane;
  */
 public class DishController {
 
+	/**the pane for single dish*/
     @FXML
     private AnchorPane dish;
 
+    /**lbl to set dish name*/
     @FXML
     private Label dish_name_label;
 
+    /**lbl to set price */
     @FXML
     private Label dish_price_label;
-    
+   
     @FXML
     private ImageView img;
-   
+    /**saves the given dish*/
     private DishInRestaurant d;
+    /**listener for recognize click on the dish*/
     private MyListener myListener;
 
     /**

@@ -19,12 +19,6 @@ import javafx.stage.Stage;
 /**
  * This class is for login with W4C card 
  * user can input card number manually or getting the number from QR
-
- * @param error_msg = lbl to show error message
- * @param qr_alternative_input = input code manually
- * @param login_btn = button for logging with w4c code
- * @param qrListener = sets the listener for getting card number back from QR
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -32,16 +26,22 @@ import javafx.stage.Stage;
  */
 public class W4CLoginController {
 
+	/**
+	 * lbl to show error message*/
     @FXML
     private Label error_msg;
 
+    /**
+     * = input code manually*/
     @FXML
     private TextField qr_alternative_input;
 
+    /**
+     * button for logging with w4c code*/
     @FXML
     private Button login_btn;
  
-    
+    /** sets the listener for getting card number back from QR*/
     private MyListener qrListener;
     
     /**

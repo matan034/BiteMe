@@ -17,29 +17,31 @@ import javafx.scene.input.KeyCode;
 /**
  * Controller for adding a new dish, Used in CreateNewMenuScreen when a user pressed the PLUS icon opens AddDishScreen where user can 
  * add a new dish not directly to the menu but to the potential dishes that can be added(left side list view)
- * @param dish_name_input = text are for user to input a dish name
- * @param add_btn = button for confirming inputted name
- * @param result_lbl= label to display messages to user
- * @param type = dishes type (main , side ,etc)
- * @param dishName= myListener class to pass data about the dishname user inputted back to createnewmenu
  *  @author      matan weisberg
  * @version     1.0               
  * @since       01.01.2022  
  **/
 public class AddDishController {
 
+	/**
+	 * text are for user to input a dish name*/
     @FXML
     private TextField dish_name_input;
 
-
+    /**
+     *  button for confirming inputted name*/
     @FXML
     private Button add_btn;
-    
+    /**label to display messages to user*/
     @FXML
     private Label result_lbl;
 
+    /**
+     *  dishes type (main , side ,etc)*/
     private String type;
 
+    /**
+     *  myListener class to pass data about the dishname user inputted back to createnewmenu*/
     private MyListener dishName;
     
     /**

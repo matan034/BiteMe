@@ -19,12 +19,6 @@ import javafx.concurrent.Task;
  * This class is a Service Class used for loading all dishes images from their byte arrays
  * uses for the progress indicator in BranchMenuController
  * 
-
- * @param choose_branch_combo_box = suppliers combobox
- * @param back_btn = back button to get back to last screen(qr w4c)
- * @param take_away_btn = button available to presses after selecting supplier, for take away order
- * @param delivery_btn = button available to presses after selecting supplier, for delivery order
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               

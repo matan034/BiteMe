@@ -19,16 +19,6 @@ import javafx.scene.layout.VBox;
 /**
  * This class is for creating order titled pane details in MyOrdersController
  * sets an approve button only for orders that been accepted by supplier and not been recieved by customer
-
- * @param order_details_hbox = hbox that will be used to place approve button
- * @param order_date_lbl = lbl set the order date
- * @param order_type_lbl = lbl sets the order type
- * @param dishes_vbox = vbox used for containing the order dishes
- * @param order = saves the matching order
- * @param pane = saves the titled pane this order pane will be in
- * @param approveOrder = saves listener for approving order arrived
- * @param changeAccordion = saves listener for changing accordions after approving arrival
- * 
  * 
  * @author      Matan Weisberg
  * @version     1.0               
@@ -37,21 +27,34 @@ import javafx.scene.layout.VBox;
 public class OrderRecordController {
 
 
+	/**
+	 * hbox that will be used to place approve button*/
     @FXML
     private HBox order_details_hbox;
 
+    /**
+     * lbl set the order date*/
     @FXML
     private Label order_date_lbl;
 
+    /**lbl sets the order type*/
     @FXML
     private Label order_type_lbl;
     
 
+    /**
+     * vbox used for containing the order dishes*/
     @FXML
     private VBox dishes_vbox;
 
+    /**
+     * saves the matching order*/
     private Order order;
+    /**
+     *  saves the titled pane this order pane will be in*/
     private TitledPane pane;
+    /**
+     * saves listener for changing accordions after approving arrival*/
     private MyListener approveOrder,changeAccordion;
     
     /**

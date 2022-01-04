@@ -10,11 +10,6 @@ import javafx.scene.control.Label;
 /**
  * This class showing user is payment to approve
  * user can approve payment thru listener
-
- * @param status_txt = display message with payment to approve
- * @param confirm_btn = button for confirm payment
- * @param cancel_btn = button for cancel payment
- * @param approveListener = listener used to update the approve status in PaymentController
  * 
  * 
  * @author      Matan Weisberg
@@ -23,15 +18,22 @@ import javafx.scene.control.Label;
  */
 public class PaymentStatusController {
 
+	/**
+	 * display message with payment to approve*/
     @FXML
     private Label status_txt;
 
+    /**
+     * button for confirm payment*/
     @FXML
     private Button confirm_btn;
 
+    /**
+     *  button for cancel payment*/
     @FXML
     private Button cancel_btn;
     
+    /**listener used to update the approve status in PaymentController*/
     private MyListener approveListener;
 
     /**
