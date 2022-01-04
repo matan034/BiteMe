@@ -132,10 +132,10 @@ public class IndexControllerD {
     	   comboBoxBranch.setVisible(false);
     	   
             Button BranchManagerOption1= new Button ("View Reports");
-            Button BranchManagerOption2= new Button ("View Users");
+            Button BranchManagerOption2= new Button ("View Customers");
             Button BranchManagerOption3= new Button ("View Employers");
             Button BranchManagerOption4= new Button ("Register Account");
-            Button BranchManagerOption5= new Button ("Approve suppliers");
+            Button BranchManagerOption5= new Button ("Approve Suppliers");
             Button BranchManagerOption6= new Button ("Log out");
             
             setDeginButton(BranchManagerOption1);

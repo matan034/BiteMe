@@ -3,6 +3,7 @@ package order;
 import clients.OrderClient;
 import clients.StartClient;
 import entity.Order;
+import order.OrderRecordController;
 import general.MyListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,22 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is for showing all orders of the logged in customer
+ * divides the orders to 3 accordions 
+
+ * @param new_orders_vbox = vbox containing new orders information
+ * @param history_vbox = vbox containing history orders information
+ * @param new_orders_accordion = Accordion containing new orders that supplier has approved them
+ * @param history_accordion = Accordion containing history orders
+ * @param wating_supplier_approval_accordion = Accordion containing new orders that supplier hasn't approved them
+ * @param changeAccordion = listener interface for moving order between panes
+ * @param approveArrival = listener interface for approving order has arrived to customer
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class MyOrdersController {
 
     @FXML
@@ -29,7 +46,14 @@ public class MyOrdersController {
     private Accordion wating_supplier_approval_accordion;
     
     private MyListener approveArrival,changeAccordion;
-
+    
+    /**
+     *This func initializes our controller
+     *loads all customer orders from DB
+     *add each order to correct accordion according to its flags
+     *set a listner for changing accordions
+     *set a listener for approving order arrived
+     **/
     public void initialize()
     {
     	

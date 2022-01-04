@@ -39,12 +39,28 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import server.ServerStart;
 
+/**
+ * This class save Global data needs to be used in all the project
+
+ * @param IndexControllerD = suppliers combobox
+ * @param companyCommission = back button to get back to last screen(qr w4c)
+ * @param currency = button available to presses after selecting supplier, for take away order
+ * 
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class Globals {
 	
 	
 	public static IndexControllerD index_controller;
 	public static double companyCommission=0.12;
 	public static String currency="₪";
+	/*
+	 * all FXML of the project
+	 */
 	public static String insertFXML="/order/InsertScreen.fxml",
 			searchFXML="/order/SearchScreen.fxml",
 			updateFxml="/order/UpdateScreen.fxml",
@@ -101,11 +117,11 @@ public class Globals {
 	
 	
 
-	private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
+	//private static String[] types={"Salad","Appetizer","Main Dish","Dessert","Drink"};
 	private static String[] types1={"Salad","Appetizer","Main","Dessert","Drink"};
 	public static String dishType;
 	
-	public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
+	//public static ObservableList<String> dishesTypes=FXCollections.observableArrayList(types);
 	public static ObservableList<String> dishesTypes1=FXCollections.observableArrayList(types1);
 	public static String regularDelivery="Private",sharedDelivery="Shared",robotDelivery="Robot - TBD";
 	 public static ObservableList<String> supply_options=FXCollections.observableArrayList("Take-Away","Order-In","Delivery");
@@ -132,7 +148,7 @@ public class Globals {
 		 put(paymentFXML,"Payment Method");
 		 put(order_confirmedFXML,"Order Confirmation");
 		 put(myOrdersFXML,"My Orders");
-		 put(changeuserstatusFXML,"Users");
+		 put(changeuserstatusFXML,"Customers");
 		 put(regnewaccountp1FXML,"Register New Account");
 		 put(regnewaccountp2FXML,"Register New Account");
 		 put(quarterlyHistogram,"Quarter Report");
@@ -149,6 +165,7 @@ public class Globals {
 		 put(MenuFXML,"Edit menu");
 		 put(regnewemployerFXML,"Register new employer");
 		 put(create_reportsFXML,"Create report");
+		 put(regRestaurant,"Approve Suppliers");
 	 }};
 	 
 	 public static HostServices host_service;

@@ -374,27 +374,7 @@ public class DBUserController {
 	
 	
 	
-	 /**
-	Func for importing users to DB from outside "USER IMPORT utility"
-	* @param res  res[0] used to start function, rest of res for details we need for queries, 
-	* @param res[0]="Import_user",
-	* @param res[1..]=User details from ToString like firstname,last name ,email and so on
-	 * @param client The connection from which the message originated.
-	 * @param myCon the connection to mySql DB
-	 * @param db the main database controller used in order to send message back to client */
 
-	  protected void importUsers(String []res,ConnectionToClient client,Connection myCon,DBController db) throws SQLException{
-		  Statement stmt;
-		  ResultSet rs;
-		  stmt = myCon.createStatement();
-		  int flag=0;
-		  rs = stmt.executeQuery("SELECT * FROM biteme.users WHERE ID=" + res[1]);
-		  if(!rs.isBeforeFirst())
-			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status,HomeBranch) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s','%d');",res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8],Integer.parseInt(res[9]),res[10],Integer.parseInt(res[11])));
-			if(flag>0) db.sendToClient("User import~Users Imported", client);
-			else db.sendToClient("User import ~Error importing users", client);
-		  stmt.close();
-	  }
 	  
 	  
 	  /**
@@ -967,32 +947,7 @@ public class DBUserController {
 					}
 					
 					
-					/**
-					Func for creating a certified employee used in import users utility to attach a supplier to an employee
-					* @param res  res[0] used to start function, rest of res for details we need for queries,
-					* @param res[0]="Create_certifies_employee",
-					* @param res[1]=ID ;
-					* @param res[2]=supplier id
-					 * @param client The connection from which the message originated.
-					 * @param myCon the connection to mySql DB
-					 * @param db the main database controller used in order to send message back to client */
-					public void createCertifiedEmployee(String[] res, ConnectionToClient client, Connection myCon,
-							DBController db) {
-						Statement stmt;
-						int flag;					
-				  		  try {
-				  			 stmt = myCon.createStatement();
-				  			 flag = stmt.executeUpdate(
-									String.format("INSERT INTO biteme.certifiedemployee (EmployeeID, SupplierID) VALUES ('%s','%s');",res[1], res[2]));
-				  			 
-				  			 db.sendToClient("Certifies employee registered",client);
-				  			stmt.close();
-				  		  }
-				  		  catch (Exception e) {
-				  			 db.sendToClient("Certifies employee registered~failed",client);
-				  		}
-						
-					}
+	
 					
 					/**
 					Func for getting which supplier certified employee works for

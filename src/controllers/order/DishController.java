@@ -1,13 +1,6 @@
 package order;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import common.Globals;
-import entity.Dish;
 import entity.DishInRestaurant;
 import general.MyListener;
 import javafx.fxml.FXML;
@@ -16,7 +9,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
+/**
+ * This class is for representing a dish in the branch menu controller
+ * each dish load its image and set label according to dish details
+ * 
+ * @param dish = the pane for single dish
+ * @param dish_name_label = lbl to set dish name
+ * @param dish_price_label = lbl to set price 
+ * @param d = saves the given dish
+ * @param myListener = listener for recognize click on the dish
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class DishController {
 
     @FXML
@@ -30,15 +37,25 @@ public class DishController {
     
     @FXML
     private ImageView img;
-    
+   
+    private DishInRestaurant d;
+    private MyListener myListener;
+
+    /**
+     *This func is for activate listener when pressing the image pane
+     *set the current dish in branchMenuController
+     *@param event - mouse event for pressing dish pane
+     **/
     @FXML
     private void click(MouseEvent mouseEvent) {
         myListener.onClickListener(d);
     }
 
-    private DishInRestaurant d;
-    private MyListener myListener;
-
+    /**
+     *This func is for setting the dish details
+     *@param d the given dish, used for gettin info 
+     *@param menuListener used for recognize press on dish
+     **/
     public void setData(DishInRestaurant d,MyListener menuListener)
     {
     	this.d=d;

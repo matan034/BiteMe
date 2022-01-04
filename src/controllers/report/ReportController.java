@@ -68,11 +68,12 @@ public class ReportController {
     	fileChooser.setTitle("Select File");
     	File file = fileChooser.showOpenDialog(stage);
   
-    	MyFile filePath= new MyFile(file.getPath());
-    	filePath.setFile(file);
+    	
 
     	if (file != null) {
     		  try{
+    			  MyFile filePath= new MyFile(file.getPath());
+    		    	filePath.setFile(file);
     			      byte [] mybytearray  = new byte [(int)file.length()];
     			      FileInputStream fis = new FileInputStream(file);
     			      BufferedInputStream bis = new BufferedInputStream(fis);			  

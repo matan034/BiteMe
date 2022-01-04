@@ -15,6 +15,21 @@ import javafx.scene.control.Label;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+/**
+ * This class is used to show our cart screen
+ *loads a list of all dishes in order
+ * user can remove items from cart
+
+ * @param cart_items_vbox = main vbox used to load each dish in order
+ * @param total_price_label = lbl sets the price of all items
+ * @param checkout_btn = button for proceeding to checkout
+ * @param cartItemListener = used for remove item option
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class CartController {
 
 
@@ -27,19 +42,20 @@ public class CartController {
 	    @FXML
 	    private Button checkout_btn;
 
-
-	    
-	  
-
 	    private MyListener cartItemListener;
+	    
+	    
+	    /**
+	     *This func initializes our controller, sets the cart items
+	     *each cart items is an appearance of CartItemScreen
+	     *sets a listener for removing dish from cart
+	     **/
 	    public void initialize()
 	    {
 			cartItemListener = new MyListener() {
 	    		   @Override
 	                public void onClickListener(Object dish) {
-	    			  // Globals.newOrder.removeQuantity();
-	                    Globals.newOrder.removeDish((DishInOrder)dish);
-	                   
+	                    Globals.newOrder.removeDish((DishInOrder)dish);              
 	                }  
 			};
 	    	setCartItems();
@@ -52,13 +68,20 @@ public class CartController {
 	         });
 	    }
 
-	    
+	    /**
+	     *This func used for proceed to next screen (Order Information)
+	     *@param event action event for pressing checkout button
+	     **/
 	    @FXML
 	    void checkout(ActionEvent event) {
 	    	
 	    	Globals.loadInsideFXML(Globals.order_informationFXML);
 	    }
 	    
+	    /**
+	     *This func used for setting the cart list loads cart item screen for each dish
+	     *
+	     **/ 
 	    private void setCartItems()
 	    {
 	    	if( cart_items_vbox.getChildren()!=null)  cart_items_vbox.getChildren().clear();

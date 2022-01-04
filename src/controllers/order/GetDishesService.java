@@ -13,12 +13,30 @@ import entity.DishInRestaurant;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+
+
+/**
+ * This class is a Service Class used for loading all dishes images from their byte arrays
+ * uses for the progress indicator in BranchMenuController
+ * 
+
+ * @param choose_branch_combo_box = suppliers combobox
+ * @param back_btn = back button to get back to last screen(qr w4c)
+ * @param take_away_btn = button available to presses after selecting supplier, for take away order
+ * @param delivery_btn = button available to presses after selecting supplier, for delivery order
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class GetDishesService extends Service<DishInRestaurant> {
 
     /**
      * Create and return the task for fetching the data. Note that this method
      * is called on the background thread (all other code in this application is
      * on the JavaFX Application Thread!).
+     * @return Task the progress of loading images
      */
     @Override
     protected Task createTask() {
@@ -35,8 +53,7 @@ public class GetDishesService extends Service<DishInRestaurant> {
             			 }
     			 }
             	 int i=0;
- 
-               if(amount!=0)
+               if(amount!=0)// if there are dishes
                {
             		 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
         			 {
@@ -55,8 +72,6 @@ public class GetDishesService extends Service<DishInRestaurant> {
         						}					
         				 }
         			 }
-					
-            
                }
                return null;
         

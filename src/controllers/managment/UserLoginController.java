@@ -34,14 +34,9 @@ public class UserLoginController {
     @FXML
     private Label login_res_lbl;
     
-    @FXML
-    private Button import_btn;
+  
 
-    @FXML
-    void import_users(ActionEvent event) {
-    	UserImportUtility importUsers=new UserImportUtility();
-    	importUsers.ImportUsers();
-    }
+  
     
     /**
      * func to initialize our text areas to allow ENTER presses to attempt to login*/

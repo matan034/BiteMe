@@ -16,6 +16,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * This class is for login with W4C card 
+ * user can input card number manually or getting the number from QR
+
+ * @param error_msg = lbl to show error message
+ * @param qr_alternative_input = input code manually
+ * @param login_btn = button for logging with w4c code
+ * @param qrListener = sets the listener for getting card number back from QR
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class W4CLoginController {
 
     @FXML
@@ -29,6 +43,13 @@ public class W4CLoginController {
  
     
     private MyListener qrListener;
+    
+    /**
+     *This func initializes our controller
+     *set login button to disable and set a listener for textinput 
+     *when user enters number button will be enable
+     *
+     **/
     public void initialize()
     {
     	
@@ -52,6 +73,12 @@ public class W4CLoginController {
     	    error_msg.setText("");
     	});
     }
+    /**
+     *This func verifies the enterd number with the DB
+     *if The number is NOT correct a error message will be set
+     *if card number is correct but user have a not approved business account and no private account an error message will present
+     *@param event - action event for pressing login button
+     **/
     @FXML
     void verifyW4C(ActionEvent event) {
     
@@ -70,11 +97,20 @@ public class W4CLoginController {
     	}
     	else error_msg.setText(OrderClient.w4c_msg);
     }
+    
+    /**
+     *This func is for setting the w4c input number from user
+     *@param w4c_code - user W4c input
+     **/
     public void setW4CInput(String w4c_code)
     {
     	qr_alternative_input.setText(w4c_code);
     }
     
+    /**
+     *This func is for loading pop up for the QR simulation
+     *@param event - mouse event for pressing qr image
+     **/
     @FXML
     void qrScanSimulation(MouseEvent event) {
     	try {

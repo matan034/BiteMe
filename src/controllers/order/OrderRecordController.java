@@ -15,6 +15,25 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+
+/**
+ * This class is for creating order titled pane details in MyOrdersController
+ * sets an approve button only for orders that been accepted by supplier and not been recieved by customer
+
+ * @param order_details_hbox = hbox that will be used to place approve button
+ * @param order_date_lbl = lbl set the order date
+ * @param order_type_lbl = lbl sets the order type
+ * @param dishes_vbox = vbox used for containing the order dishes
+ * @param order = saves the matching order
+ * @param pane = saves the titled pane this order pane will be in
+ * @param approveOrder = saves listener for approving order arrived
+ * @param changeAccordion = saves listener for changing accordions after approving arrival
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class OrderRecordController {
 
 
@@ -31,10 +50,18 @@ public class OrderRecordController {
     @FXML
     private VBox dishes_vbox;
 
-    
     private Order order;
     private TitledPane pane;
     private MyListener approveOrder,changeAccordion;
+    
+    /**
+     *This func initializes our controller
+     *saves all the info for order and set it up
+     *@param order the current order
+     *@param approveOrder the listener that will be used to approve order in MyOrdersController
+     *@param changeAccordion the listener that will be used to change accordion in MyOrdersController
+     *@param pane the pane that contains current order deatails
+     **/
     public void setData(Order order,MyListener approveOrder,TitledPane pane,MyListener changeAccordion)
     {
     	StartClient.order.accept("Load_orderDishes~"+order.getOrder_num());
@@ -50,6 +77,10 @@ public class OrderRecordController {
     	order_date_lbl.setText(order.getOrder_time());
     	order_type_lbl.setText(order.getOrder_type());
     }
+    
+    /**
+     *This func is for setting approval button in the relevant orders
+     **/
     public void setApproval()
     {
     	Button approve = new Button("Approve");
@@ -65,6 +96,10 @@ public class OrderRecordController {
     	
     	order_details_hbox.getChildren().add(approve);		
     }
+    /**
+     *This func is getting the order TitledPane
+     *@return TitledPane the order titledpane
+     **/
     public TitledPane getPane()
     {
     	return pane;

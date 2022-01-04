@@ -27,7 +27,55 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+/**
+ * This class is used to order information inputs for the user
+ * if the selected order is for delivery screen will require extra delivery fields
+ * input for time and date for all order types
 
+ * @param hour_input = hour input from user, must be in HH:mm format
+ * @param hour_tooltip = displayes hour input errors
+ * @param date_input = date picker, can choose date from table or input manually need to be in dd.MM.yyyy format
+ * @param date_tooltip = displayes date input errors
+ * @param first_tooltip = displayes first name input errors
+ * @param last_tooltip = displayes last name input errors
+ * @param phone_tooltip = displayes phone input errors
+ * @param company_tooltip = displayes company input errors
+ * @param street_tooltip = displayes street input errors
+ * @param city_tooltip = displayes city input errors
+ * @param zip_tooltip =  displayes zip input errors
+ * @param order_summary = lbl to set the total price of items in cart
+ * @param delivery_pane = vbox showing order summary
+ * @param continue_btn = button for continue to payment, only after validation
+ * @param back_btn = back to menu screen
+ * @param delivery_details = showing delivery price 
+ * @param first_name_input = first name input from user
+ * @param last_name_input = last name input from user
+ * @param phone_input = phone input from user
+ * @param company_input = company input from user,optional
+ * @param street_input = street input from user
+ * @param city_input = city input from user
+ * @param zip_input = zip input from user
+ * @param private_btn = radio button, selecting private delivery
+ * @param delivery_type = toggle group for all delivery options
+ * @param shared_btn =  radio button, selecting shared delivery
+ * @param robot_btn =  radio button, selecting robot delivery - TBD
+ * @param people_cnt =  counter for people in shared delivery
+ * @param plus_btn =  add people to shared delivery
+ * @param minus_btn = remove people from shred delivery
+ * @param shared_options = hbox for all shared delivery option, for enable and disable
+ * @param time = pattern to match hour input
+ * @param namePattern = pattern to match name input
+ * @param phone = pattern to match phone input
+ * @param address = pattern to match street input
+ * @param zip = pattern to match zip input
+ * @param timeFormat = string for pattern DATE_PATTERN
+ * @param DATE_PATTERN = pattern to match date input
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class OrderInformationController {
 
     @FXML
@@ -98,21 +146,23 @@ public class OrderInformationController {
     private Pattern phone=Pattern.compile("^\\d{10}$");
     private Pattern address=Pattern.compile("^.{2,40}$");
     private Pattern zip=Pattern.compile("^\\d{7}$");
-    //private String dayAndMonthOneDigit="^\\d{1}.\\d{1}.\\d{4}$";
-    //private String dayOneDigit="^\\d{1}.\\d{2}.\\d{4}$";
-    //private String MonthOneDigit="^\\d{2}.\\d{1}.\\d{4}$";
-   //private String dayAndMonthTwoDigits="^\\d{2}.\\d{2}.\\d{4}$";
-    private String xxxx= "^([1-9]|1[0-9]|2[0-9]|3[0-1]).([1-9]|1[0-2]).(19|20)\\d{2}$";
- 
-    //private  Pattern DATE_PATTERN = Pattern.compile( dayAndMonthOneDigit+"|"+dayOneDigit+"|"+MonthOneDigit+"|"+dayAndMonthTwoDigits);
-    private  Pattern DATE_PATTERN = Pattern.compile( xxxx);
+    private String timeFormat= "^([1-9]|1[0-9]|2[0-9]|3[0-1]).([1-9]|1[0-2]).(19|20)\\d{2}$";
+
+    private  Pattern DATE_PATTERN = Pattern.compile( timeFormat);
    
     
-
+    /**
+     *This func initializes our controller, sets the fields according to supply way
+     *delivery - all deliver info
+     *all types- hour and date
+     *if user have no Business account only private delivery is optional
+     *set listeners to all inputs
+     *sets categeories button according to supplier dishes
+     **/
     public void initialize()
     {
     	
-    	if(Globals.newOrder.getpAccount()==null) shared_btn.setDisable(true);
+    	if(Globals.newOrder.getbAccount()==null) shared_btn.setDisable(true);
     	
     	people_cnt.setText("1");
     	Globals.newOrder.setPeople_in_delivery(1);
@@ -250,11 +300,22 @@ public class OrderInformationController {
     	     } 
     	});
     }
+    
+    
+    /**
+     *This func is for get back to previous screen(branch menu)
+     *@param event - action event for pressing back button
+     **/
     @FXML
     void back(ActionEvent event) {
     	Globals.loadInsideFXML( Globals.branch_menuFXML);
     }
 
+    /**
+     *This func initializes a listener for a text field, if valid color it in green else, in red
+     *@param textfield - the textfield to add the listener to 
+     *@param verify - the method used to verify field, using a listener interface
+     **/
     private void createListener(TextField textfield,VerifyListener verify)
     {
     	textfield.focusedProperty().addListener((obs,oldValue, newValue)-> {
@@ -291,6 +352,11 @@ public class OrderInformationController {
     	});
     }
     
+    
+    /**
+     *This func validates all relevant input fields
+     *@return true if valid, else - false
+     **/
     public boolean validate_input()
     {
     	int flag=0;
@@ -311,6 +377,13 @@ public class OrderInformationController {
     	if(flag==0)	return true;
     	return false;
     }
+    
+    /**
+     *This func is for continue checkout button, check if the input is valid
+     *if it is valid calculate if order is Early order and go to next screen
+     *
+     *@param event - action event for pressing continue checkout button
+     **/
     @FXML
     void continueCheckout(ActionEvent event) {
     	if(validate_input())
@@ -339,6 +412,12 @@ public class OrderInformationController {
     	}
     }
   
+    /**
+     *This func checks if the user request time is early order(2 hours earlier from now)
+     *@param time the user hour request
+     *@param date the user date request
+     *@return true if early order, else false
+     **/
 	@SuppressWarnings("deprecation")
 	private boolean checkIfEarlyOrder(String time,LocalDate date)
     {
@@ -369,6 +448,11 @@ public class OrderInformationController {
 	     
     }
 	
+	 /**
+     *This func checks if the given date from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyDate()
 	{
 		LocalDate today = LocalDate.now();
@@ -397,6 +481,11 @@ public class OrderInformationController {
     	}
     		
 	}
+	/**
+     *This func checks if the given hour from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyHour()
 	{
 		
@@ -430,7 +519,11 @@ public class OrderInformationController {
     		hour_tooltip.setText("");
     		return true;
     	}
-	
+	/**
+     *This func checks if the given first name from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyFirstName()
 	{
 		if(first_name_input.getText().equals("")) {
@@ -445,6 +538,11 @@ public class OrderInformationController {
 		first_tooltip.setText("");
 		return true;
 	}
+	/**
+     *This func checks if the given last name from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyLastName()
 	{
 		if(last_name_input.getText().equals("")) {
@@ -459,6 +557,11 @@ public class OrderInformationController {
 		last_tooltip.setText("");
 		return true;
 	}
+	/**
+     *This func checks if the given phone from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyPhone()
 	{
 		if(phone_input.getText().equals("")) {
@@ -473,6 +576,11 @@ public class OrderInformationController {
 		phone_tooltip.setText("");
 		return true;
 	}
+	/**
+     *This func checks if the given company from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyCompany()
 	{
 		if(!company_input.getText().equals(""))
@@ -497,7 +605,11 @@ public class OrderInformationController {
 		return true;
 		}
 				
-	
+	/**
+     *This func checks if the given street from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyStreet()
 	{
 		if(street_input.getText().equals("")) 
@@ -513,6 +625,11 @@ public class OrderInformationController {
 		street_tooltip.setText("");
 		return true;
 	}
+	/**
+     *This func checks if the given city from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyCity()
 	{
 		if(city_input.getText().equals("")) {
@@ -527,6 +644,11 @@ public class OrderInformationController {
 		city_tooltip.setText("");
 		return true;
 	}
+	/**
+     *This func checks if the given zip from user is valid according to our pattern
+     *if not valid set tooltip with relevant error
+     *@return true if valid, else false
+     **/
 	private boolean verifyZip()
 	{
 		if(zip_input.getText().equals("")) {
@@ -541,6 +663,11 @@ public class OrderInformationController {
 		zip_tooltip.setText("");
 		return true;
 	}
+	
+	/**
+     *This func checks the given date from user is today
+     *@return true if today, else false
+     **/
 	private boolean isToday()
 	{
 		Calendar c = Calendar.getInstance();
@@ -549,6 +676,11 @@ public class OrderInformationController {
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		return day==date_input.getValue().getDayOfMonth()&&month==date_input.getValue().getMonthValue()&&year==date_input.getValue().getYear();
 	}
+	/**
+     *This func is called when the given date from user is today 
+     *checks if the hour is early from the current hour
+     *@return true if early, else false
+     **/
 	private boolean isEarlyFromNow()
 	{
 		Calendar c = Calendar.getInstance();

@@ -11,6 +11,19 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
+/**
+ * This class is for showing a simulation for QR W4C code
+ * loads the customer w4c card from DB
+ * 
+ * @param w4c_cards = w4c card from DB
+ * @param insert_btn = button for insert the w4c number thru listener to W4CLoginController
+ * @param listener = saves the listener used to get the card number
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class QRSimulationController {
 
     @FXML
@@ -19,6 +32,12 @@ public class QRSimulationController {
     @FXML
     private Button insert_btn;
     private MyListener listener;
+    
+    /**
+     *This func initiailize our controller 
+     *loads from DB the W4C card for the customer
+     *
+     **/
     public void initialize()
     {
     	String msg="W4C_load_list~";
@@ -34,10 +53,20 @@ public class QRSimulationController {
     	    }
     	});
     }
+    
+    /**
+     *This func is for set the listener
+     *@param l - the listener for getting the card number
+     **/
     public void setListener(MyListener l)
     {
     	this.listener=l;
     }
+    /**
+     *This func uses the listener to get the card number to W4CController
+     *and close window
+     *@param event - action event for pressing insert button
+     **/
     @FXML
     void insert(ActionEvent event) {
     	listener.onClickListener(w4c_cards.getSelectionModel().getSelectedItem());

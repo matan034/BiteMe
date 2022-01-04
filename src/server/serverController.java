@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import utility.UserImportUtility;
 
 public class serverController {
 
@@ -54,7 +55,9 @@ public class serverController {
     @FXML
     private Button close_btn;
 
-	
+    @FXML
+    private Button import_btn;
+    
 	private String getport() {
 		return port_input.getText();			
 	}
@@ -96,6 +99,12 @@ public class serverController {
     	ServerStart.closeServer();
     	connect_status.setText("Server Disconnected Successfully");
     	} catch(Exception e) {connect_status.setText(e.toString());}
+    }
+    
+    @FXML
+    void import_users(ActionEvent event) {
+    	UserImportUtility importUsers=new UserImportUtility();
+    	importUsers.ImportUsers();
     }
 
 }

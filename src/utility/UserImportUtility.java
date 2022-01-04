@@ -1,10 +1,12 @@
 package utility;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import clients.StartClient;
 import entity.User;
+import server.ServerStart;
 
 
 /**
@@ -67,12 +69,22 @@ public class UserImportUtility {
 	/**
 	 * func to send users to import to database, it also maps certified employes to the restuarant they work in */
 	private void Import() {
-		for(User u: all_users) {
-			StartClient.order.accept("Import_users~"+u.toString2());
+		ArrayList<User> certified_employee=new ArrayList<User>();
+		for(User u: all_users) {	
+			String []res= u.toString2().split("~");
+			if(u.getType().equals("Certified Employee")) certified_employee.add(u);
+			try {
+				ServerStart.sv.importUsers(res);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
-		for(User u: all_users) {		
-			if(u.getType().equals("Certified Employee"))StartClient.order.accept("Create_certifies_employee~"+u.getID()+"~"+u.getSupplier()); 
+		for(User u: certified_employee) {	
+			
+			String[]res= {u.getID(),u.getSupplier()};
+				ServerStart.sv.createCertifiedEmployee(res); 
 		}
 		
 	}

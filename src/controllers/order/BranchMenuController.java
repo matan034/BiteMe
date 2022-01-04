@@ -39,7 +39,52 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
+/**
+ * This class is used to show menu of a supplier to the customer
+ * The controller loads dishes of the supplier from the DB
+ * Divides the dishes by type 
+ * user can choose dish from menu, than select the dish details and add it to the cart
+ * when there are dishes in the cart user can view the cart and remove dishes or continue to checkout
+ * 
+ * @param back_btn = button to return to last screen (choose supplier)
+ * @param add_btn = add a dish to cart after fill dish details
+ * @param selected_item_label = lbl to set the selected dish
+ * @param cart_img = cart img using as a button to open the cart,only available when cart has items
+ * @param cart_count = lbl to set the amount of items in cart
+ * @param items_grid = grid pain containing all dishes in the category
+ * @param selected_dish_name = lbl to set selected dish name
+ * @param selected_dish_price = lbl to set selected dish price
+ * @param selected_dish_img = image view showing current dish
+ * @param dish_options_vbox = vbox loading each dish options
+ * @param cart_items_vbox = vbox loading all dishes in cart
+ * @param total_price_label = lbl to set the total price of items in cart
+ * @param green_v_img = img of a green v, appears when a dish is added to the cart
+ * @param cart_vbox = vbox containing all the cart details, appears when clickin cart img
+ * @param back_image = back image to get back to last screen
+ * @param borderPane = the pane of all the menu, when loading the screen used to disable the menu until load is complete
+ * @param menu_categories = uses to get all the button for menu categories
+ * @param pi = shows progress when loading screen
+ * @param menuListener = listen to what dish was chosen and set it 
+ * @param currentSize = saves the selected size
+ * @param currentLvl = saves the selected cookin lvl
+ * @param extras = saves the selected extras
+ * @param sizes = toggle group for size options
+ * @param extra_input = textfield to input dish extras
+ * @param selected_dish = save the selected dishInMenu
+ * @param appetizer_btn = button for showing appetizer dishes
+ * @param salad_btn =  button for showing salad dishes
+ * @param main_dish_btn =  button for showing main dishes
+ * @param dessert_btn =  button for showing dessert dishes
+ * @param drinks_btn =  button for showing drinks dishes
+ * @param r = combobox for selecting cookinglvl
+ * @param i = used to count the selectes dish options
+ * @param firstClick = usesd for showing cart screen
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class BranchMenuController {
 
 	    @FXML
@@ -96,10 +141,16 @@ public class BranchMenuController {
 	    private TextField extra_input=new TextField();
 	    private DishInRestaurant selected_dish;
 	    private Button appetizer_btn,salad_btn,main_dish_btn,dessert_btn,drinks_btn;
-
-	    ComboBox<String> r=new ComboBox<>();
+	    private ComboBox<String> r=new ComboBox<>();
 	    private int i=0;
 	    private Boolean firstClick=true;
+	    
+	    
+	    
+	    
+	    /**
+	     *This func open cart screen when cart img is pressed
+	     **/
 	    @FXML
 	    void goCart(MouseEvent event) {
 	    	VBox newLoadedPane;
@@ -128,6 +179,11 @@ public class BranchMenuController {
 	    	
 	    }
 	    
+	    /**
+	     *This func initializes our controller, disables the main screen and showing progrees indicator while loading all dishes
+	     *sets a listener for the selected dish
+	     *sets categeories button according to supplier dishes
+	     **/
 	    public void initialize()
 	    {
 	    	borderPane.setDisable(true);
@@ -185,6 +241,14 @@ public class BranchMenuController {
 	        serviceExample.restart(); //here you start your service
 	        
 	    }
+	    
+	    
+	    
+	    /**
+	     *this func sets the current dish display according to dish options
+	     *@param dish - the selected dish
+	     *
+	     **/
 	    private void setChosenDish(DishInRestaurant dish) {
 	    	add_btn.setDisable(false);
 	    	selected_dish=dish;
@@ -251,15 +315,15 @@ public class BranchMenuController {
 	    		extras.setAlignment(Pos.CENTER);
 	    		dish_options_vbox.getChildren().add(extras);
 	
-	    	}
-	    	
-	
-	    	
-	        //chosenFruitCard.setStyle("-fx-background-color: #" + fruit.getColor() + ";\n" +
-	            //    "    -fx-background-radius: 30;");
-	    	
+	    	}	    		    	
 	    }
 	    
+	    
+	    /**
+	     *This func runs when pressing add to order button,
+	     * add the dish to current order cart, displays a green v for user for 1 second
+	     * @param event - action event for pressing button event
+	     **/
 	    @FXML
 	    void addToOrder(ActionEvent event) {
 	    	DishInOrder dish;
@@ -284,13 +348,20 @@ public class BranchMenuController {
 	    	
 	    }
 
-	   
+	    /**
+	     *This func is for back button, goes back to supllier selection screen
+	     *@param event-  action event for pressing button event
+	     **/
 	    @FXML
 	    void back_to_branch_selection(ActionEvent event) {
 	    	Globals.newOrder.removeAllDishes();
 	    	Globals.loadInsideFXML( Globals.ChooseSupplierFXML);
 	    }
 
+	    /**
+	     *This method is for setting up all the menu for a chosen type
+	     *@param type - selected type to show
+	     **/
 	    void display_table(String type){  
 	    	items_grid.getChildren().clear();
 	    	setChosenDish(OrderClient.branch_menu.get(type).get(0));
@@ -330,32 +401,51 @@ public class BranchMenuController {
 	    	}
 	    }
 	        
+	    /**
+	     *This func is for showing appetizer dishes in menu
+	     *@param event - for the presses button event
+	     **/
 	    @FXML
 	    void showAppetizers(ActionEvent event) {
 	    	display_table("Appetizer");
 	    }
-
+	    /**
+	     *This func is for showing dessert dishes in menu
+	     *@param event - for the presses button event
+	     **/
 	    @FXML
 	    void showDessert(ActionEvent event) {
 	    	display_table("Dessert");
 	    }
-
+	    /**
+	     *This func is for showing drinks  in menu
+	     *@param event - for the presses button event
+	     **/
 	    @FXML
 	    void showDrinks(ActionEvent event) {
 	    	display_table("Drink");
 	    }
-
+	    /**
+	     *This func is for showing mains dishes in menu
+	     *@param event - for the presses button event
+	     **/
 	    @FXML
 	    void showMains(ActionEvent event) {
 	    	display_table("Main");
 	    }
-
+	    /**
+	     *This func is for showing salads dishes in menu
+	     *@param event - for the presses button event
+	     **/
 	    @FXML
 	    void showSalads(ActionEvent event) {
 	    	display_table("Salad");
 	    }
-	                   
-		void checkDishes()
+	           
+	    /**
+	     *This func checks the loades dishes from DB and sets the menu categories buttons according to it
+	     **/
+		private void checkDishes()
 		{
 			String first="";
 			 for (Map.Entry<String,ArrayList<DishInRestaurant>> entry : OrderClient.branch_menu.entrySet())
@@ -378,6 +468,10 @@ public class BranchMenuController {
 			 
 		}
 		
+	    /**
+	     *This func sets up a buttos
+	     *@param str - the category name to be displayed and action is according to
+	     **/
 		public Button defineButton(String str)
 		{
 			Button temp=new Button(str);

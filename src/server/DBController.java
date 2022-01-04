@@ -3,7 +3,9 @@ package server;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import entity.Dish;
@@ -150,7 +152,6 @@ public class DBController extends AbstractServer {
 
 				//cases for DB user control
 				case "Get_my_supplier": dbUser.getMySupplier(res,client,myCon,this); break;
-				case "Create_certifies_employee": dbUser.createCertifiedEmployee(res,client,myCon,this); break;
 				case "Load_branch_customers": dbUser.loadBranchCustomers(res,client,myCon,this); break;
 				case "Load_users": dbUser.loadUsers(res,client,myCon,this); break;
 				case "User_login":dbUser.userLogin(res,client,myCon,this);break;
@@ -162,7 +163,6 @@ public class DBController extends AbstractServer {
 				case "Check_employer":dbUser.checkEmployer(res,client,myCon,this);break;
 				case "Reg_employer":dbUser.regEmployer(res,client,myCon,this);break;	
 				case "Update_customer":dbUser.updateCustomer(res,client,myCon,this);break;
-				case "Import_users":dbUser.importUsers(res,client,myCon,this);break;
 				case "Load_customer": dbUser.loadCustomer(res,client,myCon,this);break;
 				case "Load private Account": dbUser.loadPrivateAccount(res,client,myCon,this);break;
 				case "Load business Account": dbUser.loadSpecificBusinessAccount(res,client,myCon,this);break;
@@ -217,6 +217,64 @@ public class DBController extends AbstractServer {
 
 		}
 
+	 /**
+	Func for importing users to DB from outside "USER IMPORT utility"
+	* @param res  res[0] used to start function, rest of res for details we need for queries, 
+	* @param res[0]="Import_user",
+	* @param res[1..]=User details from ToString like firstname,last name ,email and so on
+	 * @param client The connection from which the message originated.
+	 * @param myCon the connection to mySql DB
+	 * @param db the main database controller used in order to send message back to client */
+
+	  public void importUsers(String []res) throws SQLException{
+		  Statement stmt;
+		  ResultSet rs;
+		  stmt = myCon.createStatement();
+		  int flag=0;
+		  rs = stmt.executeQuery("SELECT * FROM biteme.users WHERE ID=" + res[0]);
+		  if(!rs.isBeforeFirst())
+		  {
+			  flag=stmt.executeUpdate(String.format("INSERT INTO biteme.users (ID, FirstName, LastName,Email,Phone,Type,UserName,Password,IsLoggedIn,Status,HomeBranch) VALUES ('%s', '%s', '%s','%s','%s','%s','%s','%s','%d','%s','%d');",res[0],res[1],res[2],res[3],res[4],res[5],res[6],res[7],Integer.parseInt(res[8]),res[9],Integer.parseInt(res[10])));
+				System.out.println("User import~Users Imported");
+		  }
+		  else System.out.println("User import~Users exist");
+			 	
+		  stmt.close();
+	  }
+	  
+		/**
+		Func for creating a certified employee used in import users utility to attach a supplier to an employee
+		* @param res  res[0] used to start function, rest of res for details we need for queries,
+		* @param res[0]="Create_certifies_employee",
+		* @param res[1]=ID ;
+		* @param res[2]=supplier id
+		 * @param client The connection from which the message originated.
+		 * @param myCon the connection to mySql DB
+		 * @param db the main database controller used in order to send message back to client */
+		public void createCertifiedEmployee(String[] res) {
+			Statement stmt;
+			  ResultSet rs;
+			int flag;					
+	  		  try {
+	  			 stmt = myCon.createStatement();
+	  			 rs = stmt.executeQuery("SELECT * FROM biteme.certifiedemployee WHERE EmployeeID=" + res[0]);
+	  			if(!rs.isBeforeFirst())
+	  			{
+	  				 flag = stmt.executeUpdate(
+	 						String.format("INSERT INTO biteme.certifiedemployee (EmployeeID, SupplierID) VALUES ('%s','%s');",res[0], res[1]));
+	 	  			 
+	 	  			 System.out.println("Certifies employee registered");
+	  			}
+	  			else System.out.println("Certifies employee exists");
+	  			
+	  			stmt.close();
+	  		  }
+	  		  catch (Exception e) {
+	  			System.out.println("Certifies employee registered~failed");
+	  		}
+			
+		}
+	
 	
 	  protected void serverStopped()  {
 		

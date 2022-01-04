@@ -32,6 +32,33 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * This class is for selecting payment method
+ * user can choose between private payment - CC
+ * and business pay - only if he has approved business account
+ * when selecting shard delivery payment must be from business account
+ * when pay is from business account user need to input employer code
+
+ * @param buisness_btn = radio button for selecting business payment
+ * @param payment_type = toggleGroup for payment radiobuttons
+ * @param private_btn = radio button for selecting private payment
+ * @param employer_name_input = input for employer name, loads automaticly if user have approved business account
+ * @param employer_w4c_input = input for employer w4c code
+ * @param back_btn = button for getting back to last screen (Order Information)
+ * @param pay_btn = button for payment
+ * @param order_items = vbox for displaying order items and final paymnet
+ * @param extra_fees_vbox = vbox containing all extra fee(delivery..)
+ * @param total_price_label = lbl to display final price
+ * @param early_discount = the discount to be applied if early order
+ * @param delivery_pay = the delivery fee to add accroding to delivery method
+ * @param approveListener = sets a listener for gettin user confirmation from PaymentStatusController
+ * @param approve = boolean sets to true if user approves payment
+ * 
+ * 
+ * @author      Matan Weisberg
+ * @version     1.0               
+ * @since       01.01.2022        
+ */
 public class PaymentController {
 
     @FXML
@@ -71,6 +98,13 @@ public class PaymentController {
     private double early_discount;
     private MyListener approveListener;
     private boolean approve;
+    
+    
+    /**
+     *This func initializes our controller
+     *sets the payment option according to user given accounts and order supply method
+     *loads all dishes and calculate final price after applying early order discount and adding delivery fees
+     **/
     public void initialize()
     {
     	if(Globals.newOrder.getbAccount()==null) buisness_btn.setDisable(true);	
@@ -186,6 +220,11 @@ public class PaymentController {
     }
     
     
+    /**
+     *This func is back to last screen(ORder Information)
+     *retrieve price to be before all extra fees and discounts
+     *@param event - action event for pressing back button
+     **/
     @FXML
     void back(ActionEvent event) {
     	double temp=Globals.newOrder.getPrice();
@@ -198,10 +237,15 @@ public class PaymentController {
     	Globals.loadInsideFXML( Globals.order_informationFXML);
     }
 
+    /**
+     *This func is for pressing pay and complete button
+     *opens a pop up for user to confirm payment
+     *if user approves order the DB is updated and order is created
+     *@param event - action event for pressing pay and complete button
+     **/
     @FXML
     void payAndCompleteOrder(ActionEvent event) {
     	verifyPayment(event);
-    	
     			if(approve)
 	    		{
 
@@ -257,8 +301,12 @@ public class PaymentController {
 		
     		
     			   	
-
-
+    /**
+     *This func is for getting user payment approval
+     *opens a pop up with relevant pay information
+     *
+     *@param event - action event for pressing pay and complete button
+     **/
 	private void verifyPayment(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -328,9 +376,12 @@ public class PaymentController {
 		catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		
 	}
+	
+	/**
+     *This func is calculating delivery fees 
+     *@param delivery_method the method for delivery
+     **/
     private void addDeliveryPrice(String delivery_method)
 	{
     	
@@ -347,6 +398,10 @@ public class PaymentController {
 			case "Robot":Globals.newOrder.setPrice(current_price+delivery_pay); break;
 		}
 	}
+    /**
+     *This func is for calculating shared delivery fee
+     *
+     **/
 	private void getSharedDeliveryPrice()
 	{
 		int price= Globals.regular_delivery_fee;
